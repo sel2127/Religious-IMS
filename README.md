@@ -1,2 +1,2 @@
 # finalYearProject-2016
-Our project's main aim is to address problems like Inefficient Donation Management, Limited Contact with Religious Leaders, and Inefficient Membership Management. 
+This is a religious integrated management system that is aimed to solve the issues found in most religious organizations. 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Breadcrumb = () => {
+const Forgot = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const Breadcrumb = () => {
   )
 }
 
-export default Breadcrumb
+export default Forgot

@@ -173,7 +173,7 @@ const Footer = () => {
         </div>    
       </div>
       <div className="border-t border-gray-300 mt-10 py-4">
-    <p className="text-gray-500 text-xs">copyright @ 2024 debremedhanit. All rights reserved</p>
+    <p className="text-gray-500 text-xs">copyright &copy; 2024 debremedhanit. All rights reserved</p>
 </div>
 {/* <div className="mt-10"></div> */}
     </div>

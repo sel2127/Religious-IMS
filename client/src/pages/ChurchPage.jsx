@@ -1,11 +1,15 @@
 import React from 'react';
-import church from '../images/አክሱም ጺዮን.jpg';
+import church from '../Images/አክሱም ጺዮን.jpg';
+import Header from "../components/Header";
+
 
 function ChurchPage() {
   return (
 
-    <div className='mx-20 py-8'>
-      <div className='flex flex-row text-3x1 pb-8'>
+    <div className='px-20 py-8'>
+      <Header />
+
+      {/* <div className='flex flex-row text-3x1 pb-8'>
         <button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
         </svg>
@@ -13,7 +17,7 @@ function ChurchPage() {
         <div className='pl-4'>
           <h2 className='text-3x1 font-bold'>History</h2>
         </div>
-      </div>
+      </div> */}
       <hr />
 
       <div className='text-4xl text-center font-bold mb-4 pt-8'>
@@ -22,7 +26,7 @@ function ChurchPage() {
 
       <div className='flex flex-col lg:flex-row'>
         <div className='lg:w-1/2 p-4'>
-          <h1 className='text-3xl text-[#336699] font-bold mb-4 text-center'> ከደብረ ጺዮን ወደ አክሱም ጺዮን | ክንፉ አሰፋ
+          <h1 className='text-3xl text-dark-blue font-bold mb-4 text-center'> ከደብረ ጺዮን ወደ አክሱም ጺዮን | ክንፉ አሰፋ
           </h1>
           <p>መቀሌ ለደበቀቻቸው “ጀግኖች” ባለ ውለታ ናቸው። ከዚህም በላይ ይገባቸዋል የሚሉ አሉ። እምነት ለነሱ ኢምንት ነው። ሃይማኖት ደግሞ ፖለቲካ። ልብ ያለው ፈጣሪን ያስባል። ይሉኝታ ያለው አምላኩን ይፈራል። ህሊና ያለው ደግሞ የእግዚአብሄርን ስም ይጠራል። ይህ ሁሉ የሌለው ግን በባዶነቱ ዝም ብሎ ይቁነጠነጣል። ይህ አዲስ አይደለም። ራስ እንጂ ጭንቅላት ከሌለው ሰው ተቃራኒው ቢፈጸን ነበር የሚደንቀው።
             አንዱ ሰው ጓደኛውን ይጠይቀዋል። “እስኪ ለአፍታ አስበው በጫቃ መሃል ውስጥ ነህ። አንበሳ ሊበላህ አሰፍስፎ ይጠብቅሃል። ምን ታደርጋለህ?”
@@ -33,7 +37,7 @@ function ChurchPage() {
           </p>
         </div>
         <div className='lg:w-1/2 p-4'>
-          <h1 className='text-3xl text-[#336699] font-bold mb-4 text-center'>አክሱም ጽዮን</h1>
+          <h1 className='text-3xl text-dark-blue font-bold mb-4 text-center'>አክሱም ጽዮን</h1>
           <div className=''>
             <img src={church} alt="አክሱም ጺዮን" className=" w-[100%] h-[100%]" />
           </div>
@@ -49,14 +53,14 @@ function ChurchPage() {
 
       </div>
       <div className='flex flex-col lg:flex-row'>
-      <div className='lg:w-1/2 p-4'>
-          <h1 className='text-3xl text-[#336699] font-bold mb-4 text-center'>አክሱም ጽዮን</h1>
+        <div className='lg:w-1/2 p-4'>
+          <h1 className='text-3xl text-dark-blue font-bold mb-4 text-center'>አክሱም ጽዮን</h1>
           <div className=''>
             <img src={church} alt="Image" className=" w-[100%] h-[100%]" />
           </div>
         </div>
         <div className='lg:w-1/2 p-4'>
-          <h1 className='text-3xl text-[#336699] font-bold mb-4 text-center'> ከደብረ ጺዮን ወደ አክሱም ጺዮን | ክንፉ አሰፋ
+          <h1 className='text-3xl text-dark-blue font-bold mb-4 text-center'> ከደብረ ጺዮን ወደ አክሱም ጺዮን | ክንፉ አሰፋ
           </h1>
           <p>መቀሌ ለደበቀቻቸው “ጀግኖች” ባለ ውለታ ናቸው። ከዚህም በላይ ይገባቸዋል የሚሉ አሉ። እምነት ለነሱ ኢምንት ነው። ሃይማኖት ደግሞ ፖለቲካ። ልብ ያለው ፈጣሪን ያስባል። ይሉኝታ ያለው አምላኩን ይፈራል። ህሊና ያለው ደግሞ የእግዚአብሄርን ስም ይጠራል። ይህ ሁሉ የሌለው ግን በባዶነቱ ዝም ብሎ ይቁነጠነጣል። ይህ አዲስ አይደለም። ራስ እንጂ ጭንቅላት ከሌለው ሰው ተቃራኒው ቢፈጸን ነበር የሚደንቀው።
             አንዱ ሰው ጓደኛውን ይጠይቀዋል። “እስኪ ለአፍታ አስበው በጫቃ መሃል ውስጥ ነህ። አንበሳ ሊበላህ አሰፍስፎ ይጠብቅሃል። ምን ታደርጋለህ?”
@@ -66,7 +70,7 @@ function ChurchPage() {
 
           </p>
         </div>
-        
+
       </div>
     </div>
   );

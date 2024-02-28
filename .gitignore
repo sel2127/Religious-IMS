@@ -1,0 +1,32 @@
+# Ignore Node.js dependencies
+client/node_modules/
+server/node_modules/
+
+# Ignore build artifacts
+client/build/
+server/dist/
+
+# Ignore environment-specific files
+client/.env
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+server/.env
+server/.env.local
+server/.env.development.local
+server/.env.test.local
+server/.env.production.local
+
+# Ignore editor and IDE files
+client/.vscode/
+client/.idea/
+server/.vscode/
+server/.idea/
+
+# Ignore OS-generated files
+client/.DS_Store
+client/Thumbs.db
+server/.DS_Store
+server/Thumbs.db

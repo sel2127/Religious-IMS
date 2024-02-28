@@ -1,5 +1,5 @@
 import React from 'react';
-import church from '../images/አክሱም ጺዮን.jpg';
+import church from '../Images/አክሱም ጺዮን.jpg';
 
 function ChurchPage() {
   return (

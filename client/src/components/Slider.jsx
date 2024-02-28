@@ -20,6 +20,8 @@ useEffect(() => {
         nav: false,
         rewind: true,
         dots: true,
+        autoplay: true,
+    autoplayTimeout: 5000,
       };
 
       const items = [

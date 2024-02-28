@@ -1,10 +1,112 @@
-import React from "react";
+import React, { useEffect } from "react";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
+import "owl.carousel/dist/assets/owl.theme.default.css";
+import $ from "jquery";
 import Header from "../components/Header";
 import Slider from "../components/Slider";
 import Event1 from "../Images/event1.jpg";
 import Event2 from "../Images/event2.jpg";
+import PeopleIcon from "../Images/peopleIcon.png";
+import VolunteerIcon from "../Images/volunteerIcon.png";
+import DonationIcon from "../Images/donationIcon.png";
+import SermonIcon from "../Images/sermonIcon.png";
+import Hntsa from "../Images/hntsa.jpg";
+import War from "../Images/war.jpg";
+import Drought from "../Images/drought.jpg";
 
 const LandingPage = () => {
+  useEffect(() => {
+    const $owlCarousel = $(".owl-carousel");
+    if ($owlCarousel.length) {
+      require("owl.carousel");
+    }
+  }, []);
+  const options = {
+    items: 1,
+    nav: false,
+    rewind: true,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 5000,
+  };
+
+  const items = [
+    <div key={1}>
+      <div>
+        <div className="text-lg text-white mt-6 text-center">
+          አንተን ተስፋ የሚያደርጉ አያፍሩም፥በከንቱ የሚገበዙ ያፍራሉ
+        </div>
+        <div className="text-lg text-white font-bold mt-4 text-center">
+          መዝሙረ ዳዊት 25፥3
+        </div>
+      </div>
+    </div>,
+    <div key={2}>
+      <div>
+        <div className="text-lg text-white mt-6 text-center">
+          ማንም እግዚአብሔርን እወዳለሁ እያለ ወንድሙን ቢጠላ ሐሰተኛ ነው፥ ያየውን ወንድሙን የማይወድ ያላየውን
+          እግዚአብሔርን ሊወደው እንዴት ይችላል?
+        </div>
+        <div className="text-lg text-white font-bold mt-4 text-center">
+          1ኛ የዮሐንስ መልእክት 4፥20
+        </div>
+      </div>
+    </div>,
+    <div key={3}>
+      <div className="text-lg text-white mt-6 text-center">
+        እግዚአብሔር ብርሃኔና መድኃኒቴ ነው፥የሚያስፈራኝ ማን ነው?
+      </div>
+      <div className="text-lg text-white font-bold mt-4 text-center">
+        መዝሙረ ዳዊት 27፥1
+      </div>
+    </div>,
+  ];
+
+  const options2 = {
+    items: 2,
+    nav: false,
+    rewind: true,
+    dots: true,
+    autoplay: true,
+autoplayTimeout: 6000,
+  };
+
+  const items2 = [
+    <div key={1}>
+      <div className="flex items-center justify-center gap-8 h-full">
+        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
+          <div>
+            
+          </div>
+          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
+          <div className="font-bold">ለማ ደረሰ</div>
+        </div>        
+      </div>
+    </div>,
+    <div key={2}>
+      <div className="flex items-center justify-center gap-8 h-full">
+        <div className="bg-white rounded-2xl w-3/4  flex flex-col items-center justify-center p-8 text-lg">
+          <div>
+            
+          </div>
+          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
+          <div className="font-bold">ለማ ሄደ</div>
+        </div>        
+      </div>
+    </div>,
+    <div key={3}>
+      <div className="flex items-center justify-center gap-8 h-full">
+        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
+          <div>
+            
+          </div>
+          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
+          <div className="font-bold">ለማ መጣ</div>
+        </div>        
+      </div>
+    </div>,
+  ];
   return (
     <div>
       <div className="px-20">
@@ -54,12 +156,146 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <div className="mt-10 grid grid-cols-4">
-          <div className="">asd</div>
-          <div>asd</div>
-          <div>asda</div>
-          <div>asd</div>
+        <div className="mt-20 grid grid-cols-4">
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={PeopleIcon} alt="people icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">500</div>
+              <div className="text-gray-400 font-bold text-xl">ሰዎች</div>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={VolunteerIcon} alt="volunteer icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">136</div>
+              <div className="text-gray-400 font-bold text-xl">በጎ ፈቃደኛ</div>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={DonationIcon} alt="donation icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">200</div>
+              <div className="text-gray-400 font-bold text-xl">እርዳታ</div>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={SermonIcon} alt="sermon icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">186</div>
+              <div className="text-gray-400 font-bold text-xl">ስብከቶች</div>
+            </div>
+          </div>
         </div>
+        <div className="mt-20 flex flex-col items-center justify-center">
+          <h1 className="text-3xl font-bold">እርዳታ</h1>
+          <div className="mt-10 grid grid-cols-3 gap-4">
+            <div className="flex flex-col items-center">
+              <div className="px-6 flex justify-center imgListHeight">
+                <img src={Drought} alt="sermon icon" className="" />
+              </div>
+              <div className="flex flex-col items-center py-6 px-10">
+                <div className="h-[120px]">
+                  <h1 className="text-center font-bold text-xl">
+                    በድርቅ ለተጎዱ ወገኖች
+                  </h1>
+                  <p className="text-sm mt-3">
+                    አንዱ ደብራችን የሚሰጠው እርዳታ በድርቅ ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን በማበርከት
+                    የህሊና ግደታችሁን ተወጡ
+                  </p>
+                </div>
+                <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
+                  <button className="w-full mx-auto text-lg font-bold text-white">
+                    ስጥ
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="px-6 flex justify-center imgListHeight">
+                <img src={War} alt="sermon icon" className="" />
+              </div>
+              <div className="flex flex-col items-center py-6 px-10">
+                <div className="h-[120px]">
+                  <h1 className="text-center font-bold text-xl">
+                    በጦርነት ለተጎዱ ወገኖች
+                  </h1>
+                  <p className="text-sm mt-3">
+                    ሌላው ደብራችን የሚሰጠው እርዳታ በጦርነት ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን
+                    በማበርከት የህሊና ግደታችሁን ተወጡ
+                  </p>
+                </div>
+                <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
+                  <button className="w-full mx-auto text-lg font-bold text-white">
+                    ስጥ
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="px-6 flex justify-center imgListHeight">
+                <img src={Hntsa} alt="sermon icon" className="" />
+              </div>
+              <div className="flex flex-col items-center py-6 px-10">
+                <div className="h-[120px]">
+                  <h1 className="text-center font-bold text-xl">
+                    ለቤተክርስቲያኗ ሕንጻ ማሰሪያ
+                  </h1>
+                  <p className="text-sm mt-3">
+                    አዲስ የተጀመረውን የሕንጻ ቤተክርስቲያን ለማስፈጸም የበኩልዎን አስተዋጽዖ ያድርጉ
+                  </p>
+                </div>
+                <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
+                  <button className="w-full mx-auto text-lg font-bold text-white">
+                    ስጥ
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-10 bg-light-blue h-48 px-8 py-4 flex flex-col justify-center">
+          <div className="text-white font-bold text-3xl mx-auto underline">
+            የመጽሐፍቅዱስ ጥቅሶች
+          </div>
+          <OwlCarousel
+            className="owl-theme"
+            loop
+            margin={10}
+            //   navText={['prev', 'next']}
+            {...options}
+          >
+            {items}
+          </OwlCarousel>
+        </div>
+        <div className="mt-10 bg-gray-100 h-96 p-6">
+          <h1 className="text-3xl font-bold text-center">አስተያየታችሁ ያግዘናል</h1>
+          <div className="mt-10">
+          <OwlCarousel
+            className="owl-theme"
+            loop
+            margin={10}
+            //   navText={['prev', 'next']}
+            {...options2}
+          >
+            {items2}
+          </OwlCarousel>
+          </div>
+        </div>
+        <div className="mt-10">
+        <video controls className="w-full">
+        <source src="../Images/video1.mp4" type="video/mp4" />
+      </video>
+        </div>
+
+        <div className="mt-32"></div>
       </div>
     </div>
   );

@@ -2,11 +2,14 @@
     background-color: #2d5986;
 }
 .bg-light-blue {
-    background-color: #6699cc;
+    background-color: #79a6d2;
 }
 .text-dark-blue{
     color: #2d5986;
 }
 .text-light-blue{
     color: #6699cc;
+}
+.imgListHeight {
+    height: 300px;
 }

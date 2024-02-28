@@ -6,7 +6,7 @@ import Header from "../components/Header";
 function ChurchPage() {
   return (
 
-    <div className='px-20 py-8'>
+    <div className='px-20'>
       <Header />
 
       {/* <div className='flex flex-row text-3x1 pb-8'>

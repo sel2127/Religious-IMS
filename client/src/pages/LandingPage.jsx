@@ -111,7 +111,7 @@ autoplayTimeout: 6000,
   ];
   return (
     <div>
-      <div className="px-20">
+      <div className="">
         <Header />
         <Slider />
         <div className="mt-10 flex flex-col items-center justify-center">

@@ -1,21 +1,14 @@
 import React from 'react';
-import Header from '../components/Header';
 import senbet from '../Images/senbet.jpg';
 import temari from '../Images/temari.jpg';
 import senbete from '../Images/imagess.jpg';
 import st from '../Images/st.jpg';
 import course from '../Images/course.jpeg'
 
-
-
-
-
-
 const SundaySchool = () => {
     return (
-        <div className='px-20'>
-            <Header />
-            <div className='text-3xl text-center font-bold mb-4 pt-8 text-dark-blue'>
+        <div className=''>
+            <div className='text-3xl text-center font-bold mb-4 text-dark-blue'>
                 <h2>የባህረጥበብ ሰንበት ትምህርት አመሰራረት</h2>
 
             </div>
@@ -92,13 +85,6 @@ const SundaySchool = () => {
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
 
     )
 }

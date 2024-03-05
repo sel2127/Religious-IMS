@@ -1,8 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import Logo from "../Images/logo.png";
+import { Link } from 'react-router-dom';
+
 
 
 const Header = () => {
+  const [activeLink, setActiveLink] = useState('');
+
+  const handleSetActiveLink = (path) => {
+    setActiveLink(path);
+  };
   return (
     <div>
       <div>
@@ -70,7 +77,7 @@ const Header = () => {
               </div>
               </div>
             <div className="w-1/6"><a href="#" className="cursor-pointer">መርሃግብራት</a></div>
-            <div className="w-1/6"><a href="#" className="cursor-pointer">ስለ ደብሩ</a></div>
+            <div className="w-1/6"><a href="#" className="cursor-pointer"></a></div>
             <div className="w-1/6"><a href="#" className="cursor-pointer">አግኙን</a></div>
             <div className="w-1/6 flex items-center">
               <div className="mr-1 cursor-pointer">ቋንቋ</div>

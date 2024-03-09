@@ -10,6 +10,7 @@ import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
 import FeedbackPage from './pages/FeedbackPage';
+import AbnetPage from './pages/AbnetPage';
 
 
 
@@ -26,6 +27,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path='feedback' element={<FeedbackPage/>}/>
+        <Route path='abnet' element={<AbnetPage/>}/>
+
       </Routes>
       <Footer/>
     </Router>

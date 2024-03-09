@@ -10,6 +10,7 @@ import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
 import Donation from './pages/Donation';
+import MemberRegisterationPage from './pages/MemberRegisterationPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/donate" element={<Donation />} />
+        <Route path="/member_register" element={<MemberRegisterationPage />} />
       </Routes>
       <Footer/>
     </Router>

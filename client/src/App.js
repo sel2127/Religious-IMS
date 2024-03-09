@@ -9,6 +9,7 @@ import Forgot from './pages/Forgot'
 import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
+import FeedbackPage from './pages/FeedbackPage';
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
+        <Route path='feedback' element={<FeedbackPage/>}/>
       </Routes>
       <Footer/>
     </Router>

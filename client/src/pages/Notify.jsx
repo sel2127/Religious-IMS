@@ -68,7 +68,7 @@ const Notify = () => {
         <div className="w-1/2 bg-white p-10 mx-auto">
           <div
             id="myBtn"
-            className="flex items-center border-b border-gray-200 pb-6"
+            className="flex items-center border-b border-gray-200 pb-6 cursor-pointer"
           >
             <div className="w-1/2 flex items-center gap-4">
               <div className="w-1/4">
@@ -134,7 +134,22 @@ const Notify = () => {
       <div id="myModal" className="modal" ref={modalRef}>
         <div className="modal-content">
           <span className="close">&times;</span>
-          <p>Some text in the Modal..</p>
+            <div className="w-full flex items-center gap-4 border-b border-gray-200">
+            <div className="w-1/4">
+                <img src={Logo} alt="Logo" className="w-20 mx-auto" />
+              </div>
+              <div className="w-3/4 flex flex-col gap-2">
+                <div className="font-bold text-sm">የምሽት ጉባኤ</div>
+                <div className="text-xs truncate">
+                  የመድኃኔዓለምን ዓመታዊ በዓል ምክንያት በማድረግ ልዩ የምሽት ጉባኤ ተዘጋጅቷል
+                </div>
+              </div>
+            </div>
+            <div className="py-10 px-16">
+              በዚህ ጉባኤ ታላላቅ መምህራን የሚገኙ ሲሆን ከዚያ በተጨማሪም ልዩ ልዩ ዘማሪያን ተጋብዘዋል። 
+              <br />
+              በዚህ ጉባኤ በመገኘት የበረከቱ ተካፋይ ይሁኑ
+            </div>
         </div>
       </div>
     </div>

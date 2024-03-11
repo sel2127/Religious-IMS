@@ -4,8 +4,6 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import $ from "jquery";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Slider from "../components/Slider";
 import Event1 from "../Images/event1.jpg";
 import Event2 from "../Images/event2.jpg";
@@ -112,7 +110,6 @@ autoplayTimeout: 6000,
   return (
     <div>
       <div className="">
-        <Header />
         <Slider />
         <div className="mt-10 flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold">የቅርብ ቀን መርሃግብራት</h1>
@@ -296,7 +293,6 @@ autoplayTimeout: 6000,
         <source src="../Images/video1.mp4" type="video/mp4" />
       </video>
         </div>
-    <Footer />
       </div>
     </div>
   );

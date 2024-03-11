@@ -3,7 +3,7 @@ import BreadcrumbImage from '../Images/breadcrumb.jpg'
 
 const Breadcrumb = () => {
   return (
-    <div>
+    <div className='py-8'>
       <div className='w-full h-40'>
       {/* <img src={BreadcrumbImage} alt="breadcrumb image" className=" h-full w-full object-cover" /> */}
       <div className="bg-breadcrumb h-full w-full flex flex-col items-center justify-center">

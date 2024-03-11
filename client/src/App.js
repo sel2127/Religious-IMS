@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage'; // Import landingpage
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Forgot from './pages/Forgot'
+import Notify from './pages/Notify';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
+        <Route path="/notify" element={<Notify />} />
       </Routes>
     </Router>
   );

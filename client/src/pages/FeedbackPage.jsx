@@ -1,14 +1,15 @@
 import React from 'react'
-import data from './feedback'
+import data from '../components/feedback'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import Breadcrumb from '../components/Breadcrumb';
 const FeedbackPage = () => {
   return (
     <div className="w-full m-auto ">
-    {/* <Header/> */}
+      <Breadcrumb/>
   <div className="grid grid-cols-3 gap-8 mt-8">
     {data.map((data)=>(
-      <div className='h-auto bg-gray-300 h-[450px] text-black rounded-xl'>
+      <div className='h-auto bg-gray-300  text-black rounded-xl'>
       <div className=' rounded-t-xl flex justify-start items-center ml-1'>
         <img src={data.img} alt='' className='h-32 w-32 rounded-full mt-4 ml-1 ' />
        <div className='ml-2'>

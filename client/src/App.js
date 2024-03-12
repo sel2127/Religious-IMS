@@ -5,10 +5,13 @@ import SundaySchool from './pages/SundaySchool';
 import LandingPage from './pages/LandingPage'; 
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Event from './pages/Event'
 import Forgot from './pages/Forgot'
 import Header from './components/Header'
-import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
+import FeedbackPage from './pages/FeedbackPage';
+import Upload from './admin/EventUploadPage';
+
 
 
 
@@ -16,7 +19,6 @@ function App() {
   return (
     <Router>
       <Header/>
-      <Breadcrumb/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -24,6 +26,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
+        <Route path="/event" element={<Event />} />
+        <Route path="/upload" element={<Upload />} />
+
+
+
       </Routes>
       <Footer/>
     </Router>

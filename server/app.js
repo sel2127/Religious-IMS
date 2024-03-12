@@ -1,9 +1,10 @@
-// server/app.js
-
 const express = require('express');
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
+// Import the eventUploadRouter
+const eventUploadRouter = require('./routes/eventUploadRouter');
+
+const sequelize = new Sequelize('capstone', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
 });
@@ -20,7 +21,13 @@ sequelize
 
 const app = express();
 
-// Other middleware and routes setup goes here
+// Mount the eventUploadRouter at the '/api/events' endpoint
+app.use('/api/events', eventUploadRouter);
+
+// Test route for accessing the backend on the browser
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend!');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

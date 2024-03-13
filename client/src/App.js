@@ -7,12 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Event from './pages/Event'
 import Forgot from './pages/Forgot'
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 import Notify from './pages/Notify';
-=======
->>>>>>> 50ccb473c96fa4e0d41ab7a0d4707c467b5b3f93
 import Header from './components/Header'
 import Footer from './components/Footer'
 import FeedbackPage from './pages/FeedbackPage';
@@ -20,14 +15,6 @@ import AbnetPage from './pages/AbnetPage';
 import Upload from './admin/EventUploadPage';
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
-
-
-<<<<<<< HEAD
-import Notify from './pages/Notify';
-=======
->>>>>>> 73fc12d4381e13dae38c79ba376d07649197f6e2
->>>>>>> 50ccb473c96fa4e0d41ab7a0d4707c467b5b3f93
-
 
 function App() {
   return (

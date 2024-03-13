@@ -28,8 +28,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
-        <Route path='feedback' element={<FeedbackPage/>}/>
-        <Route path='abnet' element={<AbnetPage/>}/>
+        <Route path='/feedback' element={<FeedbackPage/>}/>
+        <Route path='/abnet' element={<AbnetPage/>}/>
         <Route path="/event" element={<Event />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/notify" element={<Notify />} />

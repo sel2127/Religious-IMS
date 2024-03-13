@@ -14,6 +14,7 @@ import AbnetPage from './pages/AbnetPage';
 import Upload from './admin/EventUploadPage';
 
 
+import Notify from './pages/Notify';
 
 
 function App() {
@@ -31,9 +32,7 @@ function App() {
         <Route path='abnet' element={<AbnetPage/>}/>
         <Route path="/event" element={<Event />} />
         <Route path="/upload" element={<Upload />} />
-
-
-
+        <Route path="/notify" element={<Notify />} />
       </Routes>
       <Footer/>
     </Router>

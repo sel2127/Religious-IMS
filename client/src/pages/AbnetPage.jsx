@@ -27,9 +27,9 @@ const AbnetPage = () => {
           alt="Image"
           className="object-cover w-full h-full"
         />
-        <div className=" absolute inset-0 flex flex-col m-auto">
-        <div className="mt-15  flex items-center justify-center ">
-  <h1 className="text-black text-xl md:text-xl lg:text-5xl text-center">
+        <div className=" absolute inset-0 flex flex-col ">
+        <div className="  flex items-center justify-center ">
+  <h1 className="mt-10  text-black text-xl md:text-xl lg:text-5xl text-center ">
     በአብነት ትምህርት ቤቱ የሚሰጡ ትምህርቶች
   </h1>
 </div>

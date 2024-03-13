@@ -12,6 +12,8 @@ import Footer from './components/Footer'
 import FeedbackPage from './pages/FeedbackPage';
 import AbnetPage from './pages/AbnetPage';
 import Upload from './admin/EventUploadPage';
+import Donation from './pages/Donation';
+import MemberRegisterationPage from './pages/MemberRegisterationPage';
 
 
 import Notify from './pages/Notify';
@@ -33,6 +35,8 @@ function App() {
         <Route path="/event" element={<Event />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/notify" element={<Notify />} />
+        <Route path="/donate" element={<Donation />} />
+        <Route path="/member_register" element={<MemberRegisterationPage />} />
       </Routes>
       <Footer/>
     </Router>

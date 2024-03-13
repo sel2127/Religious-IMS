@@ -11,7 +11,6 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import FeedbackPage from './pages/FeedbackPage';
 import AbnetPage from './pages/AbnetPage';
-import FeedbackPage from './pages/FeedbackPage';
 import Upload from './admin/EventUploadPage';
 
 
@@ -30,8 +29,6 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path='feedback' element={<FeedbackPage/>}/>
         <Route path='abnet' element={<AbnetPage/>}/>
-
-        <Route path="/feedback" element={<FeedbackPage />} />
         <Route path="/event" element={<Event />} />
         <Route path="/upload" element={<Upload />} />
 

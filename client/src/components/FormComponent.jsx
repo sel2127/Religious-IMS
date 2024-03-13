@@ -22,7 +22,7 @@ const FormComponent = () => {
   
     const renderInput = () => {
       const question = questions[currentQuestion];
-      if (question === 'Gender') {
+      if (question === 'ጾታ') {
         return (
           <div className='flex flex-col'
           style={{ marginLeft: '80px' }}>
@@ -48,7 +48,7 @@ const FormComponent = () => {
             </label>
           </div>
         );
-      } else if (question === 'Age') {
+      } else if (question === 'ዕድሜ') {
         return (
           <input
             type="number"
@@ -58,7 +58,7 @@ const FormComponent = () => {
             style={{ marginLeft: '80px' }}
           />
         );}
-        else if (question === 'Email Address') {
+        else if (question === 'የኢሜል አድራሻ') {
           return (
             <input
               type="email"
@@ -69,7 +69,7 @@ const FormComponent = () => {
             />
           );
       } 
-      else if (question === 'Phone number') {
+      else if (question === 'ስልክ ቁጥር') {
         return (
           <input
             type="tel"

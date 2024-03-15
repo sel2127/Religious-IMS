@@ -146,7 +146,7 @@ function ChurchPage() {
            </div>
           </div>
           <div className='lg:w-1/2'>
-            <Map />
+            {/* <Map /> */}
           </div>
         </div>
       </div>

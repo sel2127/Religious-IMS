@@ -63,14 +63,14 @@ const Notify = () => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className="w-full bg-gray-100 py-12">
         <div className="w-1/2 bg-white p-10 mx-auto">
           <div
-            id="myBtn"
+            
             className="flex items-center border-b border-gray-200 pb-6 cursor-pointer"
           >
-            <div className="w-1/2 flex items-center gap-4">
+            <div id="myBtn" className="w-1/2 flex items-center gap-4">
               <div className="w-1/4">
                 <img src={Logo} alt="Logo" className="w-20" />
               </div>
@@ -112,13 +112,17 @@ const Notify = () => {
                 <div id="myDropdown" className="dropdown-content">
                   <button>
                     <div className="flex justify-canter">
-                      <div className="w-1/4 mx-auto">ccc</div>
+                      <div className="w-1/4 mx-auto">
+                      <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                      </div>
                       <div className="w-3/4 ml-2">ማስታወቂያ አጥፋ</div>
                     </div>
                   </button>
                   <button>
                     <div className="flex justify-canter">
-                      <div className="w-1/4 mx-auto">ddd</div>
+                      <div className="w-1/4 mx-auto">
+                      <svg fill="#000000" className="w-6 h-6" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M571.32 704a76.36 76.36 0 0 1-144.19 0zm-258.84-51.2L623.3 342c-8.46-25.2-31.52-39-73.21-44.49.06-1 .31-2 .31-3.06a51.2 51.2 0 1 0-102.4 0c0 1.05.25 2 .31 3.06-54.12 7.12-77.11 28.06-77.11 70.08v29.21c0 121.6-66.51 175.51-102.4 204.8.4.4 0 51.2 0 51.2zm315-248.63l119-119-16.6-16.6-461.32 461.31 16.58 16.6 93.68-93.68H729.6s-.4-50.8 0-51.2c-35.14-28.68-99.47-81.13-102.15-197.43z"></path></g></svg>
+                      </div>
                       <div className="w-3/4 ml-2">ማስታወቂያ ደብቅ</div>
                     </div>
                   </button>
@@ -130,7 +134,7 @@ const Notify = () => {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
       <div id="myModal" className="modal" ref={modalRef}>
         <div className="modal-content">
           <span className="close">&times;</span>

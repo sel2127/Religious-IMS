@@ -11,7 +11,8 @@ import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
-
+import DonationCause from './pages/DonationCause';
+import DonationChoice from './pages/DonationChoice';
 
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/donate" element={<Donation />} />
         <Route path="/member_register" element={<MemberRegisterationPage />} />
+
+        <Route path="/donate/d" element={<DonationCause />} />
+        <Route path="/donate/c" element={<DonationChoice />} />
       </Routes>
       <Footer/>
     </Router>

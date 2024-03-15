@@ -155,7 +155,7 @@ autoplayTimeout: 6000,
             </div>
           </div>
         </div>
-        <div className="mt-20 grid grid-cols-4">
+        <div className="mt-20 flex flex-cols space-x-8 items-center justify-center">
           <div className="flex items-center">
             <div className="w-1/3">
               <img src={PeopleIcon} alt="people icon" className="w-2/3" />

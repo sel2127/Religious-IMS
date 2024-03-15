@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Breadcrumb from '../components/Breadcrumb';
+import Breadcrumb from '../common/Breadcrumb';
 
 
 const EventUploadPage = () => {

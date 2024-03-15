@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 import Logo from "../Images/logo.png";
 import "../styles/notify.css";
+import Breadcrumb from '../common/Breadcrumb';
+
 
 const Notify = () => {
   const modalRef = useRef(null);
@@ -63,7 +65,8 @@ const Notify = () => {
 
   return (
     <div>
-      <Header />
+          <Breadcrumb/>
+
       <div className="w-full bg-gray-100 py-12">
         <div className="w-1/2 bg-white p-10 mx-auto">
           <div
@@ -130,7 +133,6 @@ const Notify = () => {
         </div>
       </div>
 
-      <Footer />
       <div id="myModal" className="modal" ref={modalRef}>
         <div className="modal-content">
           <span className="close">&times;</span>

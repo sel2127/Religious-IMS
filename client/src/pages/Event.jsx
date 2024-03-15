@@ -3,7 +3,7 @@ import Calender from '../components/Calender'
 import Buhe from '../Images/buhe.jpg'
 import Meskel from '../Images/meskel.jpg'
 import Timket from '../Images/timket.jpg'
-import Breadcrumb from '../components/Breadcrumb';
+import Breadcrumb from '../common/Breadcrumb';
 
 
 

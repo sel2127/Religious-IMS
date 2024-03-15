@@ -7,7 +7,7 @@ import photo2 from '../Images/photo2.jpg';
 import photo3 from '../Images/photo3.jpg';
 import abat from '../Images/admin.jpg';
 import Map from "../components/Map";
-import Breadcrumb from '../components/Breadcrumb';
+import Breadcrumb from '../common/Breadcrumb';
 
 
 
@@ -16,7 +16,7 @@ function ChurchPage() {
   return (
 
     <div className=''>
-      <Breadcrumb/>
+      {/* <Breadcrumb/> */}
 
 
       <div className='text-5xl text-center font-bold mb-4'>

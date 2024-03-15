@@ -2,7 +2,7 @@ const express = require('express');
 const Sequelize = require('sequelize');
 
 // Import the eventUploadRouter
-const eventUploadRouter = require('./routes/eventUploadRouter');
+const eventUploadRouter = require('./routes/eventRoutes');
 
 const sequelize = new Sequelize('capstone', 'root', '', {
   host: 'localhost',

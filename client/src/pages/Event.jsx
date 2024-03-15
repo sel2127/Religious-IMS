@@ -1,8 +1,8 @@
 import React from 'react'
 import Calender from '../components/Calender'
-import Buhe from '../Images/buhe.jpg'
-import Meskel from '../Images/meskel.jpg'
-import Timket from '../Images/timket.jpg'
+import Buhe from '../assets/Images/buhe.jpg'
+import Meskel from '../assets/Images/meskel.jpg'
+import Timket from '../assets/Images/timket.jpg'
 import Breadcrumb from '../common/Breadcrumb';
 
 

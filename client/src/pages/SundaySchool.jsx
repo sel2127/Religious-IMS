@@ -1,9 +1,9 @@
 import React from 'react';
-import senbet from '../Images/senbet.jpg';
-import temari from '../Images/temari.jpg';
-import senbete from '../Images/imagess.jpg';
-import st from '../Images/st.jpg';
-import course from '../Images/course.jpeg'
+import senbet from '../assets/Images/senbet.jpg';
+import temari from '../assets/Images/temari.jpg';
+import senbete from '../assets/Images/imagess.jpg';
+import st from '../assets/Images/st.jpg';
+import course from '../assets/Images/course.jpeg'
 import Breadcrumb from '../common/Breadcrumb';
 
 

@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Breadcrumb from '../common/Breadcrumb';
 
 
-const EventUploadPage = () => {
+const EventUpload = () => {
   const [eventName, setEventName] = useState('');
   const [eventDate, setEventDate] = useState(new Date());
   const [eventDescription, setEventDescription] = useState('');
@@ -108,4 +108,4 @@ const EventUploadPage = () => {
   );
 };
 
-export default EventUploadPage;
+export default EventUpload;

@@ -1,6 +1,6 @@
 import React from "react";
-import abi from "../Images/abi.jpg";
-import likawuntizra from "../Images/likawuntizra.jpg";
+import abi from "../assets/Images/abi.jpg";
+import likawuntizra from "../assets/Images/likawuntizra.jpg";
 
 function AbnetPage() {
   return (

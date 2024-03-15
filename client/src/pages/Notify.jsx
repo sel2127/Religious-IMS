@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
-import Logo from "../Images/logo.png";
-import "../styles/notify.css";
+import Logo from "../assets/Images/logo.png";
+import "../assets/styles/notify.css";
 import Breadcrumb from '../common/Breadcrumb';
 
 

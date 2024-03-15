@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
-import '../styles/main.css';
+import '../assets/styles/main.css';
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import $ from "jquery";
 import Slider from "../components/Slider";
-import Event1 from "../Images/event1.jpg";
-import Event2 from "../Images/event2.jpg";
-import PeopleIcon from "../Images/peopleIcon.png";
-import VolunteerIcon from "../Images/volunteerIcon.png";
-import DonationIcon from "../Images/donationIcon.png";
-import SermonIcon from "../Images/sermonIcon.png";
-import Hntsa from "../Images/hntsa.jpg";
-import War from "../Images/war.jpg";
-import Drought from "../Images/drought.jpg";
+import Event1 from "../assets/Images/event1.jpg";
+import Event2 from "../assets/Images/event2.jpg";
+import PeopleIcon from "../assets/Images/peopleIcon.png";
+import VolunteerIcon from "../assets/Images/volunteerIcon.png";
+import DonationIcon from "../assets/Images/donationIcon.png";
+import SermonIcon from "../assets/Images/sermonIcon.png";
+import Hntsa from "../assets/Images/hntsa.jpg";
+import War from "../assets/Images/war.jpg";
+import Drought from "../assets/Images/drought.jpg";
 
 const LandingPage = () => {
   useEffect(() => {

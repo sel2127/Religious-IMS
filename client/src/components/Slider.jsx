@@ -3,9 +3,9 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import $ from 'jquery';
-import Hero1 from '../Images/hero1.jpg'
-import Hero2 from '../Images/hero2.jpg'
-import Hero3 from '../Images/hero3.jpg'
+import Hero1 from '../assets/Images/hero1.jpg'
+import Hero2 from '../assets/Images/hero2.jpg'
+import Hero3 from '../assets/Images/hero3.jpg'
 
 const Slider = () => {
 

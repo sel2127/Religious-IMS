@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/main.css';
+import '../assets/styles/main.css';
 import Breadcrumb from '../common/Breadcrumb';
 
 

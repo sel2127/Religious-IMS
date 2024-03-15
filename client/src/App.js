@@ -6,14 +6,14 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Forgot from './pages/Forgot'
-<<<<<<< HEAD
+// <<<<<<< HEAD
 import Notify from './pages/Notify';
-=======
+// =======
 import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
 
->>>>>>> 73fc12d4381e13dae38c79ba376d07649197f6e2
+// >>>>>>> 73fc12d4381e13dae38c79ba376d07649197f6e2
 
 
 function App() {

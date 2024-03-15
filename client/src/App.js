@@ -10,6 +10,7 @@ import Notify from './pages/Notify';
 import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
+import EventUpload from './admin/EventUploadPage'
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
+        <Route path="/eventupload" element={<EventUpload />} />
       </Routes>
       <Footer/>
     </Router>

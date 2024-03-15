@@ -152,6 +152,7 @@ const FormComponent = () => {
             <h1 className="flex flex-col text-3xl font-bold mt-24 items-center justify-center">
               በተሳካ ሁኔታ ተመዝግበዋል!
             </h1>
+            {/* <pre>{JSON.stringify(responses, null, 2)}</pre> */}
           </div>
         )}
       </div>

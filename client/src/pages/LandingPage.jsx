@@ -109,7 +109,7 @@ autoplayTimeout: 6000,
   ];
   return (
     <div>
-      <div className="">
+      <div className="pt-4">
         <Slider />
         <div className="mt-10 flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold">የቅርብ ቀን መርሃግብራት</h1>

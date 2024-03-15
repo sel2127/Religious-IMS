@@ -11,7 +11,7 @@ import Header from './common/Header'
 import Footer from './common/Footer'
 import FeedbackPage from './pages/FeedbackPage';
 import AbnetPage from './pages/AbnetPage';
-import Upload from './admin/EventUploadPage';
+import Upload from './admin/EventUpload';
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
 

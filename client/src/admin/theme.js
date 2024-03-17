@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles";
 
 // color design tokens
 export const tokens = (mode) => ({
-    ...createContext(mode === 'dark'
+    ...(mode === 'dark'
     ? {
         grey: {
             100: "#e0e0e0",
@@ -117,8 +117,8 @@ export const tokens = (mode) => ({
             900: "#e1e2fe",
         },
     }
-    )
-})
+    ),
+});
 
 // mui theme settings
 export const themeSettings = (mode) => {
@@ -127,37 +127,37 @@ export const themeSettings = (mode) => {
     return {
         palette: {
             mode: mode,
-            ...colors(mode === 'dark'
+            ...(mode === 'dark'
             ? {
                 primary: {
-                    main:colors.primary[500],
+                    main: colors.primary[500],
                 },
                 secondary: {
-                    main:colors.greenAccent[500],
+                    main: colors.greenAccent[500],
                 },
                 neutral: {
                     dark: colors.grey[700],
                     main:colors.grey[500],
-                    light: colors.grey[100]
+                    light: colors.grey[100],
                 },
                 background: {
-                    default: colors.primary[500]
-                }
+                    default: colors.primary[500],
+                },
             } : {
                 primary: {
-                    main:colors.primary[100],
+                    main: colors.primary[100],
                 },
                 secondary: {
-                    main:colors.greenAccent[500],
+                    main: colors.greenAccent[500],
                 },
                 neutral: {
                     dark: colors.grey[700],
-                    main:colors.grey[500],
-                    light: colors.grey[100]
+                    main: colors.grey[500],
+                    light: colors.grey[100],
                 },
                 background: {
                     default: "#fcfcfc",
-                }
+                },
             }),
         },
         typography: {
@@ -187,13 +187,13 @@ export const themeSettings = (mode) => {
                 fontFamily: ["Sora", "sans-serif"].join(","),
                 fontSize: 14,
             },
-        }
+        },
     };
 };
 
 // context for the color mode
 export const ColorModeContext = createContext({
-    toggleColorMode: () => {}
+    toggleColorMode: () => {},
 });
 
 export const useMode = () => {
@@ -207,7 +207,7 @@ export const useMode = () => {
         []
     );
 
-    const theme = useMemo(() => createTheme(themeSettings(mode)) [mode]);
+    const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
     return [theme, colorMode];
 }

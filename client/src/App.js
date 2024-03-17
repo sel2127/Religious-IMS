@@ -11,14 +11,15 @@ import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
 // import EventUpload from './admin/EventUploadPage'
+import Admin from './admin/Admin';
 
 
 
 function App() {
   return (
     <Router>
-      <Header/>
-      <Breadcrumb/>
+      {/* <Header/> */}
+      {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -28,8 +29,9 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
         {/* <Route path="/eventupload" element={<EventUpload />} /> */}
+        <Route path="/admin" element={<Admin />} />
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </Router>
   );
 }

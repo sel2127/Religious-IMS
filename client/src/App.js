@@ -13,6 +13,7 @@ import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import DonationCause from './pages/DonationCause';
 import DonationChoice from './pages/DonationChoice';
+import ContactUs from "./pages/ContactUs";
 
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/donate" element={<Donation />} />
         <Route path="/member_register" element={<MemberRegisterationPage />} />
+        <Route path="/contact" element={<ContactUs />} />
+
 
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />

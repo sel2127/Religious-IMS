@@ -6,11 +6,11 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Forgot from './pages/Forgot'
+import Notify from './pages/Notify';
 import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
-import FeedbackPage from './pages/FeedbackPage';
-import AbnetPage from './pages/AbnetPage';
+import EventUpload from './admin/EventUploadPage'
 
 
 
@@ -26,9 +26,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
-        <Route path='feedback' element={<FeedbackPage/>}/>
-        <Route path='abnet' element={<AbnetPage/>}/>
-
+        <Route path="/notify" element={<Notify />} />
+        <Route path="/eventupload" element={<EventUpload />} />
       </Routes>
       <Footer/>
     </Router>

@@ -8,7 +8,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
 // import Invoices from "./scenes/invoices";
-// import Contacts from "./scenes/contacts";
+import Members from "./scenes/memberInfo";
 // import Bar from "./scenes/bar";
 // import Form from "./scenes/form";
 // import Line from "./scenes/line";
@@ -32,7 +32,7 @@ function Admin() {
         <Routes>
           <Route path="" element={<Dashboard />} />
           <Route path="team" element={<Team />} />
-          {/* <Route path="/admin/contacts" element={<Contacts />} /> */}
+          <Route path="members" element={<Members />} />
           {/* <Route path="/admin/invoices" element={<Invoices />} /> */}
           {/* <Route path="/admin/form" element={<Form />} /> */}
           {/* <Route path="/admin/bar" element={<Bar />} /> */}

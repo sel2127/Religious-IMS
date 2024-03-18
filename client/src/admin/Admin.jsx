@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-// import Team from "./scenes/team";
+import Team from "./scenes/team";
 // import Invoices from "./scenes/invoices";
 // import Contacts from "./scenes/contacts";
 // import Bar from "./scenes/bar";
@@ -15,6 +15,7 @@ import Dashboard from "./scenes/dashboard";
 // import Pie from "./scenes/pie";
 // import FAQ from "./scenes/faq";
 // import Calendar from "./scenes/calendar";
+// import Event from "./scenes/EventUpload";
 
 
 function Admin() {
@@ -29,8 +30,8 @@ function Admin() {
       <main className='content'>
         <Topbar />
         <Routes>
-          <Route path="/admin" element={<Dashboard />} />
-          {/* <Route path="/admin/team" element={<Team />} /> */}
+          <Route path="" element={<Dashboard />} />
+          <Route path="team" element={<Team />} />
           {/* <Route path="/admin/contacts" element={<Contacts />} /> */}
           {/* <Route path="/admin/invoices" element={<Invoices />} /> */}
           {/* <Route path="/admin/form" element={<Form />} /> */}
@@ -39,6 +40,7 @@ function Admin() {
           {/* <Route path="/admin/line" element={<Line />} /> */}
           {/* <Route path="/admin/faq" element={<FAQ />} /> */}
           {/* <Route path="/admin/calendar" element={<Calendar />} /> */}
+          {/* <Route path="/admin/event" element={<Event />} /> */}
         </Routes>
       </main>   
     </div>

@@ -12,6 +12,7 @@ import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
 // import EventUpload from './admin/EventUploadPage'
 import Admin from './admin/Admin';
+import Team from './admin/scenes/team'
 
 
 
@@ -28,8 +29,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
-        {/* <Route path="/eventupload" element={<EventUpload />} /> */}
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/*" element={<Admin />} />
+
       </Routes>
       {/* <Footer/> */}
     </Router>

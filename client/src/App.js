@@ -11,6 +11,9 @@ import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb';
 import Footer from './components/Footer'
 import EventUpload from './admin/EventUploadPage'
+import AbnetPage from './pages/AbnetPage';
+import FeedbackPage from './pages/FeedbackPage';
+import ProfilePage from './pages/ProfilePage';
 
 
 
@@ -28,6 +31,11 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
         <Route path="/eventupload" element={<EventUpload />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
+        <Route path="/abnet" element={<AbnetPage />} />
+      <Route path='/profile' element={<ProfilePage/>} />
+
+
       </Routes>
       <Footer/>
     </Router>

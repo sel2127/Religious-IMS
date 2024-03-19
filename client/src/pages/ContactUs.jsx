@@ -22,7 +22,7 @@ function ContactUS(){
   <div class="w-2/3 p-4">
     <strong>Address</strong><br />
     727 Fifth Street, NW<br />
-    Washington, DC 20001
+    Washington, DC 200
   </div>
   <div class="w-2/3 p-4">
     <strong>Telephone &amp; Email</strong><br />

@@ -14,8 +14,6 @@ import AbnetPage from './pages/AbnetPage';
 import Upload from './admin/EventUpload';
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
-
-
 import Notify from './pages/Notify';
 
 

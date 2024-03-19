@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import lalibela from "../Images/lalibela.jpg";
-import lalibela_two from "../Images/lalibela_two.jpg";
-import boleMedhanealem from "../Images/bole medhanealem.jpg";
-import churchInAksum from "../Images/church in aksum.jpg";
-import abrehaAtsbeha from "../Images/abreha atsbeha.jpg";
-import debredamo from "../Images/debre damo monastery.jpg";
-import '../styles/main.css';
+import lalibela from "../assets/Images/lalibela.jpg";
+import lalibela_two from "../assets/Images/lalibela_two.jpg";
+import boleMedhanealem from "../assets/Images/bole medhanealem.jpg";
+import churchInAksum from "../assets/Images/church in aksum.jpg";
+import abrehaAtsbeha from "../assets/Images/abreha atsbeha.jpg";
+import debredamo from "../assets/Images/debre damo monastery.jpg";
+import '../assets/styles/main.css';
 
 
 
@@ -75,7 +75,7 @@ const Donation = () => {
                         <h1 className="text-center text-xl mt-4 mb-4" key={image.id}> <Link to={`/donation/${image.id}`} className="hover:bg-dark-blue">{image.title}</Link></h1>
                         <p className="text-sm m-4">{image.description}</p>
                         <div className="flex justify-center items-center mt-8">
-                            <button className="bg-dark-blue text-white px-4 py-2 rounded-full transform hover:scale-110 hover:bg-blue-400" style={{ width: '150px' }} >ለግስ</button>
+                            <button className="bg-dark-blue text-white px-4 py-2 rounded-full transform hover:scale-110 hover:bg-blue-600" style={{ width: '150px' }} >ለግስ</button>
                         </div>
                     </div>
                 ))}

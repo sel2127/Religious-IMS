@@ -1,13 +1,17 @@
 import React from 'react';
-import senbet from '../Images/senbet.jpg';
-import temari from '../Images/temari.jpg';
-import senbete from '../Images/imagess.jpg';
-import st from '../Images/st.jpg';
-import course from '../Images/course.jpeg'
+import senbet from '../assets/Images/senbet.jpg';
+import temari from '../assets/Images/temari.jpg';
+import senbete from '../assets/Images/imagess.jpg';
+import st from '../assets/Images/st.jpg';
+import course from '../assets/Images/course.jpeg'
+import Breadcrumb from '../common/Breadcrumb';
+
 
 const SundaySchool = () => {
     return (
         <div className=''>
+                 <Breadcrumb/>
+
             <div className='text-3xl text-center font-bold mb-4 text-dark-blue'>
                 <h2>የባህረጥበብ ሰንበት ትምህርት አመሰራረት</h2>
 
@@ -69,7 +73,7 @@ const SundaySchool = () => {
 
                     </div>
                     <div className='lg:w-1/2 p-4 flex flex-col justify-center items-center'>
-                        <h1 className='text-dark-blue font-bold text-5x1'>ኮርስ የሚሰጥበት ሰአት</h1>
+                        <h1 className='text-dark-blue font-bold text-5x1'>የመዝሙር ጥናት ሰአት</h1>
                         <div className='flex flex-col p-4 '>
                             <span><p className=''>ከ 5-12 አመት፡ ቅዳሜ 2፡00pm-4:00pm</p></span><span><p className='pl-16'>እሁድ 1፡30pm-3:30pm</p></span>
 

@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
-import '../styles/main.css';
+import '../assets/styles/main.css';
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import $ from "jquery";
 import Slider from "../components/Slider";
-import Event1 from "../Images/event1.jpg";
-import Event2 from "../Images/event2.jpg";
-import PeopleIcon from "../Images/peopleIcon.png";
-import VolunteerIcon from "../Images/volunteerIcon.png";
-import DonationIcon from "../Images/donationIcon.png";
-import SermonIcon from "../Images/sermonIcon.png";
-import Hntsa from "../Images/hntsa.jpg";
-import War from "../Images/war.jpg";
-import Drought from "../Images/drought.jpg";
+import Event1 from "../assets/Images/event1.jpg";
+import Event2 from "../assets/Images/event2.jpg";
+import PeopleIcon from "../assets/Images/peopleIcon.png";
+import VolunteerIcon from "../assets/Images/volunteerIcon.png";
+import DonationIcon from "../assets/Images/donationIcon.png";
+import SermonIcon from "../assets/Images/sermonIcon.png";
+import Hntsa from "../assets/Images/hntsa.jpg";
+import War from "../assets/Images/war.jpg";
+import Drought from "../assets/Images/drought.jpg";
 
 const LandingPage = () => {
   useEffect(() => {
@@ -109,7 +109,7 @@ autoplayTimeout: 6000,
   ];
   return (
     <div>
-      <div className="">
+      <div className="pt-4">
         <Slider />
         <div className="mt-10 flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold">የቅርብ ቀን መርሃግብራት</h1>
@@ -155,7 +155,7 @@ autoplayTimeout: 6000,
             </div>
           </div>
         </div>
-        <div className="mt-20 grid grid-cols-4">
+        <div className="mt-20 flex flex-cols space-x-8 items-center justify-center">
           <div className="flex items-center">
             <div className="w-1/3">
               <img src={PeopleIcon} alt="people icon" className="w-2/3" />

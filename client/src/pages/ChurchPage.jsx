@@ -1,12 +1,14 @@
 import React from 'react';
-import bole from '../Images/medhanealem.jpg';
-import ch20 from '../Images/ch20.jpg';
-import photo from '../Images/photo.jpg';
-import photo1 from '../Images/photo1.jpg';
-import photo2 from '../Images/photo2.jpg';
-import photo3 from '../Images/photo3.jpg';
-import abat from '../Images/admin.jpg';
+import bole from '../assets/Images/medhanealem.jpg';
+import ch20 from '../assets/Images/ch20.jpg';
+import photo from '../assets/Images/photo.jpg';
+import photo1 from '../assets/Images/photo1.jpg';
+import photo2 from '../assets/Images/photo2.jpg';
+import photo3 from '../assets/Images/photo3.jpg';
+import abat from '../assets/Images/admin.jpg';
 import Map from "../components/Map";
+import Breadcrumb from '../common/Breadcrumb';
+
 
 
 
@@ -14,6 +16,8 @@ function ChurchPage() {
   return (
 
     <div className=''>
+      {/* <Breadcrumb/> */}
+
 
       <div className='text-5xl text-center font-bold mb-4'>
         {/* <h2>ታሪክ</h2> */}
@@ -146,7 +150,7 @@ function ChurchPage() {
            </div>
           </div>
           <div className='lg:w-1/2'>
-            <Map />
+            {/* <Map /> */}
           </div>
         </div>
       </div>

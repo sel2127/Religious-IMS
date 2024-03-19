@@ -1,10 +1,10 @@
 import FormComponent from "../components/FormComponent";
-import side_image from '../Images/formone.jpg';
+import side_image from '../assets/Images/formone.jpg';
 
 function MemberRegisterationPage() {
     return (
         <div>
-            <div className='text-4xl text-center font-bold mb-12'>
+            <div className='text-4xl text-center font-bold mb-12 pt-8'>
             የቤተ ክርስቲያን አባልነት ቅጽ
             </div>
             <div className='flex'>

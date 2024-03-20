@@ -199,7 +199,7 @@ export const memberInfo = [
   },
 ];
 
-export const mockDataInvoices = [
+export const donations = [
   {
     id: 1,
     name: "Jon Snow",

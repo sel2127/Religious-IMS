@@ -108,10 +108,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Tsi mo
+                  Tsi Mo
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  It Admin
+                  IT Admin
                 </Typography>
               </Box>
             </Box>
@@ -152,8 +152,8 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Invoices Balances"
-              to="/admin/invoices"
+              title="Donations"
+              to="/admin/donation"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

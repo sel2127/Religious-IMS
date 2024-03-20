@@ -10,12 +10,11 @@ import Forgot from './Auth/Forgot';
 import Footer from './common/Footer';
 import FeedbackPage from './pages/FeedbackPage';
 import AbnetPage from './pages/AbnetPage';
-import Upload from './admin/EventUpload';
+import Upload from './components/EventUpload';
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
 import Header from './common/Header';
-import Breadcrumb from './common/Breadcrumb';
 import DonationCause from './pages/DonationCause';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
@@ -25,7 +24,6 @@ function App() {
   return (
     <Router>
       <Header/>
-      <Breadcrumb/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -33,11 +31,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
+        <Route path="/notify" element={<Notify />} />
+        <Route path="/upload" element={<Upload />} />
         <Route path="/donate" element={<Donation />} />
         <Route path="/member_register" element={<MemberRegisterationPage />} />
         <Route path="/contact" element={<ContactUs />} />
-
-
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
       </Routes>

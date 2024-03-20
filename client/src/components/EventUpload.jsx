@@ -1,49 +1,59 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import {
+  setEventName,
+  setEventDate,
+  setEventDescription,
+  setEventImage,
+  setEventId,
+} from '../store/actions/eventAction';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Breadcrumb from '../common/Breadcrumb';
 import axios from 'axios';
 
-const EventUpload = () => {
-  const [eventName, setEventName] = useState('');
-  const [eventDate, setEventDate] = useState(new Date());
-  const [eventDescription, setEventDescription] = useState('');
-  const [eventImage, setEventImage] = useState(null);
-  const [eventId, setEventId] = useState('');
+const EventUpload = ({
+  eventName,
+  eventDate,
+  eventDescription,
+  eventImage,
+  eventId,
+  setEventName,
+  setEventDate,
+  setEventDescription,
+  setEventImage,
+  setEventId,
+}) => {
+  const [successMessage, setSuccessMessage] = useState('');
+  const [uploadInfo, setUploadInfo] = useState(null);
 
-
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
-    const formData = new FormData();
-    formData.append('eventName', eventName);
-    formData.append('eventDate', eventDate.toISOString());
-    formData.append('eventDescription', eventDescription);
-    formData.append('eventImage', eventImage);
-    formData.append('eventId', eventId);
 
-  
+    // Make an HTTP request to upload the event data
     try {
-      const response = await fetch('http://localhost:5000/api/events/upload', { // Change the URL
-        method: 'POST',
-        body: formData,
+      const response = await axios.post('http://localhost:5000/api/events/upload', {
+        eventName,
+        eventDate,
+        eventDescription,
+        eventImage,
+        eventId
       });
-  
-      if (response.ok) {
-        console.log('Event uploaded successfully');
-      } else {
-        console.error('Failed to upload event');
-      }
+
+      // Log the upload information if the upload is successful
+      console.log('Event uploaded successfully:', response.data);
+      // setUploadInfo(response.data);
+
+      // Display success message
+      setSuccessMessage('Event uploaded successfully');
     } catch (error) {
       console.error('Error uploading event:', error);
     }
   };
-  
 
   return (
     <div>
       <div className='mx-auto py-8 mt-16 flex justify-center items-center border border-gray-300 w-1/2 rounded rounded-3xl '>
-        <form onSubmit={handleSubmit} className='w-full max-w-lg'>
+        <form onSubmit={handleFormSubmit} className='w-full max-w-lg'>
           <div className='flex flex-col space-y-4'>
             <div>
               <label htmlFor='eventName' className='block font-semibold'>Event Name</label>
@@ -90,8 +100,30 @@ const EventUpload = () => {
           </div>
         </form>
       </div>
+      {uploadInfo && <pre>{JSON.stringify(uploadInfo, null, 2)}</pre>}
+      {successMessage && <p className="text-green-500">{successMessage}</p>}
     </div>
   );
 };
 
-export default EventUpload;
+const mapStateToProps = (state) => ({
+  eventName: state.event.eventName,
+  eventDate: state.event.eventDate,
+  eventDescription: state.event.eventDescription,
+  eventImage: state.event.eventImage,
+  eventId: state.event.eventId,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setEventName: (name) => dispatch(setEventName(name)),
+  setEventDate: (date) => dispatch(setEventDate(date)),
+  setEventDescription: (description) => dispatch(setEventDescription(description)),
+  setEventImage: (image) => dispatch(setEventImage(image)),
+  setEventId: (id) => dispatch(setEventId(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventUpload);
+
+
+
+

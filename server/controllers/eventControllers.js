@@ -1,26 +1,24 @@
 const fs = require('fs');
 const path = require('path');
-const Event = require('../models/event'); // Assuming your model is correctly exported from its file
+const Event = require('../models/event');
 
 exports.uploadEvent = async (req, res) => {
   try {
-    const { eventName, eventDate, eventDescription,eventId } = req.body;
-    const eventImage = req.file ? req.file.originalname : null;
+    const { eventName, eventDate, eventDescription, eventId } = req.body;
+    const eventImage = req.file ? req.file.path : null; // Get image path from req.file
 
-    // Create the event using Sequelize's create method
+    // Create event in database with image path
     const newEvent = await Event.create({
       eventName,
       eventDate,
       eventDescription,
-      eventImage, // Use the value from req.file.originalname
-      eventId,
+      eventImage,
+      eventId
     });
 
-    // Respond with success message and created event
     res.status(201).json({ message: 'Event uploaded successfully', event: newEvent });
   } catch (error) {
     console.error('Error uploading event:', error);
     res.status(500).json({ error: 'An error occurred while uploading the event' });
   }
 };
-

@@ -3,24 +3,25 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ChurchPage from './pages/ChurchPage'; 
 import SundaySchool from './pages/SundaySchool'; 
 import LandingPage from './pages/LandingPage'; 
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Forgot from './pages/Forgot'
-import Notify from './pages/Notify';
-import Header from './components/Header'
-import Breadcrumb from './components/Breadcrumb';
-import Footer from './components/Footer'
+import Login from './Auth/Login'
+import Register from './Auth/Register'
+import Event from './pages/Event'
+import Forgot from './Auth/Forgot'
+import Header from './common/Header'
+import Footer from './common/Footer'
+import FeedbackPage from './pages/FeedbackPage';
+import AbnetPage from './pages/AbnetPage';
 import Upload from './components/EventUpload';
-// import EventUpload from './admin/EventUploadPage'
-import Admin from './admin/Admin';
+import Donation from './pages/Donation';
+import MemberRegisterationPage from './pages/MemberRegisterationPage';
+import Notify from './pages/Notify';
 
 
 
 function App() {
   return (
     <Router>
-      {/* <Header/> */}
-      {/* <Breadcrumb/> */}
+      <Header/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -29,9 +30,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/admin/*" element={<Admin />} />
-
       </Routes>
       {/* <Footer/> */}
     </Router>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../Images/logo.png";
+import Logo from "../assets/Images/logo.png";
 import { Link } from 'react-router-dom';
 
 
@@ -73,7 +73,11 @@ const Header = () => {
         <div className="flex py-3 font-bold border-b border-gray-300">
           <div className="w-5/6 flex items-center">
             <div className="w-1/6 flex"><a href="/" className="cursor-pointer">ዋና ገጽ</a></div>
-            <div className="w-1/6 flex items-center">
+          
+            <div className="w-1/6"><a href="/event" className="cursor-pointer">መርሃግብራት</a></div>
+            <div className="w-1/6"><a href="/church" className="cursor-pointer">ስለ ደብሩ</a></div>
+            <div className="w-1/6"><a href="/contact" className="cursor-pointer">አግኙን</a></div>
+              <div className="w-1/6 flex items-center">
               <div className="mr-1 cursor-pointer">ለሎች ገጾች</div>
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
@@ -82,9 +86,6 @@ const Header = () => {
 
               </div>
             </div>
-            <div className="w-1/6"><a href="/event" className="cursor-pointer">መርሃግብራት</a></div>
-            <div className="w-1/6"><a href="/church" className="cursor-pointer">ስለ ደብሩ</a></div>
-            <div className="w-1/6"><a href="/contact" className="cursor-pointer">አግኙን</a></div>
             <div className="w-1/6 flex items-center">
               <div className="mr-1 cursor-pointer">ቋንቋ</div>
               <div>

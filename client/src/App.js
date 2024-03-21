@@ -13,7 +13,6 @@ import Footer from './components/Footer'
 import Upload from './components/EventUpload';
 // import EventUpload from './admin/EventUploadPage'
 import Admin from './admin/Admin';
-import Team from './admin/scenes/team'
 
 
 

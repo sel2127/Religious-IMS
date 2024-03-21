@@ -15,6 +15,7 @@ import Upload from './components/EventUpload';
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
+import EventUpload from './components/EventUpload';
 
 
 
@@ -30,6 +31,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
+        <Route path="/upload" element={<EventUpload />} />
+
       </Routes>
       {/* <Footer/> */}
     </Router>

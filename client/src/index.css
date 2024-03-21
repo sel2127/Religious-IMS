@@ -2,12 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap')
-=======
-
-*{
-    scroll-behavior: smooth;
-
-}
->>>>>>> e71a3df7287c68ab926aeddb8982214238355042

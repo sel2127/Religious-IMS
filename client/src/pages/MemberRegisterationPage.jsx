@@ -1,5 +1,5 @@
 import FormComponent from "../components/FormComponent";
-import side_image from '../Images/formone.jpg';
+import side_image from '../assets/Images/formone.jpg';
 
 function MemberRegisterationPage() {
     return (

@@ -1,6 +1,6 @@
 import React from 'react'
-import '../styles/main.css';
-import Breadcrumb from '../components/Breadcrumb';
+// import '../styles/main.css';
+import Breadcrumb from '../common/Breadcrumb';
 
 
 const Login = () => {
@@ -34,3 +34,4 @@ const Login = () => {
 }
 
 export default Login
+

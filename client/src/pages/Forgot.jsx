@@ -1,6 +1,6 @@
 import React from 'react'
-import '../styles/main.css';
-import Breadcrumb from '../components/Breadcrumb';
+// import '../styles/main.css';
+import Breadcrumb from '../common/Breadcrumb';
 
 const Forgot = () => {
   return (
@@ -25,3 +25,4 @@ const Forgot = () => {
 }
 
 export default Forgot
+

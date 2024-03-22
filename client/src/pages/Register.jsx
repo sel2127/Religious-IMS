@@ -1,6 +1,6 @@
 import React from 'react'
-import '../styles/main.css';
-import Breadcrumb from '../components/Breadcrumb';
+// import '../styles/main.css';
+import Breadcrumb from '../common/Breadcrumb';
 
 const Register = () => {
   return (
@@ -28,3 +28,4 @@ const Register = () => {
 }
 
 export default Register
+

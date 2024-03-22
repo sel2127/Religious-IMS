@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import profileData from "../components/profileData"; // Assuming profile data is stored in a file called profileData.js
 
 const ProfilePage = () => {
-  const [isEditingProfile, setIsEditingProfile] = useState(false);
-  const [isChangingPassword, setIsChangingPassword] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+    const [isEditingProfile, setIsEditingProfile] = useState(false);
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [isPasswordValid, setIsPasswordValid] = useState(true);
+    const [showFileInput, setShowFileInput] = useState(false);
 
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
 const validatePassword = () => {
   const newPassword = document.getElementById('newPassword').value;
@@ -35,7 +36,7 @@ const handleSubmitPasswordChange = (e) => {
 
   const handleChangePasswordClick = () => {
     setIsChangingPassword(true);
-    setIsEditingProfile(false); 
+    setIsEditingProfile(false);
   };
 
   const handleFileChange = (e) => {
@@ -47,15 +48,28 @@ const handleSubmitPasswordChange = (e) => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
+  const handleProfilePictureClick = () => {
+    setShowFileInput(true); 
+  };
+
   return (
     <div className="w-full m-auto">
       <div className="bg-gray-100 shadow-lg rounded-lg p-4">
         <div className="flex justify-center">
-          <img
-            className="h-32 w-32 rounded-full"
+        <img
+            className="h-32 w-32 rounded-full cursor-pointer" // Add cursor pointer for hover effect
             src={imagePreview ? imagePreview : profileData.image}
             alt="Profile"
+            onClick={handleProfilePictureClick} // Handle click on profile picture
           />
+          {showFileInput && ( // Conditionally render file input
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden ml-4 mt-2" // Initially hidden, becomes visible on click
+            />
+          )}
         </div>
         <div className="text-center ml-4">
           <p className="text-lg font-semibold">{profileData.username}</p>

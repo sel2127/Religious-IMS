@@ -6,14 +6,12 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Forgot from './pages/Forgot'
-import Notify from './pages/Notify';
 import Header from './components/Header'
-import Breadcrumb from './components/Breadcrumb';
-import Footer from './components/Footer'
-import EventUpload from './admin/EventUploadPage'
-import AbnetPage from './pages/AbnetPage';
+import Breadcrumb from './common/Breadcrumb';
+import Footer from './common/Footer'
 import FeedbackPage from './pages/FeedbackPage';
-import ProfilePage from './pages/ProfilePage';
+import AbnetPage from './pages/AbnetPage';
+import FeedbackForm from './components/FeedbackForm';
 
 
 
@@ -21,7 +19,6 @@ function App() {
   return (
     <Router>
       <Header/>
-      <Breadcrumb/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -29,11 +26,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
-        <Route path="/notify" element={<Notify />} />
-        <Route path="/eventupload" element={<EventUpload />} />
-        <Route path="/feedback" element={<FeedbackPage />} />
-        <Route path="/abnet" element={<AbnetPage />} />
-      <Route path='/profile' element={<ProfilePage/>} />
+        <Route path='/feedback' element={<FeedbackPage/>}/>
+        <Route path='/abnet' element={<AbnetPage/>}/>
+        <Route path='/feedbackform' element={<FeedbackForm/>}/>
 
 
       </Routes>

@@ -1,5 +1,5 @@
 import React from 'react'
-import BreadcrumbImage from '../Images/breadcrumb.jpg'
+import BreadcrumbImage from '../assets/Images/breadcrumb.jpg'
 
 const Breadcrumb = () => {
   return (

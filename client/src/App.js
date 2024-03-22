@@ -12,6 +12,9 @@ import Footer from './common/Footer'
 import FeedbackPage from './pages/FeedbackPage';
 import AbnetPage from './pages/AbnetPage';
 import FeedbackForm from './components/FeedbackForm';
+import ProfilePage from './pages/ProfilePage';
+import EditProfile from './components/profile/EditProfile';
+import ChangePassowrd from './components/profile/ChangePassword';
 
 
 
@@ -29,6 +32,10 @@ function App() {
         <Route path='/feedback' element={<FeedbackPage/>}/>
         <Route path='/abnet' element={<AbnetPage/>}/>
         <Route path='/feedbackform' element={<FeedbackForm/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/editprofile' element={<EditProfile/>}/>
+        <Route path='/changepassword' element={<ChangePassowrd/>}/>
+
 
 
       </Routes>

@@ -1,222 +1,68 @@
-import React, { useState } from "react";
-import profileData from "../components/profileData"; // Assuming profile data is stored in a file called profileData.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import profileData from '../components/profileData';
+import { setImagePreview } from '../store/actions/imageAction';
+import aba from "../assets/Images/aba.jpg";
 
 const ProfilePage = () => {
-    const [isEditingProfile, setIsEditingProfile] = useState(false);
-    const [isChangingPassword, setIsChangingPassword] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [imagePreview, setImagePreview] = useState(null);
-    const [isPasswordValid, setIsPasswordValid] = useState(true);
-    const [showFileInput, setShowFileInput] = useState(false);
-
-
-const validatePassword = () => {
-  const newPassword = document.getElementById('newPassword').value;
-  const confirmNewPassword = document.getElementById('confirmNewPassword').value;
-
-  if (newPassword !== confirmNewPassword) {
-    setIsPasswordValid(false);
-    document.getElementById('passwordError').innerText = "Passwords do not match";
-  } else {
-    setIsPasswordValid(true);
-    document.getElementById('passwordError').innerText = "";
-  }
-};
-
-const handleSubmitPasswordChange = (e) => {
-  e.preventDefault();
-
-  // Add your logic for submitting the password change if validation is successful
-};
-
-  const handleEditProfileClick = () => {
-    setIsEditingProfile(true);
-    setIsChangingPassword(false); 
-  };
-
-  const handleChangePasswordClick = () => {
-    setIsChangingPassword(true);
-    setIsEditingProfile(false);
-  };
+  const imagePreview = useSelector((state) => state.image.imagePreview);
+  const dispatch = useDispatch();
 
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    const file = e.target.files[0];
     const reader = new FileReader();
+    
     reader.onload = () => {
-      setImagePreview(reader.result);
+      dispatch(setImagePreview(reader.result));
     };
-    reader.readAsDataURL(e.target.files[0]);
-  };
-
-  const handleProfilePictureClick = () => {
-    setShowFileInput(true); 
+    
+    reader.readAsDataURL(file);
   };
 
   return (
-    <div className="w-full m-auto">
-      <div className="bg-gray-100 shadow-lg rounded-lg p-4">
-        <div className="flex justify-center">
-        <img
-            className="h-32 w-32 rounded-full cursor-pointer" // Add cursor pointer for hover effect
-            src={imagePreview ? imagePreview : profileData.image}
-            alt="Profile"
-            onClick={handleProfilePictureClick} // Handle click on profile picture
-          />
-          {showFileInput && ( // Conditionally render file input
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="hidden ml-4 mt-2" // Initially hidden, becomes visible on click
+    <div className="w-full h-screen flex justify-center items-center">
+      <div className="w-full max-w-md bg-gray-300 text-black rounded-xl p-4">
+        <div className="rounded-t-xl flex justify-center items-center">
+          <label htmlFor="fileInput">
+            <img
+              src={imagePreview ? imagePreview : aba}
+              alt="profile"
+              className="h-32 w-32 rounded-full mt-5 ml-1 cursor-pointer"
             />
-          )}
+          </label>
+          <input
+            id="fileInput"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+          />
         </div>
-        <div className="text-center ml-4">
-          <p className="text-lg font-semibold">{profileData.username}</p>
-          <p className="text-lg font-semibold">Phone: {profileData.phone}</p>
-          <p className="text-sm text-gray-500">{profileData.email}</p>
-        </div>
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={handleEditProfileClick}
-            className="bg-blue-500 text-white px-2 py-2 rounded mr-4"
-          >
-            Edit Profile
-          </button>
-          <button
-            onClick={handleChangePasswordClick}
-            className="bg-blue-500 text-white px-2 py-2 rounded mr-4"
-          >
-            Change Password
-          </button>
+        <div className="flex flex-col justify-center items-center gap-4 p-4">
+          <p className="font-bold text-5xl text-blue-500">
+            {profileData.username}
+          </p>
+          <p>{profileData.email}</p>
+          <div className="mt-10">
+            <p>Your phone: {profileData.phone}</p>
+          </div>
+          <div className='flex justify-center items-center'>
+            <Link to="/editprofile">
+              <button className="ml-10 text-white bg-blue-500 text-lg px-6 py-1 rounded-xl">
+                Edit Profile
+              </button>
+            </Link>
+            <Link to="/changepassword">
+              <button className="ml-10 text-white bg-blue-500 text-lg px-6 py-1 rounded-xl">
+                Edit Password
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-      {isEditingProfile && (
-        <div className="text-center bg-gray-100 shadow-lg rounded-lg p-4 mt-4">
-          <form>
-          <input
-   type="file"
-   accept="image/*"
-   onChange={handleFileChange}
-   className="w-1/2 p-2 mb-2 border rounded"
-/>
-            <br />
-            <input
-  type="text"
-  defaultValue={profileData.username}
-  placeholder="Enter new username"
-  className="w-1/2 p-2 mb-2 border rounded"
-  onInput={(e) => {
-    if (e.target.value.length < 3) {
-      e.target.setCustomValidity("Username must be at least 3 characters long");
-    } else {
-      e.target.setCustomValidity("");
-    }
-  }}
-/>
-            <br />
-            <input
-  type="number"
-  name="phone"
-  defaultValue={profileData.phone}
-  className="w-1/2 p-2 mb-2 border rounded"
-  placeholder="Phone"
-  minLength={10}
-  maxLength={10}
-  required
-  onInput={(e) => {
-    if (e.target.value.length !== 10) {
-      e.target.setCustomValidity("Phone number must be exactly 10 digits");
-    } else {
-      e.target.setCustomValidity("");
-    }
-  }}
-/>
-            <br />
-            <input
-  type="email"
-  name="email"
-  defaultValue={profileData.email}
-  className="w-1/2 p-2 mb-2 border rounded"
-  placeholder="Email"
-  onInput={(e) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!e.target.value.match(emailRegex)) {
-      e.target.setCustomValidity("Please enter a valid email address");
-    } else {
-      e.target.setCustomValidity("");
-    }
-  }}
-/>
-            <br />
-            
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
-            >
-              Save Changes
-            </button>
-            <button
-                className="bg-red-500 text-white px-4 py-2 rounded"
-                onClick={() => window.history.back()}
-              >
-                Cancel
-              </button>
-          </form>
-        </div>
-      )}
-     {isChangingPassword && (
-  <div className="text-center bg-gray-100 shadow-lg rounded-lg p-4 mt-4">
-    <form onSubmit={handleSubmitPasswordChange}>
-      <input
-        type="password"
-        placeholder="Current Password"
-        className="w-1/2 p-2 mb-2 border rounded"
-        required
-      />
-      <br />
-      <input
-        type="password"
-        placeholder="New Password"
-        className="w-1/2 p-2 mb-2 border rounded"
-        id="newPassword"
-        required
-        minLength={6} // Example: Minimum 6 characters for new password
-        onChange={validatePassword}
-      />
-      <br />
-      <input
-        type="password"
-        placeholder="Confirm New Password"
-        className="w-1/2 p-2 mb-2 border rounded"
-        id="confirmNewPassword"
-        required
-        onChange={validatePassword}
-      />
-      <br />
-      <span id="passwordError" className="text-red-500"></span>
-      <br />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
-        disabled={isPasswordValid ? false : true}
-        onSubmit={handleSubmitPasswordChange}
-      >
-        Confirm
-      </button>
-      <button
-        className="bg-red-500 text-white px-4 py-2 rounded"
-        onClick={() => window.history.back()}
-      >
-        Cancel
-      </button>
-    </form>
-  </div>
-)}
     </div>
   );
-};
+}
 
-
-
-export default ProfilePage
+export default ProfilePage;

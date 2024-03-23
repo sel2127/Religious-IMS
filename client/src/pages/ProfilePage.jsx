@@ -1,10 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import profileData from "../components/profileData";
 import { setImagePreview } from "../store/actions/imageAction";
 import aba from "../assets/Images/aba.jpg";
 import Breadcrumb from "../common/Breadcrumb";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
@@ -23,57 +23,52 @@ const ProfilePage = () => {
 
   return (
     <div>
-       <Breadcrumb/>
-   
-    
-    <div className="w-full  m-auto flex justify-center items-center rounded-xl p-4">
-     
-      <div className="w-1/3 h-screen  overflow-hidden shadow rounded-lg border-4 flex flex-col  ">
-        <div className="w-full max-w-md  text-black rounded-xl p-4">
-          <div className="rounded-t-xl flex justify-center items-center">
-            <label htmlFor="fileInput">
-              <img
-                src={imagePreview ? imagePreview : aba}
-                alt="profile"
-                className="h-44 w-44 rounded-full mt-10 m-auto cursor-pointer"
+      <Breadcrumb />
+
+      <div className="w-full  m-auto flex flex-col md:flex-row justify-center items-center rounded-xl p-4">
+        <div className="w-full md:w-1/2 h-auto md:h-full overflow-hidden shadow rounded-lg border-4 flex flex-col md:mr-4">
+          <div className="w-full max-w-md text-black rounded-xl p-4">
+            <div className="rounded-t-xl flex justify-center items-center">
+              <label htmlFor="fileInput">
+                <img
+                  src={imagePreview ? imagePreview : aba}
+                  alt="profile"
+                  className="h-44 w-44 rounded-full mt-10 m-auto cursor-pointer"
+                />
+              </label>
+              <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: "none" }}
               />
-            </label>
-            <input
-              id="fileInput"
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-          </div>
-          <div className="flex flex-col justify-center items-center gap-4 p-4">
-            <p className="font-bold text-5xl text-blue-500">
-              {profileData.username}
-            </p>
-            <p>{profileData.email}</p>
-            <div className="mt-10">
-              <p>Your phone: {profileData.phone}</p>
             </div>
-            <div className="flex justify-center items-center">
-             
-              <Link to="/changepassword">
-                <button className=" text-white bg-blue-500 text-lg px-6 py-1 rounded-xl">
-                  Edit Password
-                </button>
-              </Link>
-              
+            <div className="flex flex-col justify-center items-center gap-4 p-4">
+              <p className="font-bold text-5xl text-blue-500">
+                {profileData.username}
+              </p>
+              <p>{profileData.email}</p>
+              <div className="mt-10">
+                <p>Your phone: {profileData.phone}</p>
+              </div>
+              <div className="flex justify-center items-center">
+                <Link to="/changepassword">
+                  <button className="text-white bg-blue-500 text-lg px-6 py-1 rounded-xl">
+                    Edit Password
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="   flex flex-col items-center justify-between">
-        <div className="h-screen  overflow-hidden shadow rounded-lg border-4">
-          <div className=" mt-10 px-4 py-5 sm:px-6">
+        <div className="w-full md:w-1/2 h-auto h-auto md:h-full overflow-hidden shadow rounded-lg border-4 mt-4 md:mt-0">
+          <div className="mt-10 px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               User Profile
             </h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">
-              This is some information about  your.
+              This is some information about your.
             </p>
           </div>
           <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -106,24 +101,21 @@ const ProfilePage = () => {
               </div>
             </dl>
           </div>
-
           <div className="flex mt-10 justify-center items-center">
-              <Link to="/editprofile">
-                <button className="ml-10 text-white bg-blue-500 text-lg px-6 py-1 rounded-xl">
-                  Edit Profile
-                </button>
-              </Link>
-              <Link to="/logout">
-                <button  className="ml-10 text-white bg-red-300 text-lg px-6 py-1 rounded-xl">
+            <Link to="/editprofile">
+              <button className="ml-10 text-white bg-blue-500 text-lg px-6 py-1 rounded-xl">
+                Edit Profile
+              </button>
+            </Link>
+            <Link to="/logout">
+              <button className="ml-10 text-white bg-red-300 text-lg px-6 py-1 rounded-xl">
                 Logout
-                </button>
-              </Link>
-              
-            </div>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
-     </div>
   );
 };
 

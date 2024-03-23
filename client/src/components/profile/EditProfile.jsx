@@ -3,14 +3,14 @@ import profileData from "../profileData";
 import Breadcrumb from "../../common/Breadcrumb";
 const EditProfile = () => {
   return (
-    <div className="w-full m-auto">
+    <div className="">
       <Breadcrumb/>
-      <div className="flex justify-center items-center">
-    <h1 className="text-center bg-white font-bold text-3xl custom-font">Edit your profile here</h1>
-</div>
-      <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600">
-        <div className="flex flex-col items-center justify-center px-20 py-10"></div>
-        <form className=" flex flex-col space-y-4   ">
+      <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit  Your profile here</h1>
+
+      <div className="mx-auto border border-gray-300 w-full mt-10 rounded rounded-3xl text-gray-600">
+        <div className="bg-white shadow rounded-lg p-4 md:p-6">
+        <form className="space-y-4  flex flex-col  text-center w-full md:w-3/4">
+
           <input
             type="text"
             id="name"
@@ -90,6 +90,8 @@ const EditProfile = () => {
             </button>
           </div>
         </form>
+        </div>
+
       </div>
     </div>
   );

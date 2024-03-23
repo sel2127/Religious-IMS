@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Breadcrumb from "../../common/Breadcrumb";
 
 function ChangePassowrd() {
   const [passwordError, setPasswordError] = useState("");
@@ -19,6 +20,10 @@ function ChangePassowrd() {
 
   return (
     <div className="w-full m-auto">
+      <Breadcrumb/>
+      <div className="flex justify-center items-center">
+    <h1 className="text-center bg-white font-bold text-3xl custom-font">Change your password here</h1>
+</div>
       <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600">
         <div className="flex flex-col items-center justify-center px-20 py-10"></div>
         <form className="flex flex-col space-y-4">

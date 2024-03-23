@@ -2,7 +2,7 @@ const profileData = {
     username: "john_doe",
     email: "john@example.com",
     password: "********", 
-    image: '/feedback/mast.jpg', 
+    image: '../assets/Images/aba.jpg', 
   phone:"0987654321"
   };
   

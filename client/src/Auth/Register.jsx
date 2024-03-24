@@ -1,6 +1,9 @@
-import React from 'react'
+import React , { useState } from 'react'
 import '../assets/styles/main.css';
-import Breadcrumb from '../common/Breadcrumb';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Register = () => {
 
@@ -8,6 +11,25 @@ const Register = () => {
   const [lastnameReg, setLastnameReg] =useState("");
   const [emailReg, setEmailReg] =useState("");
   const [passwordReg, setPasswordReg] =useState("");
+
+  const navigate = useNavigate();
+
+
+  const registration = () => {
+    axios.post("http://localhost:5000/api/register", 
+    {firstname:firstnameReg ,lastname : lastnameReg , email : emailReg , password:passwordReg}).then((response)=>{console.log(response);
+    }).then((response) => {
+      console.log(response);
+      navigate('/login'); // Redirect to the login page
+    })
+    .catch((error) => {
+      console.error(error);
+      // Handle the registration error if needed
+    });
+  };
+
+
+
   return (
     <div>
 
@@ -26,7 +48,7 @@ const Register = () => {
         <div className='mr-auto underline decoration-dotted mt-4 cursor-pointer hover:text-[#79a6d2]'>
             <a href="/login">አካውንት አለዎት?</a></div>            
         <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-                <button className="w-full mx-auto text-base font-bold text-white">
+                <button onClick={registration} className="w-full mx-auto text-base font-bold text-white">
                   ተመዝገብ
                 </button>
               </div>

@@ -69,16 +69,26 @@ app.post('/api/register', async (req, res) => {
         if (!isPasswordMatch) {
           return res.status(400).json({ message: "Invalid Credentials"});
         }
+
+        // Generate a JWT token with the user's ID and role
+  // const token = jwt.sign({ userId: user.id, role: user.role }, 'your_secret_key');
+
+
         const token = jwt.sign({userId : User.id} ,"6617171" ,{
           expiresIn:"1h"
         });
         res.json({ token });
+        
+  // Set the token as an HTTP-only cookie
+  res.cookie('token', token, { httpOnly: true }).json({ message: 'Login successful' });
       }
       catch (error){
         console.error ("Error logging in:" , error);
         res.status(500).json({ message: "Server Error"});
       }
     });
+
+    
 
     //Middleware to verify the JWT token 
     function verifyToken(req,res,next){

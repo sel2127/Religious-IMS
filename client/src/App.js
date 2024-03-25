@@ -18,6 +18,8 @@ import Header from './common/Header';
 import DonationCause from './pages/DonationCause';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
+import EventUpload from './components/EventUpload';
+
 
 
 function App() {
@@ -38,8 +40,10 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
+        <Route path="/upload" element={<EventUpload />} />
+
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </Router>
   );
 }

@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const multer  = require('multer');
 const eventRoutes = require('./routes/eventRoutes');
+const { Chapa } = require('chapa');
+
 
 const app = express();
 

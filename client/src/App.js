@@ -14,12 +14,13 @@ import Upload from './components/EventUpload';
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
-
 import Header from './common/Header';
 import Breadcrumb from './common/Breadcrumb';
 import DonationCause from './pages/DonationCause';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
+import Admin from './admin/Admin';
+
 
 
 function App() {
@@ -38,9 +39,10 @@ function App() {
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<MemberRegisterationPage />} />
         <Route path="/abnet" element={<AbnetPage />} />
-        
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
+        <Route path="/admin/*" element={<Admin />} />
+
        
 
 

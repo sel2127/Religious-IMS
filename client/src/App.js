@@ -15,9 +15,11 @@ import Admin from './admin/Admin';
 
 
 function App() {
+  const isPathInAdmin = window.location.pathname.startsWith('/admin');
+
   return (
     <Router>
-      {/* <Header/> */}
+      {!isPathInAdmin && <Header />}
       {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -30,7 +32,7 @@ function App() {
         <Route path="/admin/*" element={<Admin />} />
 
       </Routes>
-      {/* <Footer/> */}
+      {!isPathInAdmin && <Footer />}
     </Router>
   );
 }

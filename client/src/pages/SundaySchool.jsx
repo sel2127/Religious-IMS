@@ -12,6 +12,8 @@ const SundaySchool = () => {
         <div className=''>
                  <Breadcrumb/>
 
+                 <Breadcrumb/>
+
             <div className='text-3xl text-center font-bold mb-4 text-dark-blue'>
                 <h2>የባህረጥበብ ሰንበት ትምህርት አመሰራረት</h2>
 

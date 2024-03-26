@@ -6,16 +6,17 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Forgot from './pages/Forgot'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Header from './common/Header'
+import Footer from './common/Footer'
 import Admin from './admin/Admin';
 import Notify from './pages/Notify';
 
 
 function App() {
+  const isPathInAdmin = window.location.pathname.startsWith('/admin');
   return (
     <Router>
-      <Header/>
+      {!isPathInAdmin && <Header />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -27,7 +28,7 @@ function App() {
         <Route path="/admin/*" element={<Admin />} />
 
       </Routes>
-      <Footer/>
+      {!isPathInAdmin && <Footer />}
     </Router>
   );
 }

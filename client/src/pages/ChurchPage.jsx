@@ -12,11 +12,14 @@ import Breadcrumb from '../common/Breadcrumb';
 
 
 
+
 function ChurchPage() {
   return (
 
     <div className=''>
       {/* <Breadcrumb/> */}
+
+      <Breadcrumb/>
 
 
       <div className='text-5xl text-center font-bold mb-4'>
@@ -150,6 +153,7 @@ function ChurchPage() {
            </div>
           </div>
           <div className='lg:w-1/2'>
+            {/* <Map /> */}
             {/* <Map /> */}
           </div>
         </div>

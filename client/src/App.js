@@ -17,14 +17,18 @@ import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
 import EventUpload from './components/EventUpload';
 import Admin from './admin/Admin'
+import "./assets/styles/main.css";
 
 
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
+  const shouldApplyPadding = !isPathInAdmin;
 
   return (
     <Router>
+      <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
+
       {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -38,6 +42,8 @@ function App() {
 
       </Routes>
       {!isPathInAdmin && <Footer />}
+
+      </div>
     </Router>
   );
 }

@@ -36,6 +36,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
+
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

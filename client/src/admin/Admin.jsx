@@ -15,7 +15,7 @@ import Bar from "./scenes/bar";
 import Line from "./scenes/line";
 import Pie from "./scenes/pie";
 import EventUpload from "./scenes/eventUpload"
-// import FAQ from "./scenes/faq";
+import FAQ from "./scenes/faq";
 
 
 function Admin() {
@@ -40,7 +40,7 @@ function Admin() {
           <Route path="pie" element={<Pie />} />
           <Route path="line" element={<Line />} />
           <Route path="event" element={<EventUpload />} />
-          {/* <Route path="/admin/faq" element={<FAQ />} /> */}
+          <Route path="faq" element={<FAQ />} />
         </Routes>
       </main>   
     </div>

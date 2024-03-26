@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../assets/Images/logo.png";
 import { Link } from 'react-router-dom';
-
+import '../styles/header.css'
 
 
 const Header = () => {
@@ -78,11 +78,20 @@ const Header = () => {
             <div className="w-1/6"><a href="/church" className="cursor-pointer">ስለ ደብሩ</a></div>
             <div className="w-1/6"><a href="/contact" className="cursor-pointer">አግኙን</a></div>
               <div className="w-1/6 flex items-center">
-              <div className="mr-1 cursor-pointer">ለሎች ገጾች</div>
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
+
+              <div class="dropdown flex items-center">
+  <button class="dropbtn mr-2">ሌሎች ገጾች</button>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                 </svg>
+  <div class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div>
+              <div>
+                
 
               </div>
             </div>

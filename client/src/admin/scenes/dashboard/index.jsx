@@ -143,7 +143,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Daonations Received
+                Donations Received
               </Typography>
               <Typography
                 variant="h3"
@@ -224,7 +224,7 @@ const Dashboard = () => {
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Members
           </Typography>
           <Box
             display="flex"

@@ -24,7 +24,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
   return (
     <MenuItem
-      active={(selected = title)}
+      active={selected === title}
       style={{
         color: colors.grey[100],
       }}

@@ -16,13 +16,16 @@ import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
 import EventUpload from './components/EventUpload';
-
+import Admin from './admin/Admin'
 
 
 function App() {
+  const isPathInAdmin = window.location.pathname.startsWith('/admin');
+
   return (
     <Router>
-      <Header/>
+      {!isPathInAdmin && <Header />}
+      {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -31,10 +34,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
-        <Route path="/upload" element={<EventUpload />} />
+        <Route path="/admin/*" element={<Admin />} />
 
       </Routes>
-      {/* <Footer/> */}
+      {!isPathInAdmin && <Footer />}
     </Router>
   );
 }

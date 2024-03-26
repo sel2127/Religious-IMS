@@ -3,12 +3,9 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
 import { mockBarData as data } from "../data/mockData";
 
-
-const BarChart = () => {
-
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-
+const BarChart = ({ isDashboard = false }) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   return (
     <ResponsiveBar
@@ -128,6 +125,6 @@ const BarChart = () => {
       }}
     />
   );
-}
+};
 
-export default BarChart
+export default BarChart;

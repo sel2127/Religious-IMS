@@ -10,14 +10,18 @@ import Header from './common/Header'
 import Footer from './common/Footer'
 import Admin from './admin/Admin';
 import Notify from './pages/Notify';
+import "./assets/styles/main.css";
 
 
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
+  const shouldApplyPadding = !isPathInAdmin;
 
   return (
     <Router>
+      <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
+
       {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -31,6 +35,8 @@ function App() {
 
       </Routes>
       {!isPathInAdmin && <Footer />}
+
+      </div>
     </Router>
   );
 }

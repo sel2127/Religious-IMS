@@ -14,9 +14,11 @@ import Notify from './pages/Notify';
 
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
+
   return (
     <Router>
       {!isPathInAdmin && <Header />}
+      {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />

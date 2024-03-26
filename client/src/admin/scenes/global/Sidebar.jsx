@@ -16,6 +16,7 @@ import PieChartOutlinedIcon from "@mui/icons-material/PieChartOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -23,7 +24,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
   return (
     <MenuItem
-      active={(selected = title)}
+      active={selected === title}
       style={{
         color: colors.grey[100],
       }}
@@ -159,6 +160,15 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
+<Item
+              title="Calendar"
+              to="/admin/calendar"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            
+
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -183,16 +193,17 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
+            
             <Item
-              title="Calendar"
-              to="/admin/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              title="Chat"
+              to="/admin/chat"
+              icon={<SendOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
             <Item
-              title="FAQ page"
+              title="FAQ"
               to="/admin/faq"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}

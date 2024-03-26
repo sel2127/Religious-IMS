@@ -7,16 +7,9 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Forgot from './pages/Forgot'
 import Header from './components/Header'
-import Breadcrumb from './common/Breadcrumb';
-import Footer from './common/Footer'
-import FeedbackPage from './pages/FeedbackPage';
-import AbnetPage from './pages/AbnetPage';
-import Upload from './components/EventUpload';
-import Donation from './pages/Donation';
-import MemberRegisterationPage from './pages/MemberRegisterationPage';
+import Footer from './components/Footer'
+import Admin from './admin/Admin';
 import Notify from './pages/Notify';
-import EventUpload from './components/EventUpload';
-import Admin from './admin/Admin'
 
 
 function App() {
@@ -31,7 +24,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
-        <Route path="/upload" element={<EventUpload />} />
         <Route path="/admin/*" element={<Admin />} />
 
       </Routes>

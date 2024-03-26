@@ -11,11 +11,11 @@ import Donations from "./scenes/donation";
 import Members from "./scenes/memberInfo";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
-// import Bar from "./scenes/bar";
-// import Line from "./scenes/line";
-// import Pie from "./scenes/pie";
-// import FAQ from "./scenes/faq";
-// import Event from "./scenes/EventUpload";
+import Bar from "./scenes/bar";
+import Line from "./scenes/line";
+import Pie from "./scenes/pie";
+import EventUpload from "./scenes/eventUpload"
+import FAQ from "./scenes/faq";
 
 
 function Admin() {
@@ -36,11 +36,11 @@ function Admin() {
           <Route path="donation" element={<Donations />} />
           <Route path="form" element={<Form />} />
           <Route path="calendar" element={<Calendar />} />
-          {/* <Route path="/admin/bar" element={<Bar />} /> */}
-          {/* <Route path="/admin/pie" element={<Pie />} /> */}
-          {/* <Route path="/admin/line" element={<Line />} /> */}
-          {/* <Route path="/admin/faq" element={<FAQ />} /> */}
-          {/* <Route path="/admin/event" element={<Event />} /> */}
+          <Route path="bar" element={<Bar />} />
+          <Route path="pie" element={<Pie />} />
+          <Route path="line" element={<Line />} />
+          <Route path="event" element={<EventUpload />} />
+          <Route path="faq" element={<FAQ />} />
         </Routes>
       </main>   
     </div>

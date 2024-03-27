@@ -6,6 +6,8 @@ const sequelize = require('./db');
 const user = require('./models/user')(sequelize); //Import user model
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { getUserData } = require('./controllers/userController');
+
 
 
 const app = express();
@@ -27,12 +29,30 @@ const storage = multer.diskStorage({
 // Initialize multer with the configured storage
 const upload = multer({ storage: storage });
 // Mount the eventUploadRouter at the '/api/events' endpoint
-app.use('/api/events', eventUploadRouter);
+// app.use('/api/events', eventUploadRouter);
 
 // Test route for accessing the backend on the browser
 app.get('/', (req, res) => {
   res.send('Welcome to the backend!');
 });
+
+//Fethching user data to display
+
+app.get('/api/user', async (req, res) => {
+  try {
+    // Fetch user data
+    const userData = await getUserData();
+
+    // Send the user data as a response
+    res.json(userData);
+  } catch (error) {
+    // Handle any errors
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 //
 (async () =>{

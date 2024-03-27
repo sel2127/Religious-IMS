@@ -38,19 +38,19 @@ app.get('/', (req, res) => {
 
 //Fethching user data to display
 
-app.get('/api/user', async (req, res) => {
-  try {
-    // Fetch user data
-    const userData = await getUserData();
+// app.get('/api/user', async (req, res) => {
+//   try {
+//     // Fetch user data
+//     const userData = await getUserData();
 
-    // Send the user data as a response
-    res.json(userData);
-  } catch (error) {
-    // Handle any errors
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+//     // Send the user data as a response
+//     res.json(userData);
+//   } catch (error) {
+//     // Handle any errors
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
 
 
 
@@ -101,13 +101,16 @@ app.post('/api/register', async (req, res) => {
   // const token = jwt.sign({ userId: user.id, role: user.role }, 'your_secret_key');
 
 
-        const token = jwt.sign({userId : User.id} ,"6617171" ,{
-          expiresIn:"1h"
-        });
-        res.json({ token });
-        
+  const token = jwt.sign({ userId: User.id }, "6617171", {
+    expiresIn: "1h",
+  });
+
   // Set the token as an HTTP-only cookie
-  res.cookie('token', token, { httpOnly: true }).json({ message: 'Login successful' });
+  res.cookie("token", token, { httpOnly: true });
+
+  // Send a JSON response indicating successful login
+  res.json({ message: "Login successful" });
+
       }
       catch (error){
         console.error ("Error logging in:" , error);

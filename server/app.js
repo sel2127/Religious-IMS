@@ -2,13 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const multer  = require('multer');
 const eventRoutes = require('./routes/eventRoutes');
-const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const sequelize = require('./db');
 const user = require('./models/user')(sequelize); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const adminAuthRoutes = require('./routes/adminAuthRoutes');
 
-// Other middleware and configurations
 
 const app = express();
 

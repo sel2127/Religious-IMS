@@ -52,9 +52,12 @@ function App() {
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />
+<<<<<<< HEAD
         <Route path="/feedback" element={<FeedbackPage/>}/>
         <Route path="/admin/*" element={<Admin />} />
 
+=======
+>>>>>>> origin/changeP
 
       </Routes>
       {!isPathInAdmin && <Footer />}

@@ -43,7 +43,7 @@ function App() {
         <Route path="/upload" element={<EventUpload />} />
 
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </Router>
   );
 }

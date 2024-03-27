@@ -2,10 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const multer  = require('multer');
 const eventRoutes = require('./routes/eventRoutes');
-<<<<<<< HEAD
-const { Chapa } = require('chapa');
-
-=======
 const Sequelize = require('sequelize');
 
 // Import the eventUploadRouter
@@ -25,7 +21,6 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
->>>>>>> origin/maste
 
 const app = express();
 

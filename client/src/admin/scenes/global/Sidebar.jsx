@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Button, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -256,6 +256,12 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
+<Box display="flex" justifyContent="center" my="20px" mr="10%">
+              <Button type="submit" color="secondary" variant="contained" sx={{ width: "100%" }}>
+                Logout
+              </Button>
+            </Box>
           </Box>
         </Menu>
       </ProSidebar>

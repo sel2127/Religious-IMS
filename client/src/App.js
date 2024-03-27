@@ -50,7 +50,7 @@ function App() {
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/admin/*" element={<Admin />} />     
       </Routes>
-      <Footer/>
+      {!isPathInAdmin && <Footer />}
       </div>
     </Router>
   );

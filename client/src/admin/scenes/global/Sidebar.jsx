@@ -17,6 +17,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -114,8 +115,22 @@ const Sidebar = () => {
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   IT Admin
                 </Typography>
+                
+
               </Box>
+              <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+              <Item
+              title="Edit Profile"
+              to="/admin"
+              icon={<EditIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             </Box>
+              
+              
+            </Box>
+            
           )}
 
           {/* MENU ITEMS */}

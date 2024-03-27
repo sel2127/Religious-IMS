@@ -1,4 +1,4 @@
-import bekoji from "../Images/bekoji.jpg";
+import bekoji from "../assets/Images/bekoji.jpg";
 
 function DonationCause() {
     return (

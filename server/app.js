@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
 // Initialize multer with the configured storage
 const upload = multer({ storage: storage });
 // Mount the eventUploadRouter at the '/api/events' endpoint
-app.use('/api/events', eventUploadRouter);
+// app.use('/api/events', eventUploadRouter);
 
 // Test route for accessing the backend on the browser
 app.get('/', (req, res) => {

@@ -2,13 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const multer  = require('multer');
 const eventRoutes = require('./routes/eventRoutes');
+const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const sequelize = require('./db');
-const user = require('./models/user')(sequelize); //Import user model
+const user = require('./models/user')(sequelize); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// Other middleware and configurations
 
 const app = express();
+
 
 app.use(cors({
   origin: 'http://localhost:3000', 
@@ -40,6 +43,9 @@ const upload = multer({ storage: storage });
   }
   })
 ();
+// Admin Authentication
+app.use('/api/admin/auth', adminAuthRoutes);
+
 
 //User Registration
 app.post('/api/register', async (req, res) => {

@@ -1,16 +1,47 @@
-import React from 'react'
+import React , { useState } from 'react'
 import '../assets/styles/main.css';
-import Breadcrumb from '../common/Breadcrumb';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 
 const Login = () => {
+
+
+  
+const [emailLogin, setEmailLogin] = useState("");
+const [passwordLogin, setPasswordLogin] = useState("");
+
+
+const navigate = useNavigate();
+
+const loginn = () => {
+  axios.post("http://localhost:5000/api/login", {
+    email: emailLogin,
+    password: passwordLogin
+  })
+    .then((response) => {
+      console.log(response);
+      navigate('/'); // Redirect to the home
+    })
+    .catch((error) => {
+      console.error(error);
+      // Handle the login error if needed
+    });
+};
+
+
   return (
     <div>
       <div className='mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600'>
         <div className='flex flex-col items-center justify-center px-20 py-10'>
        
-        <input type="text" placeholder='ኢሜል' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="text" placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type="text"  onChange = {(e) => { setEmailLogin(e.target.value);}}
+         placeholder='ኢሜል' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type="text"   onChange = {(e) => { setPasswordLogin(e.target.value);}}
+        placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
         <div className='w-full flex items-center mt-6'>
             <div className='w-1/2 flex'>
                 <input type="checkbox" name="" id="remember" className='cursor-pointer hover:text-[#79a6d2]' />
@@ -20,7 +51,7 @@ const Login = () => {
                 <a href="/forgot">የይለፍ ቃል ረሳሁ</a></div>            
         </div>
         <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-                <button className="w-full mx-auto text-base font-bold text-white">
+                <button  onClick={loginn} className="w-full mx-auto text-base font-bold text-white">
                   ግባ
                 </button>
               </div>

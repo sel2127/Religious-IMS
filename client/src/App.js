@@ -19,6 +19,8 @@ import DonationCause from './pages/DonationCause';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
 import EventUpload from './components/EventUpload';
+// import Admin from './admin/Admin';
+
 
 
 
@@ -45,6 +47,9 @@ function App() {
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />
+        <Route path="/feedback" element={<FeedbackPage/>}/>
+        {/* <Route path="/admin/*" element={<Admin />} /> */}
+
 
       </Routes>
       <Footer/>

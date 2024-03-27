@@ -15,12 +15,10 @@ import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
 import Header from './common/Header';
-import Breadcrumb from './common/Breadcrumb';
 import DonationCause from './pages/DonationCause';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
-import Admin from './admin/Admin';
-
+import EventUpload from './components/EventUpload';
 
 
 
@@ -37,15 +35,16 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/notify" element={<Notify />} />
         <Route path="/upload" element={<Upload />} />
+        <Route path="/donate" element={<Donation />} />
+        <Route path="/member_register" element={<MemberRegisterationPage />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/upload" element={<Upload />} />
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<MemberRegisterationPage />} />
         <Route path="/abnet" element={<AbnetPage />} />
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
-        <Route path="/admin/*" element={<Admin />} />
-
-       
-
+        <Route path="/upload" element={<EventUpload />} />
 
       </Routes>
       <Footer/>

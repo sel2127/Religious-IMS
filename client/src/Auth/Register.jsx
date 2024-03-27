@@ -1,9 +1,40 @@
+import React , { useState } from 'react'
+import '../assets/styles/main.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 // import React from 'react'
 // import '../assets/styles/main.css';
 // import Breadcrumb from '../common/Breadcrumb';
 
 // const Register = () => {
 
+  const [firstnameReg, setFirstnameReg] =useState("");
+  const [lastnameReg, setLastnameReg] =useState("");
+  const [emailReg, setEmailReg] =useState("");
+  const [passwordReg, setPasswordReg] =useState("");
+
+  const navigate = useNavigate();
+
+
+  const registration = () => {
+    axios.post("http://localhost:5000/api/register", 
+    {firstname:firstnameReg ,lastname : lastnameReg , email : emailReg , password:passwordReg}).then((response)=>{console.log(response);
+    }).then((response) => {
+      console.log(response);
+      navigate('/login'); // Redirect to the login page
+    })
+    .catch((error) => {
+      console.error(error);
+      // Handle the registration error if needed
+    });
+  };
+
+
+
+  return (
+    <div>
 //   // const [firstnameReg, setFirstnameReg] =useState("");
 //   // const [lastnameReg, setLastnameReg] =useState("");
 //   // const [emailReg, setEmailReg] =useState("");

@@ -2,13 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const multer  = require('multer');
 const eventRoutes = require('./routes/eventRoutes');
-const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const sequelize = require('./db');
 const user = require('./models/user')(sequelize); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const adminAuthRoutes = require('./routes/adminAuthRoutes');
 
-// Other middleware and configurations
 
 const app = express();
 
@@ -29,6 +28,13 @@ const storage = multer.diskStorage({
 });
 // Initialize multer with the configured storage
 const upload = multer({ storage: storage });
+// Mount the eventUploadRouter at the '/api/events' endpoint
+// app.use('/api/events', eventUploadRouter);
+
+// Test route for accessing the backend on the browser
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend!');
+});
 
 //
 (async () =>{

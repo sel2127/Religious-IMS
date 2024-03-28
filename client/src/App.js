@@ -5,7 +5,6 @@ import SundaySchool from './pages/SundaySchool';
 import LandingPage from './pages/LandingPage'; 
 import Login from './Auth/Login';
 import Register from './Auth/Register';
-import Event from './pages/Event';
 import Forgot from './Auth/Forgot';
 import Footer from './common/Footer';
 import FeedbackPage from './pages/FeedbackPage';
@@ -18,6 +17,8 @@ import Header from './common/Header';
 import DonationCause from './pages/DonationCause';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
+import Admin from './admin/Admin';
+import "./assets/styles/main.css";
 import EventUpload from './components/EventUpload';
 import Admin from './admin/Admin';
 
@@ -25,9 +26,15 @@ import Admin from './admin/Admin';
 
 
 function App() {
+  const isPathInAdmin = window.location.pathname.startsWith('/admin');
+  const shouldApplyPadding = !isPathInAdmin;
+
   return (
     <Router>
-      <Header/>
+      <div className={shouldApplyPadding ? "app-container" : ""}>
+      {!isPathInAdmin && <Header />}
+
+      {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -50,9 +57,9 @@ function App() {
         <Route path="/feedback" element={<FeedbackPage/>}/>
         <Route path="/admin/*" element={<Admin />} />
 
-
       </Routes>
-      <Footer/>
+      {!isPathInAdmin && <Footer />}
+      </div>
     </Router>
   );
 }

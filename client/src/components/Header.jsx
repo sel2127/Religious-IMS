@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../assets/Images/logo.png";
 import { Link } from 'react-router-dom';
-import "../assets/styles/header.css"
+
 
 
 const Header = () => {
@@ -73,44 +73,26 @@ const Header = () => {
         <div className="flex py-3 font-bold border-b border-gray-300">
           <div className="w-5/6 flex items-center">
             <div className="w-1/6 flex"><a href="/" className="cursor-pointer">ዋና ገጽ</a></div>
-          
-            <div className="w-1/6"><a href="/event" className="cursor-pointer">መርሃግብራት</a></div>
-            <div className="w-1/6"><a href="/church" className="cursor-pointer">ስለ ደብሩ</a></div>
-            <div className="w-1/6"><a href="/contact" className="cursor-pointer">አግኙን</a></div>
-              <div className="w-1/6 flex items-center">
-
-              <div className ="dropdown">
-                <div className="flex items-center">
-  <button class="dropbtn mr-2">ሌሎች ገጾች</button>
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
+            <div className="w-1/6 flex items-center">
+              <div className="mr-1 cursor-pointer">ለሎች ገጾች</div>
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                 </svg>
-                </div>
-  <div class="dropdown-content">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </div>
-</div>
-              <div>
-                
 
               </div>
             </div>
+            <div className="w-1/6"><a href="/event" className="cursor-pointer">መርሃግብራት</a></div>
+            <div className="w-1/6"><a href="/church" className="cursor-pointer">ስለ ደብሩ</a></div>
+            <div className="w-1/6"><a href="/contact" className="cursor-pointer">አግኙን</a></div>
             <div className="w-1/6 flex items-center">
-              <div class="dropdown">
-              <div className="flex items-center">
-  <button class="dropbtn mr-2">ቋንቋ</button>
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
+              <div className="mr-1 cursor-pointer">ቋንቋ</div>
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                 </svg>
-                </div>
-  <div class="dropdown-content">
-    <a href="#">አማርኛ</a>
-    <a href="#">English</a>
-  </div>
-</div>
-              
+
+              </div>
             </div>
           </div>
           <div className="w-1/6 flex items-center">
@@ -120,7 +102,7 @@ const Header = () => {
               </svg>
 
             </div>
-            <div className="font-bold text-md text-dark-blue mr-auto">+251-9001-12233</div>
+            <div className="font-bold text-lg text-dark-blue mr-auto">+251-9001-12233</div>
           </div>
         </div>
       </div>
@@ -129,3 +111,4 @@ const Header = () => {
 };
 
 export default Header;
+

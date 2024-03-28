@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Button, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -16,6 +16,8 @@ import PieChartOutlinedIcon from "@mui/icons-material/PieChartOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -23,7 +25,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 
   return (
     <MenuItem
-      active={(selected = title)}
+      active={selected === title}
       style={{
         color: colors.grey[100],
       }}
@@ -113,15 +115,29 @@ const Sidebar = () => {
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   IT Admin
                 </Typography>
+                
+
               </Box>
+              <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+              <Item
+              title="Edit Profile"
+              to="/admin"
+              icon={<EditIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             </Box>
+              
+              
+            </Box>
+            
           )}
 
           {/* MENU ITEMS */}
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/admin"
+              to="/admin/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -159,6 +175,15 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
+<Item
+              title="Calendar"
+              to="/admin/calendar"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            
+
             <Typography
               variant="h6"
               color={colors.grey[300]}
@@ -183,21 +208,22 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
+            
             <Item
-              title="Calendar"
-              to="/admin/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              title="Chat"
+              to="/admin/chat"
+              icon={<SendOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            {/* <Item
-              title="FAQ page"
+            <Item
+              title="FAQ"
               to="/admin/faq"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
 
             <Typography
               variant="h6"
@@ -230,6 +256,12 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+
+<Box display="flex" justifyContent="center" my="20px" mr="10%">
+              <Button type="submit" color="secondary" variant="contained" sx={{ width: "100%" }}>
+                Logout
+              </Button>
+            </Box>
           </Box>
         </Menu>
       </ProSidebar>

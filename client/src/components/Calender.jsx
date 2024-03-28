@@ -22,5 +22,3 @@ const MyCalendar = () => {
     </div>
   );
 };
-
-export default MyCalendar;

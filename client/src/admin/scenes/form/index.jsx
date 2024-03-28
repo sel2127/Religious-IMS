@@ -1,4 +1,12 @@
-import { Box, Button, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -13,7 +21,7 @@ const Form = () => {
 
   return (
     <Box m="20px">
-      <Header title="CREATE USER" subtitle="Create a New User Profile" />
+      <Header title="CREATE ADMIN" subtitle="Create a New Admin Profile" />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -74,7 +82,7 @@ const Form = () => {
                 name="email"
                 error={!!touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
@@ -87,38 +95,59 @@ const Form = () => {
                 name="contact"
                 error={!!touched.contact && !!errors.contact}
                 helperText={touched.contact && errors.contact}
-                sx={{ gridColumn: "span 4" }}
+                sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 1"
+                label="Password"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.address1}
-                name="address1"
-                error={!!touched.address1 && !!errors.address1}
-                helperText={touched.address1 && errors.address1}
-                sx={{ gridColumn: "span 4" }}
+                value={values.password}
+                name="password"
+                error={!!touched.password && !!errors.password}
+                helperText={touched.password && errors.password}
+                sx={{ gridColumn: "span 2" }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 2"
+                label="Confirm Password"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.address2}
-                name="address2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
-                sx={{ gridColumn: "span 4" }}
+                value={values.confirmPassword}
+                name="confirmPassword"
+                error={!!touched.confirmPassword && !!errors.confirmPassword}
+                helperText={touched.confirmPassword && errors.confirmPassword}
+                sx={{ gridColumn: "span 2" }}
               />
+
+              <FormControl fullWidth variant="filled">
+                <InputLabel id="access-level-label">Access Level</InputLabel>
+                <Select
+                  labelId="access-level-label"
+                  fullWidth
+                  variant="filled"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.accessLevel}
+                  name="accessLevel"
+                  error={!!touched.accessLevel && !!errors.accessLevel}
+                  helperText={touched.accessLevel && errors.accessLevel}
+                  sx={{ gridColumn: "span 2" }}
+                >
+                  <MenuItem value="">Select Access Level</MenuItem>
+                  <MenuItem value="level1">Level 1</MenuItem>
+                  <MenuItem value="level2">Level 2</MenuItem>
+                  <MenuItem value="level3">Level 3</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                Create New Admin
               </Button>
             </Box>
           </form>
@@ -139,16 +168,28 @@ const checkoutSchema = yup.object().shape({
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+    )
+    .required("required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("required"),
+  accessLevel: yup.string().required("required"),
 });
 const initialValues = {
   firstName: "",
   lastName: "",
   email: "",
   contact: "",
-  address1: "",
-  address2: "",
+  password: "",
+  confirmPassword: "",
+  accessLevel: "",
 };
 
 export default Form;

@@ -55,8 +55,8 @@ const Members = () => {
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="MEMBERS"
+        subtitle="List of Members for Future Reference"
       />
       <Box
         m="40px 0 0 0"

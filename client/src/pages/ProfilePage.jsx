@@ -25,20 +25,18 @@ const ProfilePage = () => {
     reader.readAsDataURL(file);
   };
 
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    // Fetch user data from the server
-    axios.get('/api/user')
-      .then(response => {
-        // Store the retrieved user data in state
-        setUserData(response.data);
-      })
-      .catch(error => {
-        // Handle any errors
-        console.error(error);
-      });
+    fetch('/api/profile')
+      .then((response) => response.json())
+      .then((data) => setUserData(data))
+      .catch((error) => console.error('Error fetching user profile:', error));
   }, []);
+
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-full">

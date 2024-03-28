@@ -7,15 +7,52 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
-  const [firstnameReg, setFirstnameReg] =useState("");
-  const [lastnameReg, setLastnameReg] =useState("");
-  const [emailReg, setEmailReg] =useState("");
-  const [passwordReg, setPasswordReg] =useState("");
+    const [firstnameReg, setFirstnameReg] = useState('');
+    const [lastnameReg, setLastnameReg] = useState('');
+    const [emailReg, setEmailReg] = useState('');
+    const [passwordReg, setPasswordReg] = useState('');
+    const [confirmPasswordReg, setConfirmPasswordReg] = useState('');
+    const [error, setError] = useState('');
+
+ 
 
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      !firstnameReg ||
+      !lastnameReg ||
+      !emailReg ||
+      !passwordReg ||
+      !confirmPasswordReg
+    ) {
+      setError('Please fill in all fields.');
+      return false;
+    }
+
+    if (!emailRegex.test(emailReg)) {
+      setError('Please enter a valid email address.');
+      return false;
+    }
+
+    if (passwordReg.length < 8) {
+      setError('Password should be at least 8 characters long.');
+      return false;
+    }
+
+    if (passwordReg !== confirmPasswordReg) {
+      setError('Passwords do not match.');
+      return false;
+    }
+
+    setError('');
+    return true;
+  };
 
   const registration = () => {
+    if (validateForm()) {
     axios.post("http://localhost:5000/api/register", 
     {firstname:firstnameReg ,lastname : lastnameReg , email : emailReg , password:passwordReg}).then((response)=>{console.log(response);
     }).then((response) => {
@@ -26,6 +63,7 @@ const Register = () => {
       console.error(error);
       // Handle the registration error if needed
     });
+  }
   };
 
 
@@ -40,11 +78,13 @@ const Register = () => {
          placeholder='የመጀመሪያ ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
         <input type="text" onChange = {(e) => { setLastnameReg(e.target.value);}}
         placeholder='የአባት ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="text" onChange = {(e) => { setEmailReg(e.target.value);}}
+        <input type="email" onChange = {(e) => { setEmailReg(e.target.value);}}
         placeholder='ኢሜል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="text" onChange = {(e) => { setPasswordReg(e.target.value);}}
+        <input type="password" onChange = {(e) => { setPasswordReg(e.target.value);}}
         placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="text" placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type='password' onChange={(e) => {setConfirmPasswordReg(e.target.value);}} 
+        placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+         {error && <p className='text-red-500'>{error}</p>}
         <div className='mr-auto underline decoration-dotted mt-4 cursor-pointer hover:text-[#79a6d2]'>
             <a href="/login">አካውንት አለዎት?</a></div>            
         <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">

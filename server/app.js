@@ -6,7 +6,14 @@ const sequelize = require('./db');
 const user = require('./models/user')(sequelize); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+<<<<<<< HEAD
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
+=======
+// const cookieParser = require('cookie-parser');
+const { getUserData } = require('./controllers/userController');
+
+
+>>>>>>> origin/changeP
 
 
 const app = express();
@@ -16,6 +23,9 @@ app.use(cors({
   origin: 'http://localhost:3000', 
 }));
 app.use(express.json());
+// app.use(cookieParser());
+
+
 app.use('/api/events', eventRoutes); 
 
 const storage = multer.diskStorage({
@@ -36,7 +46,68 @@ app.get('/', (req, res) => {
   res.send('Welcome to the backend!');
 });
 
-//
+//Fethching user data to display
+
+// app.get('/api/user/profile', (req, res) => {
+//   // Retrieve the token from the HTTP-only cookie
+//   const token = req.cookies.token;
+
+//   if (!token) {
+//     return res.status(401).json({ message: 'Unauthorized' });
+//   }
+
+//   try {
+//     // Verify and decode the token
+//     const decodedToken = jwt.verify(token, '6617171');
+
+//     // Retrieve the user ID from the decoded token
+//     const userId = decodedToken.userId;
+
+//     // Use the user ID to fetch the user's data from the database
+//     user.findOne({ where: { id: userId } }).then((userData) => {
+//       if (!userData) {
+//         return res.status(404).json({ message: 'User not found' });
+//       }
+
+//       // Return the user's data as the response
+//       res.json(userData);
+//     });
+//   } catch (error) {
+//     console.error('Error retrieving user profile:', error);
+//     res.status(500).json({ message: 'Server Error' });
+//   }
+// });
+
+
+
+// app.get('/api/profile', async (req, res) => {
+//   try {
+//     const token = req.cookies.token;
+//     console.log(token);
+
+//     if (!token) {
+//       return res.status(401).json({ error: 'Unauthorized', message: 'Access denied' });
+//     }
+
+//     const decodedToken = jwt.verify(token, '6617171');
+//     const userId = decodedToken.userId;
+
+//     const userData = await user.findOne({ where: { id: userId } });
+
+//     if (!userData) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
+
+//     res.json(userData);
+//   } catch (error) {
+//     console.error('Error retrieving user profile:', error);
+//     res.status(500).json({ error: 'Server Error', message: error.message });
+//   }
+// });
+
+
+
+//database connection
 (async () =>{
   try{
     await sequelize.authenticate();
@@ -86,13 +157,16 @@ app.post('/api/register', async (req, res) => {
   // const token = jwt.sign({ userId: user.id, role: user.role }, 'your_secret_key');
 
 
-        const token = jwt.sign({userId : User.id} ,"6617171" ,{
-          expiresIn:"1h"
-        });
-        res.json({ token });
-        
+  const token = jwt.sign({ userId: User.id }, "6617171", {
+    expiresIn: "1h",
+  });
+
   // Set the token as an HTTP-only cookie
-  res.cookie('token', token, { httpOnly: true }).json({ message: 'Login successful' });
+  res.cookie("token", token, { httpOnly: true });
+
+  // Send a JSON response indicating successful login
+  res.json({ message: "Login successful", user: User });
+
       }
       catch (error){
         console.error ("Error logging in:" , error);

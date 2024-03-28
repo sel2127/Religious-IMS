@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import profileData from "../components/profileData";
 import { setImagePreview } from "../store/actions/imageAction";
@@ -6,6 +7,8 @@ import aba from "../assets/Images/aba.jpg";
 import Breadcrumb from "../common/Breadcrumb";
 import { Link } from "react-router-dom";
 import SideBarr from "../components/profile/SideBarr";
+
+
 
 const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
@@ -21,6 +24,19 @@ const ProfilePage = () => {
 
     reader.readAsDataURL(file);
   };
+
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/profile')
+      .then((response) => response.json())
+      .then((data) => setUserData(data))
+      .catch((error) => console.error('Error fetching user profile:', error));
+  }, []);
+
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-full">
@@ -52,7 +68,7 @@ const ProfilePage = () => {
               </div>
               <div className="flex flex-col justify-center items-center gap-4 p-4">
                 <p className="font-bold text-xl text-blue-500">
-                  <marquee>Wellcome, {profileData.username}</marquee>
+                  <marquee>Welcome, {userData.firstname} {userData.lastname}</marquee>
                 </p>
                 <p>{profileData.email}</p>
                 <div className="mt-10">
@@ -109,7 +125,7 @@ const ProfilePage = () => {
                       Email address
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      johndoe@example.com
+                    {userData.email}
                     </dd>
                   </div>
                   <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

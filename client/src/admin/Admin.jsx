@@ -30,7 +30,7 @@ function Admin() {
       <main className='content'>
         <Topbar />
         <Routes>
-          <Route path="" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="team" element={<Team />} />
           <Route path="members" element={<Members />} />
           <Route path="donation" element={<Donations />} />

@@ -37,10 +37,7 @@ function Admin() {
         {/* <Topbar /> */}
         <Routes>
           <Route path="dashboard" element={<Dashboard />} />
-<<<<<<< HEAD
-=======
           <Route path="login" element={<Login />} />
->>>>>>> origin/tsimo2
           <Route path="team" element={<Team />} />
           <Route path="members" element={<Members />} />
           <Route path="donation" element={<Donations />} />

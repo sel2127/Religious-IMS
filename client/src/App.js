@@ -20,7 +20,6 @@ import ContactUs from "./pages/ContactUs";
 import Admin from './admin/Admin';
 import "./assets/styles/main.css";
 import EventUpload from './components/EventUpload';
-import Admin from './admin/Admin';
 
 
 

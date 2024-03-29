@@ -6,6 +6,7 @@ import churchInAksum from "../assets/Images/church in aksum.jpg";
 import abrehaAtsbeha from "../assets/Images/abreha atsbeha.jpg";
 import debredamo from "../assets/Images/debre damo monastery.jpg";
 import '../assets/styles/main.css';
+import { Link } from "react-router-dom";
 
 
 
@@ -57,7 +58,7 @@ const images = [
 const Donation = () => {
     return (
         <div>
-            <div className='text-4xl text-center font-bold mb-4'>ምክንያት </div>
+            <div className='text-4xl text-center font-bold mb-4 mt-10'>ምክንያት </div>
             <div className="text-center mt-4 mb-6">
                 ለኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን የሚለገሱ ልዩ ምክንያቶች በግለሰብ አብያተ ክርስቲያናት ወይም ማህበረሰቦች ፍላጎትና ቅድሚያ ሊሰጣቸው የሚገቡ ጉዳዮች ላይ ቢለያዩም፣
                 ብዙ ጊዜ መዋጮ የሚፈለግባቸው የተለመዱ ምክንያቶች አሉ.

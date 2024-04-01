@@ -6,14 +6,7 @@ const sequelize = require('./db');
 const user = require('./models/user')(sequelize); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-<<<<<<< HEAD
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
-=======
-// const cookieParser = require('cookie-parser');
-const { getUserData } = require('./controllers/userController');
-
-
->>>>>>> origin/changeP
 
 
 const app = express();

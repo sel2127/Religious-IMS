@@ -13,6 +13,8 @@ import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
 import Header from './common/Header';
 import DonationCause from './pages/DonationCause';
+import Dona from './pages/dona';
+
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
 import Admin from './admin/Admin';
@@ -53,9 +55,11 @@ function App() {
         <Route path="/upload" element={<EventUpload />} />
         {/* <Route path="/feedback" element={<FeedbackPage/>}/> */}
         <Route path="/admin/*" element={<Admin />} />
+        <Route path="/don" element={<Dona />} />
+
 
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
       </div>
       
     </Router>

@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import lalibela from "../assets/Images/lalibela.jpg";
 import lalibela_two from "../assets/Images/lalibela_two.jpg";
 import boleMedhanealem from "../assets/Images/bole medhanealem.jpg";
@@ -56,7 +56,7 @@ const images = [
 
 const Donation = () => {
     return (
-        <div>
+        <div className='pt-8'>
             <div className='text-4xl text-center font-bold mb-4'>ምክንያት </div>
             <div className="text-center mt-4 mb-6">
                 ለኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን የሚለገሱ ልዩ ምክንያቶች በግለሰብ አብያተ ክርስቲያናት ወይም ማህበረሰቦች ፍላጎትና ቅድሚያ ሊሰጣቸው የሚገቡ ጉዳዮች ላይ ቢለያዩም፣

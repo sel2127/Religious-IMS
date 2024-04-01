@@ -3,7 +3,9 @@ import bcrypt from "bcrypt";
 
 export const getAdmins = async(req, res) => {
     try {
-        const response = await AdminList.findAll();
+        const response = await AdminList.findAll({
+            attributes: ['id', 'firstName', 'lastName', 'email', 'phone', 'role']
+        });
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({msg: error.message});
@@ -12,6 +14,7 @@ export const getAdmins = async(req, res) => {
 export const getAdminById = async(req, res) => {
     try {
         const response = await AdminList.findOne({
+            attributes: ['id', 'firstName', 'lastName', 'email', 'phone', 'role'],
             where: {
                 id: req.params.id
             }

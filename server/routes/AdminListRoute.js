@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-// router.get('/admin', getAdmins);
+router.get('/admin', getAdmins);
 router.get('/admin/:id', getAdminById);
 router.post('/admin', createAdmin);
 router.patch('/admin/:id', updateAdmin);

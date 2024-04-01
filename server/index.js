@@ -28,9 +28,18 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }));
 
-app.use(express.json);
-app.use(AdminListRoute);
-app.use(UserRoute);
+app.use(express.json());
+
+app.use('/admin',AdminListRoute);
+app.use('/user', UserRoute);
+
+app.get('/', (req, res) => {
+    res.send('Hello, world! This is the root path.');
+});
+
+app.use((req, res) => {
+    res.status(404).send("Not Found");
+})
 
 const port = process.env.APP_PORT;
 app.listen(port, () => {

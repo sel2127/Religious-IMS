@@ -1,5 +1,6 @@
-import React, {useContext} from 'react'
-import { Box, IconButton, useTheme } from "@mui/material";
+import React, {useContext, useState} from 'react'
+import { Link } from "react-router-dom";
+import { Box, IconButton, useTheme, Menu, MenuItem } from "@mui/material";
 import { ColorModeContext, tokens } from '../../theme';
 import InputBase from '@mui/material/InputBase';
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -13,6 +14,15 @@ const TopBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
    <Box display="flex" justifyContent="space-between" p={2}>
@@ -39,9 +49,21 @@ const TopBar = () => {
       <IconButton>
         <SettingsOutlinedIcon />
       </IconButton>
-      <IconButton>
+      <IconButton onClick={handleMenuOpen}>
         <PersonOutlinedIcon />
-      </IconButton>      
+      </IconButton>  
+      <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem component={Link} to="/logout" onClick={handleMenuClose}>
+            Logout
+          </MenuItem>
+          <MenuItem component={Link} to="/hello" onClick={handleMenuClose}>
+            Hello
+          </MenuItem>
+        </Menu>    
     </Box>
    </Box>
   );

@@ -53,28 +53,28 @@ function SideBarr() {
               
               <div className="flex mb-4">
                 <Link to="/editprofile">
-                  <button className=" text-white  bg-sky-500 hover:bg-sky-700 text-base px-6 py-1 rounded-xl">
+                  <button className=" text-white  bg-dark-blue hover:bg-light-blue text-base px-6 py-1 rounded-xl">
                     Edit Profile
                   </button>
                 </Link>
               </div>
               <div className=" flex mb-4">
                 <Link to="/feedbackform">
-                  <button className="  text-white bg-sky-500 hover:bg-sky-700 text-lg px-6 py-1 rounded-xl">
+                  <button className="  text-white bg-dark-blue hover:bg-light-blue text-lg px-6 py-1 rounded-xl">
                     give Feedback
                   </button>
                 </Link>
               </div>
               <div className="flex mb-4">
                 <Link to="/changepassword">
-                <button className="text-white text-center bg-sky-500 hover:bg-sky-700   text-base px-6 py-1 rounded-xl flex-grow">
+                <button className="text-white text-center bg-dark-blue hover:bg-light-blue   text-base px-6 py-1 rounded-xl flex-grow">
                     Change PIN
                   </button>
                 </Link>
               </div>
               <div className="flex mb-4">
                 <Link to="/logout">
-                <button className=" text-white text-center  bg-sky-500 hover:bg-sky-700 text-lg px-6 py-1 rounded-xl flex-grow">
+                <button className=" text-white text-center  bg-dark-blue hover:bg-light-blue text-lg px-6 py-1 rounded-xl flex-grow">
                     Log out
                   </button>
                 </Link>

@@ -1,4 +1,5 @@
 import bekoji from "../assets/Images/bekoji.jpg";
+import { Link } from "react-router-dom";
 
 function DonationCause() {
     return (

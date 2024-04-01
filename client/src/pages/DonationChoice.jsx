@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 
 function DonationChoice(){
   const questions = [
@@ -47,7 +48,7 @@ function DonationChoice(){
 
     if (question === 'የመክፈያ ዘዴን ይምረጡ') {
       return (
-        <div className="flex flex-col" style={{ marginLeft: '80px' }}>
+        <div className="flex flex-col " style={{ marginLeft: '80px' }}>
           <label className='text-lg leading-loose '>
             <input
               type="radio"

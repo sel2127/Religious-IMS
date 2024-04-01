@@ -70,9 +70,9 @@ const Notify = () => {
         <div className="w-1/2 bg-white p-10 mx-auto">
           <div
             
-            className="flex items-center border-b border-gray-200 pb-6 cursor-pointer"
+            className="flex items-center border-b border-gray-200 pb-6"
           >
-            <div id="myBtn" className="w-1/2 flex items-center gap-4">
+            <div id="myBtn" className="w-1/2 flex items-center gap-4 cursor-pointer">
               <div className="w-1/4">
                 <img src={Logo} alt="Logo" className="w-20" />
               </div>

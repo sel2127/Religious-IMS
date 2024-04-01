@@ -56,8 +56,8 @@ const images = [
 
 const Donation = () => {
     return (
-        <div className='pt-8'>
-            <div className='text-4xl text-center font-bold mb-4'>ምክንያት </div>
+        <div>
+            <div className='text-4xl text-center font-bold mb-4 mt-10'>ምክንያት </div>
             <div className="text-center mt-4 mb-6">
                 ለኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን የሚለገሱ ልዩ ምክንያቶች በግለሰብ አብያተ ክርስቲያናት ወይም ማህበረሰቦች ፍላጎትና ቅድሚያ ሊሰጣቸው የሚገቡ ጉዳዮች ላይ ቢለያዩም፣
                 ብዙ ጊዜ መዋጮ የሚፈለግባቸው የተለመዱ ምክንያቶች አሉ.

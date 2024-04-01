@@ -1,0 +1,12 @@
+POST http://localhost:5000/admin
+Content-Type: application/json
+
+{
+    "firstname" : "tsi",
+    "lastname" : "mo",
+    "email" : "admin@gmail.com",
+    "phone" : "0099887766",
+    "password" : "123456",
+    "confPassword" : "123456",
+    "role" : "admin"
+}

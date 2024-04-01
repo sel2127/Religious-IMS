@@ -20,7 +20,7 @@ import ContactUs from "./pages/ContactUs";
 import Admin from './admin/Admin';
 import "./assets/styles/main.css";
 import EventUpload from './components/EventUpload';
-
+import ProfilePage from './pages/ProfilePage';
 
 
 
@@ -55,8 +55,7 @@ function App() {
         <Route path="/upload" element={<EventUpload />} />
         {/* <Route path="/feedback" element={<FeedbackPage/>}/> */}
         <Route path="/admin/*" element={<Admin />} />
-        <Route path="/don" element={<Dona />} />
-
+        <Route path="/profile" element={<ProfilePage />} />
 
       </Routes>
       <Footer/>

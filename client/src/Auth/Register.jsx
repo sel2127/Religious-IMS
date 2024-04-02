@@ -10,6 +10,7 @@ const Register = () => {
     const [firstnameReg, setFirstnameReg] = useState('');
     const [lastnameReg, setLastnameReg] = useState('');
     const [emailReg, setEmailReg] = useState('');
+    const [phonenumberReg,setPhoneNumberReg] = useState('');
     const [passwordReg, setPasswordReg] = useState('');
     const [confirmPasswordReg, setConfirmPasswordReg] = useState('');
     const [error, setError] = useState('');
@@ -20,11 +21,13 @@ const Register = () => {
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/; // Regular expression for 10-digit phone number
 
     if (
       !firstnameReg ||
       !lastnameReg ||
       !emailReg ||
+      !phonenumberReg||
       !passwordReg ||
       !confirmPasswordReg
     ) {
@@ -36,6 +39,12 @@ const Register = () => {
       setError('Please enter a valid email address.');
       return false;
     }
+
+    if (!phoneRegex.test(phonenumberReg)) {
+      setError('Please enter a valid phone number.');
+      return false;
+    }
+
 
     if (passwordReg.length < 8) {
       setError('Password should be at least 8 characters long.');
@@ -53,8 +62,8 @@ const Register = () => {
 
   const registration = () => {
     if (validateForm()) {
-    axios.post("http://localhost:5000/api/register", 
-    {firstname:firstnameReg ,lastname : lastnameReg , email : emailReg , password:passwordReg}).then((response)=>{console.log(response);
+    axios.post('http://localhost:5000/user/register', 
+    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg}).then((response)=>{console.log(response);
     }).then((response) => {
       console.log(response);
       navigate('/login'); // Redirect to the login page
@@ -78,6 +87,8 @@ const Register = () => {
          placeholder='የመጀመሪያ ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
         <input type="text" onChange = {(e) => { setLastnameReg(e.target.value);}}
         placeholder='የአባት ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type="tel" onChange = {(e) => { setPhoneNumberReg(e.target.value);}}
+        placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
         <input type="email" onChange = {(e) => { setEmailReg(e.target.value);}}
         placeholder='ኢሜል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
         <input type="password" onChange = {(e) => { setPasswordReg(e.target.value);}}

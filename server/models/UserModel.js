@@ -51,20 +51,20 @@ const Users = db.define(
         notEmpty: true,
       },
     },    
-    adminsId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
-      },   
+    // adminsId: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false,
+    //     validate: {
+    //       notEmpty: true,
+    //     },
+    //   },   
   },
   {
     freezeTableName: true,
   }
 );
 
-AdminList.hasMany(Users);
-Users.belongsTo(AdminList, {foreignKey: 'adminsId'});
+// AdminList.hasMany(Users);
+// Users.belongsTo(AdminList, {foreignKey: 'adminsId'});
 
 export default Users;

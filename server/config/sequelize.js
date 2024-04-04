@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 // Initialize Sequelize with your database credentials
-const sequelize = new Sequelize('capstone', 'root', '', {
+const sequelize = new Sequelize('capstone', 'root', '1234', {
   host: 'localhost',
   dialect: 'mysql', // Change this according to your database type
 });

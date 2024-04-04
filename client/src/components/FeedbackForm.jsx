@@ -96,7 +96,7 @@ const FeedbackForm = () => {
               id="submit"
               type="submit"
               disabled={isLoading}
-              className={` w-1/2 m-auto bg-dark-blue text-white rounded-md hover:bg-blue-700 h-10  mb-4 
+              className={` w-1/2 m-auto bg-blue-500 text-white rounded-md hover:bg-blue-700 h-10  mb-4 
      ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
             >
               {isLoading ? "Submitting..." : "Submit Feedback"}

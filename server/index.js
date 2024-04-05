@@ -7,8 +7,7 @@ import UserRoute from './routes/UserRoute.js';
 import AdminListRoute from "./routes/AdminListRoute.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import FeedbackRoute from './routes/FeedbackRoute.js';
-
+import FeedbackRoute from './routes/FeedbackRoute.js'
 dotenv.config();
 
 const app = express();

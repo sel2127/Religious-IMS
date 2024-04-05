@@ -21,7 +21,9 @@ import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
 import Abnet from './pages/AbnetPage';
 import FeedbackPage from './pages/FeedbackPage';
-
+import FeedbackForm from './components/FeedbackForm';
+import EditProfile from './components/profile/EditProfile';
+import ChangePassword from './components/profile/ChangePassword';
 
 
 function App() {
@@ -56,7 +58,9 @@ function App() {
         <Route path="/feedback" element={<FeedbackPage/>}/>
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/profile" element={<ProfilePage />} />
-
+        <Route path='/feedbackform' element={<FeedbackForm/>}/>
+        <Route path='/editprofile' element={<EditProfile/>}/>
+        <Route path='/changepassword' element={<ChangePassword/>}/>
       </Routes>
       {!isPathInAdmin && <Footer />}
       </div>

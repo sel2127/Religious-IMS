@@ -7,16 +7,16 @@ const EditProfile = () => {
       <Breadcrumb/>
       <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit  Your profile here</h1>
 
-      <div className="mx-auto border border-gray-300 w-full mt-10 rounded rounded-3xl text-gray-600">
+      <div className="mx-auto border border-gray-300 lg:w-1/2 mt-10 rounded rounded-3xl text-gray-600">
         <div className="bg-white shadow rounded-lg p-4 md:p-6">
-        <form className="space-y-4  flex flex-col  text-center w-full md:w-3/4">
+        <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10">
 
           <input
             type="text"
             id="name"
             defaultValue={profileData.username}
             placeholder="Enter new username"
-            className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
             onInput={(e) => {
@@ -35,7 +35,7 @@ const EditProfile = () => {
             placeholder="Email"
             id="email"
             defaultValue={profileData.email}
-            className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             onInput={(e) => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,7 +56,7 @@ const EditProfile = () => {
             id="phone"
             defaultValue={profileData.phone}
             placeholder="Phone"
-            className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
   mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
             minLength={10}
             maxLength={10}
@@ -74,22 +74,23 @@ const EditProfile = () => {
             }}
           />
 
-          <div className="border-gray-200  flex justify-center items-center">
+        
+        </form>
+        <div className="border-gray-200  flex justify-center space-between  mt-10">
             <button
               id="submit"
               type="submit"
-              className="ml-10 bg-blue-500 text-white px-6 py-1 rounded-xl"
+              className="bg-blue-500 text-white text-center  px-6 py-1 rounded-3xl "
             >
               Save
             </button>
             <button
-              className="ml-10 bg-red-500 text-white px-6 py-1 rounded-xl"
+              className="bg-red-500 text-white text-center  px-6 py-1 rounded-3xl ml-10"
               onClick={() => window.history.back()}
             >
               Cancel
             </button>
           </div>
-        </form>
         </div>
 
       </div>

@@ -22,30 +22,31 @@ function ChangePassword() {
     <div className="change-password-container ">
       <Breadcrumb />
       <h1 className="text-center text-3xl font-bold custom-font mb-4">Change Your Password</h1>
-      <div className=" bg-white shadow rounded-lg p-4 md:p-6 ">
-      <form className="space-y-4  justify-center items-center text-center w-full md:w-3/4">
+      <div className="mx-auto border border-gray-300 lg:w-1/2 mt-10 rounded rounded-3xl text-gray-600">
+      <div className="bg-white shadow rounded-lg p-4 md:p-6">
+
+      <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10">
           <input
             type="password"
             id="password"
             placeholder="Current Password"
-            className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-3/4"
+            className="border rounded-3xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full "
+            required
+            autoComplete="current-password"
+          />
+           <input
+            type="password"
+            id="new"
+            placeholder="new password(min 6 characters)"
+            className="border rounded-3xl px-4 py-2 mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full "
             required
             autoComplete="current-password"
           />
           <input
             type="password"
-            placeholder="New Password (Min 6 Characters)"
-            id="new"
-            className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 w-full md:w-3/4"
-            required
-            minLength={6}
-            autoComplete="new-password"
-          />
-          <input
-            type="password"
             placeholder="Confirm Password (Min 6 Characters)"
             id="confirm"
-            className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 w-full md:w-3/4"
+            className="border rounded-3xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 w-full "
             required
             minLength={6}
             autoComplete="confirm-password"
@@ -53,22 +54,25 @@ function ChangePassword() {
 
           {passwordError && <p className="text-red-500 text-sm mt-2">{passwordError}</p>}
 
-          <div className="flex justify-center items-center mt-4">
+         
+        </form>
+        <div className="flex justify-center items-center mt-10 mb-4">
             <button
               type="submit"
               onClick={handleSubmit}
-              className="bg-blue-500 text-white px-6 py-2 rounded-xl mr-4"
+              className="bg-blue-500 text-white text-center  px-6 py-2 rounded-3xl mr-4"
             >
               Confirm
             </button>
             <button
-              className="bg-red-500 text-white px-6 py-2 rounded-xl"
+              className="bg-red-500 text-white text-center  px-6 py-2 rounded-3xl"
               onClick={() => window.history.back()}
             >
               Cancel
             </button>
           </div>
-        </form>
+        </div>
+       
       </div>
     </div>
   );

@@ -1,68 +1,123 @@
-// Import required Node.js modules
-const express = require('express');
-const bodyParser = require('body-parser');
-const validator = require('validator');
-const multer = require('multer');
-const cors=require('cors');
-const path = require('path');
- const app = express();
- const Feedback=require('../models/feedback');
-// const upload=require('../controllers/multerConfig')
+import express from "express";
+const app = express();
+import multer from "multer";
+import cors from "cors";
+import path from "path";
+import Feedback from "../models/FeedbackModel.js";
 
- app.use(cors());
-// Middleware setup
-app.use(bodyParser.json()); // Parse JSON requests
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-// setting up for storage
-//feedback controllers
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.use(cors());
+// Serve  files from the 'uploads' directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Set up storage for image uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));  
-  }
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
 });
 
 const upload = multer({ storage: storage });
 
 // API  to submit feedback with image from the form
-app.post('/api/feedback', upload.single('image'), async (req, res) => {
-  const { name, email, message } = req.body;
-  const imagePath = req.file ? path.join(__dirname, 'uploads/', req.file.filename) : null; 
-console.log(imagePath);
+export const createFeedback = async (req, res) => {
+  upload.single("image")(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ error: "File upload error" });
+    } else if (err) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res
+        .status(400)
+        .json({ error: "Please provide name, email, and message" });
+    }
+
+    const imagePath = req.file
+      ? path.join(__dirname, "uploads/", req.file.filename)
+      : null;
+
+    try {
+      await Feedback.create({
+        name,
+        email,
+        message,
+        imagePath,
+      });
+      res.json({
+        message: "Feedback submitted successfully",
+        imagePath: imagePath,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Error submitting feedback" });
+    }
+  });
+};
+// api to retrive feedback
+export const getAllFeedback = async (req, res) => {
   try {
-    await Feedback.create({
-     name,
-      email,
-      message,
-      imagePath,
-    });
-
-    res.json({ message: 'Feedback submitted successfully' });
+    const feedbackList = await Feedback.findAll();
+    return res.json(feedbackList);
+    // res.json({feedbackList})
   } catch (err) {
-   console.error(err);
-   res.status(500).json({ message: 'Error submitting feedback' });
+    console.error(err);
+    return res.status(500).json({ error: "Internal server error" });
   }
-});
-
-// Api for retriving feedback 
-    app.get('/api/feedback' ,async(req,res)=>{
-        try {
-            const feedbackList= await Feedback.findAll();
-        res.json(feedbackList);
-        } catch (error) {
-            console.log(err)
-            res.status(500).json({error:"Error for fetching feedback."})
-        }
-    });
-    //export feedback controller 
-    module.exports = app;
- 
-
-
-
-
+};
+export const getFeedbackById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const feedback = await Feedback.findOne({ where: { id: id } });
+    if (!feedback) {
+      return res.status(404).json({ msg: "feedback not found" });
+    }
+    return res.status(200).json(feedback);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: err.msg });
+  }
+};
+export const deleteFeedbackById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const feedback = await Feedback.findOne({ where: { id: id } });
+    if (!feedback) {
+      return res.status(404).json({ message: "feedback not found" });
+    }
+    // delete feedback
+    await Feedback.destroy({ where: { id: id } });
+    return res.status(200).json({ message: "feedback deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "error for deleting feedback" });
+  }
+};
+export const updateFeedbackById = async (req, res) => {
+  const id = req.params.id;
+  const updatedFeedback = req.body;
+  try {
+    const feedback = await Feedback.findByPk(id);
+    if (!feedback) {
+      return res.status(404).json({ message: "feedback not found" });
+    }
+    //update feedback
+    await Feedback.update(updatedFeedback, { where: { id: id } });
+    return res.status(200).json({ message: "feddback updated successfully!" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "error for updating feedback" });
+  }
+};

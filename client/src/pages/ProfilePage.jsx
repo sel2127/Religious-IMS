@@ -25,18 +25,18 @@ const ProfilePage = () => {
     reader.readAsDataURL(file);
   };
 
-  // const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
-  // useEffect(() => {
-  //   fetch('/api/profile')
-  //     .then((response) => response.json())
-  //     .then((data) => setUserData(data))
-  //     .catch((error) => console.error('Error fetching user profile:', error));
-  // }, []);
+  useEffect(() => {
+    fetch('/api/profile')
+      .then((response) => response.json())
+      .then((data) => setUserData(data))
+      .catch((error) => console.error('Error fetching user profile:', error));
+  }, []);
 
-  // if (!userData) {
-  //   return <div>Loading...</div>;
-  // }
+  if (!userData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-full">
@@ -125,7 +125,7 @@ const ProfilePage = () => {
                       Email address
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {/* {userData.email} */}
+                    {userData.email}
                     </dd>
                   </div>
                   <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

@@ -1,16 +1,46 @@
 import React from "react";
 import profileData from "../profileData";
 import Breadcrumb from "../../common/Breadcrumb";
+import Sidebarr from "./SideBarr";
+
 const EditProfile = () => {
   return (
-    <div className="">
-      <Breadcrumb/>
-      <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit  Your profile here</h1>
+    <div className="w-full">
+    <Breadcrumb/>
+    <div className=" w-full rounded-lg">
+    <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit  Your profile here</h1>
 
-      <div className="mx-auto border border-gray-300 lg:w-1/2 mt-10 rounded rounded-3xl text-gray-600">
-        <div className="bg-white shadow rounded-lg p-4 md:p-6">
+      <div className="flex flex-col lg:flex-row ">
+        {/* sidebar */}
+        <div>
+          <Sidebarr/>
+        </div>
+        <div className='lg:w-1/2 m-auto'>
+
+
+        <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
+        <div className=" h-full overflow-hidden shadow  rounded-lg">
         <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10">
 
+        <input
+            type="text"
+            id="name"
+            defaultValue={profileData.username}
+            placeholder="Enter new username"
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+         ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
+            required
+            onInput={(e) => {
+              if (e.target.value.length < 3) {
+                e.target.setCustomValidity(
+                  "Username must be at least 3 characters long"
+                );
+              } else {
+                e.target.setCustomValidity("");
+              }
+            }}
+            autoComplete="name"
+          />
           <input
             type="text"
             id="name"
@@ -92,8 +122,10 @@ const EditProfile = () => {
             </button>
           </div>
         </div>
-
+</div>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

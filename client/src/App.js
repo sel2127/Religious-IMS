@@ -24,6 +24,7 @@ import FeedbackPage from './pages/FeedbackPage';
 import FeedbackForm from './components/FeedbackForm';
 import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
+import ViewMoreProfile from './components/profile/ViewMoreProfile';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
         <Route path='/feedbackform' element={<FeedbackForm/>}/>
         <Route path='/editprofile' element={<EditProfile/>}/>
         <Route path='/changepassword' element={<ChangePassword/>}/>
+        <Route path='/viewmoreprofile' element={<ViewMoreProfile/>}/>
       </Routes>
       {!isPathInAdmin && <Footer />}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Breadcrumb from "../../common/Breadcrumb";
+import Sidebarr from "./SideBarr";
 
 function ChangePassword() {
   const [passwordError, setPasswordError] = useState("");
@@ -19,18 +20,29 @@ function ChangePassword() {
   };
 
   return (
-    <div className="change-password-container ">
-      <Breadcrumb />
-      <h1 className="text-center text-3xl font-bold custom-font mb-4">Change Your Password</h1>
-      <div className="mx-auto border border-gray-300 lg:w-1/2 mt-10 rounded rounded-3xl text-gray-600">
-      <div className="bg-white shadow rounded-lg p-4 md:p-6">
+    <div className="w-full">
+    <Breadcrumb />
+    <h1 className="text-center text-3xl font-bold custom-font mb-4">Change Your Password</h1>
 
-      <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10">
+    <div className="change-password-container  ">
+    <div className=" w-full rounded-lg">
+     
+      <div className="flex flex-col lg:flex-row">
+        {/* sidebar */}
+        <div>
+          <Sidebarr />
+        </div>
+        <div className='lg:w-1/2 m-auto'>
+
+        <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
+        <div className=" h-full overflow-hidden shadow  rounded-lg">
+
+      <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10  py-10">
           <input
             type="password"
             id="password"
             placeholder="Current Password"
-            className="border rounded-3xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full "
+            className="ml-10 mr-10 border rounded-xl px-6 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 "
             required
             autoComplete="current-password"
           />
@@ -38,7 +50,7 @@ function ChangePassword() {
             type="password"
             id="new"
             placeholder="new password(min 6 characters)"
-            className="border rounded-3xl px-4 py-2 mt-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full "
+            className="ml-10 mr-10 border rounded-xl px-4 py-2  focus:outline-none focus:ring-2 focus:ring-gray-500  "
             required
             autoComplete="current-password"
           />
@@ -46,7 +58,7 @@ function ChangePassword() {
             type="password"
             placeholder="Confirm Password (Min 6 Characters)"
             id="confirm"
-            className="border rounded-3xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 w-full "
+            className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500   "
             required
             minLength={6}
             autoComplete="confirm-password"
@@ -72,8 +84,11 @@ function ChangePassword() {
             </button>
           </div>
         </div>
-       
+       </div>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
   );
 }

@@ -10,12 +10,25 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../components/Header";
+import axios from "axios";
 
 const Login = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const handleFormSubmit = async (values) => {
+    try {
+      const response = await axios.post("http://localhost:5000/admin/login", values);
+      const token = response.data.token;
+      
+      // Store the token in local storage or session storate
+      localStorage.setItem("token", token);
+
+      // Redirect to a protected route
+      window.location.href= "/admin/dashboard";
+      
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

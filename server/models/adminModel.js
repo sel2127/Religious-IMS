@@ -4,7 +4,7 @@ import db from "../config/Database.js";
 const {DataTypes} = Sequelize;
 
 // table name - adminlist
-const AdminList = db.define('adminlist', {
+const AdminModel = db.define('admin', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -14,14 +14,14 @@ const AdminList = db.define('adminlist', {
             notEmpty: true
         }
       },
-      firstName: {
+      firstname: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
         }
       },
-      lastName: {
+      lastname: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -49,6 +49,13 @@ const AdminList = db.define('adminlist', {
             notEmpty: true
         }
       },  
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          isUrl: true
+        }
+      },
       role: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -60,4 +67,9 @@ const AdminList = db.define('adminlist', {
     freezeTableName: true
 });
 
-export default AdminList;
+// AdminModel.sync({ alter: true }) // Replace 'force' with 'alter' if you don't want to drop existing data
+//   .then(() => console.log("Admin model synced"))
+//   .catch((error) => console.error("Error syncing admin model:", error));
+
+
+export default AdminModel;

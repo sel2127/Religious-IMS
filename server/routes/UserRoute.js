@@ -97,6 +97,18 @@ function verifyToken(req, res, next) {
     }
   });
 
+//   // User logout
+// router.post('/logout', (req, res) => {
+//   try {
+//     // Clear the token cookie
+//     res.clearCookie('token');
+//     res.json({ message: 'Logout successful' });
+//   } catch (error) {
+//     console.error('Error logging out:', error);
+//     res.status(500).json({ message: 'Server Error' });
+//   }
+// });
+
 // Other user routes
 router.get('/users', getUsers);
 router.get('/users/:id', getUserById);

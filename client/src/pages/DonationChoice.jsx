@@ -1,50 +1,83 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link } from "react-router-dom";
 
 const DonationChoice = () => {
-    const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        let validationErrors = {};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    let validationErrors = {};
 
-        // Basic validation example: checking if required fields are filled
-        if (!formData.get('tx_ref')) {
-            validationErrors = { ...validationErrors, tx_ref: 'Reference is required' };
-        }
-        if (!formData.get('amount')) {
-            validationErrors = { ...validationErrors, amount: 'Amount is required' };
-        }
-        if (!formData.get('currency')) {
-            validationErrors = { ...validationErrors, currency: 'Currency is required' };
-        }
-        if (!formData.get('email')) {
-            validationErrors = { ...validationErrors, email: 'Email is required' };
-        }
+    if (!formData.get('first_name')) {
+      validationErrors = { ...validationErrors, first_name: 'First Name is required' };
+    }
+    if (!formData.get('last_name')) {
+      validationErrors = { ...validationErrors, last_name: 'Last Name is required' };
+    }
+    if (!formData.get('tx_ref')) {
+      validationErrors = { ...validationErrors, tx_ref: 'Reference is required' };
+    }
+    if (!formData.get('amount')) {
+      validationErrors = { ...validationErrors, amount: 'Amount is required' };
+    }
+    if (!formData.get('currency')) {
+      validationErrors = { ...validationErrors, currency: 'Currency is required' };
+    }
+    if (!formData.get('email')) {
+      validationErrors = { ...validationErrors, email: 'Email is required' };
+    }
 
-        setErrors(validationErrors);
+    setErrors(validationErrors);
 
-        if (Object.keys(validationErrors).length === 0) {
-            // If no errors, submit the form
-            form.submit();
-        }
-    };
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const donationResponse = await axios.post("http://localhost:5000/api/donations", Object.fromEntries(formData));
+        console.log("Donation response:", donationResponse.data);
+        form.submit();
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+  };
+    
+
 
     return (
         <div className='pt-8'>
             <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600 px-20 py-10">
                 <form method="POST" action="https://api.chapa.co/v1/hosted/pay" onSubmit={handleSubmit} className='space-y-4'>
                     <input type="hidden" name="public_key" value="CHAPUBK_TEST-jcYsFaHwWLWb6iNssOiC7Rm75DrykuYI" />
+
+                    <div className="flex flex-col">
+                        <input type="text" name="first_name" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.first_name && 'border-red-500'}`} placeholder='First Name' />
+                        {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name}</p>}
+
+                    </div>
+
+                    <div className="flex flex-col">
+                        <input type="text" name="last_name" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.last_name && 'border-red-500'}`} placeholder='Last Name' />
+                        {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name}</p>}
+
+                    </div>
+
+                    <div className="flex flex-col">
+                        <input type="email" name="email" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.email && 'border-red-500'}`} placeholder="Email" />
+                        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                    </div>
+
                     <div className="flex flex-col">
                         <input type="text" name="tx_ref" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.tx_ref && 'border-red-500'}`} placeholder="Reference" />
                         {errors.tx_ref && <p className="text-red-500 text-sm">{errors.tx_ref}</p>}
                     </div>
+
                     <div className="flex flex-col">
                         <input type="number" name="amount" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.amount && 'border-red-500'}`} placeholder="Amount" />
                         {errors.amount && <p className="text-red-500 text-sm">{errors.amount}</p>}
                     </div>
+
                     <div className="flex flex-col">
                         <select name="currency" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.currency && 'border-red-500'}`}>
                             <option value="">Select Currency</option>
@@ -53,16 +86,7 @@ const DonationChoice = () => {
                         </select>
                         {errors.currency && <p className="text-red-500 text-sm">{errors.currency}</p>}
                     </div>
-                    <div className="flex flex-col">
-                        <input type="email" name="email" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.email && 'border-red-500'}`} placeholder="Email" />
-                        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-                    </div>
-                    <div className="flex flex-col">
-                        <input type="text" name="first_name" className={`border border-gray-300 rounded-full px-3 py-2`} placeholder='First Name' />
-                    </div>
-                    <div className="flex flex-col">
-                        <input type="text" name="last_name" className={`border border-gray-300 rounded-full px-3 py-2`} placeholder='Last Name' />
-                    </div>
+
                     <input type="hidden" name="title" value="Let us do this" />
                     <input type="hidden" name="description" value="Paying with Confidence with cha" />
                     <input type="hidden" name="logo" value="https://chapa.link/asset/images/chapa_swirl.svg" />

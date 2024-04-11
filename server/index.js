@@ -1,61 +1,27 @@
-import express from "express";
-import cors from "cors";
-import session from "express-session";
-import dotenv from "dotenv";
-import db from "./config/Database.js";
-import SequelizeStore from "connect-session-sequelize";
-import UserRoute from "./routes/UserRoute.js";
-import AdminListRoute from "./routes/AdminListRoute.js";
-import AuthRoute from "./routes/AuthRoute.js";
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import donationRoutes from './routes/donationRoutes.js';
 
 dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 5000;
 
-const sessionStore = SequelizeStore(session.Store);
-
-const store = new sessionStore({
-    db:db
-})
-
-// (async() => {
-//     await db.sync();
-// })();
-
-app.use(session({
-    secret: process.env.SESS_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: store,
-    cookie: {
-        secure: 'auto'
-    }
-}));
-
-app.use(cors({
-    credentials: true,
-    origin: 'http://localhost:3000'
-}));
-
+// Middleware setup
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(AdminListRoute);
-app.use(UserRoute);
-app.use(AuthRoute);
+// Routes
+app.use('/api/donations', donationRoutes);
 
-// Define a route handler for the root path
+// Default route
 app.get('/', (req, res) => {
-    res.send('Hello, world! This is the root path.');
+  res.send('Hello from the backend!');
 });
 
-// Handle requests to undefined routes
-app.use((req, res) => {
-    res.status(404).send("Not Found");
-});
-
-// store.sync();
-
-const port = process.env.APP_PORT || 5000;
+// Start the server
 app.listen(port, () => {
-    console.log(`Server up and running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });

@@ -1,10 +1,12 @@
-import { Sequelize } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 import db from "../config/Database.js";
 
-const {DataTypes} = Sequelize;
+// const {DataTypes} = Sequelize;
 
 // table name - adminlist
-const AdminModel = db.define('admin', {
+const AdminModel = db.define(
+  'admin', 
+  {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -12,56 +14,56 @@ const AdminModel = db.define('admin', {
         primaryKey: true,
         validate: {
             notEmpty: true
-        }
+        },
       },
       firstname: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
-        }
+        },
       },
       lastname: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
-        }
+        },
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           isEmail: true
-        }
+        },
       },
       phone: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
-        }
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
-        }
+        },
       },  
       image: {
         type: DataTypes.STRING,
         allowNull: true,
         validate: {
-          isUrl: true
-        }
+          notEmpty: true
+        },
       },
       role: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             notEmpty: true
-        }
+        },
       },
 }, {
     freezeTableName: true
@@ -72,4 +74,4 @@ const AdminModel = db.define('admin', {
 //   .catch((error) => console.error("Error syncing admin model:", error));
 
 
-export default AdminModel;
+export {AdminModel};

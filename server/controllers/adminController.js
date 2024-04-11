@@ -1,40 +1,47 @@
 import bcrypt from 'bcrypt';
-import db from '../config/Database.js'; // assuming the database configuration file is in the same directory
-import AdminModel from '../models/adminModel.js';
-
-// Other controller methods...
+import jwt from 'jsonwebtoken';
+import {AdminModel} from '../models/adminModel.js';
 
 // Method to insert default admin
 export const insertDefaultAdmin = async (req, res) => {
+  // Get the email and password from the request body
+  const { email, password } = req.body;
   try {
-    // Check if the default admin already exists
-    const existingAdmin = await AdminModel.findOne({ where: { email: 'admin@gmail.com' } });
-    if (existingAdmin) {
-      return res.status(400).json({ message: 'Default admin already exists.' });
+    // Check if the email exists in the database
+    const admin = await AdminModel.findOne({ where: { email } });
+    if (!admin) {
+      return res.json({ success: false, message: 'Invalid credentials' });
     }
 
-    console.log(existingAdmin)
+    // Compare the password with the hashed password stored in the database
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
+    if (!isPasswordValid) {
+      return res.json({ success: false, message: 'Invalid credentials' });
+    }
 
-    // Generate a hashed password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash('admin', saltRounds);
+    // Session-based authentication
+    req.session.user = admin;
 
-    // Create the default admin record in the database    
-    await AdminModel.create({
-      firstname: 'admin',
-      lastname: 'admin',
-      email: 'admin@gmail.com',
-      phone: '0011223344',
-      password: hashedPassword,
-      image: null,
-      role: 'admin'
-    });
+    // Token-based authentication
+    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '1h' });
 
-    await db.sync(); // synchronize the model with the database
-
-    return res.status(200).json({ message: 'Default admin inserted successfully.' });
+    // Return the token to the client
+    res.json({ success: true, token })
   } catch (error) {
-    console.error('Error inserting default admin:', error);
-    return res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ success: false, message: 'Internal server error' })
   }
+};
+
+// Logout
+export const logout = (req, res) => {
+  // Clear the session
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error logging out:', err);
+      return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+
+    // Redirect to the login page
+    res.redirect('/admin/login');
+  });
 };

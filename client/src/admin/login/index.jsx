@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -14,20 +14,23 @@ import axios from "axios";
 
 const Login = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [error, setError] = useState('');
 
   const handleFormSubmit = async (values) => {
     try {
-      const response = await axios.post("http://localhost:5000/admin/login", values);
-      const token = response.data.token;
-      
-      // Store the token in local storage or session storate
-      localStorage.setItem("token", token);
+      const response = await axios.post('http://localhost:5000/admin/login', values);
+      const { success, message, token } = response.data;
+      if (success) {
+        // Store the token in local storage for token-based authentication
+        localStorage.setItem('token', token);
 
-      // Redirect to a protected route
-      window.location.href= "/admin/dashboard";
-      
+        // Redirect to dashboard
+        window.location.href = '/admin/dashboard';
+      } else {
+        console.log(message);
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Error logging in:', error);
     }
   };
 

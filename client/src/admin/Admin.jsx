@@ -18,7 +18,6 @@ import EventUpload from "./scenes/eventUpload"
 import FAQ from "./scenes/faq";
 import Login from "./login";
 
-
 function Admin() {
   const [theme, colorMode] = useMode();
   const location = useLocation();
@@ -36,8 +35,8 @@ function Admin() {
       {!isLoginPage && <Topbar />}
         {/* <Topbar /> */}
         <Routes>
-          <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="team" element={<Team />} />
           <Route path="members" element={<Members />} />
           <Route path="donation" element={<Donations />} />

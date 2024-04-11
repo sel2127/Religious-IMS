@@ -44,6 +44,14 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
+  const handleLogout = () => {
+    // Remove the token from local storage
+    localStorage.removeItem('token');
+  
+    // Redirect to the login page
+    window.location.href = '/admin/login';
+  };
+
   return (
     <Box
       sx={{
@@ -258,7 +266,7 @@ const Sidebar = () => {
             />
 
 <Box display="flex" justifyContent="center" my="20px" mr="10%">
-              <Button type="submit" color="secondary" variant="contained" sx={{ width: "100%" }}>
+              <Button type="submit" color="secondary" variant="contained" sx={{ width: "100%" }} onClick={handleLogout}>
                 Logout
               </Button>
             </Box>

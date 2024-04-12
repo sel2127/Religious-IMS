@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Button, Typography, useTheme } from "@mui/material";
@@ -44,6 +44,7 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const [admin, setAdmin] = useState(null);
 
   const handleLogout = () => {
     // Remove the token from local storage
@@ -52,6 +53,22 @@ const Sidebar = () => {
     // Redirect to the login page
     window.location.href = '/admin/login';
   };
+
+  useEffect(() => {
+    const fetchAdminProfile = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/admin/profile', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        setAdmin(response.data);
+      } catch (error) {
+        console.error('Erroe fetching admin profile:', error);
+      }
+    };
+    fetchAdminProfile();
+  }, []);
 
   return (
     <Box
@@ -101,14 +118,14 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
-          {!isCollapsed && (
+          {!isCollapsed && admin && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-picture"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={admin.image}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -119,10 +136,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Tsi Mo
+                  {admin.firstname} {admin.lastname}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  IT Admin
+                  {admin.role}
                 </Typography>
                 
 

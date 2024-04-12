@@ -24,6 +24,9 @@ const Login = () => {
         // Store the token in local storage for token-based authentication
         localStorage.setItem('token', token);
 
+        // Add the token to the request headers for subsequent requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
         // Redirect to dashboard
         window.location.href = '/admin/dashboard';
       } else {

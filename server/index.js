@@ -54,32 +54,3 @@ app.use("/admin", adminRouter);
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
-// Create the update profile endpoint
-app.post('/api/admin/profile', authMiddleware, async (req, res) => {
-  try {
-    const { firstName, lastName, email, contact } = req.body;
-    const userId = req.session.user.id;
-
-    // Find the user by their ID
-    const user = await AdminModel.findByPk(userId);
-
-    if (!user) {
-      return res.status(404).json({ success: false, message: 'User not found' });
-    }
-
-    // Update the user's profile
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.email = email;
-    user.contact = contact;
-
-    // Save the changes to the database
-    await user.save();
-
-    res.json({ success: true, message: 'Profile updated successfully' });
-  } catch (error) {
-    console.error('Error updating profile:', error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
-  }
-});

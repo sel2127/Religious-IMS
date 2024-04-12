@@ -99,16 +99,22 @@ export const updateAdmin = async (req, res) => {
 
 export const getAdminProfile = async (req, res) => {
   try {
-    const admin = await AdminModel.findByPk(req.user.id, {
-      attributes: ['id', 'firstname', 'lastname', 'email', 'phone', 'image'],
-    });
-
+    const adminId = req.admin;
+    const admin = await AdminModel.findByPk(adminId);
     if (!admin) {
-      return res.status(404).json({ success: false, message: 'Admin not found' });
+      return res.status(404).json({ error: 'Admin not found' });
     }
 
-    res.json(admin);
+    // Return the admin profile
+    // res.json({
+    //   firstname: admin.firstName,
+    //   lastname: admin.lastName,
+    //   role: admin.role,
+    //   image: admin.image,
+    // });
+    // return res.status(200).json(admin);
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    console.error('Error fetching admin profile:', error);
+    res.status(500).json({ error: 'Server error' })
   }
 };

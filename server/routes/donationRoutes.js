@@ -3,6 +3,6 @@ import { createDonation } from '../controllers/donationController.js';
 
 const router = express.Router();
 
-router.post('/', createDonation);
+router.post('/api/donations', createDonation);
 
-export default router;
+export default router; 

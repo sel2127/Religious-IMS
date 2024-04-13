@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/Database.js';
+import User from './Users.js'; 
 
 const Donation = db.define('Donation', {
   id: {
@@ -7,6 +8,14 @@ const Donation = db.define('Donation', {
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User, // Referencing the User model
+      key: 'id' // Referencing the primary key of the User model
+    }
   },
   first_name: {
     type: DataTypes.STRING,

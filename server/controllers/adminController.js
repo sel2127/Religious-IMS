@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {AdminModel} from '../models/adminModel.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
-
+import multer from 'multer';
 
 // Method to insert default admin
 export const insertDefaultAdmin = async (req, res) => {
@@ -62,59 +62,80 @@ export const logout = (req, res) => {
   });
 };
 
-// Update admin profile
-export const updateAdmin = async (req, res) => {
-  try{
-    const { id } = req.params;
-    const { firstname, lastname, email, phone, password, image } = req.body;
-
-    // Find the admin by id
-    const admin = await AdminModel.findByPk(id);
-
-    if (!admin) {
-      return res.status(404).json({ success: false, message: 'Admin not found' });
-    }
-
-    // Hash the new password if provided
-    let hashedPassword = admin.password;
-    if (password) {
-      const salt = await bcrypt.hash(password, salt);
-    }
-
-    // Update the admin data
-    await admin.update({
-      firstname,
-      lastname,
-      email,
-      phone,
-      password: hashedPassword,
-      image
-    });
-
-    res.json({ success: true, message: 'Admin profile updated successfully' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Internal server error' });
-  }
-}
-
 export const getAdminProfile = async (req, res) => {
   try {
     const adminId = req.admin;
-    const admin = await AdminModel.findByPk(adminId);
+    const admin = await AdminModel.findByPk(adminId, {
+      attributes: ['firstname', 'lastname', 'role', 'image']
+    });
     if (!admin) {
       return res.status(404).json({ error: 'Admin not found' });
     }
 
     // Return the admin profile
     // res.json({
-    //   firstname: admin.firstName,
-    //   lastname: admin.lastName,
+    //   firstname: admin.firstname,
+    //   lastname: admin.lastname,
     //   role: admin.role,
     //   image: admin.image,
     // });
-    // return res.status(200).json(admin);
+    return res.status(200).json(admin);
   } catch (error) {
     console.error('Error fetching admin profile:', error);
     res.status(500).json({ error: 'Server error' })
   }
 };
+
+// Multer configuration for file upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '../client/public/assets/'); // Set the destination folder for uploaded images
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const extension = file.mimetype.split('/')[1];
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension); // Set the filename for the uploaded image
+  },
+});
+
+const upload = multer({ storage: storage });
+
+export const updateAdminProfile = async (req, res) => {
+  try {
+    const adminId = req.admin;
+    const { firstname, lastname, email, phone, password, confirmPassword } = req.body;
+
+    // Update the admin profile in the database
+    const admin = await AdminModel.findByPk(adminId);
+    if (!admin) {
+      return res.status(404).json({ error: 'Admin not found' });
+    }
+    
+    // Update the admin profile fields
+    admin.firstname = firstname;
+    admin.lastname = lastname;
+    admin.email = email;
+    admin.phone = phone;
+
+    // Update password if provided
+    if (password && (password === confirmPassword)) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      admin.password = hashedPassword;
+    }
+
+    // Update image if provided
+    if (req.file) {
+      admin.image = req.file.filename;
+    }
+
+    await admin.save(); // Save the updated admin profile
+    res.status(200).json({ success: true, message: 'Admin profile updated successfully' });
+    // res.status(500).json({ success: false, message: 'Error updating admin profile' });
+  } catch (error) {
+    console.error('Error updating admin profile:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+export const uploadImage = upload.single('image');

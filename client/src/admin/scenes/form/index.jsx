@@ -6,68 +6,68 @@ import {
   TextField,
   InputLabel,
   FormControl,
+  Typography,
+  useTheme
 } from "@mui/material";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { tokens } from "../../theme";
 import Header from "../../components/Header";
 
-const Form = ({admin}) => {
+const Form = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-    image: null
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone: '',
+    password: '',
+    image: null,
   });
 
-  // Fetch the admin data
-  useEffect(() => {
-    const fetchAdminData = async () => {
-      try {
-        if (admin && admin.id){
-        const token = localStorage.getItem('token');
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        };
-        const response = await axios.get(`http://localhost:5000/admin/login/${admin.id}`, config);
-        setFormData(response.data);
-      }
-      } catch (error) {
-        console.error('Error fetching admin data:', error);
-      }
-    };
-    fetchAdminData();
-  }, [admin]);
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
-        }
-      };
-      const response = await axios.put(`http://localhost:5000/admin/login/${admin.id}`, formData, config);
-      console.log(response.data.message);
-    } catch (error) {
-      console.error('Error updating admin data:', error);
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
-  const handleImageChange = (event) => {
-    const {name, value, files } = event.target;
-    if (name === 'image') {
-      setFormData({ ...formData, image: files[0] });
-    } else {
-      setFormData({ ... formData, [name]: value });
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      image: file,
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const endpoint = 'http://localhost:5000/admin/update';
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const formDataToSend = new FormData();
+      formDataToSend.append('firstname', formData.firstname);
+      formDataToSend.append('lastname', formData.lastname);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('password', formData.password);
+      formDataToSend.append('image', formData.image);
+
+      const response = await axios.put(endpoint, formDataToSend, config);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error updating admin profile:', error);
     }
   };
 
@@ -77,7 +77,7 @@ const Form = ({admin}) => {
 
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={formData}
+        initialValues={initialValues}
         validationSchema={checkoutSchema}
       >
         {({
@@ -85,8 +85,8 @@ const Form = ({admin}) => {
           errors,
           touched,
           handleBlur,
-          handleChange,
           handleSubmit,
+          setFieldValue,
         }) => (
           <form onSubmit={handleFormSubmit}>
             <Box
@@ -104,12 +104,13 @@ const Form = ({admin}) => {
                 label="First Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
+                value={formData.firstname}
+                name="firstname"
+                error={!!touched.firstname && !!errors.firstname}
+                helperText={touched.firstname && errors.firstname}
                 sx={{ gridColumn: "span 2" }}
               />
+              <ErrorMessage name="firstname" component={Typography} color="error" />
               <TextField
                 fullWidth
                 variant="filled"
@@ -117,12 +118,13 @@ const Form = ({admin}) => {
                 label="Last Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
+                value={formData.lastname}
+                name="lastname"
+                error={!!touched.lastname && !!errors.lastname}
+                helperText={touched.lastname && errors.lastname}
                 sx={{ gridColumn: "span 2" }}
               />
+              {/* <ErrorMessage name="firstname" component={Typography} color="error" /> */}
               <TextField
                 fullWidth
                 variant="filled"
@@ -130,7 +132,7 @@ const Form = ({admin}) => {
                 label="Email"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.email}
+                value={formData.email}
                 name="email"
                 error={!!touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
@@ -140,15 +142,38 @@ const Form = ({admin}) => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label="phone Number"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.contact}
-                name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
+                value={formData.phone}
+                name="phone"
+                error={!!touched.phone && !!errors.phone}
+                helperText={touched.phone && errors.phone}
                 sx={{ gridColumn: "span 2" }}
               />
+              {/* <TextField
+                fullWidth
+                variant="filled"
+                type="file"
+                label="Image"
+                inputProps={{ accept: ".png, .jpg, .jpeg" }}
+                onChange={(event) => {
+                  setFieldValue("image", event.currentTarget.files[0]);
+                }}
+                name="image"
+                error={!!touched.image && !!errors.image}
+                helperText={touched.image && errors.image}
+                sx={{ gridColumn: "span 4" }}
+              /> */}
+              <input
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+              />
+
+              <Typography variant="h3" color={colors.grey[100]} sx={{ gridColumn: "span 4" }}>
+                  Change Password
+                </Typography>
               <TextField
                 fullWidth
                 variant="filled"
@@ -156,7 +181,7 @@ const Form = ({admin}) => {
                 label="Password"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.password}
+                value={formData.password}
                 name="password"
                 error={!!touched.password && !!errors.password}
                 helperText={touched.password && errors.password}
@@ -169,25 +194,24 @@ const Form = ({admin}) => {
                 label="Confirm Password"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.confirmPassword}
+                value={formData.confirmPassword}
                 name="confirmPassword"
                 error={!!touched.confirmPassword && !!errors.confirmPassword}
                 helperText={touched.confirmPassword && errors.confirmPassword}
                 sx={{ gridColumn: "span 2" }}
               />
+{/* {successMessage && (
+              <Typography style={{ color: "green" }}>
+                {successMessage}
+              </Typography>
+            )} */}
 
-<input
-        accept="image/jpeg, image/jpg, image/png"
-        id="image-upload"
-        type="file"
-        onChange={handleImageChange}
-        style={{ display: "none" }}
-      />
-      <label htmlFor="image-upload">
-        <Button component="span" color="primary" variant="contained">
-          Upload Image
-        </Button>
-      </label>
+{/* {errorMessage && (
+              <Typography style={{ color: "red" }}>
+                {errorMessage}
+              </Typography>
+            )} */}
+
         
 
               {/* access control */}
@@ -214,7 +238,7 @@ const Form = ({admin}) => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Update Info
+                Update Profile
               </Button>
             </Box>
           </form>
@@ -222,6 +246,16 @@ const Form = ({admin}) => {
       </Formik>
     </Box>
   );
+};
+
+const initialValues = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  phone: '',
+  password: '',
+  confirmPassword: '',
+  image: null,
 };
 
 const phoneRegExp =

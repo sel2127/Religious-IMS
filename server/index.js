@@ -32,7 +32,7 @@ app.use(
   })
 )
 
-// await db.sync();
+await db.sync();
 
 // Authentication middleware
 // app.use(authMiddleware);

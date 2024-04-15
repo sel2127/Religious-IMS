@@ -64,7 +64,7 @@ const Sidebar = () => {
         });
         setAdmin(response.data);
       } catch (error) {
-        console.error('Erroe fetching admin profile:', error);
+        console.error('Error fetching admin profile:', error);
       }
     };
     fetchAdminProfile();
@@ -125,7 +125,7 @@ const Sidebar = () => {
                   alt="profile-picture"
                   width="100px"
                   height="100px"
-                  src={admin.image}
+                  src={`../../../assets/${admin.image}`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -147,7 +147,7 @@ const Sidebar = () => {
               <Box paddingLeft={isCollapsed ? undefined : "10%"}>
               <Item
               title="Edit Profile"
-              to="/admin"
+              to="/admin/form"
               icon={<EditIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -27,7 +27,46 @@ const Form = () => {
     password: '',
     image: null,
   });
+  const [initialValues, setInitialValues] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    image: null,
+    currentPassword: '',
+  });
 
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/admin/profile', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        const profileData = response.data;
+
+        setInitialValues({
+          firstname: profileData.firstname,
+          lastname: profileData.lastname,
+          email: profileData.email,
+          phone: profileData.phone,
+          password: '',
+          confirmPassword: '',
+          image: null,
+          currentPassword: '',
+        });
+      } catch (error) {
+        console.error('Error fetching admin profile:', error);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -61,6 +100,7 @@ const Form = () => {
       formDataToSend.append('lastname', formData.lastname);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('currentPassword', formData.currentPassword);
       formDataToSend.append('password', formData.password);
       formDataToSend.append('image', formData.image);
 
@@ -103,7 +143,8 @@ const Form = () => {
                 type="text"
                 label="First Name"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) =>
+                  setInitialValues({ ...initialValues, firstname: e.target.value })}
                 value={formData.firstname}
                 name="firstname"
                 error={!!touched.firstname && !!errors.firstname}
@@ -117,7 +158,8 @@ const Form = () => {
                 type="text"
                 label="Last Name"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) =>
+                  setInitialValues({ ...initialValues, lastname: e.target.value })}
                 value={formData.lastname}
                 name="lastname"
                 error={!!touched.lastname && !!errors.lastname}
@@ -131,7 +173,8 @@ const Form = () => {
                 type="text"
                 label="Email"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) =>
+                  setInitialValues({ ...initialValues, email: e.target.value })}
                 value={formData.email}
                 name="email"
                 error={!!touched.email && !!errors.email}
@@ -144,7 +187,8 @@ const Form = () => {
                 type="text"
                 label="phone Number"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) =>
+                  setInitialValues({ ...initialValues, phone: e.target.value })}
                 value={formData.phone}
                 name="phone"
                 error={!!touched.phone && !!errors.phone}
@@ -174,6 +218,19 @@ const Form = () => {
               <Typography variant="h3" color={colors.grey[100]} sx={{ gridColumn: "span 4" }}>
                   Change Password
                 </Typography>
+                <TextField
+  fullWidth
+  variant="filled"
+  type="password"
+  label="Current Password"
+  onBlur={handleBlur}
+  onChange={handleChange}
+  value={formData.currentPassword}
+  name="currentPassword"
+  error={!!touched.currentPassword && !!errors.currentPassword}
+  helperText={touched.currentPassword && errors.currentPassword}
+  sx={{ gridColumn: "span 4" }}
+/>
               <TextField
                 fullWidth
                 variant="filled"
@@ -248,27 +305,28 @@ const Form = () => {
   );
 };
 
-const initialValues = {
-  firstname: '',
-  lastname: '',
-  email: '',
-  phone: '',
-  password: '',
-  confirmPassword: '',
-  image: null,
-};
+// const initialValues = {
+//   firstname: '',
+//   lastname: '',
+//   email: '',
+//   phone: '',
+//   password: '',
+//   confirmPassword: '',
+//   image: null,
+//   currentPassword: '',
+// };
 
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 const checkoutSchema = yup.object().shape({
-  firstname: yup.string().required("required"),
-  lastname: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
+  firstname: yup.string(),
+  lastname: yup.string(),
+  email: yup.string().email("invalid email"),
   phone: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
+    ,
   password: yup
     .string()
     .min(8, "Password must be at least 8 characters long")
@@ -276,11 +334,11 @@ const checkoutSchema = yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
       "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
     )
-    .required("required"),
+    ,
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("required"),
+    ,
   image: yup
     .mixed()
     .test("fileSize", "Image size should be less than 2MB", (value) => {
@@ -290,6 +348,9 @@ const checkoutSchema = yup.object().shape({
       return value && /(image\/jpeg|image\/jpg|image\/png)/.test(value.type);
     })
     .required("Please select an image"),
+    currentPassword: yup
+    .string()
+    .required("required"),
 });
 
 export default Form;

@@ -7,6 +7,7 @@ import uploadRouter from "./routes/uploadRoutes.js";
 import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
 import { authMiddleware } from './middlewares/authMiddleware.js';
+import UserRoute from "./routes/UserRoute.js";
 
 const app = express();
 // app.use(cors());
@@ -43,6 +44,8 @@ await db.sync();
 
 // Authentication middleware
 // app.use(authMiddleware);
+
+app.use("/user", UserRoute);
 
 // Mount event routes
 app.use("/events", eventRouter);

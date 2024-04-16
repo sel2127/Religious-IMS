@@ -66,7 +66,7 @@ export const getAdminProfile = async (req, res) => {
   try {
     const adminId = req.admin;
     const admin = await AdminModel.findByPk(adminId, {
-      attributes: ['firstname', 'lastname', 'role', 'image']
+      attributes: ['firstname', 'lastname', 'email', 'phone', 'role', 'image']
     });
     if (!admin) {
       return res.status(404).json({ error: 'Admin not found' });
@@ -103,7 +103,7 @@ const upload = multer({ storage: storage });
 export const updateAdminProfile = async (req, res) => {
   try {
     const adminId = req.admin;
-    const { firstname, lastname, email, phone, password, confirmPassword } = req.body;
+    const { firstname, lastname, email, phone, currentPassword, password, confirmPassword } = req.body;
 
     // Update the admin profile in the database
     const admin = await AdminModel.findByPk(adminId);
@@ -111,6 +111,11 @@ export const updateAdminProfile = async (req, res) => {
       return res.status(404).json({ error: 'Admin not found' });
     }
     
+    // Check if the current password is correct
+    const isCurrentPasswordValid = await bcrypt.compare(currentPassword, admin.password);
+    if (!isCurrentPasswordValid){
+      return res.status(401).json({ error: 'Invalid current password' });
+    }
     // Update the admin profile fields
     admin.firstname = firstname;
     admin.lastname = lastname;
@@ -118,7 +123,7 @@ export const updateAdminProfile = async (req, res) => {
     admin.phone = phone;
 
     // Update password if provided
-    if (password && (password === confirmPassword)) {
+    if (password && (password !== '')) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
       admin.password = hashedPassword;

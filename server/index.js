@@ -9,8 +9,15 @@ import calendarRoutes from "./routes/calendarRoutes.js";
 import { authMiddleware } from './middlewares/authMiddleware.js';
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Replace with your React app's domain
+  credentials: true, // Enable sending cookies in cross-origin requests
+}));
+app.options('*', cors());
+
 app.use(express.json());
+
 const port = 5000;
 
 // db.sync({ alter: true })

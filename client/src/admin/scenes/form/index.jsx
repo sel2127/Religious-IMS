@@ -27,46 +27,49 @@ const Form = () => {
     password: '',
     image: null,
   });
+  
   const [initialValues, setInitialValues] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    currentPassword: "",
+    password: "",
+    confirmPassword: "",
     image: null,
-    currentPassword: '',
   });
 
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/admin/profile', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const userData = response.data;
+      setInitialValues({
+  firstname: userData.firstname || "",
+  lastname: userData.lastname || "",
+  email: userData.email || "",
+  phone: userData.phone || "",
+});
+      console.log(userData);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/admin/profile', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-
-        const profileData = response.data;
-
-        setInitialValues({
-          firstname: profileData.firstname,
-          lastname: profileData.lastname,
-          email: profileData.email,
-          phone: profileData.phone,
-          password: '',
-          confirmPassword: '',
-          image: null,
-          currentPassword: '',
-        });
-      } catch (error) {
-        console.error('Error fetching admin profile:', error);
-      }
-    };
-
-    fetchProfileData();
+    fetchUserData();
   }, []);
   
+  useEffect(() => {
+    if (initialValues !== null) {
+      // Set the form data when initial values are available
+      setFormData(initialValues);
+    }
+  }, [initialValues]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -143,8 +146,7 @@ const Form = () => {
                 type="text"
                 label="First Name"
                 onBlur={handleBlur}
-                onChange={(e) =>
-                  setInitialValues({ ...initialValues, firstname: e.target.value })}
+                onChange={handleChange}
                 value={formData.firstname}
                 name="firstname"
                 error={!!touched.firstname && !!errors.firstname}
@@ -158,8 +160,7 @@ const Form = () => {
                 type="text"
                 label="Last Name"
                 onBlur={handleBlur}
-                onChange={(e) =>
-                  setInitialValues({ ...initialValues, lastname: e.target.value })}
+                onChange={handleChange}
                 value={formData.lastname}
                 name="lastname"
                 error={!!touched.lastname && !!errors.lastname}
@@ -173,8 +174,7 @@ const Form = () => {
                 type="text"
                 label="Email"
                 onBlur={handleBlur}
-                onChange={(e) =>
-                  setInitialValues({ ...initialValues, email: e.target.value })}
+                onChange={handleChange}
                 value={formData.email}
                 name="email"
                 error={!!touched.email && !!errors.email}
@@ -187,8 +187,7 @@ const Form = () => {
                 type="text"
                 label="phone Number"
                 onBlur={handleBlur}
-                onChange={(e) =>
-                  setInitialValues({ ...initialValues, phone: e.target.value })}
+                onChange={handleChange}
                 value={formData.phone}
                 name="phone"
                 error={!!touched.phone && !!errors.phone}
@@ -349,8 +348,7 @@ const checkoutSchema = yup.object().shape({
     })
     .required("Please select an image"),
     currentPassword: yup
-    .string()
-    .required("required"),
+    .string(),
 });
 
 export default Form;

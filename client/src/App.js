@@ -7,8 +7,6 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import Forgot from './Auth/Forgot';
 import Footer from './common/Footer';
-import FeedbackPage from './pages/FeedbackPage';
-import AbnetPage from './pages/AbnetPage';
 import Upload from './components/EventUpload';
 import Donation from './pages/Donation';
 import MemberRegisterationPage from './pages/MemberRegisterationPage';
@@ -21,7 +19,8 @@ import Admin from './admin/Admin';
 import "./assets/styles/main.css";
 import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
-
+import Abnet from './pages/AbnetPage';
+import FeedbackPage from './pages/FeedbackPage';
 
 
 function App() {
@@ -35,7 +34,7 @@ function App() {
 
       {/* <Breadcrumb/> */}
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
         <Route path="/sunday" element={<SundaySchool />} />
         <Route path="/login" element={<Login />} />
@@ -49,7 +48,7 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<MemberRegisterationPage />} />
-        <Route path="/abnet" element={<AbnetPage />} />
+        <Route path="/abnet" element={<Abnet/>} />
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />

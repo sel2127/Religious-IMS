@@ -1,23 +1,17 @@
-import bcrypt from 'bcrypt';
-import Jwt from 'jsonwebtoken';
-// import { User } from "../models/UserModel.js"
 
-export const userLogin = async (req, res) => {
-    const { phone, password } = req.body;
+// Function to fetch user data
+async function getUserData() {
+  try {
+    // Fetch user data from the database
+    const userData = await User.findOne();
 
-    try {
-        const user = await User.findOne({ phone });
-        if (!user) {
-            return res.status(401).json({ message: "Invalid phone number or password" });
-        }
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ message: "Invalid phone number or password" });
-        }
-        const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" }); // Generate a JWT token
-        res.json({ token });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Server Error" });
-    }
+    return userData;
+  } catch (error) {
+    console.error('Error retrieving user data:', error);
+    throw error;
+  }
 }
+
+module.exports = {
+  getUserData
+};

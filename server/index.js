@@ -19,7 +19,7 @@ app.options('*', cors());
 app.use(express.json());
 
 const port = 5000;
-
+// new
 // db.sync({ alter: true })
 //   .then(() => {
 //     console.log("Database synced");

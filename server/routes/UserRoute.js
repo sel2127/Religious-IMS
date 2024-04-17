@@ -10,7 +10,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/UserModel.js';
 
-// const router = express.Router();
+const router = express.Router();
 
 // Register a new user
 router.post('/register', async (req, res) => {
@@ -116,4 +116,4 @@ router.post('/users', createUser);
 router.patch('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 
-// export default router;
+export default router;

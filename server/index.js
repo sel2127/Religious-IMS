@@ -45,7 +45,7 @@ await db.sync();
 // Authentication middleware
 // app.use(authMiddleware);
 
-app.use("/user", UserRoute);
+app.use('/user', UserRoute);
 
 // Mount event routes
 app.use("/events", eventRouter);

@@ -1,8 +1,7 @@
-// import { Sequelize } from "sequelize";
-// import db from "../config/Database.js";
-// import AdminList from "./adminModel.js";
+import { Sequelize } from "sequelize";
+import db from "../config/Database.js";
 
-// const { DataTypes } = Sequelize;
+const { DataTypes } = Sequelize;
 
 // table name - user
 const Users = db.define(
@@ -67,4 +66,4 @@ const Users = db.define(
 // AdminList.hasMany(Users);
 // Users.belongsTo(AdminList, {foreignKey: 'adminsId'});
 
-// export default Users;
+export default Users;

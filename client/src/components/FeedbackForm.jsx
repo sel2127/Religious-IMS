@@ -64,7 +64,7 @@ const navigate=useNavigate();
                 <input
                   type="text"
                   id="name"
-                  placeholder="Name"
+                  placeholder="ስም"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
@@ -74,7 +74,7 @@ const navigate=useNavigate();
                 />
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="ኢሜል"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -85,7 +85,7 @@ const navigate=useNavigate();
                 />
                 <textarea
                   rows={5}
-                  placeholder="Put your feedback "
+                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ...። "
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -113,7 +113,7 @@ const navigate=useNavigate();
                     className={` w-1/2 m-auto bg-blue-500 text-white rounded-md hover:bg-blue-700 h-10  mb-4 
      ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
                   >
-                    {isLoading ? "Submitting..." : "Submit Feedback"}
+                    {isLoading ? "Submitting..." : "አስተያየትዎን ይላኩ"}
                   </button>
                 </div>
                 {errorMessage && (

@@ -133,31 +133,3 @@ export const updateFeedbackById = [
   },
 ];
 
-// update feedback by id
-// export const updateFeedbackById = [
-//   upload.single("image"),
-//   async (req, res) => {
-//     const { id } = req.params;
-//     const { name, email, message } = req.body;
-
-//     try {
-//       const feedback = await Feedback.findByPk(id);
-//       if (!feedback) {
-//         return res.status(404).json({ error: "feedback not found" });
-//       }
-//       // Update feedback
-//       // feedback.name = name;
-//       // feedback.email = email;
-//       // feedback.message = message;
-
-//       // const imagePath = req.file ? req.file.path : null;
-//       // feedback.imagePath = imagePath; // Assign new imagePath value
-//   await Feedback.update(feedback, { where: { id: id } });
-// // await feedback.save();
-//       return res.json({ message: "feedback updated successfully", feedback });
-//     } catch (error) {
-//       console.log(error);
-//       return res.status(500).json({ error: "internal server error" });
-//     }
-//   }
-// ];

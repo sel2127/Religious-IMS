@@ -34,7 +34,7 @@ const Feedback = db.define("feedback", {
     },
     imagePath: {
         type: DataTypes.STRING,
-        allowNull: false 
+        allowNull: true 
     },
 });
 export default Feedback;

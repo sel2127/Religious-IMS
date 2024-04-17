@@ -4,15 +4,15 @@ import multer from "multer";
 import cors from "cors";
 import path from "path";
 import Feedback from "../models/FeedbackModel.js";
-
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
+import { error } from "console";
+import { where } from "sequelize";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use(cors());
 // Serve  files from the 'uploads' directory
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(express.static("uploads"));
 // Set up storage for image uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -28,15 +28,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// API  to submit feedback with image from the form
-export const createFeedback = async (req, res) => {
-  upload.single("image")(req, res, async (err) => {
-    if (err instanceof multer.MulterError) {
-      return res.status(400).json({ error: "File upload error" });
-    } else if (err) {
-      return res.status(500).json({ error: "Internal server error" });
-    }
-
+// Create feedback endpoint
+export const createFeedback = [
+  upload.single("image"),
+  async (req, res) => {
     const { name, email, message } = req.body;
 
     if (!name || !email || !message) {
@@ -45,17 +40,17 @@ export const createFeedback = async (req, res) => {
         .json({ error: "Please provide name, email, and message" });
     }
 
-    const imagePath = req.file
-      ? path.join(__dirname, "uploads/", req.file.filename)
-      : null;
+    const imagePath = req.file ? req.file.path : null;
 
     try {
+      // Create a new feedback record in the database
       await Feedback.create({
         name,
         email,
         message,
         imagePath,
       });
+
       res.json({
         message: "Feedback submitted successfully",
         imagePath: imagePath,
@@ -64,8 +59,8 @@ export const createFeedback = async (req, res) => {
       console.error(err);
       res.status(500).json({ message: "Error submitting feedback" });
     }
-  });
-};
+  },
+];
 // api to retrive feedback
 export const getAllFeedback = async (req, res) => {
   try {
@@ -105,19 +100,64 @@ export const deleteFeedbackById = async (req, res) => {
     return res.status(500).json({ message: "error for deleting feedback" });
   }
 };
-export const updateFeedbackById = async (req, res) => {
-  const id = req.params.id;
-  const updatedFeedback = req.body;
-  try {
-    const feedback = await Feedback.findByPk(id);
-    if (!feedback) {
-      return res.status(404).json({ message: "feedback not found" });
+
+
+export const updateFeedbackById = [
+  upload.single("image"),
+  async (req, res) => {
+    const id = req.params.id;
+    const { name, email, message } = req.body;
+    try {
+      const feedback = await Feedback.findByPk(id);
+      if (!feedback) {
+        return res.json({ message: "feedabck not found" });
+      }
+      //update feedback information
+      feedback.name = name;
+      feedback.email = email;
+      feedback.message = message;
+
+      if (req.file) {
+        feedback.imagePath = req.file.path;
+      }
+      await feedback.update({ where: { id: id } });
+      await feedback.save();
+
+      res
+        .status(200)
+        .json({ message: "feedback updated successfully:", feedback });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "error for updating feedback" });
     }
-    //update feedback
-    await Feedback.update(updatedFeedback, { where: { id: id } });
-    return res.status(200).json({ message: "feddback updated successfully!" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "error for updating feedback" });
-  }
-};
+  },
+];
+
+// update feedback by id
+// export const updateFeedbackById = [
+//   upload.single("image"),
+//   async (req, res) => {
+//     const { id } = req.params;
+//     const { name, email, message } = req.body;
+
+//     try {
+//       const feedback = await Feedback.findByPk(id);
+//       if (!feedback) {
+//         return res.status(404).json({ error: "feedback not found" });
+//       }
+//       // Update feedback
+//       // feedback.name = name;
+//       // feedback.email = email;
+//       // feedback.message = message;
+
+//       // const imagePath = req.file ? req.file.path : null;
+//       // feedback.imagePath = imagePath; // Assign new imagePath value
+//   await Feedback.update(feedback, { where: { id: id } });
+// // await feedback.save();
+//       return res.json({ message: "feedback updated successfully", feedback });
+//     } catch (error) {
+//       console.log(error);
+//       return res.status(500).json({ error: "internal server error" });
+//     }
+//   }
+// ];

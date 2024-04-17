@@ -91,7 +91,7 @@ const FeedbackDetailPage = () => {
                     <div className=" flex flex-col  items-center">
                       <div className="">
                         <p className="mt-5  px-6 py-3 text-center items-center">
-                          Are you sure you want to delete this item?
+                        የመረጡትን አስተያየት ለማጥፋት እርግጠኛ ነዎት?
                         </p>
                       </div>
                       <div className="flex justify-center space-between ">
@@ -100,13 +100,13 @@ const FeedbackDetailPage = () => {
                             onClick={handleCancelClick}
                             className="mt-10 px-6 py-2 bg-pink-200 mr-2 rounded-3xl"
                           >
-                            Cancel
+                            አይ
                           </button>
                           <button
                             onClick={() => handleDelete(feedback.id)}
                             className="mt-10 ml-10 px-6 py-2 bg-red-600 rounded-3xl"
                           >
-                            Delete
+                            አወ
                           </button>
                         </div>
                       </div>
@@ -118,7 +118,7 @@ const FeedbackDetailPage = () => {
             </div>
             <Link to="/feedback">
               <button className="mt-10 ml-10 px-6 py-2 bg-red-600 rounded-3xl text-center">
-                go back
+                ተመለስ
               </button>
             </Link>
           </div>

@@ -26,14 +26,14 @@ const EditProfile = () => {
             type="text"
             id="name"
             defaultValue={profileData.username}
-            placeholder="Enter new username"
+            placeholder="አዲስ መለያ ስም ያስገቡ"
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
             onInput={(e) => {
               if (e.target.value.length < 3) {
                 e.target.setCustomValidity(
-                  "Username must be at least 3 characters long"
+                  "መለያ ስሞ ከ 3 ፊደል መብለጥ አለበት"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -45,14 +45,14 @@ const EditProfile = () => {
             type="text"
             id="name"
             defaultValue={profileData.username}
-            placeholder="Enter new username"
+            placeholder="አዲስ መለያ ስም ያስገቡ"
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
             onInput={(e) => {
               if (e.target.value.length < 3) {
                 e.target.setCustomValidity(
-                  "Username must be at least 3 characters long"
+                  "መለያ ስሞ ከ 3 መብለጥ አለበት "
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -71,7 +71,7 @@ const EditProfile = () => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
               if (!e.target.value.match(emailRegex)) {
                 e.target.setCustomValidity(
-                  "Please enter a valid email address"
+                  "ትክክለኛ የኢሜል አድራሻዎን ያስገቡ"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -96,7 +96,7 @@ const EditProfile = () => {
 
               if (!ethiopianPattern1.test(e.target.value)) {
                 e.target.setCustomValidity(
-                  "Please enter a valid Ethiopian phone number (09 + 8 digits )"
+                  "ትክክልኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (09 + 8 digits )"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -112,13 +112,13 @@ const EditProfile = () => {
               type="submit"
               className="bg-blue-500 text-white text-center  px-6 py-1 rounded-3xl "
             >
-              Save
+              ያዘምኑ
             </button>
             <button
               className="bg-red-500 text-white text-center  px-6 py-1 rounded-3xl ml-10"
               onClick={() => window.history.back()}
             >
-              Cancel
+              ያጥፋ
             </button>
           </div>
         </div>

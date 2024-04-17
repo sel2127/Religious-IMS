@@ -8,33 +8,33 @@ function Sidebarr({ children }) {
   const menuItem = [
     {
       path: "/profile",
-      name: "My profile",
+      name: "የኔ መረጃዎች",
       icon: <FaUserAlt />,
     },
     {
       path: "/viewmoreprofile",
-      name: "view more",
+      name: "የበለጠ ለማየት",
       icon: <FaReadme />,
     },
     
     {
       path: "/editprofile",
-      name: "Edit Profile",
+      name: "መረጃዎን ለመቀየር",
       icon: <FaEdit />,
     },
     {
       path: "/changepassword",
-      name: "Change Password",
+      name: "የይለፍ ቃሎን ለመቀየር ",
       icon: <FaEdit />,
     },
     {
       path: "/feedbackform",
-      name: "Give Feedback",
+      name: "አስተያየት ለመስጠት",
       icon: <FaCommentAlt />,
     },
     {
         path: "/logout",
-        name: "Logout",
+        name: "ለመዉጣት",
         icon: <FaPowerOff />,
       },
   ];
@@ -43,7 +43,7 @@ function Sidebarr({ children }) {
     <div className="conatiner   ">
       <div style={{ width: isOpen ? "400px" : " 50px" }} className="sidebar">
         <div className="top-section">
-          <h1 style={{ display: isOpen ? "block" : "none" }}>user profile</h1>
+          <h1 style={{ display: isOpen ? "block" : "none" }}>የእርስዎ መረጃዎች</h1>
           <div className="bars" style={{ marginLeft: isOpen ? "50px" : "0px" }}>
             <FaBars onClick={toogle} />
           </div>

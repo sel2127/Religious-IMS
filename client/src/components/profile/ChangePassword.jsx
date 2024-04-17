@@ -41,7 +41,7 @@ function ChangePassword() {
           <input
             type="password"
             id="password"
-            placeholder="Current Password"
+            placeholder="አሁን ያለዉን ይለፍ ቃል ያስገቡ"
             className="ml-10 mr-10 border rounded-xl px-6 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 "
             required
             autoComplete="current-password"
@@ -49,14 +49,14 @@ function ChangePassword() {
            <input
             type="password"
             id="new"
-            placeholder="new password(min 6 characters)"
+            placeholder="አዲሱን ይለፍ ቃል ያስገቡ(ትንሹ 6 ፊደል ነው)"
             className="ml-10 mr-10 border rounded-xl px-4 py-2  focus:outline-none focus:ring-2 focus:ring-gray-500  "
             required
             autoComplete="current-password"
           />
           <input
             type="password"
-            placeholder="Confirm Password (Min 6 Characters)"
+            placeholder="ደግመዉ ይለፍ ቃል ያስገቡ(ትንሹ 6 ፊደል ነው)"
             id="confirm"
             className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500   "
             required
@@ -74,13 +74,13 @@ function ChangePassword() {
               onClick={handleSubmit}
               className="bg-blue-500 text-white text-center  px-6 py-2 rounded-3xl mr-4"
             >
-              Confirm
+              ያዘምኑ
             </button>
             <button
               className="bg-red-500 text-white text-center  px-6 py-2 rounded-3xl"
               onClick={() => window.history.back()}
             >
-              Cancel
+              ያጥፋ
             </button>
           </div>
         </div>

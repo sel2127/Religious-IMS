@@ -76,15 +76,15 @@ const ProfilePage = () => {
               </div>
               <div className="flex flex-col justify-center items-center gap-4 p-4">
                 <p className="font-bold text-xl text-dark-blue">
-                  <marquee>Wellcome, {profileData.username}</marquee>
+                  <marquee>እንኳን ደህና መጡ, {profileData.username}</marquee>
                 </p>
                 <p>{profileData.email}</p>
                 <div className="mt-10">
-                  <p>Your phone: {profileData.phone}</p>
+                  <p>ስልክ ቁጥርዎ: {profileData.phone}</p>
                 </div>
               </div>
               <div className="justify-center items-center mt-10">
-                <p className='text-center font-bold text-4xl'>Thank you for visiting our website</p>
+                <p className='text-center font-bold text-4xl'>ድህረ ገጻችንን ስለጎበኙ እናመሰግናለን!</p>
               </div>
             </div>
           </div>

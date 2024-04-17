@@ -76,7 +76,7 @@ const navigate=useNavigate();
                 <input
                   type="text"
                   id="name"
-                  placeholder="Name"
+                  placeholder="ስም"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
@@ -97,11 +97,11 @@ const navigate=useNavigate();
                 />
                 <textarea
                   rows={5}
-                  placeholder="Put your feedback "
+                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፉ.... "
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                  className="border  rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
  ml-10 mr-10"
                   required
                   autoComplete="off"
@@ -121,7 +121,7 @@ const navigate=useNavigate();
 />
 
 {selected && (
-  <p>Selected Image: {selected}</p>
+  <p>የመረጡት ምስል: {selected}</p>
 )}
 
 
@@ -133,7 +133,7 @@ const navigate=useNavigate();
                     className={` w-1/2 m-auto bg-blue-500 text-white rounded-md hover:bg-blue-700 h-10  mb-4 
      ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
                   >
-                    {isLoading ? "Submitting..." : "Update Feedback"}
+                    {isLoading ? "Submitting..." : "አስተያየትዎን ያዘምኑ"}
                   </button>
                   {/* <button
                     onClick={() => navigate('/feedback')}

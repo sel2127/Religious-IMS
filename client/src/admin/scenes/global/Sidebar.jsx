@@ -186,8 +186,8 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Member Information"
-              to="/admin/members"
+              title="User Information"
+              to="/admin/users"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

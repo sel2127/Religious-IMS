@@ -5,7 +5,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
-} from '../controllers/Users.js';
+} from '../controllers/userController.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/UserModel.js';

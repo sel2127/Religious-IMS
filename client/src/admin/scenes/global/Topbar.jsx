@@ -24,6 +24,14 @@ const TopBar = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    // Remove the token from local storage
+    localStorage.removeItem('token');
+  
+    // Redirect to the login page
+    window.location.href = '/admin/login';
+  };
+
   return (
    <Box display="flex" justifyContent="space-between" p={2}>
     {/* SEARCH BAR */}
@@ -57,7 +65,7 @@ const TopBar = () => {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-          <MenuItem component={Link} to="/logout" onClick={handleMenuClose}>
+          <MenuItem onClick={handleLogout}>
             Logout
           </MenuItem>
           <MenuItem component={Link} to="/hello" onClick={handleMenuClose}>

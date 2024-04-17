@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import './adminCss/admin.css'
@@ -18,10 +19,29 @@ import EventUpload from "./scenes/eventUpload"
 import FAQ from "./scenes/faq";
 import Login from "./login";
 
-
 function Admin() {
   const [theme, colorMode] = useMode();
   const location = useLocation();
+  // const [admin, setAdmin] = useState(null);
+
+  // useEffect(() => {
+  //   const fetchAdminData = async () => {
+  //     try {
+  //       const token = localStorage.getItem('token');
+  //       const config = {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       };
+  //       const response = await axios.get('http://localhost:5000/admin/profile', config);
+  //       console.log('Response data:', response.data);
+  //       setAdmin(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching admin data:', error);
+  //     }
+  //   };
+  //   fetchAdminData();
+  // }, []);
 
   const isLoginPage = location.pathname === '/admin/login';
 
@@ -36,8 +56,8 @@ function Admin() {
       {!isLoginPage && <Topbar />}
         {/* <Topbar /> */}
         <Routes>
-          <Route path="dashboard" element={<Dashboard />} />
           <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="team" element={<Team />} />
           <Route path="members" element={<Members />} />
           <Route path="donation" element={<Donations />} />
@@ -51,6 +71,7 @@ function Admin() {
         </Routes>
       </main>   
     </div>
+    {/* {admin && <Form admin={admin} />} */}
     </ThemeProvider>
     </ColorModeContext.Provider>
   );

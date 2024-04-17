@@ -1,106 +1,56 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const DonationChoice = () => {
-  const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    email: '',
-    tx_ref: '',
-    amount: '',
-    currency: '',
-    user_id: ''
-  });
-
   const [errors, setErrors] = useState({});
-  const [userId, setUserId] = useState('');
-
-  useEffect(() => {
-    fetchUserId();
-  }, []);
-
-  const fetchUserId = async () => {
-    try {
-      const response = await axios.get('/api/user/id');
-      setUserId(response.data.userId);
-    } catch (error) {
-      console.error('Error fetching user ID:', error);
-    }
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value
-    }));
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const validationErrors = validateForm(formData);
-    setErrors(validationErrors);
-
-    if (Object.keys(validationErrors).length === 0) {
-      try {
-        const requestData = { ...formData, user_id: userId };
-        const donationResponse = await axios.post(
-          '"http://localhost:5000/api/donations',
-          requestData
-        );
-        console.log('Donation response:', donationResponse.data);
-        event.target.submit();
-      } catch (error) {
-        console.error('Error:', error);
+    const form = event.target;
+    const formData = new FormData(form);
+    let validationErrors = {};
+  
+    if (!formData.get('first_name')) {
+      validationErrors = { ...validationErrors, first_name: 'First Name is required' };
+    }
+    if (!formData.get('email')) {
+        validationErrors = { ...validationErrors, email: 'Email is required' };
       }
+    if (!formData.get('last_name')) {
+      validationErrors = { ...validationErrors, last_name: 'Last Name is required' };
+    }
+    if (!formData.get('tx_ref')) {
+      validationErrors = { ...validationErrors, tx_ref: 'Reference is required' };
+    }
+    if (!formData.get('amount')) {
+      validationErrors = { ...validationErrors, amount: 'Amount is required' };
+    }
+    if (!formData.get('currency')) {
+      validationErrors = { ...validationErrors, currency: 'Currency is required' };
+    }
+   
+  
+    setErrors(validationErrors);
+  
+    try {
+  
+      // Make a POST request with Axios
+      const donationResponse = await axios.post("http://localhost:5000/api/donations", Object.fromEntries(formData),{withCredentials:true} );
+  
+      // Log the donation response to the console
+      console.log("Donation response:", donationResponse.data);
+  
+      // Submit the form if request is successful
+      form.submit();
+    } catch (error) {
+      // Log and handle errors
+      console.error("Error:", error);
+      // Handle the scenario where the token is not found or request fails
+      // For example, display an error message to the user or redirect them to the login page
     }
   };
+  
 
-  const validateForm = (data) => {
-    const errors = {};
-
-    if (!data.first_name.trim()) {
-      errors.first_name = 'First name is required';
-    }
-
-    if (!data.last_name.trim()) {
-      errors.last_name = 'Last name is required';
-    }
-
-    if (!data.email.trim()) {
-      errors.email = 'Email is required';
-    } else if (!isValidEmail(data.email)) {
-      errors.email = 'Invalid email format';
-    }
-
-    if (!data.tx_ref.trim()) {
-      errors.tx_ref = 'Reference is required';
-    }
-
-    if (!data.amount.trim()) {
-      errors.amount = 'Amount is required';
-    } else if (!isValidAmount(data.amount)) {
-      errors.amount = 'Invalid amount';
-    }
-
-    if (!data.currency) {
-      errors.currency = 'Currency is required';
-    }
-
-    return errors;
-  };
-
-  const isValidEmail = (email) => {
-    // Add your email validation logic here
-    return true;
-  };
-
-  const isValidAmount = (amount) => {
-    // Add your amount validation logic here
-    return true;
-  };
-    
 
 
     return (

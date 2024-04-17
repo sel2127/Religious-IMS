@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/Database.js';
-import User from './Users.js'; 
+import User from '../models/Users.js'; 
 
 const Donation = db.define('Donation', {
   id: {
@@ -49,6 +49,12 @@ const Donation = db.define('Donation', {
     type: DataTypes.DATE,
     allowNull: false
   }
+});
+
+// Define association with the User model
+Donation.belongsTo(User, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE' // Optional: Cascade delete if user is deleted
 });
 
 export default Donation;

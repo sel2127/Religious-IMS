@@ -1,10 +1,8 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
-// import AdminList from "./AdminListModel.js";
 
 const { DataTypes } = Sequelize;
 
-// Define the Users model
 const Users = db.define('user', {
   id: {
     type: DataTypes.INTEGER,
@@ -31,6 +29,8 @@ const Users = db.define('user', {
   },
   email: {
     type: DataTypes.STRING,
+    allowNull: false,
+    unique: true, // Enforce uniqueness
     validate: {
       isEmail: true,
     },
@@ -38,6 +38,7 @@ const Users = db.define('user', {
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true, // Enforce uniqueness
     validate: {
       notEmpty: true,
     },
@@ -51,5 +52,4 @@ const Users = db.define('user', {
   },
 });
 
-// Export the Users model
 export default Users;

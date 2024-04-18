@@ -91,6 +91,7 @@ function verifyToken(req, res, next) {
       if (!UserP) {
         return res.status(404).json({ message: 'User not found' });
       }
+      
       const accessToken = req.cookies.token; // Retrieve the access token from the cookie
 
       // Log the access token value

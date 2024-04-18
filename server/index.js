@@ -2,15 +2,28 @@ import express from "express";
 import cors from 'cors';
 import session from "express-session";
 import db from "./config/Database.js";
+import dotenv from 'dotenv';
+import UserRoute from "./routes/UserRoutes.js";
+import donationRoute from "./routes/donationRoutes.js";
 import eventRouter from "./routes/eventRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
 import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
 import { authMiddleware } from './middlewares/authMiddleware.js';
-import UserRoute from "./routes/UserRoute.js";
+dotenv.config();
 
 const app = express();
-// app.use(cors());
+
+app.use(session({
+    secret: process.env.SESS_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: 'auto'
+    }
+}))
+
+
 app.use(cors({
   origin: 'http://localhost:3000', // Replace with your React app's domain
   credentials: true, // Enable sending cookies in cross-origin requests
@@ -19,35 +32,13 @@ app.options('*', cors());
 
 app.use(express.json());
 
-const port = 5000;
-// new
-// db.sync({ alter: true })
-//   .then(() => {
-//     console.log("Database synced");
-//   })
-//   .catch((error) => {
-//     console.error("Error syncing database:", error);
-//   });
+db.sync();
 
-// Express middleware to serve static files
-app.use(express.static("public"));
-app.use(
-  session({
-    secret: '2759fkn3knvkebvuebfkgh3ubevgo34yginreihg83rgbv',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
-  })
-)
-
-await db.sync();
-
-// Authentication middleware
-// app.use(authMiddleware);
+// Routes
+app.use(donationRoute);
 
 app.use('/user', UserRoute);
 
-// Mount event routes
 app.use("/events", eventRouter);
 
 // Mount upload routes
@@ -60,7 +51,17 @@ app.use("/api", calendarRoutes);
 // app.use("/adminlogin", adminRouter);
 app.use("/admin", adminRouter);
 
+// Default route
+app.get('/', (req, res) => {
+  res.send('Hello from the backend!');
+});
+
+app.use((req, res) => {
+    res.status(404).send("Not Found");
+})
+
 // Start the server
+const port = process.env.APP_PORT;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

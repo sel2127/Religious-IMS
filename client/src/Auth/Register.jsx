@@ -62,12 +62,16 @@ const Register = () => {
 
   const registration = () => {
     if (validateForm()) {
-    axios.post('http://localhost:5000/user/register', 
-    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg}).then((response)=>{console.log(response);
-    }).then((response) => {
-      console.log(response);
-      navigate('/login'); // Redirect to the login page
-    })
+      axios.post('http://localhost:5000/user/register', {
+        firstName: firstnameReg,
+        lastName: lastnameReg,
+        email: emailReg,
+        phone: phonenumberReg,
+        password: passwordReg
+      }).then((response) => {
+        console.log(response);
+        navigate('/login'); // Redirect to the login page
+      })
     .catch((error) => {
       console.error(error);
       // Handle the registration error if needed

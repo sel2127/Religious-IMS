@@ -1,4 +1,4 @@
-import React , { useState } from 'react'
+import React, { useState } from 'react'
 import '../assets/styles/main.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -11,9 +11,9 @@ const [passwordLogin, setPasswordLogin] = useState('');
 const [error, setError] = useState('');
 
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const validateForm = () => {
+  const validateForm = () => {
     // Regular expression pattern to match email format
 
     // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,7 +41,7 @@ const validateForm = () => {
 
     setError('');
     return true;
-};
+  };
 
 const loginn = () => {
   axios.defaults.withCredentials = true;
@@ -74,18 +74,18 @@ const loginn = () => {
         {error && <p className='text-red-500'>{error}</p>}
         <div className='w-full flex items-center mt-6'>
             <div className='w-1/2 flex'>
-                <input type="checkbox" name="" id="remember" className='cursor-pointer hover:text-[#79a6d2]' />
-                <span className='ml-2 cursor-pointer hover:text-[#79a6d2]'>አስታውሰኝ</span>
+              <input type="checkbox" name="" id="remember" className='cursor-pointer hover:text-[#79a6d2]' />
+              <span className='ml-2 cursor-pointer hover:text-[#79a6d2]'>አስታውሰኝ</span>
             </div>
             <div className='w-1/2 flex items-center justify-end underline decoration-dotted cursor-pointer hover:text-[#79a6d2]'>
-                <a href="/forgot">የይለፍ ቃል ረሳሁ</a></div>            
-        </div>
-        <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-                <button  onClick={loginn} className="w-full mx-auto text-base font-bold text-white">
-                  ግባ
-                </button>
-              </div>
-    <div className='mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]'><a href="/register">አዲስ አካውንት ለመክፈት</a></div>
+              <a href="/forgot">የይለፍ ቃል ረሳሁ</a></div>
+          </div>
+          <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+            <button onClick={loginn} className="w-full mx-auto text-base font-bold text-white">
+              ግባ
+            </button>
+          </div>
+          <div className='mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]'><a href="/register">አዲስ አካውንት ለመክፈት</a></div>
 
         </div>
       </div>

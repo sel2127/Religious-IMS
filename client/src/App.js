@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ChurchPage from './pages/ChurchPage'; 
 import SundaySchool from './pages/SundaySchool'; 
@@ -25,6 +25,7 @@ import FeedbackForm from './components/FeedbackForm';
 import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
+import GoogleTranslate from './common/GoogleTranslate';
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
     <Router>
       <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
-
+      <GoogleTranslate />
       {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />

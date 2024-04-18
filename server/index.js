@@ -5,14 +5,15 @@ import dotenv from "dotenv";
 import db from "./config/Database.js";
 import UserRoute from './routes/UserRoute.js';
 import AdminListRoute from "./routes/AdminListRoute.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import FeedbackRoute from './routes/FeedbackRoute.js'
+import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
 
 db.sync();
+
+app.use(cookieParser());
 
 app.use(
   session({

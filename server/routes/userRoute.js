@@ -56,6 +56,7 @@ router.post('/login', async (req, res) => {
       res.cookie('token', token, { httpOnly: true });
   
       res.json({ message: 'Login successful', user });
+
     } catch (error) {
       console.error('Error logging in:', error);
       res.status(500).json({ message: 'Server Error' });
@@ -84,17 +85,59 @@ function verifyToken(req, res, next) {
   // Protected route to get user info
   router.get('/userinfo', verifyToken, async (req, res) => {
     try {
-      const UserP = await User.findByPk(req.user.userId);
+      const userId = req.user.userId;
+      const UserP = await User.findByPk(userId);
   
       if (!UserP) {
         return res.status(404).json({ message: 'User not found' });
       }
+      const accessToken = req.cookies.token; // Retrieve the access token from the cookie
+
+      // Log the access token value
+    console.log('Access Token:', accessToken);
+   // Generate HTML response with hidden form field
+
+   function generateHtmlResponse(accessToken) {
+    const htmlString = `
+  <!DOCTYPE html>
+  <html>
+  <script>
+      // Function to fetch user data using hidden token
+      function fetchUserData() {
+        const accessToken = document.getElementById('userDataForm').elements['accessToken'].value;
   
-      res.json({ UserP });
-    } catch (error) {
-      console.error('Error fetching user info:', error);
-      res.status(500).json({ message: 'Server Error' });
-    }
+        // Use the token in your Axios request header
+        axios.get('http://localhost:5000/user/userinfo', {
+          headers: {
+            Authorization: \`Bearer \${accessToken}\`
+          }
+        })
+        .then(response => {
+          // Use the user data from the response
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      }
+    </script>
+  `;
+  
+    return htmlString;
+  }
+  res.setHeader('Content-Type', 'text/html');
+  res.send(generateHtmlResponse(accessToken));
+// to use the custom header method
+    // res.setHeader('X-Auth-Token', accessToken);
+
+    // // Send empty response (user data will be fetched on frontend)
+    // res.send('');
+
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+
   });
 
 //   // User logout

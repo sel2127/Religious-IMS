@@ -45,6 +45,8 @@ const validateForm = () => {
 
 const loginn = () => {
   axios.defaults.withCredentials = true;
+   // Add the token to the request headers for subsequent requests
+  //  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   if (validateForm()) {
   axios.post("http://localhost:5000/user/login", {
     phone: phoneLogin,
@@ -54,6 +56,20 @@ const loginn = () => {
       console.log(response);
       navigate('/'); // Redirect to the home
     })
+
+    // axios
+    // .post("http://localhost:5000/user/login", {
+    //   phone: phoneLogin,
+    //   password: passwordLogin,
+    // })
+    // .then((response) => {
+    //   console.log(response);
+    //   const { data } = response;
+    //   const { message, user } = data;
+
+    //   // Redirect to the protected user info page
+    //   window.location.href = "/userinfo";
+    // })
     .catch((error) => {
       console.error(error);
       // Handle the login error if needed

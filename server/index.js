@@ -17,11 +17,11 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-    credentials: true,
+     credentials: true,
     origin: ['http://localhost:3000'],
     methods: ['POST', 'GET'],
 }));
-
+db.sync()
 
 // Parse JSON bodies
 app.use(express.json());
@@ -52,6 +52,17 @@ app.use(session({
 // Define routes
 app.use(donationRoute);
 app.use(UserRoute); // Use the UserRoute without prefixing here
+app.use("/events", eventRouter);
+
+// Mount upload routes
+app.use("/upload", uploadRouter);
+
+// Mount calendar routes
+app.use("/api", calendarRoutes);
+
+// Mount admin routes
+// app.use("/adminlogin", adminRouter);
+app.use("/admin", adminRouter);
 
 
 

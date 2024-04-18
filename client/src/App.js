@@ -23,7 +23,6 @@ import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
 
 
-
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
   const shouldApplyPadding = !isPathInAdmin;
@@ -35,7 +34,7 @@ function App() {
 
       {/* <Breadcrumb/> */}
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
         <Route path="/sunday" element={<SundaySchool />} />
         <Route path="/login" element={<Login />} />

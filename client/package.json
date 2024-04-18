@@ -27,6 +27,7 @@
     "autoprefixer": "10.4.5",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "formik": "^2.4.5",
     "https-browserify": "^1.0.0",
     "jquery": "^3.7.1",

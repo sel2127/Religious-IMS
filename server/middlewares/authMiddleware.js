@@ -45,7 +45,7 @@ export  function isAutenticated(req, res, next) {
   try {
         const decoded = jwt.verify(token,process.env.JWT_SECRET);
         req.user = decoded;
-        // console.log("dec",decoded.userId)
+        console.log("dec",decoded.userId)
         const uid=decoded.userId 
         const users = Users.findOne({ where: {id:uid } });
         if (!users) {

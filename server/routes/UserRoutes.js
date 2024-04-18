@@ -11,7 +11,7 @@ import { isAutenticated } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/user/register',isAutenticated, createUser);
+router.post('/user/register', createUser);
 router.post('/user/login', loginUser);
 
 router.get('/api/userinfo', getUserById);

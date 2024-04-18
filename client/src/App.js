@@ -57,7 +57,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
 
       </Routes>
-      <Footer/>
+      {!isPathInAdmin && <Footer />}
       </div>
       
     </Router>

@@ -13,18 +13,21 @@ const User = () => {
 
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
 
   const fetchUsers = async () => {
     try {
       const response = await axios.get('http://localhost:5000/user/users');
+      console.log(response);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },

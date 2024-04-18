@@ -4,6 +4,7 @@ import Users from "../models/UserModel.js";
 export const getUsers = async (req, res) => {
     try {
       const users = await Users.findAll();
+      console.log(users)
       res.status(200).json(users);
     } catch (error) {
       console.error('Error fetching users:', error);

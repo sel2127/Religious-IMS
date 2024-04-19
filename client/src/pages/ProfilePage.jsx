@@ -5,13 +5,15 @@ import { setImagePreview } from '../store/reducers/imageReducer';
 import aba from "../assets/Images/aba.jpg";
 import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
-// import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom'; // For protected routes
+import { setUserData } from '../store/actions/userAction';
 
 
 
 const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // For protected routes
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -24,7 +26,23 @@ const ProfilePage = () => {
     reader.readAsDataURL(file);
   };
 
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
+  const userData = useSelector((state) => state.user.userData);
+
+ 
+
+const fetchData = async (dispatch) => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/userinfo', {
+      withCredentials: true, // Ensure cookies are sent with the request
+    });
+
+    const userData = response.data.user;
+    dispatch(setUserData(userData));
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+  }
+};
 
   useEffect(() => {
     // Check if image data exists in localStorage
@@ -35,6 +53,7 @@ const ProfilePage = () => {
     }
 
     // Fetch user profile data
+    fetchData(dispatch);
 
     // const accessToken = document.cookie
     //   .split('; ')
@@ -43,31 +62,31 @@ const ProfilePage = () => {
 
     // const accessToken = Cookies.get('token'); // Use js-cookie to get token
 
-    const fetchData = async () => {
-      const accessToken = document.getElementById('userDataForm')?.elements['accessToken']?.value;
-console.log('tokennn:', accessToken)
-  if (accessToken) {
-    axios
-      .get('http://localhost:5000/user/userinfo', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        }
-      }, {withCredentials:true})
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching user profile:', error);
-      });
-  } else {
-    console.warn("No access token found in hidden form");
-  }
-};
+//     const fetchData = async () => {
+//       const accessToken = document.getElementById('userDataForm')?.elements['accessToken']?.value;
+// console.log('tokennn:', accessToken)
+//   if (accessToken) {
+//     axios
+//       .get('http://localhost:5000/user/userinfo', {
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         }
+//       }, {withCredentials:true})
+//       .then((response) => {
+//         setUserData(response.data);
+//       })
+//       .catch((error) => {
+//         console.error('Error fetching user profile:', error);
+//       });
+//   } else {
+//     console.warn("No access token found in hidden form");
+//   }
+// };
 
-fetchData(); // Call the function to fetch data
+// fetchData(); // Call the function to fetch data
 
-}, []); // Empty dependency array to run only once after mount
-
+}, [dispatch]); // Empty dependency array to run only once after mount
+// console.log(userData);
   if (!userData) {
     return <div>Loading...</div>;
   }
@@ -103,7 +122,7 @@ fetchData(); // Call the function to fetch data
                 </div>
                 <div className="flex flex-col justify-center items-center gap-4 p-4">
                   <p className="font-bold text-xl text-dark-blue">
-                    <marquee>Welcome, {userData.username}</marquee>
+                    <marquee>Welcome, {userData.firstName} {userData.lastName}</marquee>
                   </p>
                   <p>{userData.email}</p>
                   <div className="mt-10">

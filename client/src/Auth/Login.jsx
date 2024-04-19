@@ -48,7 +48,7 @@ const loginn = () => {
    // Add the token to the request headers for subsequent requests
   //  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   if (validateForm()) {
-  axios.post("http://localhost:5000/user/login", {
+  axios.post('http://localhost:5000/user/login', {
     phone: phoneLogin,
     password: passwordLogin
   })

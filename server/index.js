@@ -12,10 +12,6 @@ import calendarRoutes from "./routes/calendarRoutes.js";
 import UserRoute from "./routes/UserRoutes.js";
 import donationRoute from "./routes/donationRoutes.js";
 
-import UserRoute from './routes/UserRoute.js';
-import AdminListRoute from "./routes/AdminListRoute.js";
-import FeedbackRoute from './routes/FeedbackRoute.js'
-import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express();
 
@@ -45,12 +41,6 @@ app.use(express.static("public"));
 
 // Configure session middleware
 app.use(session({
-db.sync();
-
-app.use(cookieParser());
-
-app.use(
-  session({
     secret: process.env.SESS_SECRET,
     resave: false,
     saveUninitialized: true,
@@ -83,53 +73,9 @@ app.use("/admin", adminRouter);
 app.use((req, res) => {
     res.status(404).send("Not Found");
 });
-      secure: "auto",
-    },
-  })
-);
-
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:3000"],
-    methods: ["POST", "GET"],
-  })
-);
-
-app.use(express.json());
 
 // Start the server
 const port = process.env.APP_PORT;
-app.use("/admin", AdminListRoute);
-app.use("/user", UserRoute);
-app.use(FeedbackRoute)
-
-app.get("/", (req, res) => {
-  res.send("Hello, world! This is the root path.");
-});
-
-app.use((req, res) => {
-  res.status(404).send("Not Found");
-});
-//Start the server
-const port = process.env.APP_PORT || 5000;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
-  console.log(`Server up and running...on port ${port}`);
 });
-
-
-// import express from "express";
-// import dotenv from 'dotenv';
-// import userRoute from "./routes/UserRoutes.js";
-// const app=express();
-// app.use(express.json());
-
-// app.use("api/users", userRoute);
-
-
-// // Start the server
-// const port = process.env.APP_PORT;
-// app.listen(port, () => {
-//     console.log(`Server is running on http://localhost:${port}`);
-// });

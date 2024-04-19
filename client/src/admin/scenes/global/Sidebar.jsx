@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Button, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
+import axios from 'axios';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -43,6 +44,31 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const [admin, setAdmin] = useState(null);
+
+  const handleLogout = () => {
+    // Remove the token from local storage
+    localStorage.removeItem('token');
+  
+    // Redirect to the login page
+    window.location.href = '/admin/login';
+  };
+
+  useEffect(() => {
+    const fetchAdminProfile = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/admin/profile', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        setAdmin(response.data);
+      } catch (error) {
+        console.error('Error fetching admin profile:', error);
+      }
+    };
+    fetchAdminProfile();
+  }, []);
 
   return (
     <Box
@@ -92,14 +118,14 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
-          {!isCollapsed && (
+          {!isCollapsed && admin && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-picture"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={`../../../assets/${admin.image}`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -110,10 +136,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Tsi Mo
+                  {admin.firstname} {admin.lastname}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  IT Admin
+                  {admin.role}
                 </Typography>
                 
 
@@ -121,7 +147,7 @@ const Sidebar = () => {
               <Box paddingLeft={isCollapsed ? undefined : "10%"}>
               <Item
               title="Edit Profile"
-              to="/admin"
+              to="/admin/form"
               icon={<EditIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -160,8 +186,8 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Member Information"
-              to="/admin/members"
+              title="User Information"
+              to="/admin/users"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -258,7 +284,7 @@ const Sidebar = () => {
             />
 
 <Box display="flex" justifyContent="center" my="20px" mr="10%">
-              <Button type="submit" color="secondary" variant="contained" sx={{ width: "100%" }}>
+              <Button type="submit" color="secondary" variant="contained" sx={{ width: "100%" }} onClick={handleLogout}>
                 Logout
               </Button>
             </Box>

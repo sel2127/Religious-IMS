@@ -80,7 +80,7 @@ const Register = () => {
   return (
     <div>
 
-      <div className='mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600'>
+      <div className='mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600'>
         <div className='flex flex-col items-center justify-center px-20 py-10'>
     
         <input type="text" onChange = {(e) => { setFirstnameReg(e.target.value);}}

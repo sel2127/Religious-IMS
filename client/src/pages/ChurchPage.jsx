@@ -17,9 +17,7 @@ function ChurchPage() {
   return (
 
     <div className=''>
-      {/* <Breadcrumb/> */}
-
-      <Breadcrumb/>
+   
 
 
       <div className='text-5xl text-center font-bold mb-4'>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -10,12 +10,31 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../components/Header";
+import axios from "axios";
 
 const Login = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [error, setError] = useState('');
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const handleFormSubmit = async (values) => {
+    try {
+      const response = await axios.post('http://localhost:5000/admin/login', values);
+      const { success, message, token } = response.data;
+      if (success) {
+        // Store the token in local storage for token-based authentication
+        localStorage.setItem('token', token);
+
+        // Add the token to the request headers for subsequent requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        // Redirect to dashboard
+        window.location.href = '/admin/dashboard';
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
   return (

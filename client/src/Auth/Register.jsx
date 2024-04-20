@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-
+axios.defaults.withCredentials=true;
 const Register = () => {
 
     const [firstnameReg, setFirstnameReg] = useState('');
@@ -63,7 +63,7 @@ const Register = () => {
   const registration = () => {
     if (validateForm()) {
     axios.post('http://localhost:5000/user/register', 
-    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg}).then((response)=>{console.log(response);
+    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg},{credentials:"include"}).then((response)=>{console.log(response);
     }).then((response) => {
       console.log(response);
       navigate('/login'); // Redirect to the login page

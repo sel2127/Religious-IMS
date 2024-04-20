@@ -6,13 +6,32 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import axios from "axios";
 import "../../adminCss/admin.css";
 
 const EventUpload = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const handleFormSubmit = async (values) => {
+    try {
+      const formData = new FormData();
+      formData.append("eventname", values.eventname);
+      formData.append("eventDesc", values.eventDesc);
+      formData.append("eventdate", values.eventdate);
+      formData.append("image", values.image);
+
+      await axios.post("http://localhost:5000/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      // Reset form values after successful upload
+      values.eventname = "";
+      values.eventDesc = "";
+      values.eventdate = null;
+      values.image = null;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const checkoutSchema = yup.object().shape({
@@ -23,9 +42,13 @@ const EventUpload = () => {
       .test("fileSize", "File size should be less than 3MB", (value) => {
         return !value || (value && value.size <= 3000000);
       })
-      .test("fileType", "Only PNG, JPG, and JPEG files are allowed", (value) => {
-        return !value || (value && /(png|jpe?g)$/.test(value.type));
-      }),
+      .test(
+        "fileType",
+        "Only PNG, JPG, and JPEG files are allowed",
+        (value) => {
+          return !value || (value && /(png|jpe?g)$/.test(value.type));
+        }
+      ),
   });
 
   const initialValues = {
@@ -114,33 +137,22 @@ const EventUpload = () => {
                 values={values}
                 setFieldValue={setFieldValue}
                 handleBlur={handleBlur}
+                name="eventdate"
               />
-
-{/* <Box gridColumn="span 4">
-<input
+              <TextField
+                fullWidth
+                variant="filled"
                 type="file"
-                accept=".png, .jpg, .jpeg"
+                label="Image"
+                inputProps={{ accept: ".png, .jpg, .jpeg" }}
                 onChange={(event) => {
                   setFieldValue("image", event.currentTarget.files[0]);
                 }}
-                sx={{ gridColumn: "span 4"}}
-                // className="mt-12 w-full"
+                name="image"
+                error={!!touched.image && !!errors.image}
+                helperText={touched.image && errors.image}
+                sx={{ gridColumn: "span 4" }}
               />
-              </Box> */}
-              <TextField
-  fullWidth
-  variant="filled"
-  type="file"
-  label="Image"
-  inputProps={{ accept: ".png, .jpg, .jpeg" }}
-  onChange={(event) => {
-    setFieldValue("image", event.currentTarget.files[0]);
-  }}
-  name="image"
-  error={!!touched.image && !!errors.image}
-  helperText={touched.image && errors.image}
-  sx={{ gridColumn: "span 4" }}
-/>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">

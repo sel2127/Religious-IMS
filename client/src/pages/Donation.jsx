@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import lalibela from "../assets/Images/lalibela.jpg";
 import lalibela_two from "../assets/Images/lalibela_two.jpg";
 import boleMedhanealem from "../assets/Images/bole medhanealem.jpg";
@@ -6,7 +6,6 @@ import churchInAksum from "../assets/Images/church in aksum.jpg";
 import abrehaAtsbeha from "../assets/Images/abreha atsbeha.jpg";
 import debredamo from "../assets/Images/debre damo monastery.jpg";
 import '../assets/styles/main.css';
-import { Link } from "react-router-dom";
 
 
 

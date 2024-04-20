@@ -1,8 +1,12 @@
 import React from 'react'
-import Breadcrumb from '../../common/Breadcrumb'
 import Sidebarr from './SideBarr'
+import { useSelector } from 'react-redux';
+
+
 
 function ViewMoreProfile() {
+
+  const userDataFromStore = useSelector((state) => state.user.userData);
   return (
     <div className="w-full">
     {/* <Breadcrumb /> */}
@@ -22,7 +26,7 @@ function ViewMoreProfile() {
                  የእርስዎ መረጃዎች
                 </h3>
                 <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                  እርስዎን የሚገልጹ መረጃዎች.
+                  This is some information about you.
                 </p>
               </div>
               <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -32,7 +36,7 @@ function ViewMoreProfile() {
                      ሙሉ ስም
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                     አበበ
+                    {userDataFromStore.firstName} {userDataFromStore.lastName}
                     </dd>
                   </div>
                   <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -40,7 +44,7 @@ function ViewMoreProfile() {
                      የኢሜል አድራሻ
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                    {/* {userData.email} */}
+                    {userDataFromStore.email}
                     </dd>
                   </div>
                   <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -48,10 +52,10 @@ function ViewMoreProfile() {
                      ስልክ ቁጥር
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      0987654321
+                    {userDataFromStore.phone}
                     </dd>
                   </div>
-                  <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  {/* <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">
                      አድራሻ
                     </dt>
@@ -60,7 +64,7 @@ function ViewMoreProfile() {
                       <br />
                      አዲስ አባባ፣ ኢትዮጵያ
                     </dd>
-                  </div>
+                  </div> */}
                 </dl>
               </div>
             </div>

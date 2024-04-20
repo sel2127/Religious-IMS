@@ -1,64 +1,81 @@
 import express from "express";
-import cors from "cors";
+import cors from 'cors';
 import session from "express-session";
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
+import cookieParser from "cookie-parser";
 import db from "./config/Database.js";
-import UserRoute from './routes/UserRoute.js';
-import AdminListRoute from "./routes/AdminListRoute.js";
-import FeedbackRoute from './routes/FeedbackRoute.js'
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import bodyParser from "body-parser";
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-dotenv.config();
+import eventRouter from "./routes/eventRoutes.js";
+import uploadRouter from "./routes/uploadRoutes.js";
+import adminRouter from './routes/adminRoutes.js';
+import calendarRoutes from "./routes/calendarRoutes.js";
+// import { authMiddleware } from './middlewares/authMiddleware.js';
+import UserRoute from "./routes/UserRoutes.js";
+import donationRoute from "./routes/donationRoutes.js";
 
+dotenv.config();
 const app = express();
 
-db.sync();
+// Configure CORS
+app.use(cors({
+     credentials: true,
+    origin: ['http://localhost:3000'],
+    methods: ['POST', 'GET'],
+}));
+db.sync()
 
-// app.use(
-//   session({
-//     secret: process.env.SESS_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//       secure: "auto",
-//     },
-//   })
-// );
-
-app.use(
-  cors(
-  //   {
-  //   credentials: true,
-  //   origin: ["http://localhost:3000"],
-  //   methods: ["POST", "GET"],
-  // }
-)
-);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+// Parse JSON bodies
 app.use(express.json());
-app.use(bodyParser.json());
+app.use(cookieParser());
+
+// Serve static files
+app.use(express.static("public"));
 
 
-app.use("/admin", AdminListRoute);
-app.use("/user", UserRoute);
-app.use(FeedbackRoute)
+// Define API route before applying authMiddleware
+// app.get('/api', (req, res) => {
+//     res.json({
+//         success: 1,
+//         message: 'This is a REST API'
+//     });
+// });
 
-app.get("/", (req, res) => {
-  res.send("Hello, world! This is the root path.");
-});
+// Configure session middleware
+app.use(session({
+    secret: process.env.SESS_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: 'auto'
+    }
+}));
 
+// Define routes
+app.use(donationRoute);
+app.use(UserRoute); // Use the UserRoute without prefixing here
+app.use("/events", eventRouter);
+
+// Mount upload routes
+app.use("/upload", uploadRouter);
+
+// Mount calendar routes
+app.use("/api", calendarRoutes);
+
+// Mount admin routes
+// app.use("/adminlogin", adminRouter);
+app.use("/admin", adminRouter);
+
+
+
+// Apply authMiddleware only to routes that require authentication
+// app.use(authMiddleware);
+
+// Default route for handling 404 errors
 app.use((req, res) => {
-  res.status(404).send("Not Found");
+    res.status(404).send("Not Found");
 });
-//Start the server
-const port = process.env.APP_PORT || 5000;
+
+// Start the server
+const port = process.env.APP_PORT;
 app.listen(port, () => {
-  console.log(`Server up and running...on port ${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });

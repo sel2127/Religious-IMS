@@ -13,7 +13,8 @@ import MemberRegisterationPage from './pages/MemberRegisterationPage';
 import Notify from './pages/Notify';
 import Header from './common/Header';
 import DonationCause from './pages/DonationCause';
-import Dona from './pages/dona';
+import { ToastContainer } from 'react-toastify';
+
 
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
@@ -32,7 +33,6 @@ function App() {
       <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
 
-      {/* <Breadcrumb/> */}
       <Routes>
       <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -57,6 +57,8 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
 
       </Routes>
+      <ToastContainer />
+
       <Footer/>
       </div>
       

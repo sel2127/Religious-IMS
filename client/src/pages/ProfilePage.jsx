@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { setImagePreview } from '../store/reducers/imageReducer';
 import aba from "../assets/Images/aba.jpg";
-import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; // For protected routes
 import { setUserData } from '../store/actions/userAction';
@@ -13,7 +12,7 @@ import { setUserData } from '../store/actions/userAction';
 const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // For protected routes
+  const navigate = useNavigate(); 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -55,35 +54,7 @@ const fetchData = async (dispatch) => {
     // Fetch user profile data
     fetchData(dispatch);
 
-    // const accessToken = document.cookie
-    //   .split('; ')
-    //   .find(row => row.startsWith('token='))
-    //   ?.split('=')[1];
-
-    // const accessToken = Cookies.get('token'); // Use js-cookie to get token
-
-//     const fetchData = async () => {
-//       const accessToken = document.getElementById('userDataForm')?.elements['accessToken']?.value;
-// console.log('tokennn:', accessToken)
-//   if (accessToken) {
-//     axios
-//       .get('http://localhost:5000/user/userinfo', {
-//         headers: {
-//           Authorization: `Bearer ${accessToken}`,
-//         }
-//       }, {withCredentials:true})
-//       .then((response) => {
-//         setUserData(response.data);
-//       })
-//       .catch((error) => {
-//         console.error('Error fetching user profile:', error);
-//       });
-//   } else {
-//     console.warn("No access token found in hidden form");
-//   }
-// };
-
-// fetchData(); // Call the function to fetch data
+   
 
 }, [dispatch]); // Empty dependency array to run only once after mount
 // console.log(userData);
@@ -93,7 +64,6 @@ const fetchData = async (dispatch) => {
 
   return (
     <div className="w-full">
-      <Breadcrumb />
       <div className=" w-full rounded-lg">
         <div className="flex flex-col lg:flex-row">
           {/* sidebar */}

@@ -7,13 +7,11 @@ import {
   deleteUser,
   loginUser,
 } from '../controllers/usersController.js';
-import { isAutenticated } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.post('/user/register', createUser);
 router.post('/user/login', loginUser);
-
 router.get('/api/userinfo', getUserById);
 router.get('/users', getUsers);
 router.get('/users/:id', getUserById);

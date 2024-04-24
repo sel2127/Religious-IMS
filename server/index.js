@@ -66,17 +66,3 @@ app.listen(port, () => {
 });
 
 
-// import express from "express";
-// import dotenv from 'dotenv';
-// import userRoute from "./routes/UserRoutes.js";
-// const app=express();
-// app.use(express.json());
-
-// app.use("api/users", userRoute);
-
-
-// // Start the server
-// const port = process.env.APP_PORT;
-// app.listen(port, () => {
-//     console.log(`Server is running on http://localhost:${port}`);
-// });

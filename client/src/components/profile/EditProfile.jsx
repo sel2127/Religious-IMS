@@ -1,28 +1,58 @@
 import React from "react";
 import profileData from "../profileData";
 import Breadcrumb from "../../common/Breadcrumb";
+import Sidebarr from "./SideBarr";
+
 const EditProfile = () => {
   return (
-    <div className="">
-      <Breadcrumb/>
-      <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit  Your profile here</h1>
+    <div className="w-full">
+    <Breadcrumb/>
+    <div className=" w-full rounded-lg">
+    <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit  Your profile here</h1>
 
-      <div className="mx-auto border border-gray-300 w-full mt-10 rounded rounded-3xl text-gray-600">
-        <div className="bg-white shadow rounded-lg p-4 md:p-6">
-        <form className="space-y-4  flex flex-col  text-center w-full md:w-3/4">
+      <div className="flex flex-col lg:flex-row ">
+        {/* sidebar */}
+        <div>
+          <Sidebarr/>
+        </div>
+        <div className='lg:w-1/2 m-auto'>
 
-          <input
+
+        <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
+        <div className=" h-full overflow-hidden shadow  rounded-lg">
+        <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10">
+
+        <input
             type="text"
             id="name"
             defaultValue={profileData.username}
-            placeholder="Enter new username"
-            className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+            placeholder="አዲስ መለያ ስም ያስገቡ"
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
             onInput={(e) => {
               if (e.target.value.length < 3) {
                 e.target.setCustomValidity(
-                  "Username must be at least 3 characters long"
+                  "መለያ ስሞ ከ 3 ፊደል መብለጥ አለበት"
+                );
+              } else {
+                e.target.setCustomValidity("");
+              }
+            }}
+            autoComplete="name"
+          />
+          <input
+            type="text"
+            id="name"
+            defaultValue={profileData.username}
+            placeholder="አዲስ መለያ ስም ያስገቡ"
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+         ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
+            required
+            onInput={(e) => {
+              if (e.target.value.length < 3) {
+                e.target.setCustomValidity(
+                  "መለያ ስሞ ከ 3 መብለጥ አለበት "
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -35,13 +65,13 @@ const EditProfile = () => {
             placeholder="Email"
             id="email"
             defaultValue={profileData.email}
-            className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             onInput={(e) => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
               if (!e.target.value.match(emailRegex)) {
                 e.target.setCustomValidity(
-                  "Please enter a valid email address"
+                  "ትክክለኛ የኢሜል አድራሻዎን ያስገቡ"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -56,7 +86,7 @@ const EditProfile = () => {
             id="phone"
             defaultValue={profileData.phone}
             placeholder="Phone"
-            className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
+            className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
   mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
             minLength={10}
             maxLength={10}
@@ -66,7 +96,7 @@ const EditProfile = () => {
 
               if (!ethiopianPattern1.test(e.target.value)) {
                 e.target.setCustomValidity(
-                  "Please enter a valid Ethiopian phone number (09 + 8 digits )"
+                  "ትክክልኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (09 + 8 digits )"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -74,25 +104,28 @@ const EditProfile = () => {
             }}
           />
 
-          <div className="border-gray-200  flex justify-center items-center">
+        
+        </form>
+        <div className="border-gray-200  flex justify-center space-between  mt-10">
             <button
               id="submit"
               type="submit"
-              className="ml-10 bg-blue-500 text-white px-6 py-1 rounded-xl"
+              className="bg-blue-500 text-white text-center  px-6 py-1 rounded-3xl "
             >
-              Save
+              ያዘምኑ
             </button>
             <button
-              className="ml-10 bg-red-500 text-white px-6 py-1 rounded-xl"
+              className="bg-red-500 text-white text-center  px-6 py-1 rounded-3xl ml-10"
               onClick={() => window.history.back()}
             >
-              Cancel
+              ያጥፋ
             </button>
           </div>
-        </form>
         </div>
-
+</div>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

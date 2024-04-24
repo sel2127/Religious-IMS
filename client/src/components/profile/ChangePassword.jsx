@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Breadcrumb from "../../common/Breadcrumb";
+import Sidebarr from "./SideBarr";
 
 function ChangePassword() {
   const [passwordError, setPasswordError] = useState("");
@@ -19,33 +20,45 @@ function ChangePassword() {
   };
 
   return (
-    <div className="change-password-container ">
-      <Breadcrumb />
-      <h1 className="text-center text-3xl font-bold custom-font mb-4">Change Your Password</h1>
-      <div className=" bg-white shadow rounded-lg p-4 md:p-6 ">
-      <form className="space-y-4  justify-center items-center text-center w-full md:w-3/4">
+    <div className="w-full">
+    <Breadcrumb />
+    <h1 className="text-center text-3xl font-bold custom-font mb-4">Change Your Password</h1>
+
+    <div className="change-password-container  ">
+    <div className=" w-full rounded-lg">
+     
+      <div className="flex flex-col lg:flex-row">
+        {/* sidebar */}
+        <div>
+          <Sidebarr />
+        </div>
+        <div className='lg:w-1/2 m-auto'>
+
+        <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
+        <div className=" h-full overflow-hidden shadow  rounded-lg">
+
+      <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10  py-10">
           <input
             type="password"
             id="password"
-            placeholder="Current Password"
-            className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full md:w-3/4"
+            placeholder="አሁን ያለዉን ይለፍ ቃል ያስገቡ"
+            className="ml-10 mr-10 border rounded-xl px-6 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 "
+            required
+            autoComplete="current-password"
+          />
+           <input
+            type="password"
+            id="new"
+            placeholder="አዲሱን ይለፍ ቃል ያስገቡ(ትንሹ 6 ፊደል ነው)"
+            className="ml-10 mr-10 border rounded-xl px-4 py-2  focus:outline-none focus:ring-2 focus:ring-gray-500  "
             required
             autoComplete="current-password"
           />
           <input
             type="password"
-            placeholder="New Password (Min 6 Characters)"
-            id="new"
-            className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 w-full md:w-3/4"
-            required
-            minLength={6}
-            autoComplete="new-password"
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password (Min 6 Characters)"
+            placeholder="ደግመዉ ይለፍ ቃል ያስገቡ(ትንሹ 6 ፊደል ነው)"
             id="confirm"
-            className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4 w-full md:w-3/4"
+            className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500   "
             required
             minLength={6}
             autoComplete="confirm-password"
@@ -53,23 +66,29 @@ function ChangePassword() {
 
           {passwordError && <p className="text-red-500 text-sm mt-2">{passwordError}</p>}
 
-          <div className="flex justify-center items-center mt-4">
+         
+        </form>
+        <div className="flex justify-center items-center mt-10 mb-4">
             <button
               type="submit"
               onClick={handleSubmit}
-              className="bg-blue-500 text-white px-6 py-2 rounded-xl mr-4"
+              className="bg-blue-500 text-white text-center  px-6 py-2 rounded-3xl mr-4"
             >
-              Confirm
+              ያዘምኑ
             </button>
             <button
-              className="bg-red-500 text-white px-6 py-2 rounded-xl"
+              className="bg-red-500 text-white text-center  px-6 py-2 rounded-3xl"
               onClick={() => window.history.back()}
             >
-              Cancel
+              ያጥፋ
             </button>
           </div>
-        </form>
+        </div>
+       </div>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
   );
 }

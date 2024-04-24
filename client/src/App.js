@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ChurchPage from './pages/ChurchPage'; 
 import SundaySchool from './pages/SundaySchool'; 
@@ -22,6 +22,13 @@ import Admin from './admin/Admin';
 import "./assets/styles/main.css";
 import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
+import Abnet from './pages/AbnetPage';
+import FeedbackPage from './pages/FeedbackPage';
+import FeedbackForm from './components/FeedbackForm';
+import EditProfile from './components/profile/EditProfile';
+import ChangePassword from './components/profile/ChangePassword';
+import ViewMoreProfile from './components/profile/ViewMoreProfile';
+import GoogleTranslate from './common/GoogleTranslate';
 
 
 function App() {
@@ -32,7 +39,12 @@ function App() {
     <Router>
       <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
+<<<<<<< HEAD
 
+=======
+      <GoogleTranslate />
+      {/* <Breadcrumb/> */}
+>>>>>>> origin/maste
       <Routes>
       <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -55,7 +67,12 @@ function App() {
         {/* <Route path="/feedback" element={<FeedbackPage/>}/> */}
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/profile" element={<ProfilePage />} />
-
+        <Route path='/feedbackform' element={<FeedbackForm/>}/>
+        <Route path='/editprofile' element={<EditProfile/>}/>
+        <Route path='/changepassword' element={<ChangePassword/>}/>
+        <Route path='/viewmoreprofile' element={<ViewMoreProfile/>}/>
+        <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
+        <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
       </Routes>
       <ToastContainer />
 

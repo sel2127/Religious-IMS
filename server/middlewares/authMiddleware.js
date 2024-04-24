@@ -10,7 +10,7 @@ export const authMiddleware = async (req, res, next) => {
     return res.status(401).json({ error: 'Missing token' });
   }
 
-  try{
+  try {
     // Verify and decode the token
     const decoded = jwt.verify(token, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j');
     req.admin = decoded.id;
@@ -27,12 +27,12 @@ export const authMiddleware = async (req, res, next) => {
 
 
 
-export  function isAutenticated(req, res, next) {
+export function isAuthenticated(req, res, next) {
   let token;
   if (req.cookies.accessToken) {
-     token=req.cookies.accessToken
+    token = req.cookies.accessToken
     //  console.log("middleware",token)
-  }else if (
+  } else if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
@@ -40,26 +40,26 @@ export  function isAutenticated(req, res, next) {
   }
 
   if (!token) {
-        return res.status(401).json({ message: 'Access Denied' });
-      }
+    return res.status(401).json({ message: 'Access Denied' });
+  }
   try {
-        const decoded = jwt.verify(token,process.env.JWT_SECRET);
-        req.user = decoded;
-        console.log("dec",decoded.userId)
-        const uid=decoded.userId 
-        const users = Users.findOne({ where: {id:uid } });
-        if (!users) {
-          return res.status(404).json({
-            success: false,
-            message: "User does not exist",
-          });
-        }
-        
-        next();
-      } catch (error) {
-        console.log(error);
-        return res
-          .status(500)
-          .json({ success: false, message: "Server error!", error: error.message });
-      }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    console.log("dec", decoded.userId)
+    const uid = decoded.userId
+    const users = Users.findOne({ where: { id: uid } });
+    if (!users) {
+      return res.status(404).json({
+        success: false,
+        message: "User does not exist",
+      });
+    }
+
+    next();// Allow access to the route
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Server error!", error: error.message });
+  }
 }

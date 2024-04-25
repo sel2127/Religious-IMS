@@ -44,19 +44,19 @@ const navigate=useNavigate();
     try {
        await axios.delete(`http://localhost:5000/api/feedback/${id}`);
        setFeedbackData(feedbackData.filter((feedback) => feedback.id !== id));
-       
-      //  toast.success('Feedback deleted successfully', {
-      //     position: toast.POSITION.TOP_LEFT
-      //  });
-       alert("feedback deleted successfully")
+       toast.success("Feedback deleted successfully");
+
+      
+      // alert("feedback deleted successfully")
        navigate('/feedback'); 
        closeDialog();
     } catch (error) {
        if (error.response && error.response.status === 403) {
-          alert('Unauthorized - User is not the owner of the feedback');
-       } else {
-          console.error("Error deleting feedback: ", error);
-       }
+         // alert('Unauthorized - User is not the owner of the feedback');
+          toast.error("Unauthorized - User is not the owner of the feedback", { autoClose: 5000 });
+    
+       } 
+       navigate('/feedback')
     }
  }
   const closeDialog = () => {

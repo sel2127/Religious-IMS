@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { MdDelete, MdTexture } from "react-icons/md";
 import { FaEdit, FaReadme } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Ava from "../assets/Images/ava.png";
+
 
 const FeedbackDetailPage = () => {
   const { id } = useParams();
@@ -55,11 +57,20 @@ const FeedbackDetailPage = () => {
           className="h-auto bg-gray-300 text-black rounded-xl"
         >
           <div className="rounded-t-xl flex justify-start items-center ml-2 mt-5">
-            <img
-              src={`http://localhost:5000/` + feedback.imagePath}
-              alt="Uploaded Image"
-              className="rounded-full w-32 h-32 "
-            />
+
+            {feedback.imagePath ? (
+                <img
+                  src={`http://localhost:5000/` + feedback.imagePath}
+                  alt="Uploaded Image"
+                  className="rounded-full w-32 h-32 "
+                />
+              ) : (
+                <img
+                  src={Ava}
+                  alt="Default Image"
+                  className="rounded-full w-32 h-32"
+                />
+              )}
 
             <div className="ml-2">
               <p className="text-base font-semibold">{feedback.name}</p>

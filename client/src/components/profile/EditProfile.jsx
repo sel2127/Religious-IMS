@@ -8,7 +8,7 @@ const EditProfile = () => {
     <div className="w-full">
     <Breadcrumb/>
     <div className=" w-full rounded-lg">
-    <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit  Your profile here</h1>
+    <h1 className="text-center text-3xl font-bold custom-font mb-4">መረጃዎን እዚህ ላይ ይቀይሩ</h1>
 
       <div className="flex flex-col lg:flex-row ">
         {/* sidebar */}

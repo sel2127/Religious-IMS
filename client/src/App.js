@@ -28,6 +28,8 @@ import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
 import GoogleTranslate from './common/GoogleTranslate';
+import EditFeedbackForm from './components/EditFeedbackForm';
+import FeedbackDetailPage from './pages/FeedbackDetailPage';
 
 
 function App() {
@@ -59,7 +61,7 @@ function App() {
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />
-        {/* <Route path="/feedback" element={<FeedbackPage/>}/> */}
+        <Route path="/feedback" element={<FeedbackPage/>}/>
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path='/feedbackform' element={<FeedbackForm/>}/>

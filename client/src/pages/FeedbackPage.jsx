@@ -9,13 +9,17 @@ import Ava from "../assets/Images/ava.png";
 import { MdDelete, MdTexture } from "react-icons/md";
 import { FaEdit, FaReadme } from "react-icons/fa";
 import EditFeedbackForm from "../components/EditFeedbackForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+
 
 const FeedbackPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [feedbackData, setFeedbackData] = useState([]);
   const [selectedFeedback, setSelectedFeedback] = useState();
-
+const navigate=useNavigate();
   const handleEdit = (id) => {
     const feedback = feedbackData.find((feedback) => feedback.id === id);
     setSelectedFeedback(feedback);
@@ -38,25 +42,34 @@ const FeedbackPage = () => {
   }, []);
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/feedback/${id}`);
-      setFeedbackData(feedbackData.filter((feedback) => feedback.id !== id));
-      alert("Feedback deleted successfully");
-      console.log("Item deleted");
-      closeDialog();
+       await axios.delete(`http://localhost:5000/api/feedback/${id}`);
+       setFeedbackData(feedbackData.filter((feedback) => feedback.id !== id));
+       
+      //  toast.success('Feedback deleted successfully', {
+      //     position: toast.POSITION.TOP_LEFT
+      //  });
+       alert("feedback deleted successfully")
+       navigate('/feedback'); 
+       closeDialog();
     } catch (error) {
-      console.error("Error deleting feedback: ", error);
-      return "Error deleting feedback";
+       if (error.response && error.response.status === 403) {
+          alert('Unauthorized - User is not the owner of the feedback');
+       } else {
+          console.error("Error deleting feedback: ", error);
+       }
     }
-  };
+ }
   const closeDialog = () => {
     setIsOpen(false);
   };
   const handleCancelClick = () => {
     closeDialog();
   };
-
+ 
+  
   return (
     <div className="w-full m-auto ">
+      <ToastContainer/>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-8">
         {feedbackData.map((feedback) => (
           <div
@@ -81,18 +94,20 @@ const FeedbackPage = () => {
               <div className="ml-2">
                 <p className="text-base font-semibold">{feedback.name}</p>
                 <p className="text-base font-semibold">{feedback.email}</p>
+                {/* <p className="text-base">{displayTime(feedback)}</p> */}
+
               </div>
             </div>
             <div className="flex flex-col justify-center items-center gap-4 p-4">
               <p>{feedback.message}</p>
               <div className="flex gap-8">
               <Link to={`/feedback/${feedback.id}`}>
-              <button className="text-white bg-indigo-500 text-xl px-6 py-1 rounded-xl hover:bg-blue-700">
+              <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
               <FaReadme />
             </button>
           </Link>
                 <Link to={`/editfeedback/${feedback.id}`}>
-                  <button className="text-white bg-indigo-500 text-xl px-6 py-1 rounded-xl hover:bg-blue-700">
+                  <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
                     <FaEdit />
                   </button>
                 </Link>
@@ -103,9 +118,9 @@ const FeedbackPage = () => {
                   <MdDelete />
                 </button>
                 {isOpen && (
-                  <div className="absolute top-5 right-5 mt-10 ">
+                  <div className="absolute top-5 right-5 mt-10 justify-center items-center">
                     <div className="bg-white border border-gray-300 p-4 rounded-md shadow">
-                      <div className=" flex flex-col  items-center">
+                      <div className=" flex flex-col   items-center">
                         <div className="">
                           <p className="mt-5  px-6 py-3 text-center items-center">
                            የመረጡትን አስተያየት ለማጥፋት እርግጠኛ ነዎት?
@@ -115,13 +130,13 @@ const FeedbackPage = () => {
                           <div className=" flex mb-5">
                             <button
                               onClick={handleCancelClick}
-                              className="mt-10 px-6 py-2 bg-pink-200 mr-2 rounded-3xl"
+                              className="mt-10 px-6 py-2 bg-green-800 text-white mr-2 rounded-3xl"
                             >
                               አይ
                             </button>
                             <button
-                              onClick={() => handleDelete(feedback.id)}
-                              className="mt-10 ml-10 px-6 py-2 bg-red-600 rounded-3xl"
+                              onClick={(e) => handleDelete(feedback.id)}
+                              className="mt-10 ml-10 px-6 py-2 bg-red-700 text-white rounded-3xl"
                             >
                               አወ
                             </button>
@@ -137,6 +152,7 @@ const FeedbackPage = () => {
           </div>
         ))}
       </div>
+      
     </div>
   );
 };

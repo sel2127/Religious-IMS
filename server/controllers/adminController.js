@@ -144,3 +144,8 @@ export const updateAdminProfile = async (req, res) => {
 };
 
 export const uploadImage = upload.single('image');
+
+
+
+
+

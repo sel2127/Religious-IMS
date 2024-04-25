@@ -8,9 +8,11 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { error } from "console";
 import { where } from "sequelize";
+import { isAuthenticated, isFeedbackCreator } from "../middlewares/authMiddleware.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use(cors());
+
 // Serve  files from the 'uploads' directory
 app.use(express.static("uploads"));
 // Set up storage for image uploads
@@ -30,6 +32,7 @@ const upload = multer({ storage: storage });
 
 // Create feedback endpoint
 export const createFeedback = [
+  isAuthenticated,
   upload.single("image"),
   async (req, res) => {
     const { name, email, message } = req.body;
@@ -41,19 +44,24 @@ export const createFeedback = [
     }
 
     const imagePath = req.file ? req.file.path : null;
+    //get user id form cookie
+    const userId=req.userId;
 
     try {
       // Create a new feedback record in the database
-      await Feedback.create({
-        name,
+     const feedback= await Feedback.create({
+      userId,
+      name,
         email,
         message,
         imagePath,
+       
       });
 
       res.json({
         message: "Feedback submitted successfully",
         imagePath: imagePath,
+        feedbackId: feedback.id,
       });
     } catch (err) {
       console.error(err);
@@ -62,7 +70,9 @@ export const createFeedback = [
   },
 ];
 // api to retrive feedback
-export const getAllFeedback = async (req, res) => {
+export const getAllFeedback = [
+  // isAuthenticated,
+  async (req, res) => {
   try {
     const feedbackList = await Feedback.findAll();
     return res.json(feedbackList);
@@ -71,8 +81,11 @@ export const getAllFeedback = async (req, res) => {
     console.error(err);
     return res.status(500).json({ error: "Internal server error" });
   }
-};
-export const getFeedbackById = async (req, res) => {
+}
+]
+export const getFeedbackById = [
+  isAuthenticated,
+  async (req, res) => {
   try {
     const id = req.params.id;
     const feedback = await Feedback.findOne({ where: { id: id } });
@@ -84,8 +97,13 @@ export const getFeedbackById = async (req, res) => {
     console.log(error);
     return res.status(500).json({ msg: err.msg });
   }
-};
-export const deleteFeedbackById = async (req, res) => {
+}
+];
+
+export const deleteFeedbackById = [ 
+  isAuthenticated,
+  isFeedbackCreator,
+  async (req, res) => {
   try {
     const id = req.params.id;
     const feedback = await Feedback.findOne({ where: { id: id } });
@@ -99,10 +117,14 @@ export const deleteFeedbackById = async (req, res) => {
     console.log(error);
     return res.status(500).json({ message: "error for deleting feedback" });
   }
-};
+}
+]
+
 
 
 export const updateFeedbackById = [
+  isAuthenticated,
+  isFeedbackCreator,
   upload.single("image"),
   async (req, res) => {
     const id = req.params.id;
@@ -132,4 +154,5 @@ export const updateFeedbackById = [
     }
   },
 ];
+
 

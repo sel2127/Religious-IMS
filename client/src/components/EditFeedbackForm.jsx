@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams ,useNavigate} from 'react-router-dom';
-
+import Cookies from 'js-cookie'
 const EditFeedbackForm = () => {
   const { id } = useParams();
   const [name, setName] = useState("");
@@ -14,8 +14,9 @@ const EditFeedbackForm = () => {
 const[data,setData]=useState([]);
 const navigate=useNavigate();
 
+const userId=Cookies.get('userId');
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/feedback/${id}`)
+    axios.get(`http://localhost:5000/api/feedback/${id}`,{withCredentials:true})
       .then(res => 
       {
         setName(res.data.name);
@@ -42,18 +43,21 @@ const navigate=useNavigate();
     if (imagePath) {
       formData.append('image', imagePath);
     }
+    formData.append('userId',userId)
+
   
     try {
-      const response = await axios.put(`http://localhost:5000/api/feedback/update/${id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+      const response = await axios.put(`http://localhost:5000/api/feedback/update/${id}`, formData ,{withCredentials:true},{
+       
       });
       console.log(response.data);
       alert("Feedback updated successfully!")
       navigate('/feedback')
   
     } catch (error) {
+      if (error.response.status === 403) {
+        alert('Unauthorized - User is not the owner of the feedback');
+      }
       console.error('Error updating feedback:', error);
       setErrorMessage('Error updating feedback. Please try again.');
     } finally {
@@ -116,7 +120,7 @@ const navigate=useNavigate();
     setSelectedImage(file.name); // Set the name of the selected image file
   }}
   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
-  required
+  //required
   autoComplete="off"
 />
 

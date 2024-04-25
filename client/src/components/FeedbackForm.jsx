@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebarr from "./profile/SideBarr";
 import Breadcrumb from "../common/Breadcrumb";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const FeedbackForm = () => {
   const [name, setName] = useState("");
@@ -12,39 +13,44 @@ const FeedbackForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 const navigate=useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setErrorMessage(null);
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("message", message);
-    formData.append("image", imagePath);
+const userId = Cookies.get("userId");
 
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/feedback/create",
-        formData
-      );
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setErrorMessage(null);
 
-      if (response.data.message === "Feedback submitted successfully") {
-        setName("");
-        setEmail("");
-        setMessage("");
-        setImage(null);
-        alert("Feedback submitted successfully!");
-        navigate('/feedback')
-      } else {
-        throw new Error("Unexpected response from server");
-      }
-    } catch (error) {
-      setErrorMessage("Error submitting feedback. Please try again.");
-    } finally {
-      setIsLoading(false);
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("email", email);
+  formData.append("message", message);
+  formData.append("image", imagePath);
+  formData.append("userId", userId); // Add the userId to the form data
+
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/api/feedback/create",
+      formData,
+      { withCredentials: true }
+    );
+
+    if (response.data.message === "Feedback submitted successfully") {
+      setName("");
+      setEmail("");
+      setMessage("");
+      setImage(null);
+      alert("Feedback submitted successfully!");
+      navigate('/feedback');
+    } else {
+      throw new Error("Unexpected response from server");
     }
-  };
+  } catch (error) {
+    setErrorMessage("Error submitting feedback. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="">
@@ -101,7 +107,7 @@ const navigate=useNavigate();
                   onChange={(e) => setImage(e.target.files[0])}
                   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
-                  required
+                  //required
                   autoComplete="off"
                 />
 

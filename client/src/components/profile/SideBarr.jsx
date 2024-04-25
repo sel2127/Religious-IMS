@@ -41,7 +41,7 @@ function Sidebarr({ children }) {
   return (
     <div className=" mt-10  mr-10">
     <div className="conatiner   ">
-      <div style={{ width: isOpen ? "400px" : " 50px" }} className="sidebar">
+      <div style={{ width: isOpen ? "400px" : " 100px" }} className="sidebar">
         <div className="top-section">
           <h1 style={{ display: isOpen ? "block" : "none" }}>የእርስዎ መረጃዎች</h1>
           <div className="bars" style={{ marginLeft: isOpen ? "50px" : "0px" }}>

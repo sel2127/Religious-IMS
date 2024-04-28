@@ -3,6 +3,7 @@ import { insertDefaultAdmin, logout } from '../controllers/adminController.js';
 import { updateAdminProfile, uploadImage } from '../controllers/adminController.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import { getAdminProfile } from '../controllers/adminController.js';
+
 const adminRouter = express.Router();
 
 adminRouter.get("/admin", (req, res) => {
@@ -20,5 +21,4 @@ adminRouter.get('/logout', logout);
 adminRouter.put('/update', authMiddleware,uploadImage, updateAdminProfile)
 
 adminRouter.get('/profile', authMiddleware, getAdminProfile);
-
 export default adminRouter;

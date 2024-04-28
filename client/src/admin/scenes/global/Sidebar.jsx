@@ -46,27 +46,74 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const [admin, setAdmin] = useState(null);
 
-  const handleLogout = () => {
-    // Remove the token from local storage
-    localStorage.removeItem('token');
-  
-    // Redirect to the login page
-    window.location.href = '/admin/login';
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:5000/admin/logout');
+
+      window.location.href = '/admin/login'
+    } catch (error) {
+      console.error('Error logging out:', error)
+    }
   };
 
-  useEffect(() => {
-    const fetchAdminProfile = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/admin/profile', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        });
-        setAdmin(response.data);
-      } catch (error) {
-        console.error('Error fetching admin profile:', error);
+  // useEffect(() => {
+  //   const fetchAdminProfile = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:5000/admin/profile', {
+  //         withCredentials: true // Include cookies in the request
+  //       });
+  //       setAdmin(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching admin profile:', error);
+  //     }
+  //   };
+  //   fetchAdminProfile();
+  // }, []);
+
+  // const fetchAdminProfile = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:5000/admin/profile', {
+  //       headers: {
+  //         'Authorization': `Bearer ${document.cookie.split('=')[1]}` // Get the token from the cookie
+  //       }
+  //     });
+  //     const adminData = response.data;
+  //     setAdmin(adminData);
+  //   } catch (error) {
+  //     console.error('Error fetching admin profile:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchAdminProfile();
+  // }, []);
+
+  const fetchAdminProfile = async () => {
+    try {
+      const token = document.cookie
+        .split(';')
+        .find((cookie) => cookie.trim().startsWith('admin_token='))
+        .split('=')[1];
+  
+      if (!token) {
+        // Handle case where token is not found
+        console.error('Token not found');
+        return;
       }
-    };
+  
+      // Include the token in the request headers
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  
+      const response = await axios.get('http://localhost:5000/admin/profile');
+      console.log(response.data)
+      setAdmin(response.data);
+
+      console.log(admin)
+    } catch (error) {
+      console.error('Error fetching admin profile:', error);
+    }
+  };
+  useEffect(() => {
     fetchAdminProfile();
   }, []);
 

@@ -35,14 +35,14 @@ export const insertDefaultAdmin = async (req, res) => {
       return res.json({ success: false, message: 'Invalid credentials' });
     }
 
-    // Session-based authentication
-    req.session.user = admin;
-
     // Token-based authentication
     const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '1h' });
 
     // Return the token to the client
-    res.json({ success: true, token })
+    res.cookie('admin_token', token, {
+      httpOnly: true,
+    });
+    res.json({ success: true, message: 'Login Successful', token });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Internal server error' })
   }
@@ -50,39 +50,59 @@ export const insertDefaultAdmin = async (req, res) => {
 
 // Logout
 export const logout = (req, res) => {
-  // Clear the session
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error logging out:', err);
-      return res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-
-    // Redirect to the login page
-    res.redirect('/admin/login');
+  // Clear the cookie
+  res.clearCookie('admin_token', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'Strict'
   });
+  
+  // res.redirect('/admin/login');
+  res.json({ success: true, message: 'Logout successful' });  
 };
+
+// export const getAdminProfile = async (req, res) => {
+//   try {
+//     const adminId = req.admin.id;
+//     const admin = await AdminModel.findByPk(adminId, {
+//       attributes: ['firstname', 'lastname', 'email', 'phone', 'role', 'image']
+//     });
+//     if (!admin) {
+//       return res.status(404).json({ error: 'Admin not found' });
+//     }
+
+//     // Return the admin profile
+//     // res.json({
+//     //   firstname: admin.firstname,
+//     //   lastname: admin.lastname,
+//     //   role: admin.role,
+//     //   image: admin.image,
+//     // });
+//     return res.status(200).json(admin);
+//   } catch (error) {
+//     console.error('Error fetching admin profile:', error);
+//     res.status(500).json({ error: 'Server error' })
+//   }
+// };
+
+// adminController.js
 
 export const getAdminProfile = async (req, res) => {
   try {
-    const adminId = req.admin;
-    const admin = await AdminModel.findByPk(adminId, {
-      attributes: ['firstname', 'lastname', 'email', 'phone', 'role', 'image']
-    });
+    // Assuming the decoded token contains the admin ID
+    const adminId = req.admin.id;
+
+    // Retrieve the admin profile from the database based on the admin ID
+    const admin = await AdminModel.findByPk(adminId);
+
     if (!admin) {
-      return res.status(404).json({ error: 'Admin not found' });
+      return res.status(404).json({ success: false, message: 'Admin not found' });
     }
 
-    // Return the admin profile
-    // res.json({
-    //   firstname: admin.firstname,
-    //   lastname: admin.lastname,
-    //   role: admin.role,
-    //   image: admin.image,
-    // });
-    return res.status(200).json(admin);
+    res.json(admin);
   } catch (error) {
     console.error('Error fetching admin profile:', error);
-    res.status(500).json({ error: 'Server error' })
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
 
@@ -102,8 +122,11 @@ const upload = multer({ storage: storage });
 
 export const updateAdminProfile = async (req, res) => {
   try {
-    const adminId = req.admin;
     const { firstname, lastname, email, phone, currentPassword, password, confirmPassword } = req.body;
+
+    // Get the admin ID from the authenticated cookie
+    // const adminId = req.cookies.admin;
+    const adminId = req.admin.id;
 
     // Update the admin profile in the database
     const admin = await AdminModel.findByPk(adminId);

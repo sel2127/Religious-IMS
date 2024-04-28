@@ -1,6 +1,6 @@
 import express from "express";
 import cors from 'cors';
-import session from "express-session";
+import cookieParser from 'cookie-parser'
 import db from "./config/Database.js";
 import eventRouter from "./routes/eventRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
@@ -18,6 +18,7 @@ app.use(cors({
 app.options('*', cors());
 
 app.use(express.json());
+app.use(cookieParser());
 
 const port = 5000;
 // new
@@ -31,14 +32,6 @@ const port = 5000;
 
 // Express middleware to serve static files
 app.use(express.static("public"));
-app.use(
-  session({
-    secret: '2759fkn3knvkebvuebfkgh3ubevgo34yginreihg83rgbv',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
-  })
-)
 
 await db.sync();
 

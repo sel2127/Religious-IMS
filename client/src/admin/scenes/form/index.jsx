@@ -41,11 +41,22 @@ const Form = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/admin/profile', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const token = document.cookie
+        .split(';')
+        .find((cookie) => cookie.trim().startsWith('admin_token='))
+        .split('=')[1];
+  
+      if (!token) {
+        // Handle case where token is not found
+        console.error('Token not found');
+        return;
+      }
+  
+      // Include the token in the request headers
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  
+      const response = await axios.get('http://localhost:5000/admin/profile');
+
       const userData = response.data;
       setInitialValues({
   firstname: userData.firstname || "",
@@ -90,10 +101,15 @@ const Form = () => {
     e.preventDefault();
 
     try {
+      const token = document.cookie
+        .split(';')
+        .find((cookie) => cookie.trim().startsWith('admin_token='))
+        .split('=')[1];
+
       const endpoint = 'http://localhost:5000/admin/update';
       const config = {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       };

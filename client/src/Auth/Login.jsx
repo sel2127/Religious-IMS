@@ -56,20 +56,6 @@ const loginn = () => {
       console.log(response);
       navigate('/'); // Redirect to the home
     })
-
-    // axios
-    // .post("http://localhost:5000/user/login", {
-    //   phone: phoneLogin,
-    //   password: passwordLogin,
-    // })
-    // .then((response) => {
-    //   console.log(response);
-    //   const { data } = response;
-    //   const { message, user } = data;
-
-    //   // Redirect to the protected user info page
-    //   window.location.href = "/userinfo";
-    // })
     .catch((error) => {
       console.error(error);
       // Handle the login error if needed

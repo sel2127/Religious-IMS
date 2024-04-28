@@ -26,10 +26,7 @@ const ProfilePage = () => {
     reader.readAsDataURL(file);
   };
 
-  // const [userData, setUserData] = useState({});
   const userData = useSelector((state) => state.user.userData);
-
- 
 
 const fetchData = async (dispatch) => {
   try {
@@ -54,37 +51,6 @@ const fetchData = async (dispatch) => {
 
     // Fetch user profile data
     fetchData(dispatch);
-
-    // const accessToken = document.cookie
-    //   .split('; ')
-    //   .find(row => row.startsWith('token='))
-    //   ?.split('=')[1];
-
-    // const accessToken = Cookies.get('token'); // Use js-cookie to get token
-
-//     const fetchData = async () => {
-//       const accessToken = document.getElementById('userDataForm')?.elements['accessToken']?.value;
-// console.log('tokennn:', accessToken)
-//   if (accessToken) {
-//     axios
-//       .get('http://localhost:5000/user/userinfo', {
-//         headers: {
-//           Authorization: `Bearer ${accessToken}`,
-//         }
-//       }, {withCredentials:true})
-//       .then((response) => {
-//         setUserData(response.data);
-//       })
-//       .catch((error) => {
-//         console.error('Error fetching user profile:', error);
-//       });
-//   } else {
-//     console.warn("No access token found in hidden form");
-//   }
-// };
-
-// fetchData(); // Call the function to fetch data
-
 }, [dispatch]); // Empty dependency array to run only once after mount
 // console.log(userData);
   if (!userData) {

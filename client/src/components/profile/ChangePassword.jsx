@@ -1,23 +1,35 @@
 import React, { useState } from "react";
 import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePassword } from "../../store/actions/passwordActions";
+// import { setPasswordUpdate } from '../../store/actions/passwordActions';
 
 function ChangePassword() {
   const [passwordError, setPasswordError] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const newPassword = document.getElementById("new").value;
-    const confirmNewPassword = document.getElementById("confirm").value;
-
-    if (newPassword !== confirmNewPassword) {
-      setPasswordError("Passwords do not match");
-    } else {
-      setPasswordError("");
-      // Implement logic for submitting changed password
-    }
-  };
+  const userId = useSelector(state => state.user.id); // Get userId from Redux state
+    const dispatch = useDispatch();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+    
+      const newPassword = document.getElementById('new').value;
+      const confirmNewPassword = document.getElementById('confirm').value;
+    
+      if (newPassword !== confirmNewPassword) {
+        setPasswordError('Passwords do not match');
+      } else {
+        setPasswordError('');
+     
+        try {
+          dispatch(updatePassword({ userId, newPassword })); // Include both userId and newPassword
+          console.log("Password update successful!");
+          // Maybe redirect to a different page
+        } catch (error) {
+          console.error("Error updating password:", error); // Show error message to the user based on the error details
+        }
+        // dispatch(updatePassword(newPassword)); // Dispatch the action to update the password
+      }
+    };
 
   return (
     <div className="w-full">
@@ -37,7 +49,7 @@ function ChangePassword() {
         <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
         <div className=" h-full overflow-hidden shadow  rounded-lg">
 
-      <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10  py-10">
+      <form className="space-y-4  flex flex-col  text-center lg: w-full  mt-10  py-10" type="post" >
           <input
             type="password"
             id="password"

@@ -32,10 +32,23 @@ export const createUser = async (req, res) => {
   }
 };
 
-export const updateUser = (req, res) => {
-  // Implement logic to update user details
-};
+export const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.user; // Assuming user ID is retrieved from JWT
+    const updates = req.body; // Updated user data
 
+    const user = await User.findByIdAndUpdate(userId, updates, { new: true }); // Update and return updated user
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User updated successfully!', user });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 export const deleteUser = (req, res) => {
   // Implement logic to delete user
 };
@@ -43,6 +56,9 @@ export const deleteUser = (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { phone, password } = req.body;
+    console.log("Received phone:", phone);
+    console.log("Received password:", password); // Don't log the actual password for security reasons
+
     const user = await User.findOne({ where: { phone } });
 
     if (!user) {
@@ -75,29 +91,6 @@ export const loginUser = async (req, res) => {
   
 };
 
-// export const getUserInfo = async (req, res) => {
-//   try {
-//     // Check if user is authenticated (middleware ensures this)
-//     if (!req.user) {
-//       return res.status(401).json({ message: 'Unauthorized' });
-//     }
-
-//     const user = await User.findOne({ where: { id: req.user.userId } }); // Retrieve user data
-
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Remove sensitive data (e.g., password hash) before sending response
-//     const safeUser = { ...user, password: undefined };
-
-//     res.status(200).json(safeUser); // Send user information
-//   } catch (error) {
-//     console.error('Error fetching user profile:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
-
 export const getUserInfo = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -114,6 +107,41 @@ export const getUserInfo = async (req, res) => {
   }
 };
 
+
+export const updatePassword = async (req, res) => {
+  const { userId, newPassword } = req.body;
+
+  try {
+    console.log("Received userId:", userId);
+    console.log("Received newPassword:", newPassword); // Don't log the actual password for security reasons
+
+    // Find the user by userId
+    const user = await User.findByPk(userId);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+     // Hash the new password before updating the user
+     const hashedPassword = await bcrypt.hash(newPassword, 10); // Adjust cost factor as needed
+     console.log("Generated hashedPassword:", hashedPassword);
+
+     // Update the user's password with the hashed value
+     user.password = hashedPassword;
+     await user.save();
+ 
+     return res.status(200).json({ message: 'Password updated successfully' });
+   } catch (error) {
+     console.error(error);
+     return res.status(500).json({ error: 'Internal server error' });
+   }
+};
+
+export const logoutUser = async (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.clearCookie('accessToken'); // Clear the access token cookie
+  res.json({ message: 'Logout successful' });
+};
 
 
 

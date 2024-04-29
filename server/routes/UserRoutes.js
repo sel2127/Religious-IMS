@@ -18,7 +18,7 @@ router.get('/api/userinfo', isAuthenticated, getUserInfo);
 
 // router.get('/api/userinfo', getUserById);
 router.get('/users', getUsers);
-router.get('/users/:id', getUserById);
+router.get('/users/:id',getUserById);
 router.patch('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 

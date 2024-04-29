@@ -5,7 +5,7 @@ import { setImagePreview } from '../app/reducers/imageReducer';
 import aba from "../assets/Images/aba.jpg";
 import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
-import { useNavigate } from 'react-router-dom'; // For protected routes
+import { useNavigate } from 'react-router-dom'; 
 import { setUserData } from '../app/actions/userAction';
 
 
@@ -14,20 +14,25 @@ const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
   const navigate = useNavigate(); // For protected routes
+  const userData = useSelector((state) => state.user.userData);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.onload = () => {
-      dispatch(setImagePreview(reader.result));
+      const imageData=reader.result;
+      const userId=userData.id;
+      const imageInfo={userId,imageData}
+      //save image with user id on localstoarge
+      localStorage.setItem(`user-${userId}-image`, JSON.stringify(imageInfo));
+      dispatch(setImagePreview(imageData));
     };
 
     reader.readAsDataURL(file);
   };
 
   // const [userData, setUserData] = useState({});
-  const userData = useSelector((state) => state.user.userData);
 
  
 
@@ -45,11 +50,11 @@ const fetchData = async (dispatch) => {
 };
 
   useEffect(() => {
-    // Check if image data exists in localStorage
-    const savedImagePreview = localStorage.getItem("imagePreview");
+    const userId=userData.id;
+    const imageData = localStorage.getItem(`user-${userId}-image`);
 
-    if (savedImagePreview) {
-      dispatch(setImagePreview(savedImagePreview));
+    if (imageData) {
+      dispatch(setImagePreview(JSON.parse(imageData).imageData));
     }
 
     // Fetch user profile data
@@ -85,7 +90,7 @@ const fetchData = async (dispatch) => {
 
 // fetchData(); // Call the function to fetch data
 
-}, [dispatch]); // Empty dependency array to run only once after mount
+}, [userData,dispatch]); // Empty dependency array to run only once after mount
 // console.log(userData);
   if (!userData) {
     return <div>Loading...</div>;
@@ -126,7 +131,7 @@ const fetchData = async (dispatch) => {
                   </p>
                   <p>{userData.email}</p>
                   <div className="mt-10">
-                    <p className='text-xl'>ስልክ: {userData.phone}</p>
+                    <p className='text-2xl'>ስልክ: {userData.phone}</p>
                   </div>
                 </div>
                 <div className="justify-center items-center mt-10">
@@ -137,6 +142,7 @@ const fetchData = async (dispatch) => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

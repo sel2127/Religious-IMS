@@ -4,11 +4,17 @@ import multer from "multer";
 import cors from "cors";
 import path from "path";
 import Feedback from "../models/FeedbackModel.js";
+import Users from "../models/Users.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { error } from "console";
-import { where } from "sequelize";
-import { isAuthenticated, isFeedbackCreator } from "../middlewares/authMiddleware.js";
+
+import jwt, { decode } from "jsonwebtoken";
+
+import {
+  isAuthenticated,
+  isFeedbackCreator,
+} from "../middlewares/authMiddleware.js";
+import { Sequelize, where } from "sequelize";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use(cors());
@@ -33,34 +39,38 @@ const upload = multer({ storage: storage });
 // Create feedback endpoint
 export const createFeedback = [
   isAuthenticated,
-  upload.single("image"),
   async (req, res) => {
-    const { name, email, message } = req.body;
+    const { message } = req.body;
 
-    if (!name || !email || !message) {
-      return res
-        .status(400)
-        .json({ error: "Please provide name, email, and message" });
+    if (!message) {
+      return res.status(400).json({ error: "Please provide message" });
     }
 
-    const imagePath = req.file ? req.file.path : null;
-    //get user id form cookie
-    const userId=req.userId;
+    const userId = req.userId;
+
+    // Extract user ID from decoded token
+    // const token = req.cookies.accessToken;
+    // const decoded = jwt.verify(token,process.env.JWT_SECRET);
+    //    req.user = decoded;
+    //    // console.log("dec",decoded.userId)
+    //    const userId=decoded.userId
+    // console.log("user id",userId)
 
     try {
-      // Create a new feedback record in the database
-     const feedback= await Feedback.create({
-      userId,
-      name,
-        email,
+      const existingFeedback = await Feedback.findOne({ where: { userId } });
+      if (existingFeedback) {
+        return res
+          .status(400)
+          .json({ error: "User has already submitted feedback" });
+      }
+
+      const feedback = await Feedback.create({
+        userId,
         message,
-        imagePath,
-       
       });
 
       res.json({
         message: "Feedback submitted successfully",
-        imagePath: imagePath,
         feedbackId: feedback.id,
       });
     } catch (err) {
@@ -71,56 +81,54 @@ export const createFeedback = [
 ];
 // api to retrive feedback
 export const getAllFeedback = [
-  // isAuthenticated,
+  //isAuthenticated,
   async (req, res) => {
-  try {
-    const feedbackList = await Feedback.findAll();
-    return res.json(feedbackList);
-    // res.json({feedbackList})
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-}
-]
+    try {
+      const feedbackList = await Feedback.findAll();
+      return res.json(feedbackList);
+      // res.json({feedbackList})
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  },
+];
 export const getFeedbackById = [
   isAuthenticated,
   async (req, res) => {
-  try {
-    const id = req.params.id;
-    const feedback = await Feedback.findOne({ where: { id: id } });
-    if (!feedback) {
-      return res.status(404).json({ msg: "feedback not found" });
+    try {
+      const id = req.params.id;
+      const feedback = await Feedback.findOne({ where: { id: id } });
+      if (!feedback) {
+        return res.status(404).json({ msg: "feedback not found" });
+      }
+      return res.status(200).json(feedback);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ msg: err.msg });
     }
-    return res.status(200).json(feedback);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ msg: err.msg });
-  }
-}
+  },
 ];
 
-export const deleteFeedbackById = [ 
+export const deleteFeedbackById = [
   isAuthenticated,
   isFeedbackCreator,
   async (req, res) => {
-  try {
-    const id = req.params.id;
-    const feedback = await Feedback.findOne({ where: { id: id } });
-    if (!feedback) {
-      return res.status(404).json({ message: "feedback not found" });
+    try {
+      const id = req.params.id;
+      const feedback = await Feedback.findOne({ where: { id: id } });
+      if (!feedback) {
+        return res.status(404).json({ message: "feedback not found" });
+      }
+      // delete feedback
+      await Feedback.destroy({ where: { id: id } });
+      return res.status(200).json({ message: "feedback deleted successfully" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error for deleting feedback" });
     }
-    // delete feedback
-    await Feedback.destroy({ where: { id: id } });
-    return res.status(200).json({ message: "feedback deleted successfully" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "error for deleting feedback" });
-  }
-}
-]
-
-
+  },
+];
 
 export const updateFeedbackById = [
   isAuthenticated,
@@ -128,20 +136,22 @@ export const updateFeedbackById = [
   upload.single("image"),
   async (req, res) => {
     const id = req.params.id;
-    const { name, email, message } = req.body;
+    // const { name, email, message } = req.body;
+    const { message } = req.body;
+
     try {
       const feedback = await Feedback.findByPk(id);
       if (!feedback) {
         return res.json({ message: "feedabck not found" });
       }
       //update feedback information
-      feedback.name = name;
-      feedback.email = email;
+      //feedback.name = name;
+      //feedback.email = email;
       feedback.message = message;
 
-      if (req.file) {
-        feedback.imagePath = req.file.path;
-      }
+      // if (req.file) {
+      //   feedback.imagePath = req.file.path;
+      // }
       await feedback.update({ where: { id: id } });
       await feedback.save();
 
@@ -154,5 +164,108 @@ export const updateFeedbackById = [
     }
   },
 ];
+
+// for feddback count in databae
+export const getFeedbackCount = [
+  async (req, res) => {
+    try {
+      const feedbackCount = await Feedback.countDocuments();
+      return res.json(feedbackCount);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Error in getting feedback count" });
+    }
+  },
+];
+
+
+export const getFeedbackByName = [
+  async (req, res) => {
+    const { id } = req.params;
+    try {
+      const feedback = await Feedback.findAll({
+        where: { userId: id },
+        include: [
+          {
+            model: Users,
+            attributes: ["firstName","lastName", "email"],
+            required: true,
+            as: "user",
+          },
+        ],
+      });
+
+      if (feedback.length > 0) {
+        const formattedFeedback = feedback.map((item) => {
+          console.log("User data for feedback item:", item.user);
+
+          const firstName = item.user ? item.user.firstName : null;
+          const email = item.user ? item.user.email : null; 
+          const lastName = item.user ? item.user.lastName : null;
+          return {
+            feedbackId: item.id,
+            userId: item.userId,
+            date: item.date,
+            firstName,
+            lastName,
+            email,
+
+            message: item.message,
+          };
+        });
+        res.json(formattedFeedback);
+      } else {
+        res
+          .status(404)
+          .json({ message: "Feedback not found for the specified user." });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  },
+];
+export const getAllFeedbackWithWriterName = async (req, res) => {
+  try {
+    const feedback = await Feedback.findAll({
+      include: [
+        {
+          model: Users,
+          attributes: ['firstName', 'lastName', 'email'],
+          as: 'user',
+        },
+      ],
+    });
+
+    console.log('Feedback: ', feedback);
+
+    if (feedback.length > 0) {
+      const formattedFeedback = feedback.map((item) => {
+        const user = item.user;
+
+        return {
+          feedbackId: item.id,
+          userId: item.userId,
+          date: item.createdAt,
+          writer: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          message: item.message,
+        };
+      });
+
+      console.log('Formatted Feedback: ', formattedFeedback);
+
+      res.json(formattedFeedback);
+    } else {
+      console.log('No feedback found');
+      res.status(404).json({ message: 'No feedback found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
 
 

@@ -64,7 +64,7 @@ const EditFeedbackForm = () => {
       navigate("/feedback");
     } catch (error) {
       if (error.response && error.response.status === 403) {
-        toast.error("Unauthorized - you is not the owner of the feedback");
+        toast.error("Unauthorized - you are not the owner of the feedback");
       }
       console.error("Error updating feedback:", error);
       toast.error(
@@ -90,7 +90,7 @@ const EditFeedbackForm = () => {
                 onSubmit={handleSubmit}
                 className=" flex flex-col space-y-4   "
               >
-                <input
+                {/* <input
                   type="text"
                   id="name"
                   placeholder="ስም"
@@ -111,9 +111,9 @@ const EditFeedbackForm = () => {
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
                   required
                   autoComplete="email"
-                />
+                /> */}
                 <textarea
-                  rows={5}
+                  rows={8}
                   placeholder="አስተያየትዎን እዚህ ላይ ይጻፉ.... "
                   id="message"
                   value={message}
@@ -123,7 +123,7 @@ const EditFeedbackForm = () => {
                   required
                   autoComplete="off"
                 />
-                <input
+                {/* <input
                   type="file"
                   accept="image/*"
                   id="image"
@@ -137,7 +137,7 @@ const EditFeedbackForm = () => {
                   autoComplete="off"
                 />
 
-                {selected && <p>የመረጡት ምስል: {selected}</p>}
+                {selected && <p>የመረጡት ምስል: {selected}</p>} */}
 
                 <div className="border-gray-200  flex flex-col items-center">
                   <button

@@ -1,33 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Sidebarr from "./profile/SideBarr";
-import Breadcrumb from "../common/Breadcrumb";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FeedbackForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [imagePath, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 const navigate=useNavigate();
 
-const userId = Cookies.get("userId");
 
 const handleSubmit = async (e) => {
   e.preventDefault();
   setIsLoading(true);
   setErrorMessage(null);
 
-  const formData = new FormData();
-  formData.append("name", name);
-  formData.append("email", email);
-  formData.append("message", message);
-  formData.append("image", imagePath);
-  formData.append("userId", userId); // Add the userId to the form data
-
+  const formData = { message }; 
+  
   try {
     const response = await axios.post(
       "http://localhost:5000/api/feedback/create",
@@ -36,17 +27,19 @@ const handleSubmit = async (e) => {
     );
 
     if (response.data.message === "Feedback submitted successfully") {
-      setName("");
-      setEmail("");
       setMessage("");
-      setImage(null);
-      alert("Feedback submitted successfully!");
+      toast.success("Feedback submitted successfully!");
       navigate('/feedback');
     } else {
       throw new Error("Unexpected response from server");
     }
   } catch (error) {
-    setErrorMessage("Error submitting feedback. Please try again.");
+    if (error.response && error.response.data && error.response.data.error === "User has already submitted feedback") {
+      toast.warn("You have already submitted feedback");
+     // navigate('/feedback')
+    } else {
+      setErrorMessage("Error submitting feedback. Please try again.");
+    }
   } finally {
     setIsLoading(false);
   }
@@ -54,6 +47,7 @@ const handleSubmit = async (e) => {
 
   return (
     <div className="">
+      <ToastContainer/>
       <div className=" rounded-lg">
         <div className="flex flex-col lg:flex-row">
           {/* sidebar */}
@@ -67,7 +61,7 @@ const handleSubmit = async (e) => {
                 onSubmit={handleSubmit}
                 className=" flex flex-col space-y-4   "
               >
-                <input
+                {/* <input
                   type="text"
                   id="name"
                   placeholder="ስም"
@@ -77,8 +71,8 @@ const handleSubmit = async (e) => {
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
                   required
                   autoComplete="name" 
-                />
-                <input
+                /> */}
+                {/* <input
                   type="email"
                   placeholder="ኢሜል"
                   id="email"
@@ -88,7 +82,7 @@ const handleSubmit = async (e) => {
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
                   required
                   autoComplete="email" 
-                />
+                /> */}
                 <textarea
                   rows={5}
                   placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ...። "
@@ -100,7 +94,7 @@ const handleSubmit = async (e) => {
                   required
                   autoComplete="off"
                 />
-                <input
+                {/* <input
                   type="file"
                   accept="image/*"
                   id="image"
@@ -109,7 +103,7 @@ const handleSubmit = async (e) => {
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
                   //required
                   autoComplete="off"
-                />
+                /> */}
 
                 <div className="border-gray-200  flex items-center">
                   <button

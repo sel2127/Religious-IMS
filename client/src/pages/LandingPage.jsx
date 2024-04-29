@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import '../assets/styles/main.css';
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
@@ -14,14 +14,103 @@ import SermonIcon from "../assets/Images/sermonIcon.png";
 import Hntsa from "../assets/Images/hntsa.jpg";
 import War from "../assets/Images/war.jpg";
 import Drought from "../assets/Images/drought.jpg";
-
+import axios from "axios";
+import { useLocation, useParams } from "react-router-dom";
 const LandingPage = () => {
+  const [feedbackData, setFeedbackData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [count, setCount] = useState(0);
+  const [ucount, setUcount] = useState(0);
+  const [events, setEvent] = useState([]);
+  const [uevent, setUevent] = useState(0);
+  const [udonate,setUdonate]=useState(0);
+
   useEffect(() => {
     const $owlCarousel = $(".owl-carousel");
     if ($owlCarousel.length) {
       require("owl.carousel");
     }
   }, []);
+  // fetch feedback and name
+
+  useEffect(() => {
+    
+    const fetchFeedbackData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/feedback/all/8');
+        setFeedbackData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchFeedbackData();
+  }, []);
+ 
+  // fetch number of feedbacks
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/feedback/");
+        //setFeedbackData(response.data);
+
+        // Count the number of feedback entries
+        setCount(response.data.length);
+      } catch (error) {
+        console.error("Error fetching feedback data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // number of users
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/users");
+        setUserData(response.data);
+
+        // Count the number of users
+        setUcount(response.data.length);
+      } catch (error) {
+        console.error("Error fetching user data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  // fetch event
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const event = await axios.get("http://localhost:5000/events", {
+          withCredentials: true,
+        });
+        setEvent(event.data);
+        // get number of event
+        setUevent(event.data.length);
+      } catch (error) {
+        console.log("error fetching event", error);
+      }
+    };
+    fetchEvent();
+  }, []);
+// fetch number of donation
+useEffect(()=>{
+  const fetchDonate=async()=>{
+    try {
+      const donate=await axios.get('http://localhost:5000/api/donation',{
+        withCredentials:true
+      })
+      //get number of donation
+      setUdonate(donate.data.length)
+    } catch (error) {
+console.log("error getting numbe rof donation")      
+    }
+  }
+  fetchDonate();
+},[])
+
   const options = {
     items: 1,
     nav: false,
@@ -69,44 +158,23 @@ const LandingPage = () => {
     rewind: true,
     dots: true,
     autoplay: true,
-autoplayTimeout: 6000,
+    autoplayTimeout: 6000,
   };
 
-  const items2 = [
-    <div key={1}>
-      <div className="flex items-center justify-center gap-8 h-full">
+  //   mapping of feedbackData
+  const items2 = feedbackData.map((feedback) => (
+    <div key={feedback.feedbackId}>
+    <div className="flex items-center justify-center gap-8 h-full">
         <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
-          <div>
-            
+          <div className="mt-8">{feedback.message}</div>
+          <div className="font-bold">
+            <p>{feedback.writer} </p>
           </div>
-          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
-          <div className="font-bold">ለማ ደረሰ</div>
-        </div>        
+        </div>
       </div>
-    </div>,
-    <div key={2}>
-      <div className="flex items-center justify-center gap-8 h-full">
-        <div className="bg-white rounded-2xl w-3/4  flex flex-col items-center justify-center p-8 text-lg">
-          <div>
-            
-          </div>
-          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
-          <div className="font-bold">ለማ ሄደ</div>
-        </div>        
-      </div>
-    </div>,
-    <div key={3}>
-      <div className="flex items-center justify-center gap-8 h-full">
-        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
-          <div>
-            
-          </div>
-          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
-          <div className="font-bold">ለማ መጣ</div>
-        </div>        
-      </div>
-    </div>,
-  ];
+    </div>
+  ));
+
   return (
     <div>
       <div className="pt-4">
@@ -117,7 +185,7 @@ autoplayTimeout: 6000,
           <p className="mt-5">በደብራችን በቅርብ ግዜ የተከናወኑ መርሃግብራትን እዚህ ያገኛሉ</p>
         </div>
         <div>
-          <div className="mt-10 bg-gray-100 flex">
+          {/* <div className="mt-10 bg-gray-100 flex">
             <div className="w-1/4 flex flex-col items-center justify-center">
               <p className="text-sm">ህዳር 10 2016</p>
               <p className="text-sm">ሐሙስ 4:30</p>
@@ -134,26 +202,30 @@ autoplayTimeout: 6000,
             <div className="w-1/4 p-5 flex items-center justify-center">
               <img src={Event1} alt="first event" className="w-2/3" />
             </div>
-          </div>
-          <div className="mt-10 bg-gray-100 flex">
-            <div className="w-1/4 flex flex-col items-center justify-center">
-              <p className="text-sm">መጋቢት 27 2016</p>
-              <p className="text-sm">ሰኞ 3:30</p>
-            </div>
-            <div className="w-2/4 flex flex-col justify-center">
-              <p className="text-lg">
-                የመድኃኔዓለም በዓለ ንግስ አከባበር በደብራችን ደብረ መድኃኒት መድኃኔዓለም ቤተክርስቲያን
-              </p>
-              <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
-                <button className="w-full mx-auto text-lg font-bold text-white">
-                  እይ
-                </button>
+          </div> */}
+          {events.map((event) => (
+            <div key={event.id} className="mt-10 bg-gray-100 flex">
+              <div className="w-1/4 flex flex-col items-center justify-center">
+                <p className="text-sm">{event.eventdate}</p>
+                <p className="text-sm">ሰኞ 3:30</p>
+              </div>
+              <div className="w-2/4 flex flex-col justify-center">
+                <p className="text-lg">{event.eventDesc} </p>
+                <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
+                  <button className="w-full mx-auto text-lg font-bold text-white">
+                    እይ
+                  </button>
+                </div>
+              </div>
+              <div className="w-1/4 p-5 flex items-center justify-center">
+                <img
+                  src={`/assets/${event.eventImage}`}
+                  alt={`event-${event.id}`}
+                  className="w-2/3"
+                />{" "}
               </div>
             </div>
-            <div className="w-1/4 p-5 flex items-center justify-center">
-              <img src={Event2} alt="first event" className="w-2/3" />
-            </div>
-          </div>
+          ))}
         </div>
         <div className="mt-20 flex flex-cols space-x-8 items-center justify-center">
           <div className="flex items-center">
@@ -161,7 +233,7 @@ autoplayTimeout: 6000,
               <img src={PeopleIcon} alt="people icon" className="w-2/3" />
             </div>
             <div className="w-2/3 flex flex-col">
-              <div className="text-dark-blue font-bold text-xl">500</div>
+              <div className="text-dark-blue font-bold text-xl">{ucount}</div>
               <div className="text-gray-400 font-bold text-xl">ሰዎች</div>
             </div>
           </div>
@@ -170,7 +242,7 @@ autoplayTimeout: 6000,
               <img src={VolunteerIcon} alt="volunteer icon" className="w-2/3" />
             </div>
             <div className="w-2/3 flex flex-col">
-              <div className="text-dark-blue font-bold text-xl">136</div>
+              <div className="text-dark-blue font-bold text-xl">{udonate}</div>
               <div className="text-gray-400 font-bold text-xl">በጎ ፈቃደኛ</div>
             </div>
           </div>
@@ -179,8 +251,8 @@ autoplayTimeout: 6000,
               <img src={DonationIcon} alt="donation icon" className="w-2/3" />
             </div>
             <div className="w-2/3 flex flex-col">
-              <div className="text-dark-blue font-bold text-xl">200</div>
-              <div className="text-gray-400 font-bold text-xl">እርዳታ</div>
+              <div className="text-dark-blue font-bold text-xl">{count}</div>
+              <div className="text-gray-400 font-bold text-xl">አስተያየቶች</div>
             </div>
           </div>
           <div className="flex items-center">
@@ -188,7 +260,7 @@ autoplayTimeout: 6000,
               <img src={SermonIcon} alt="sermon icon" className="w-2/3" />
             </div>
             <div className="w-2/3 flex flex-col">
-              <div className="text-dark-blue font-bold text-xl">186</div>
+              <div className="text-dark-blue font-bold text-xl">{uevent}</div>
               <div className="text-gray-400 font-bold text-xl">ስብከቶች</div>
             </div>
           </div>
@@ -277,21 +349,21 @@ autoplayTimeout: 6000,
         <div className="mt-10 bg-gray-100 h-96 p-6">
           <h1 className="text-3xl font-bold text-center">አስተያየታችሁ ያግዘናል</h1>
           <div className="mt-10">
-          <OwlCarousel
-            className="owl-theme"
-            loop
-            margin={10}
-            //   navText={['prev', 'next']}
-            {...options2}
-          >
-            {items2}
-          </OwlCarousel>
+            <OwlCarousel
+              className="owl-theme"
+              loop
+              margin={10}
+              //   navText={['prev', 'next']}
+              {...options2}
+            >
+              {items2}
+            </OwlCarousel>
           </div>
         </div>
         <div className="mt-10">
-        <video controls className="w-full">
-        <source src="../Images/video1.mp4" type="video/mp4" />
-      </video>
+          <video controls className="w-full">
+            <source src="../Images/video1.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const FormComponent = () => {
+  const navigate = useNavigate();
   const questions = [
     'ሙሉ ስምህን አስገባ',
     'ጾታ',
@@ -17,45 +19,46 @@ const FormComponent = () => {
 
   const handleResponse = () => {
     const question = questions[currentQuestion];
+    let isValid = true;
 
     if (question === 'ሙሉ ስምህን አስገባ') {
       if (userInput.trim() === '') {
         setErrorMessage('ሙሉ ስምህን አስገባ ያስገቡ');
-        return;
+        isValid = false;
       }
-    } 
-    else if (question === 'ጾታ') {
+    } else if (question === 'ጾታ') {
       if (userInput !== 'Male' && userInput !== 'Female') {
         setErrorMessage('እባክዎ ተመልክተው Male ወይም Female አምርርቶት ይምረጡ');
-        return;
+        isValid = false;
       }
-    }
-    else if (question === 'ዕድሜ') {
+    } else if (question === 'ዕድሜ') {
       if (userInput <= 0 || userInput > 120) {
         setErrorMessage('እባክዎ ትክክለኛ ዕድሜ ያስገቡ');
-        return;
+        isValid = false;
       }
     } else if (question === 'የኢሜል አድራሻ') {
       if (!userInput.includes('@')) {
         setErrorMessage('የኢሜል አድራሻ ትክክለኛ ያስገቡ');
-        return;
+        isValid = false;
       }
     } else if (question === 'ስልክ ቁጥር') {
       if (userInput.length !== 10) {
         setErrorMessage('የስልክ ቁጥር 10 ሁነት ያስገቡ');
-        return;
+        isValid = false;
       }
     } else if (question === 'የአሁኑ አድራሻዎ') {
       if (userInput.trim() === '') {
         setErrorMessage('የአሁኑ አድራሻዎ ያስገቡ');
-        return;
+        isValid = false;
       }
     }
 
-    setErrorMessage('');
-    setResponses((prevResponses) => [...prevResponses, userInput]);
-    setUserInput('');
-    setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+    if (isValid) {
+      setErrorMessage('');
+      setResponses((prevResponses) => [...prevResponses, userInput]);
+      setUserInput('');
+      setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+    }
   };
 
   const renderInput = () => {
@@ -63,7 +66,7 @@ const FormComponent = () => {
 
     if (question === 'ጾታ') {
       return (
-        <div className="flex flex-col" style={{ marginLeft: '80px' }}>
+        <div className="flex flex-col rounded-full" style={{ marginLeft: '80px' }}>
           <label>
             <input
               type="radio"
@@ -92,71 +95,70 @@ const FormComponent = () => {
           type="number"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          className="border p-2 mb-4"
+          className="border p-2 mb-4 rounded-full"
           style={{ marginLeft: '80px' }}
         />
       );
     } else if (question === 'የኢሜል አድራሻ') {
       return (
         <input
-  type="email"
-  value={userInput}
-  onChange={(e) => setUserInput(e.target.value)}
-  className="border p-2 mb-4"
-  style={{ marginLeft: '80px' }}
-/>);
-    }
-    else if (question === 'ስልክ ቁጥር') {
+          type="email"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          className="border p-2 mb-4 rounded-full"
+          style={{ marginLeft: '80px' }}
+        />
+      );
+    } else if (question === 'ስልክ ቁጥር') {
       return (
         <input
           type="tel"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          className="border p-2 mb-4"
+          className="border p-2 mb-4 rounded-full"
           style={{ marginLeft: '80px' }}
         />
       );
-    }
-    else {
+    } else {
       return (
         <input
           type="text"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          className="border p-2 mb-4"
+          className="border p-2 mb-4 rounded-full"
           style={{ marginLeft: '80px' }}
         />
       );
     }
   };
 
-    return (
-      <div>
-        {currentQuestion < questions.length ? (
-          <div className="flex flex-col justify-center mt-24">
-            <h1 className="text-lg font-bold mb-4 block" style={{ marginLeft: '80px' }}>
-              {questions[currentQuestion]}
-            </h1>
-            {renderInput()}
-            {errorMessage && <p style={{ color: 'red', marginLeft: '80px' }}>{errorMessage}</p>}
-            <button
-              onClick={handleResponse}
-              className="bg-dark-blue text-white px-4 py-2 rounded-full ml-auto"
-              style={{ width: '70px' }}
-            >
-              ቀጥል
-            </button>
-          </div>
-        ) : (
-          <div>
-            <h1 className="flex flex-col text-3xl font-bold mt-24 items-center justify-center">
-              በተሳካ ሁኔታ ተመዝግበዋል!
-            </h1>
-            {/* <pre>{JSON.stringify(responses, null, 2)}</pre> */}
-          </div>
-        )}
-      </div>
-    );
-        }
+  const handleProceedToDonation = () => {
+    navigate('/donate/c');
+  };
 
-        export default FormComponent;
+  return (
+    <div>
+      {currentQuestion < questions.length ? (
+        <div className="flex flex-col justify-center mt-24">
+          <h1 className="text-lg font-bold mb-4 block" style={{ marginLeft: '80px' }}>
+            {questions[currentQuestion]}
+          </h1>
+          {renderInput()}
+          {errorMessage && <p style={{ color: 'red', marginLeft: '80px' }}>{errorMessage}</p>}
+          <button
+            onClick={handleResponse}
+            className="bg-dark-blue text-white px-4 py-2 rounded-full ml-auto"
+            style={{ width: '70px' }}>
+            ቀጥል
+          </button>
+        </div>
+      ) : (
+        <div className=' w-1/4 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center justify-center'>
+          <button className='' onClick={handleProceedToDonation}>የአባልነት ክፍያ ክፈል</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default FormComponent;

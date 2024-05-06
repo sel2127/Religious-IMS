@@ -17,16 +17,17 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const handleFormSubmit = async (values) => {
+    axios.defaults.withCredentials = true;
     try {
       const response = await axios.post('http://localhost:5000/admin/login', values);
       const { success, message, token } = response.data;
+      console.log(success)
+
       if (success) {
-        // Store the token in local storage for token-based authentication
-        localStorage.setItem('token', token);
+        document.cookie = `admin_token=${token}`;
 
-        // Add the token to the request headers for subsequent requests
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
+      // Include the token in the request headers
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         // Redirect to dashboard
         window.location.href = '/admin/dashboard';
       } else {

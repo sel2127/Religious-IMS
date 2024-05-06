@@ -5,7 +5,9 @@ import store from './store/store';
 import './index.css';
 import App from './App'; 
 
-ReactDOM.render( // Use ReactDOM.render() instead of createRoot
+
+
+ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,

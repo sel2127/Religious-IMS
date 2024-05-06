@@ -3,6 +3,7 @@ import { insertDefaultAdmin, logout } from '../controllers/adminController.js';
 import { updateAdminProfile } from '../controllers/adminController.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import { getAdminProfile } from '../controllers/adminController.js';
+
 const adminRouter = express.Router();
 
 // Route to insert default admin
@@ -12,6 +13,7 @@ adminRouter.get('/logout', logout);
 adminRouter.put('/admin/:id', authMiddleware, updateAdminProfile)
 
 adminRouter.get('/profile', authMiddleware, getAdminProfile);
+<<<<<<< HEAD
 
 export default adminRouter;
 
@@ -19,3 +21,6 @@ export default adminRouter;
 
 
 
+=======
+export default adminRouter;
+>>>>>>> origin/tsimocookie

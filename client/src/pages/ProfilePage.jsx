@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import profileData from "../components/profileData";
 import { setImagePreview } from "../store/actions/imageAction";
 import aba from "../assets/Images/aba.jpg";
-import Breadcrumb from "../common/Breadcrumb";
 import { Link } from "react-router-dom";
 import SideBarr from "../components/profile/SideBarr";
 

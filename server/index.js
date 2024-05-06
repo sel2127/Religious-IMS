@@ -1,8 +1,12 @@
 import express from "express";
 import cors from 'cors';
+<<<<<<< HEAD
 import session from "express-session";
 import dotenv from 'dotenv';
 import cookieParser from "cookie-parser";
+=======
+import cookieParser from 'cookie-parser'
+>>>>>>> origin/tsimocookie
 import db from "./config/Database.js";
 import eventRouter from "./routes/eventRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
@@ -28,6 +32,7 @@ app.use(cookieParser());
 
 // Serve static files
 app.use(express.static("public"));
+<<<<<<< HEAD
 
 
 // Configure session middleware
@@ -39,6 +44,8 @@ app.use(session({
         secure: 'auto'
     }
 }));
+=======
+>>>>>>> origin/tsimocookie
 
 // Define routes
 app.use(donationRoute);

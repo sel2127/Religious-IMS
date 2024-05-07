@@ -26,7 +26,7 @@ export const setPasswordUpdate = (status) => ({
   });
 
 // Thunk function for updating the password
-export const updatePassword = (newPassword) => async (dispatch) => {
+export const updatePassword = ({ userId, newPassword })=> async (dispatch) => {
   dispatch(updatePasswordRequest());
 
   try {
@@ -40,12 +40,13 @@ export const updatePassword = (newPassword) => async (dispatch) => {
 
   // Perform additional logic based on response
   if (response.data.status === 'success') {
-    // Do something
+    dispatch(setPasswordUpdate('Password updated successfully'));
   } else {
-    // Do something else
+    dispatch(setPasswordUpdate('Error updating password'));
   }
   } catch (error) {
-    dispatch(updatePasswordFailure(error.message));
-    // Handle any error scenarios or dispatch further actions if needed
+    dispatch(updatePasswordFailure(error.message)); // Handle any error scenarios or dispatch further actions if needed
+     
+     dispatch(setPasswordUpdate('Error updating password')); // Display an error message to the user
   }
 };

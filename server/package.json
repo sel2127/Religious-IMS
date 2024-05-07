@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@lingui/core": "^4.10.1",
+    "@lingui/react": "^4.10.1",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "chapa": "^1.0.5",
@@ -26,6 +28,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.9.3",
+    "nodemailer": "^6.9.13",
     "sequelize": "^6.37.2",
     "sequelize-cli": "^6.6.2"
   },

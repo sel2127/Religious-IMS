@@ -2,10 +2,26 @@ import React, { useState } from "react";
 import Logo from "../assets/Images/logo.png";
 import { Link } from 'react-router-dom';
 import "../assets/styles/header.css"
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+import cookies from "js-cookie";
 
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState('');
+  const currentLanguageCode = cookies.get('i18next') || 'am'
+  const languages = [
+    {
+      code:'am',
+      name:'አማርኛ'
+    },
+    {
+      code:'en',
+      name:'English'
+    }
+  ];
+  const {t} = useTranslation();
+
 
   const handleSetActiveLink = (path) => {
     setActiveLink(path);
@@ -19,7 +35,7 @@ const Header = () => {
           </div>
           <div className="w-2/4 flex items-center">
             <div className="w-2/3 mx-auto border border-gray-400 rounded-full h-10 px-5 flex items-center">
-              <input type="text" placeholder="ፈልግ" className="" />
+              <input type="text" placeholder={t("ፈልግ")} className="" />
             </div>
           </div>
           <div className="w-1/4 flex items-center">
@@ -67,7 +83,7 @@ const Header = () => {
               <div className="w-3/4 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
                 <a href="/donate/c" className="w-full mx-auto text-base font-bold text-white text-center"
                 >
-                  ለመለገስ
+                  {t('ለመለገስ')}
                 </a>
               </div>
             </div>
@@ -75,16 +91,15 @@ const Header = () => {
         </div>
         <div className="flex py-3 font-bold border-b border-gray-300">
           <div className="w-5/6 flex items-center">
-            <div className="w-1/6 flex"><a href="/" className="cursor-pointer">ዋና ገጽ</a></div>
-
-            <div className="w-1/6"><a href="/event" className="cursor-pointer">መርሃግብራት</a></div>
-            <div className="w-1/6"><a href="/church" className="cursor-pointer">ስለ ደብሩ</a></div>
-            <div className="w-1/6"><a href="/contact" className="cursor-pointer">አግኙን</a></div>
+            <div className="w-1/6 flex"><a href="/" className="cursor-pointer">{t("ዋና ገጽ")}</a></div>
+            <div className="w-1/6"><a href="/event" className="cursor-pointer">{t("መርሃግብራት")}</a></div>
+            <div className="w-1/6"><a href="/church" className="cursor-pointer">{t("ስለ ደብሩ")}</a></div>
+            <div className="w-1/6"><a href="/contact" className="cursor-pointer">{t("አግኙን")}</a></div>
             <div className="w-1/6 flex items-center">
 
               <div className="dropdown">
                 <div className="flex items-center">
-                  <button class="dropbtn mr-2">ሌሎች ገጾች</button>
+                  <button class="dropbtn mr-2">{t("ሌሎች ገጾች")}</button>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                   </svg>
@@ -103,14 +118,20 @@ const Header = () => {
             <div className="w-1/6 flex items-center">
               <div class="dropdown">
                 <div className="flex items-center">
-                  <button class="dropbtn mr-2">ቋንቋ</button>
+                  <button class="dropbtn mr-2">{t("ቋንቋ")}</button>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 cursor-pointer">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                   </svg>
                 </div>
                 <div class="dropdown-content">
-                  <a href="#">አማርኛ</a>
-                  <a href="#">English</a>
+                  {languages.map(({code , name}) => (
+                    <div key={code}>
+                    <button onClick={() => i18next.changeLanguage(code)}
+                    disabled = {code === currentLanguageCode}>{name}</button>
+                  </div>
+                  )
+                  )}
+                  
                 </div>
               </div>
 

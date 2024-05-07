@@ -11,6 +11,7 @@ import calendarRoutes from "./routes/calendarRoutes.js";
 // import { authMiddleware } from './middlewares/authMiddleware.js';
 import UserRoute from "./routes/UserRoutes.js";
 import donationRoute from "./routes/donationRoutes.js";
+import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js';
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,12 @@ db.sync()
 // Parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded());
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    next();
+  });
 
 // Serve static files
 app.use(express.static("public"));
@@ -64,6 +71,8 @@ app.use("/api", calendarRoutes);
 // app.use("/adminlogin", adminRouter);
 app.use("/admin", adminRouter);
 
+//for password Recovery
+app.use(passwordRecoveryRoute);
 
 
 // Apply authMiddleware only to routes that require authentication

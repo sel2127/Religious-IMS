@@ -26,7 +26,7 @@ router.put('/api/updateprofile', updateUser);
 // router.get('/api/userinfo', getUserById);
 router.get('/users', getUsers);
 router.get('/users/:id', getUserById);
-router.patch('/users/:id', updateUser);
+// router.patch('/users/:id', updateUser);
 router.delete('/users/:id', deleteUser);
 
 export default router;

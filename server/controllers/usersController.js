@@ -56,8 +56,6 @@ export const deleteUser = (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { phone, password } = req.body;
-    console.log("Received phone:", phone);
-    console.log("Received password:", password); // Don't log the actual password for security reasons
 
     const user = await User.findOne({ where: { phone } });
 

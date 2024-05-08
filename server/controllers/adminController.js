@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import {AdminModel} from '../models/adminModel.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import multer from 'multer';
+import Users from "../models/UserModel.js";
 
 // Method to insert default admin
 export const insertDefaultAdmin = async (req, res) => {
@@ -167,3 +168,76 @@ export const updateAdminProfile = async (req, res) => {
 };
 
 export const uploadImage = upload.single('image');
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await Users.findAll();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+export const createUser = (req, res) => {
+    
+}
+
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update the user data based on req.body
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.phone = req.body.phone;
+    user.email = req.body.email;
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Delete the user
+    await user.destroy();
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

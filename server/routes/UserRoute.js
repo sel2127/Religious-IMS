@@ -1,11 +1,11 @@
 import express from 'express';
-import {
-  getUsers,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
-} from '../controllers/userController.js';
+// import {
+//   getUsers,
+//   getUserById,
+//   createUser,
+//   updateUser,
+//   deleteUser,
+// } from '../controllers/userController.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/UserModel.js';
@@ -110,10 +110,10 @@ function verifyToken(req, res, next) {
 // });
 
 // Other user routes
-router.get('/users', getUsers);
-router.get('/users/:id', getUserById);
-router.post('/users', createUser);
-router.patch('/users/:id', updateUser);
-router.delete('/users/:id', deleteUser);
+// // router.get('/users', getUsers);
+// router.get('/users/:id', getUserById);
+// router.post('/users', createUser);
+// router.patch('/users/:id', updateUser);
+// router.delete('/users/:id', deleteUser);
 
 export default router;

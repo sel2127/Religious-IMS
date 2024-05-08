@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Logo from "../assets/Images/logo.png";
 import "../assets/styles/notify.css";
-import Breadcrumb from '../common/Breadcrumb';
 
 const Notify = () => {
   const modalRef = useRef(null);

@@ -7,7 +7,6 @@ import photo2 from '../assets/Images/photo2.jpg';
 import photo3 from '../assets/Images/photo3.jpg';
 import abat from '../assets/Images/admin.jpg';
 import Map from "../components/Map";
-import Breadcrumb from '../common/Breadcrumb';
 
 
 

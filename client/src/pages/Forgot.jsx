@@ -1,11 +1,8 @@
 import React from 'react'
-// import '../styles/main.css';
-import Breadcrumb from '../common/Breadcrumb';
 
 const Forgot = () => {
   return (
     <div>
-      <Breadcrumb/>
 
       <div className='mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600'>
         <div className='flex flex-col items-center justify-center p-10'>

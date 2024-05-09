@@ -1,8 +1,18 @@
 import express from 'express';
-import { insertDefaultAdmin, logout } from '../controllers/adminController.js';
-import { updateAdminProfile, uploadImage } from '../controllers/adminController.js';
+import {
+    insertDefaultAdmin,
+    logout,
+    updateAdminProfile,
+    uploadImage,
+    getAdminProfile,
+    getUsers,
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser
+  } from '../controllers/adminController.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
-import { getAdminProfile } from '../controllers/adminController.js';
+// import { forgot } from '../controllers/adminController.js';
 
 const adminRouter = express.Router();
 
@@ -21,4 +31,12 @@ adminRouter.get('/logout', logout);
 adminRouter.put('/update', authMiddleware,uploadImage, updateAdminProfile)
 
 adminRouter.get('/profile', authMiddleware, getAdminProfile);
+
+adminRouter.get('/users', getUsers);
+adminRouter.post('/users', createUser);
+adminRouter.get('/users/:id', getUserById);
+adminRouter.put('/users/:id', updateUser);
+adminRouter.delete('/users/:id', deleteUser);
+
+// adminRouter.get('/forgot', forgot);
 export default adminRouter;

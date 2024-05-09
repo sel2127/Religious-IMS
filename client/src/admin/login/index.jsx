@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -107,6 +108,9 @@ const Login = () => {
           </form>
         )}
       </Formik>
+      {/* <Box display="flex" justifyContent="center" mt="10px">
+        <Link to="/admin/forgot">Forgot Password?</Link>
+      </Box> */}
     </Box>
   );
 };

@@ -12,20 +12,8 @@ import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
-import axios from "axios";
-import { saveAs } from "file-saver";
 
 const Dashboard = () => {
- 
-const handleDownloadAllUsersData = async () => {
-  try {
-    const response = await axios.get("/downloadAllUsersData", { responseType: "blob" });
-
-    saveAs(response.data, "all_users_data.pdf");
-  } catch (error) {
-    console.error("Failed to download all users data:", error);
-  }
-};
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -44,7 +32,6 @@ const handleDownloadAllUsersData = async () => {
               fontWeight: "bold",
               padding: "10px 20px",
             }}
-            
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports

@@ -65,6 +65,10 @@ const AdminModel = db.define(
             notEmpty: true
         },
       },
+      verificationCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
 }, {
     freezeTableName: true
 });

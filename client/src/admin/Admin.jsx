@@ -45,16 +45,17 @@ function Admin() {
   // }, []);
 
   const isLoginPage = location.pathname === '/admin/login';
+  const isForgotPage = location.pathname === '/admin/forgot';
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme = {theme}>
         <CssBaseline />
     <div className='dashboard'> 
-    {!isLoginPage && <Sidebar />}
+    {!isLoginPage && !isForgotPage && <Sidebar />}
     {/* <Sidebar /> */}
       <main className='content'>
-      {!isLoginPage && <Topbar />}
+      {!isLoginPage && !isForgotPage && <Topbar />}
         {/* <Topbar /> */}
         <Routes>
           <Route path="login" element={<Login />} />

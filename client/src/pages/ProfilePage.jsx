@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { setImagePreview } from '../app/reducers/imageReducer';
@@ -6,8 +6,6 @@ import aba from "../assets/Images/aba.jpg";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; 
 import { setUserData } from '../app/actions/userAction';
-
-
 
 const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
@@ -18,86 +16,52 @@ const ProfilePage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-
+  
     reader.onload = () => {
-      const imageData=reader.result;
-      const userId=userData.id;
-      const imageInfo={userId,imageData}
-      //save image with user id on localstoarge
-      localStorage.setItem(`user-${userId}-image`, JSON.stringify(imageInfo));
-      dispatch(setImagePreview(imageData));
+      const imageData = reader.result;
+      const userId = userData ? userData.id : null; // Check if userData exists
+      if (userId) {
+        const imageInfo = { userId, imageData };
+        // Save image with user id on localstoarge
+        localStorage.setItem(`user-${userId}-image`, JSON.stringify(imageInfo));
+        dispatch(setImagePreview(imageData));
+      } else {
+        console.error('User data not available.');
+      }
     };
-
+  
     reader.readAsDataURL(file);
   };
+  
 
-  // const [userData, setUserData] = useState({});
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/userinfo', {
+        withCredentials: true, // Ensure cookies are sent with the request
+      });
 
- 
-
-const fetchData = async (dispatch) => {
-  try {
-    const response = await axios.get('http://localhost:5000/api/userinfo', {
-      withCredentials: true, // Ensure cookies are sent with the request
-    });
-
-    const userData = response.data.user;
-    dispatch(setUserData(userData));
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-  }
-};
+      const userData = response.data.user;
+      dispatch(setUserData(userData));
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
 
   useEffect(() => {
-    const userId=userData.id;
-    const imageData = localStorage.getItem(`user-${userId}-image`);
-
-    if (imageData) {
-      dispatch(setImagePreview(JSON.parse(imageData).imageData));
+    console.log('userData:', userData);
+    if (!userData) {
+      fetchData();
     }
+  }, [userData]);
+  
 
-    // Fetch user profile data
-    fetchData(dispatch);
-
-    // const accessToken = document.cookie
-    //   .split('; ')
-    //   .find(row => row.startsWith('token='))
-    //   ?.split('=')[1];
-
-    // const accessToken = Cookies.get('token'); // Use js-cookie to get token
-
-//     const fetchData = async () => {
-//       const accessToken = document.getElementById('userDataForm')?.elements['accessToken']?.value;
-// console.log('tokennn:', accessToken)
-//   if (accessToken) {
-//     axios
-//       .get('http://localhost:5000/user/userinfo', {
-//         headers: {
-//           Authorization: `Bearer ${accessToken}`,
-//         }
-//       }, {withCredentials:true})
-//       .then((response) => {
-//         setUserData(response.data);
-//       })
-//       .catch((error) => {
-//         console.error('Error fetching user profile:', error);
-//       });
-//   } else {
-//     console.warn("No access token found in hidden form");
-//   }
-// };
-
-// fetchData(); // Call the function to fetch data
-
-}, [userData,dispatch]); // Empty dependency array to run only once after mount
-// console.log(userData);
   if (!userData) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="w-full">
-      <div className=" w-full rounded-lg">
+      <div className="w-full rounded-lg">
         <div className="flex flex-col lg:flex-row">
           {/* sidebar */}
           <div>
@@ -105,8 +69,8 @@ const fetchData = async (dispatch) => {
           </div>
           <div className='lg:w-1/2 m-auto'>
 
-            <div className="   flex flex-col  h-screen mt-10">
-              <div className=" h-full overflow-hidden shadow bg-gray-200 rounded-lg">
+            <div className="flex flex-col h-screen mt-10">
+              <div className="h-full overflow-hidden shadow bg-gray-200 rounded-lg">
                 <div className="rounded-t-xl flex justify-center items-center">
                   <label htmlFor="fileInput">
                     <img
@@ -140,7 +104,6 @@ const fetchData = async (dispatch) => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

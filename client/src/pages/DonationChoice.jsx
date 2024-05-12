@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer, toast, cssTransition } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { donateUser } from '../app/api/apiSlice';
+import { donateUser } from '../app/actions/donationAction';
 
 const DonationChoice = () => {
   const [errors, setErrors] = useState({});
@@ -13,13 +13,13 @@ const DonationChoice = () => {
     const form = event.target;
     const formData = new FormData(form);
     let validationErrors = {};
-
+  
     if (!formData.get('first_name')) {
       validationErrors = { ...validationErrors, first_name: 'First Name is required' };
     }
     if (!formData.get('email')) {
-      validationErrors = { ...validationErrors, email: 'Email is required' };
-    }
+        validationErrors = { ...validationErrors, email: 'Email is required' };
+      }
     if (!formData.get('last_name')) {
       validationErrors = { ...validationErrors, last_name: 'Last Name is required' };
     }
@@ -32,25 +32,24 @@ const DonationChoice = () => {
     if (!formData.get('currency')) {
       validationErrors = { ...validationErrors, currency: 'Currency is required' };
     }
-
+   
+  
     setErrors(validationErrors);
-
+  
     try {
       await dispatch(donateUser(Object.fromEntries(formData)));
       form.submit();
     } catch (error) {
       console.error("Error:", error);
-      if (error.response && error.response.data && error.response.data.message === "tx_ref must be unique") {
+      if (error.response && error.response.data && error.response.data.message === "Transaction reference has been used before") {
         toast.error('Transaction reference has been used before. Please provide a unique reference.');
       } else {
         toast.error('An error occurred during donation.');
       }
-      return; // Stop execution if there's an error
+      return;
     }
-
-    // If no error occurred, show success message
-    toast.success('Donation successful!');
   };
+  
 
 
   const Fade = cssTransition({

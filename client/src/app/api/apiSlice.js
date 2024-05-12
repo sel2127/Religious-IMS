@@ -33,11 +33,11 @@ export const registerUser = (userData) => async (dispatch) => {
   }
 };
 
-export const donateUser = (formData) => async (dispatch) => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/donations', formData);
-    dispatch(donateSuccess(response.data));
-  } catch (error) {
-    dispatch(donateFailure(error.response.data.message));
-  }
-};
+// export const donateUser = (formData) => async (dispatch) => {
+//   try {
+//     const response = await axios.post('http://localhost:5000/api/donations', formData, {withCredentials:true});
+//     dispatch(donateSuccess(response.data));
+//   } catch (error) {
+//     dispatch(donateFailure(error.response.data.message));
+//   }
+// };

@@ -1,13 +1,14 @@
-//donationAction.js
-export const DONATE_SUCCESS = 'DONATE_SUCCESS';
-export const DONATE_FAILURE = 'DONATE_FAILURE';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-export const donateSuccess = (data) => ({
-  type: DONATE_SUCCESS,
-  payload: data,
-});
-
-export const donateFailure = (error) => ({
-  type: DONATE_FAILURE,
-  payload: error,
-});
+export const donateUser = createAsyncThunk(
+  'donation/donateUser',
+  async (formData, thunkAPI) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/donations', formData, { withCredentials: true });
+      return response.data;
+    } catch (error) {
+      throw error.response.data.message;
+    }
+  }
+);

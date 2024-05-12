@@ -1,5 +1,6 @@
-import React from 'react';
+import React ,{ useState }from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createContext } from "react";
 import ChurchPage from './pages/ChurchPage'; 
 import SundaySchool from './pages/SundaySchool'; 
 import LandingPage from './pages/LandingPage'; 
@@ -26,20 +27,36 @@ import FeedbackForm from './components/FeedbackForm';
 import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
+
+import OTPInput from "./Auth/OTPInput";
+import Reset from "./Auth/Reset";
+
 import GoogleTranslate from './common/GoogleTranslate';
 import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
 
 
+export const RecoveryContext = createContext();
+
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
   const shouldApplyPadding = !isPathInAdmin;
 
+  
+  const [email, setEmail] = useState();
+  const [otp, setOTP] = useState();
+
+ 
+
   return (
+    <RecoveryContext.Provider
+    value={{ otp, setOTP, setEmail, email }}
+  >
     <Router>
       <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
-      <GoogleTranslate />
+      {/* <GoogleTranslate /> */}
+      {/* <Breadcrumb/> */}
       <Routes>
       <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -51,7 +68,6 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/donate" element={<Donation />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/upload" element={<Upload />} />
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<Member />} />
         {/* <Route path="/abnet" element={<AbnetPage />} /> */}
@@ -65,8 +81,8 @@ function App() {
         <Route path='/editprofile' element={<EditProfile/>}/>
         <Route path='/changepassword' element={<ChangePassword/>}/>
         <Route path='/viewmoreprofile' element={<ViewMoreProfile/>}/>
-        <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
-        <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
+        <Route path='/otpinput' element={ <OTPInput />}/>
+        <Route path='/reset' element={ <Reset />}/>
       </Routes>
       <ToastContainer />
 
@@ -74,6 +90,7 @@ function App() {
       </div>
       
     </Router>
+    </RecoveryContext.Provider>
   );
 }
 

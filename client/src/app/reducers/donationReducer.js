@@ -1,27 +1,33 @@
-// donationReducer.js
 import { createSlice } from '@reduxjs/toolkit';
-import { donateSuccess, donateFailure } from '../actions/donationAction';
+import { donateUser } from '../actions/donationAction';
+import { toast } from 'react-toastify'; // Import the toast module here
 
 const initialState = {
-  status: null,
+  status: 'idle',
   error: null,
 };
 
 const donationSlice = createSlice({
   name: 'donation',
   initialState,
-  reducers: {
-    // Additional reducers can be added here if needed
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(donateSuccess, (state, action) => {
-        state.status = 'succeeded';
+      .addCase(donateUser.pending, (state, action) => {
+        state.status = 'loading';
         state.error = null;
       })
-      .addCase(donateFailure, (state, action) => {
+      .addCase(donateUser.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.error = null;
+        // Trigger toast message for successful donation
+        toast.success('Donation successful!');
+      })
+      .addCase(donateUser.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload;
+        state.error = action.error.message;
+        // Trigger toast message for failed donation
+        toast.error('An error occurred during donation.');
       });
   },
 });

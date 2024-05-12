@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 function ViewMoreProfile() {
 
   const userDataFromStore = useSelector((state) => state.user.userData);
+  console.log(userDataFromStore);
   return (
     <div className="w-full">
     <div className=" w-full rounded-lg">

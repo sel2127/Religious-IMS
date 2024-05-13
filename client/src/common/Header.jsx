@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Logo from "../assets/Images/logo.png";
-import { Link } from 'react-router-dom';
 import "../assets/styles/header.css"
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";

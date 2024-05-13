@@ -12,12 +12,12 @@ const EditProfile = () => {
 
   const handleSaveProfile = async (event) => {
     event.preventDefault();
-
+    
     // Extract form data and update it based on your form structure
-    const firstName = event.target.firstName.value;
-    const lastName = event.target.lastName.value;
-    const email = event.target.email.value;
-    const phone = event.target.phone.value;
+    const firstName= document.getElementById('firstName').value;
+    const lastName= document.getElementById('lastName').value;
+    const email= document.getElementById('email').value;
+    const phone= document.getElementById('phone').value;
 
     const updatedUserData = { firstName, lastName, email, phone };
 
@@ -43,9 +43,10 @@ const EditProfile = () => {
 
         <input
             type="text"
-            id="name"
+            id="firstName"
+            name="firstName"
             defaultValue={userDataFromStoreEdit.firstName}
-            placeholder="Enter new username"
+            placeholder="Enter new first name"
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
@@ -62,9 +63,10 @@ const EditProfile = () => {
           />
           <input
             type="text"
-            id="name"
+            id="lastName"
+            name="lastName"
             defaultValue={userDataFromStoreEdit.lastName}
-            placeholder="Enter new username"
+            placeholder="Enter new last name"
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
@@ -83,6 +85,7 @@ const EditProfile = () => {
             type="email"
             placeholder="Email"
             id="email"
+            name="email"
             defaultValue={userDataFromStoreEdit.email}
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
                    mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"

@@ -48,10 +48,11 @@ export function isAuthenticated(req, res, next) {
     console.log("dec", decoded.userId)
     const uid = decoded.userId
     const users = Users.findOne({ where: { id: uid } });
+    console.log("Fetched user:", users);
     if (!users) {
       return res.status(404).json({
         success: false,
-        message: "User does not exist",
+        message: "User does not exist", 
       });
     }
 

@@ -18,9 +18,9 @@ router.post('/user/register', createUser);
 router.post('/user/login', loginUser);
 router.get('/api/userinfo', isAuthenticated, getUserInfo);
 router.post('/user/logout', logoutUser);
-
 router.post('/api/updatepassword' , updatePassword );
-router.put('/api/updateprofile', updateUser);
+
+router.put('/api/updateprofile', isAuthenticated , updateUser);
 
 
 // router.get('/api/userinfo', getUserById);

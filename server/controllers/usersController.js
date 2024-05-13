@@ -37,7 +37,11 @@ export const updateUser = async (req, res) => {
     const { userId } = req.user; // Assuming user ID is retrieved from JWT
     const updates = req.body; // Updated user data
 
-    const user = await User.findByIdAndUpdate(userId, updates, { new: true }); // Update and return updated user
+    const user = await User.findByPk(userId);
+    if (user) {
+      await user.update(updates);
+      // 'user' now contains the updated document
+    }
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -72,13 +76,14 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: '7h',
     });
-    
-    
 
-    res.cookie('accessToken', token, { httpOnly: true,
-                                      secure:false,
-                                      sameSite:"strict"
-                                      
+
+
+    res.cookie('accessToken', token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict"
+
     });
 
     res.json({ message: 'Login successful', user });
@@ -86,7 +91,7 @@ export const loginUser = async (req, res) => {
     console.error('Error logging in:', error);
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
-  
+
 };
 
 export const getUserInfo = async (req, res) => {
@@ -107,33 +112,30 @@ export const getUserInfo = async (req, res) => {
 
 
 export const updatePassword = async (req, res) => {
-  
+
   const { userId, newPassword } = req.body; // Access the userId and newPassword directly
 
-    console.log("Received userId:", userId);
-    console.log("Received newPassword:", newPassword); // Don't log the actual password for security reasons
+  // Find the user by userId
+  const user = await User.findOne({ where: { id: userId } });
 
-    // Find the user by userId
-    const user = await User.findOne({ where: { id: userId } });
-    
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
 
-     // Hash the new password before updating the user
-     const hashedPassword = await bcrypt.hash(newPassword, 10); // Adjust cost factor as needed
-     console.log("Generated hashedPassword:", hashedPassword);
+  // Hash the new password before updating the user
+  const hashedPassword = await bcrypt.hash(newPassword, 10); // Adjust cost factor as needed
+  console.log("Generated hashedPassword:", hashedPassword);
 
-     // Update the user's password with the hashed value
-     user.password = hashedPassword;
-     try {
-      await user.save();
-      return res.status(200).json({ message: 'Password updated successfully' });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Internal server error' });
-    }
-   
+  // Update the user's password with the hashed value
+  user.password = hashedPassword;
+  try {
+    await user.save();
+    return res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+
 };
 
 export const logoutUser = async (req, res) => {

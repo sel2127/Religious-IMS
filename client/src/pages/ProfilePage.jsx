@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
-import { setImagePreview } from '../app/reducers/imageReducer';
+import { setImagePreview } from '../store/reducers/imageReducer';
 import aba from "../assets/Images/aba.jpg";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; 
@@ -16,23 +16,18 @@ const ProfilePage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-  
+
     reader.onload = () => {
       const imageData = reader.result;
-      const userId = userData ? userData.id : null; // Check if userData exists
-      if (userId) {
-        const imageInfo = { userId, imageData };
-        // Save image with user id on localstoarge
-        localStorage.setItem(`user-${userId}-image`, JSON.stringify(imageInfo));
-        dispatch(setImagePreview(imageData));
-      } else {
-        console.error('User data not available.');
-      }
+      const userId = userData.id;
+      const imageInfo = { userId, imageData };
+      // Save image with user id on localstoarge
+      localStorage.setItem(`user-${userId}-image`, JSON.stringify(imageInfo));
+      dispatch(setImagePreview(imageData));
     };
-  
+
     reader.readAsDataURL(file);
   };
-  
 
   const fetchData = async () => {
     try {
@@ -48,12 +43,10 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    console.log('userData:', userData);
     if (!userData) {
       fetchData();
     }
-  }, [userData]);
-  
+  }, [userData]); // Run when userData changes or on initial render if userData is null
 
   if (!userData) {
     return <div>Loading...</div>;

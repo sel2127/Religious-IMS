@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './reducers/authReducer';
 import donationReducer from './reducers/donationReducer'; // Add this import
 import imageReducer from './reducers/imageReducer';
-import userReducer from './reducers/userReducer'; // Change import to userReducer
+import userReducer from './reducers/userReducer';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import { combineReducers } from '@reduxjs/toolkit';

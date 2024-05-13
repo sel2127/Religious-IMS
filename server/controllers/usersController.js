@@ -107,14 +107,14 @@ export const getUserInfo = async (req, res) => {
 
 
 export const updatePassword = async (req, res) => {
-  const { userId, newPassword } = req.body;
+  
+  const { userId, newPassword } = req.body; // Access the userId and newPassword directly
 
-  try {
     console.log("Received userId:", userId);
     console.log("Received newPassword:", newPassword); // Don't log the actual password for security reasons
 
     // Find the user by userId
-    const user = await User.findByPk(userId);
+    const user = await User.findOne({ where: { id: userId } });
     
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -126,13 +126,14 @@ export const updatePassword = async (req, res) => {
 
      // Update the user's password with the hashed value
      user.password = hashedPassword;
-     await user.save();
- 
-     return res.status(200).json({ message: 'Password updated successfully' });
-   } catch (error) {
-     console.error(error);
-     return res.status(500).json({ error: 'Internal server error' });
-   }
+     try {
+      await user.save();
+      return res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+   
 };
 
 export const logoutUser = async (req, res) => {

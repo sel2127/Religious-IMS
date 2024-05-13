@@ -29,10 +29,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded());
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    next();
-  });
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     next();
+//   });
 
 // Serve static files
 app.use(express.static("public"));

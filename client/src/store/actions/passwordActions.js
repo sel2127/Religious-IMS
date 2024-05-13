@@ -26,14 +26,14 @@ export const setPasswordUpdate = (status) => ({
   });
 
 // Thunk function for updating the password
-export const updatePassword = ({ userId, newPassword })=> async (dispatch) => {
+export const updatePassword = (userId, newPassword)=> async (dispatch) => {
   dispatch(updatePasswordRequest());
 
   try {
-    const userId = useSelector(state => state.user.id); // Access userId from user slice of Redux state
+    // const userId = useSelector(state => state.user.id); // Access userId from user slice of Redux state
     const response = await axios.post('http://localhost:5000/api/updatepassword', { userId, newPassword });
     dispatch(updatePasswordSuccess());
-    // Handle any additional logic or dispatch further actions if needed
+  
 
      // Access response data
   console.log(response.data);

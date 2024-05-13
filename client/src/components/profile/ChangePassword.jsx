@@ -137,10 +137,12 @@ function ChangePassword() {
       setPasswordError("Passwords do not match");
     } else {
       setPasswordError("");
-
+      console.log(userId);
+    
       try {
-        dispatch(updatePassword({ userId, newPassword })); // Include both userId and newPassword
+        dispatch(updatePassword( userId, newPassword )); // Include both userId and newPassword directly in the payload
         console.log("Password update successful!");
+        
         // Maybe redirect to a different page
       } catch (error) {
         console.error("Error updating password:", error); // Show error message to the user based on the error details

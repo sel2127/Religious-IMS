@@ -63,14 +63,15 @@ const Register = () => {
   const registration = () => {
     if (validateForm()) {
     axios.post('http://localhost:5000/user/register', 
-    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg},{credentials:"include"}).then((response)=>{console.log(response);
-    }).then((response) => {
-      console.log(response);
-      navigate('/login'); // Redirect to the login page
+    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg},{ withCredentials: true })
+    .then((response)=>{console.log(response.data);
+      
+        navigate('/login');
     })
     .catch((error) => {
-      console.error(error);
-      // Handle the registration error if needed
+      console.error(error.response.data); // Access error message from server
+      setError(error.response.data.message); // Assuming an error message property
+      // Handle registration error 
     });
   }
   };

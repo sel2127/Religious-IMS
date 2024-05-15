@@ -3,7 +3,9 @@ import jwt from 'jsonwebtoken';
 import {AdminModel} from '../models/adminModel.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import multer from 'multer';
-import Users from "../models/Users.js";
+import Users from "../models/UserModel.js";
+import nodemailer from "nodemailer";
+import crypto from 'crypto';
 
 // Method to insert default admin
 export const insertDefaultAdmin = async (req, res) => {
@@ -60,6 +62,43 @@ export const logout = (req, res) => {
   
   // res.redirect('/admin/login');
   res.json({ success: true, message: 'Logout successful' });  
+};
+
+export const sendPasswordResetEmail = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Generate a unique reset token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // Save the reset token and its expiration date in the database (associated with the user's email)
+
+    // Generate the password reset confirmation URL
+    const resetURL = `http://localhost:3000/reset-password/${resetToken}`;
+
+    // Create a nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      // Configure your email provider here
+    });
+
+    // Create the email content
+    const mailOptions = {
+      from: 'debremedhanit27@example.com',
+      to: email,
+      subject: 'Password Reset',
+      html: `<p>Please click the following link to reset your password:</p>
+             <p><a href="${resetURL}">${resetURL}</a></p>`,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+
+    // Return success response
+    res.json({ success: true, message: 'Password reset email sent' });
+  } catch (error) {
+    console.error('Error sending password reset email:', error);
+    res.status(500).json({ success: false, message: 'Error sending password reset email' });
+  }
 };
 
 // export const getAdminProfile = async (req, res) => {
@@ -239,5 +278,94 @@ export const deleteUser = async (req, res) => {
   } catch (error) {
     console.error('Error deleting user:', error);
     res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+// Generate a random verification code
+const generateVerificationCode = () => {
+  const codeLength = 6;
+  const characters = '0123456789';
+
+  let verificationCode = ''
+  for (let i = 0; i < codeLength; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    verificationCode += characters.charAt(randomIndex);
+  }
+
+  return verificationCode;
+}
+
+const sendVerificationCode = async (email, verificationCode) => {
+  const transporter = nodemailer.createTransport({
+    // Configure email provider
+    service: 'gmail',
+    auth: {
+      user: 'debremedhanit27@gmail.com',
+      pass: '12345678',
+    },
+  });
+
+  const mailOptions = {
+    from: 'debremedhanit27@gmail.com',
+    to: email,
+    subject: 'Password Reset Verification Code',
+    text: `Your verification code is: ${verificationCode}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+// Step 1: Forgot password - Generate verification code and send email
+export const forgot = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const admin = await AdminModel.findOne({ email });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    const verificationCode = generateVerificationCode();
+
+    // Save the verification code to the admin document in the database
+    admin.verificationCode = verificationCode;
+    await admin.save();
+
+    // Send the verification code to the admin's email
+    await sendVerificationCode(email, verificationCode);
+
+    res.status(200).json({ message: 'Verification code sent successfully' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+// Step 2: Reset password - Verify verification code and update password
+export const reset = async (req, res) => {
+  const { email, verificationCode, password } = req.body;
+
+  try {
+    const admin = await AdminModel.findOne({ email });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the verification code provided is correct
+    if (admin.verificationCode !== verificationCode) {
+      return res.status(400).json({ message: 'Invalid verification code' });
+    }
+
+    // Update the password
+    admin.password = password;
+    admin.verificationCode = null;
+    await admin.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

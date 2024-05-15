@@ -9,11 +9,11 @@ import {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    forgot,
+    reset
   } from '../controllers/adminController.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
-// import { forgot } from '../controllers/adminController.js';
-
 const adminRouter = express.Router();
 
 adminRouter.get("/admin", (req, res) => {
@@ -38,5 +38,6 @@ adminRouter.get('/users/:id', getUserById);
 adminRouter.put('/users/:id', updateUser);
 adminRouter.delete('/users/:id', deleteUser);
 
-// adminRouter.get('/forgot', forgot);
+adminRouter.post('/forgot', forgot);
+adminRouter.post('/reset', reset);
 export default adminRouter;

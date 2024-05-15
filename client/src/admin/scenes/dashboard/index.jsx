@@ -12,6 +12,7 @@ import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import Line from "../line";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -162,7 +163,8 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            {/* <LineChart isDashboard={true} /> */}
+            <Line isDashboard={true} />
           </Box>
         </Box>
         <Box

@@ -60,7 +60,6 @@ const ProfilePage = () => {
 
   return (
     <div className="w-full">
-      <Breadcrumb />
       <div className=" w-full rounded-lg">
         <div className="flex flex-col lg:flex-row">
           {/* sidebar */}

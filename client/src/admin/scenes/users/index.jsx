@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { saveAs } from 'file-saver';
 import { utils, write } from 'xlsx';
+import LineChart from '../../components/LineChart';
 
 const User = () => {
 
@@ -252,6 +253,7 @@ const User = () => {
         }}
       />      
       </Box>
+
       <Dialog open={editDialogOpen} onClose={handleEditDialogClose}>
         <DialogTitle>Edit User</DialogTitle>
         <DialogContent>

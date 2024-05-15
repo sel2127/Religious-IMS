@@ -56,8 +56,26 @@ export const createUser = async (req, res) => {
   }
 };
 
-export const updateUser = (req, res) => {
-  // Implement logic to update user details
+export const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.user; // Assuming user ID is retrieved from JWT
+    const updates = req.body; // Updated user data
+
+    const user = await User.findByPk(userId);
+    if (user) {
+      await user.update(updates);
+      // 'user' now contains the updated document
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User updated successfully!', user });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 };
 
 export const deleteUser = (req, res) => {
@@ -89,15 +107,21 @@ export const loginUser = async (req, res) => {
       expiresIn: '7h',
     });
 
-    // Set the JWT token as a cookie
-    res.cookie('accessToken', token, { httpOnly: true, secure: false, sameSite: 'strict' });
 
-    // Return success message and user details as JSON
-    return res.json({ message: 'Login successful', user });
+
+    res.cookie('accessToken', token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict"
+
+    });
+
+    res.json({ message: 'Login successful', user });
   } catch (error) {
     console.error('Error logging in:', error);
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
+
 };
 
 export const getUserInfo = async (req, res) => {

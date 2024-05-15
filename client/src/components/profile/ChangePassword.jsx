@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
@@ -10,7 +9,9 @@ function ChangePassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const userId = useSelector((state) => state.user.id); // Get userId from Redux state
+
+  const userData = useSelector((state) => state.user.userData);
+  const userId = userData.id;
   const dispatch = useDispatch();
 
   const handleNewPasswordChange = (e) => {
@@ -28,7 +29,6 @@ function ChangePassword() {
       setPasswordError("Passwords do not match");
     } else {
       setPasswordError("");
-      console.log(userId);
     
       try {
         dispatch(updatePassword( userId, newPassword )); // Include both userId and newPassword directly in the payload

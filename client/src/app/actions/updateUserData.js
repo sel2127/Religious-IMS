@@ -11,11 +11,11 @@ export const updateUserData = createAsyncThunk(
 
       if (!response.ok) {
         throw new Error('Failed to update profile');
-      }
+      } 
 
-      return response.data.user || updatedUserData; // Adjust based on your API response
+      return updatedUserData;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message); // Handle errors (dispatch a separate action if needed)
+      return thunkAPI.rejectWithValue(error.message); // Handle errors 
     }
   }
 );

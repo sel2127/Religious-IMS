@@ -10,6 +10,7 @@ import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
 import UserRoute from "./routes/UserRoutes.js";
 import donationRoute from "./routes/donationRoutes.js";
+import feedbackRoute from "./routes/feedbackRoute.js"
 
 dotenv.config();
 const app = express();
@@ -42,6 +43,7 @@ app.use(session({
 
 // Define routes
 app.use(donationRoute);
+app.use(feedbackRoute);
 app.use(UserRoute); // Use the UserRoute without prefixing here
 app.use("/events", eventRouter);
 

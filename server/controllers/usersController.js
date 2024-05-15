@@ -23,7 +23,6 @@ export const getUserById = async (req, res) => {
 };
 
 
-
 export const createUser = async (req, res) => {
   try {
     const { firstName, lastName, email, phone, password } = req.body;
@@ -103,7 +102,48 @@ export const getUserInfo = async (req, res) => {
 
     res.json({ user });
   } catch (error) {
-    console.error("Error getting user info:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Error getting user info:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+export const updatePassword = async (req, res) => {
+  
+  const { userId, newPassword } = req.body; // Access the userId and newPassword directly
+
+    console.log("Received userId:", userId);
+    console.log("Received newPassword:", newPassword); // Don't log the actual password for security reasons
+
+    // Find the user by userId
+    const user = await User.findOne({ where: { id: userId } });
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+     // Hash the new password before updating the user
+     const hashedPassword = await bcrypt.hash(newPassword, 10); // Adjust cost factor as needed
+     console.log("Generated hashedPassword:", hashedPassword);
+
+     // Update the user's password with the hashed value
+     user.password = hashedPassword;
+     try {
+      await user.save();
+      return res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+   
+};
+
+export const logoutUser = async (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.clearCookie('accessToken'); // Clear the access token cookie
+  res.json({ message: 'Logout successful' });
+};
+
+
+
+

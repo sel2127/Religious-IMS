@@ -1,4 +1,5 @@
 import React from "react";
+import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -25,6 +26,7 @@ const EditProfile = () => {
 
   return (
     <div className="w-full">
+    <Breadcrumb/>
     <div className=" w-full rounded-lg">
     <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit your profile here</h1>
 
@@ -50,7 +52,7 @@ const EditProfile = () => {
             onInput={(e) => {
               if (e.target.value.length < 3) {
                 e.target.setCustomValidity(
-                  "መለያ ስሞ ከ 3 ፊደል መብለጥ አለበት"
+                  "Username must be at least 3 characters long"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -69,7 +71,7 @@ const EditProfile = () => {
             onInput={(e) => {
               if (e.target.value.length < 3) {
                 e.target.setCustomValidity(
-                  "መለያ ስሞ ከ 3 መብለጥ አለበት "
+                  "Username must be at least 3 characters long"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -88,7 +90,7 @@ const EditProfile = () => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
               if (!e.target.value.match(emailRegex)) {
                 e.target.setCustomValidity(
-                  "ትክክለኛ የኢሜል አድራሻዎን ያስገቡ"
+                  "Please enter a valid email address"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -113,7 +115,7 @@ const EditProfile = () => {
 
               if (!ethiopianPattern1.test(e.target.value)) {
                 e.target.setCustomValidity(
-                  "ትክክልኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (09 + 8 digits )"
+                  "Please enter a valid Ethiopian phone number (09 + 8 digits )"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -132,7 +134,7 @@ const EditProfile = () => {
               className="bg-red-500 text-white text-center  px-6 py-1 rounded-3xl ml-10"
               onClick={() => window.history.back()}
             >
-              ያጥፋ
+              Cancel
             </button>
           </div>
         </div>

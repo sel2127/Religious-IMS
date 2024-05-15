@@ -23,11 +23,11 @@ import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
 import Abnet from './pages/AbnetPage';
 import FeedbackPage from './pages/FeedbackPage';
+import Chat from './pages/UserChat';
 import FeedbackForm from './components/FeedbackForm';
 import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
-
 import OTPInput from "./Auth/OTPInput";
 import Reset from "./Auth/Reset";
 
@@ -70,6 +70,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<Member />} />
+        <Route path="/chat" element={<Chat />} />
         {/* <Route path="/abnet" element={<AbnetPage />} /> */}
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />

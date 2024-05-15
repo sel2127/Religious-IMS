@@ -10,7 +10,7 @@ const Donation = () => {
   const colors = tokens(theme.palette.mode);
 
   const [donations, setDonations] = useState([]);
-  
+
   useEffect(() => {
     fetchDonations();
   }, []);
@@ -24,7 +24,7 @@ const Donation = () => {
       console.error('Error fetching donations:', error);
     }
   };
-  
+
 
   const columns = [
     { field: "id", headerName: "ID" },
@@ -44,30 +44,34 @@ const Donation = () => {
         title="DONATIONS"
         subtitle="List of Donations"
       />
-     <Box
-  m="40px 0 0 0"
-  height="75vh"
-  sx={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    "& .MuiTypography-body1": {
-      fontSize: "1.5rem", // Adjust the font size as needed
-      textAlign: 'center', // Center align the text
-    },
-  }}
->
-  {donations.length > 0 ? (
-    <DataGrid
-      checkboxSelection
-      rows={donations}
-      columns={columns}
-    />
-  ) : (
-    <Typography variant="body1">No donations found</Typography>
-  )}
-</Box>
+      <Box
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          "& .MuiTypography-body1": {
+            fontSize: "1.5rem", 
+            textAlign: 'center', 
+          },
+          "& .MuiDataGrid-root": {
+            width: '100%', 
+          }
+        }}
+      >
+        {donations.length > 0 ? (
+          <DataGrid
+            checkboxSelection
+            rows={donations}
+            columns={columns}
+          />
+        ) : (
+          <Typography variant="body1">No donations found</Typography>
+        )}
+      </Box>
+
 
     </Box>
   );

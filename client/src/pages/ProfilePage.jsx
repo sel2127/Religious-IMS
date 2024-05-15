@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { setImagePreview } from '../app/reducers/imageReducer';
 import aba from "../assets/Images/aba.jpg";
-import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; // For protected routes
 import { setUserData } from '../app/actions/userAction';

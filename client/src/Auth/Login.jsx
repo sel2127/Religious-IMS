@@ -1,117 +1,119 @@
-import React, { useState } from 'react';
-import '../assets/styles/main.css';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../app/api/apiSlice';
-import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer, cssTransition } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import "../assets/styles/main.css";
+import axios from "axios";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-axios.defaults.withCredentials = true;
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [phoneLogin, setPhoneLogin] = useState('');
-  const [passwordLogin, setPasswordLogin] = useState('');
-  const [error, setError] = useState('');
+  const [phoneLogin, setPhoneLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const validateForm = () => {
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^\d{10}$/; // Regular expression for 10-digit phone number
 
     if (!phoneLogin || !passwordLogin) {
-      setError('Please enter both phone number and password.');
+      setError("Please enter both phone number and password.");
       return false;
     }
 
     if (!phoneRegex.test(phoneLogin)) {
-      setError('Please enter a valid phone number.');
+      setError("Please enter a valid phone number.");
       return false;
     }
 
     if (passwordLogin.length < 8) {
-      setError('Password should be at least 8 characters long.');
+      setError("Password should be at least 8 characters long.");
       return false;
     }
 
-    setError('');
+    setError("");
     return true;
   };
 
   const loginn = () => {
+    axios.defaults.withCredentials = true;
+
     if (validateForm()) {
-      dispatch(loginUser(phoneLogin, passwordLogin))
+      axios
+        .post("http://localhost:5000/user/login", {
+          phone: phoneLogin,
+          password: passwordLogin,
+        })
         .then((response) => {
-          console.log(response); // Check the response in the console
-          if (response && response.message === 'Login successful') {
-            toast.success(response.message);
-            navigate('/');
-          } else if (response && response.message) {
-            toast.error(response.message);
-          } else {
-            toast.error('Invalid response');
-          }
+          console.log(response);
+          navigate("/"); // Redirect to the home
         })
         .catch((error) => {
           console.error(error);
-          toast.error('Login failed');
+          // Handle the login error if needed
         });
     }
   };
 
-  const Fade = cssTransition({
-    enter: 'fade-enter',
-    exit: 'fade-exit',
-  });
-
   return (
     <div>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        transition={Fade}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <div className='mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600'>
-        <div className='flex flex-col items-center justify-center px-20 py-10'>
+      <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600">
+        <div className="flex flex-col items-center justify-center px-20 py-10">
           <input
             type="tel"
-            onChange={(e) => { setPhoneLogin(e.target.value); }}
-            placeholder='ስልክ ቁጥር'
-            className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full'
+            onChange={(e) => {
+              setPhoneLogin(e.target.value);
+            }}
+            placeholder="ስልክ ቁጥር"
+            className=" mt-10 w-full h-10 px-6 border border-gray-300  rounded-full"
           />
-          <input
-            type="password"
-            onChange={(e) => { setPasswordLogin(e.target.value); }}
-            placeholder='ይለፍ ቃል'
-            className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full'
-          />
-          {error && <p className='text-red-500'>{error}</p>}
-          <div className='w-full flex items-center mt-6'>
-            <div className='w-1/2 flex'>
-              <input type="checkbox" name="" id="remember" className='cursor-pointer hover:text-[#79a6d2]' />
-              <span className='ml-2 cursor-pointer hover:text-[#79a6d2]'>አስታውሰኝ</span>
+          <div className="relative w-full ">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              onChange={(e) => setPasswordLogin(e.target.value)}
+              placeholder='ይለፍ ቃል'
+              className='mt-6 w-full h-10 px-6 border border-gray-300 rounded-full pr-12'
+            />
+            <span 
+              className='absolute top-10 right-5 cursor-pointer '
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          {error && <p className="text-red-500">{error}</p>}
+          <div className="w-full flex items-center mt-6">
+            <div className="w-1/2 flex">
+              <input
+                type="checkbox"
+                name=""
+                id="remember"
+                className="cursor-pointer hover:text-[#79a6d2]"
+              />
+              <span className="ml-2 cursor-pointer hover:text-[#79a6d2]">
+                አስታውሰኝ
+              </span>
             </div>
-            <div className='w-1/2 flex items-center justify-end underline decoration-dotted cursor-pointer hover:text-[#79a6d2]'>
+            <div className="w-1/2 flex items-center justify-end underline decoration-dotted cursor-pointer hover:text-[#79a6d2]">
               <a href="/forgot">የይለፍ ቃል ረሳሁ</a>
             </div>
           </div>
           <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-            <button onClick={loginn} className="w-full mx-auto text-base font-bold text-white">
+            <button
+              onClick={loginn}
+              className="w-full mx-auto text-base font-bold text-white"
+            >
               ግባ
             </button>
           </div>
-          <div className='mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]'>
+          <div className="mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]">
             <a href="/register">አዲስ አካውንት ለመክፈት</a>
           </div>
-        </div>
+       </div>
       </div>
     </div>
   );

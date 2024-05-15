@@ -3,6 +3,8 @@ import Logo from "../assets/Images/logo.png";
 import "../assets/styles/notify.css";
 
 const Notify = () => {
+  // for event search
+
   const modalRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -26,7 +28,7 @@ const Notify = () => {
   // }, []);
 
   useEffect(() => {
-    // Fetch events from the server
+   // fetch events from server
     fetch("http://localhost:5000/events")
       .then((response) => response.json())
       .then((data) => {
@@ -44,7 +46,7 @@ const Notify = () => {
         setEvents(filteredEvents.slice(0, 4));
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [searchQuery]);
 
   useEffect(() => {
     const modal = modalRef.current;
@@ -112,8 +114,15 @@ const Notify = () => {
   }, []);
 
   return (
-    <div>
-      <div className="w-full bg-gray-100 py-12">
+    <div className="">
+      <div className="mt-5">
+       {/* <SearchInput
+         value={searchQuery}
+         onChange={(e) => setSearchQuery(e.target.value)}
+         placeholder="Search events"
+       /> */}
+      </div>
+      <div className="w-full bg-gray-100 py-12 mt-5">
         <div className="w-1/2 bg-white p-10 mx-auto">
           <div id="myBtn" className="">
             {filteredEvents.map((event) => {

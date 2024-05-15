@@ -34,6 +34,8 @@ import Reset from "./Auth/Reset";
 import GoogleTranslate from './common/GoogleTranslate';
 import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
+import EventSearch from './components/EventSearch';
+//import { path } from 'path';
 
 
 export const RecoveryContext = createContext();
@@ -84,6 +86,7 @@ function App() {
         <Route path='/viewmoreprofile' element={<ViewMoreProfile/>}/>
         <Route path='/otpinput' element={ <OTPInput />}/>
         <Route path='/reset' element={ <Reset />}/>
+        <Route path="/search/:query" element={<EventSearch />} />
       </Routes>
       <ToastContainer />
 

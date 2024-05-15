@@ -8,13 +8,42 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
+import Line from "../line";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
-import Line from "../line";
-
+import axios from "axios";
+import { saveAs } from "file-saver";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchUsersCount } from "../../../app/actions/feedbackAction";
+import { donations } from './../../data/mockData';
 const Dashboard = () => {
+  const dispatch=useDispatch();
+  //get number of feedback
+  const fcount=useSelector(state=>state.feedback.fcount)
+ useEffect(()=>{
+  dispatch(fetchFeedbackCount());
+ },[dispatch])
+ //get number of users joined
+ const usercount=useSelector(state=>state.feedback.ucount);
+ useEffect(()=>{
+  dispatch(fetchUsersCount());
+ },[dispatch])
+ //get number of donation
+ const donations=useSelector(state=>state.feedback.dcount);
+ useEffect(()=>{
+  dispatch(fetchDonation());
+ },[dispatch])
+ //get number of evetns uploaded
+ const eventuploaded=useSelector(state=>state.feedback.ecount);
+ useEffect(()=>{
+dispatch(fetchEvents());
+ },[dispatch])
+  const downloadPdf = () => {
+   
+  };
+  
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -33,6 +62,8 @@ const Dashboard = () => {
               fontWeight: "bold",
               padding: "10px 20px",
             }}
+            onClick={downloadPdf}
+            
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports
@@ -56,7 +87,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
+            title={usercount}
             subtitle="Members Joined"
             progress="0.75"
             increase="+14%"
@@ -75,7 +106,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
+            title={donations}
             subtitle="Donations Received"
             progress="0.50"
             increase="+21%"
@@ -94,7 +125,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="341"
+            title={fcount}
             subtitle="Feedbacks Received"
             progress="0.30"
             increase="+5%"
@@ -113,7 +144,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
+            title={eventuploaded}
             subtitle="Events Uploaded"
             progress="0.80"
             increase="+43%"
@@ -240,7 +271,7 @@ const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              1400 Members Joined
+              {usercount} Members Joined
             </Typography>
             {/* <Typography>Includes </Typography> */}
           </Box>

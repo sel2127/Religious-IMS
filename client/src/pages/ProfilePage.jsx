@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
-import { setImagePreview } from '../app/reducers/imageReducer';
+import { setImagePreview } from '../app/actions/imageAction';
 import aba from "../assets/Images/aba.jpg";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; // For protected routes

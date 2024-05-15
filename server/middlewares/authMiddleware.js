@@ -81,7 +81,7 @@ export const isFeedbackCreator=async(req,res,next)=>{
     if(userId !== feedback.userId){
       return res
       .status(403)
-      .json({ success: false, message: 'Unauthorized - User is not the owner of the feedback' });
+      .json({ success: false, message: 'Unauthorized - you are not the owner of the feedback' });
     
   }
     next();

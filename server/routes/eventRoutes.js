@@ -1,5 +1,6 @@
 import express from "express";
-import { getAllEvents, deleteEvent } from "../controllers/eventController.js";
+import { countEvent, getAllEvents, deleteEvent, searchEvent } from "../controllers/eventController.js";
+import { getEventById } from "../controllers/uploadController.js";
 
 const eventRouter = express.Router();
 
@@ -14,5 +15,9 @@ eventRouter.delete('/:id', deleteEvent);
 
 // // Update an event
 // eventRouter.put('/events/:id', eventController.updateEvent);
+eventRouter.get("/count", countEvent);
+
+eventRouter.get('/:id',getEventById)
+eventRouter.get('/search/:query',searchEvent)
 
 export default eventRouter;

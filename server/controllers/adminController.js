@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {AdminModel} from '../models/adminModel.js';
+
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import multer from 'multer';
-import Users from "../models/UserModel.js";
+import Users from "../models/Users.js";
 import nodemailer from "nodemailer";
 import crypto from 'crypto';
 

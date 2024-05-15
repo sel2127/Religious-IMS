@@ -85,12 +85,13 @@ const handleSubmit = async (e) => {
                 /> */}
                 <textarea
                   rows={5}
-                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ...። "
+                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ ... "
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
  ml-10 mr-10"
+           minLength={5}
                   required
                   autoComplete="off"
                 />

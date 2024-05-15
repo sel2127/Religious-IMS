@@ -14,18 +14,36 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import axios from "axios";
 import { saveAs } from "file-saver";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchUsersCount } from "../../../app/actions/feedbackAction";
+import { donations } from './../../data/mockData';
 const Dashboard = () => {
- 
-
-const handleDownloadAllUsersData = async () => {
-  try {
-    const response = await axios.get("/downloadAllUsersData", { responseType: "blob" });
-
-    saveAs(response.data, "all_users_data.pdf");
-  } catch (error) {
-    console.error("Failed to download all users data:", error);
-  }
-};
+  const dispatch=useDispatch();
+  //get number of feedback
+  const fcount=useSelector(state=>state.feedback.fcount)
+ useEffect(()=>{
+  dispatch(fetchFeedbackCount());
+ },[dispatch])
+ //get number of users joined
+ const usercount=useSelector(state=>state.feedback.ucount);
+ useEffect(()=>{
+  dispatch(fetchUsersCount());
+ },[dispatch])
+ //get number of donation
+ const donations=useSelector(state=>state.feedback.dcount);
+ useEffect(()=>{
+  dispatch(fetchDonation());
+ },[dispatch])
+ //get number of evetns uploaded
+ const eventuploaded=useSelector(state=>state.feedback.ecount);
+ useEffect(()=>{
+dispatch(fetchEvents());
+ },[dispatch])
+  const downloadPdf = () => {
+   
+  };
+  
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -44,6 +62,7 @@ const handleDownloadAllUsersData = async () => {
               fontWeight: "bold",
               padding: "10px 20px",
             }}
+            onClick={downloadPdf}
             
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
@@ -68,7 +87,7 @@ const handleDownloadAllUsersData = async () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
+            title={usercount}
             subtitle="Members Joined"
             progress="0.75"
             increase="+14%"
@@ -87,7 +106,7 @@ const handleDownloadAllUsersData = async () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
+            title={donations}
             subtitle="Donations Received"
             progress="0.50"
             increase="+21%"
@@ -106,7 +125,7 @@ const handleDownloadAllUsersData = async () => {
           justifyContent="center"
         >
           <StatBox
-            title="341"
+            title={fcount}
             subtitle="Feedbacks Received"
             progress="0.30"
             increase="+5%"
@@ -125,7 +144,7 @@ const handleDownloadAllUsersData = async () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
+            title={eventuploaded}
             subtitle="Events Uploaded"
             progress="0.80"
             increase="+43%"
@@ -251,7 +270,7 @@ const handleDownloadAllUsersData = async () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              1400 Members Joined
+              {usercount} Members Joined
             </Typography>
             {/* <Typography>Includes </Typography> */}
           </Box>

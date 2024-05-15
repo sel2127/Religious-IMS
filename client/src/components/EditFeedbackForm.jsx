@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const EditFeedbackForm = () => {
   const { id } = useParams();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  //const [name, setName] = useState("");
+  //const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [imagePath, setImagePath] = useState(null);
+  //const [imagePath, setImagePath] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [selected, setSelectedImage] = useState([]);
@@ -24,11 +24,11 @@ const EditFeedbackForm = () => {
         withCredentials: true,
       })
       .then((res) => {
-        setName(res.data.name);
-        setEmail(res.data.email);
+       // setName(res.data.name);
+        //setEmail(res.data.email);
         setMessage(res.data.message);
-        setImagePath(res.data.imagePath);
-        setSelectedImage(res.data.imagePath);
+        //setImagePath(res.data.imagePath);
+        //setSelectedImage(res.data.imagePath);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -39,14 +39,14 @@ const EditFeedbackForm = () => {
     setErrorMessage(null);
 
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
+   // formData.append("name", name);
+    //formData.append("email", email);
     formData.append("message", message);
 
-    if (imagePath) {
-      formData.append("image", imagePath);
-    }
-    formData.append("userId", userId);
+    // if (imagePath) {
+    //   formData.append("image", imagePath);
+    // }
+    // formData.append("userId", userId);
 
     try {
       const response = await axios.put(
@@ -72,9 +72,7 @@ const EditFeedbackForm = () => {
       );
 
       setErrorMessage("Error updating feedback. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   return (
@@ -88,7 +86,7 @@ const EditFeedbackForm = () => {
               <div className="flex flex-col items-center justify-center px-20 py-10"></div>
               <form
                 onSubmit={handleSubmit}
-                className=" flex flex-col space-y-4   "
+                className=" flex flex-col space-y-4  mt-10  "
               >
                 {/* <input
                   type="text"
@@ -118,7 +116,7 @@ const EditFeedbackForm = () => {
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="border  rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                  className="border  rounded-md mt-10 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
  ml-10 mr-10"
                   required
                   autoComplete="off"
@@ -139,7 +137,7 @@ const EditFeedbackForm = () => {
 
                 {selected && <p>የመረጡት ምስል: {selected}</p>} */}
 
-                <div className="border-gray-200  flex flex-col items-center">
+                <div className="border-gray-200  flex flex-col items-center mt-10">
                   <button
                     id="submit"
                     type="submit"
@@ -149,12 +147,12 @@ const EditFeedbackForm = () => {
                   >
                     {isLoading ? "Submitting..." : "አስተያየትዎን ያዘምኑ"}
                   </button>
-                  {/* <button
-                    onClick={() => navigate('/feedback')}
-                    className="w-1/2 bg-red-500 text-white text-center rounded-md  hover:bg-blue-700 h-10  mb-4"
-                  >
-                    cancel
-                  </button> */}
+                  <Link
+              className="bg-red-500 w-1/2 m-auto  text-white text-center  rounded-md hover:bg-pink-700 h-10  mb-4"
+              onClick={() => window.history.back()}
+            >
+              አይ
+            </Link>                
                 </div>
                 {errorMessage && (
                   <p className="text-red-500 text-sm">{errorMessage}</p>

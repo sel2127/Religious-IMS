@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Ava from "../assets/Images/ava.png";
-import { MdDelete } from "react-icons/md";
-import { FaEdit, FaReadme } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { FaReadme } from "react-icons/fa";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteFeedback, fetchFeedback } from "../app/actions/feedbackAction";
 
 const FeedbackPage = () => {
   const getUserImageFromLocalStorage = (userId) => {
@@ -13,29 +14,21 @@ const FeedbackPage = () => {
     return imageData ? JSON.parse(imageData).imageData : null;
   };
   const [isOpen, setIsOpen] = useState(false);
-  const [feedbackData, setFeedbackData] = useState([]);
   const [selectedFeedbackId, setSelectedFeedbackId] = useState(null);
-  const [userData, setUserData] = useState({});
-  const [userDataMap, setUserDataMap] = useState({});
 
   const navigate = useNavigate();
-  // fecth feedback with name
+  const dispatch = useDispatch();
+  const feedbackData = useSelector((state) => state.feedback.feedbackData);
+  const error = useSelector((state) => state.feedback.error);
+
+
   useEffect(() => {
-    const fetchFeedbackData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/feedback/all/8"
-        );
-        setFeedbackData(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    dispatch(fetchFeedback());
+  }, [dispatch]);
 
-    fetchFeedbackData();
-  }, []);
-
- 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   const handleDelete = (id) => {
     setSelectedFeedbackId(id);
@@ -50,7 +43,6 @@ const FeedbackPage = () => {
   const handleConfirmDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/feedback/${id}`);
-      setFeedbackData(feedbackData.filter((feedback) => feedback.id !== id));
       toast.success("Feedback deleted successfully");
       navigate("/feedback");
       closeDialog();
@@ -64,50 +56,50 @@ const FeedbackPage = () => {
     }
   };
 
+ 
+
   return (
     <div className="w-full m-auto">
       <ToastContainer />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-8">
-      { feedbackData.map((feedback) => (
-    <div key={feedback.feedbackId} className="h-auto bg-gray-300 text-black rounded-xl">
-        <div className="rounded-t-xl flex justify-start items-center ml-2 mt-5">
-            <img
-                src={
-                    getUserImageFromLocalStorage(feedback.userId)
+        {
+  feedbackData && feedbackData.length === 0 ? (
+    <div className="text-center text-gray-500">No feedbacks found.</div>
+          ) : (
+            feedbackData.map((feedback) => (
+              <div
+                key={feedback.feedbackId}
+                className="h-auto bg-gray-200 text-black rounded-md"
+              >
+                <div className="rounded-t-xl flex justify-start items-center ml-2 mt-5">
+                  <img
+                    src={
+                      getUserImageFromLocalStorage(feedback.userId)
                         ? getUserImageFromLocalStorage(feedback.userId)
                         : Ava
-                }
-                alt="Profile Image"
-                className="rounded-full w-32 h-32"
-            />
-            <div className="ml-2">
-                <p className="text-base font-semibold">{feedback.writer}</p>
-                <p className="text-base font-semibold">{feedback.email}</p>
-            </div>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-4 p-4">
-            <p>{feedback.message}</p>
-            <div className="flex gap-8">
-                <Link to={`/feedback/${feedback.userId}`}>
-                    <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                    }
+                    alt="Profile Image"
+                    className="rounded-full w-32 h-32"
+                  />
+                  <div className="ml-2">
+                    <p className="text-base font-semibold">{feedback.writer}</p>
+                    <p className="text-base font-semibold">{feedback.email}</p>
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-4 p-4">
+                  <p>{feedback.message}</p>
+                  <div className="flex gap-8">
+                    <Link to={`/feedback/${feedback.userId}`}>
+                      <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
                         <FaReadme />
-                    </button>
-                </Link>
-                <Link to={`/editfeedback/${feedback.feedbackId}`}>
-                    <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
-                        <FaEdit />
-                    </button>
-                </Link>
-                <button
-                    onClick={() => handleDelete(feedback.feedbackId)}
-                    className="text-white px-6 py-1 text-xl bg-red-600 hover:bg-red-800 rounded-md focus:outline-white ring-focus"
-                >
-                    <MdDelete />
-                </button>
-            </div>
-        </div>
-    </div>
-))}
+                      </button>
+                    </Link>
+                   
+                  </div>
+                </div>
+              </div>
+            ))          )
+          }
       </div>
 
       {isOpen && (

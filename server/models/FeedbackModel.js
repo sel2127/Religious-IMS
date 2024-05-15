@@ -13,26 +13,7 @@ const Feedback = db.define("feedback", {
             key: 'id',
         }
     },
-    // name: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false, 
-    //     validate: {
-    //         notNull: {
-    //             msg: 'Name is required'
-    //         }
-    //     }
-    // },
-
-    // email: {
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    //     unique:true,
-    //     validate: {
-    //         isEmail: {
-    //             msg: 'Invalid email format'
-    //         }
-    //     }
-    // },
+   
     message: {
         type: DataTypes.STRING,
         allowNull: false, 
@@ -42,10 +23,7 @@ const Feedback = db.define("feedback", {
             }
         }
     },
-    // imagePath: {
-    //     type: DataTypes.STRING,
-    //     allowNull: true ,
-    // },
+   
    
 });
 

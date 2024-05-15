@@ -1,8 +1,12 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/Users.js";
+import { isAuthenticated } from "../middlewares/authMiddleware.js";
 
-export const getUsers = async (req, res) => {
+export const getUsers = [
+isAuthenticated,
+
+async (req, res) => {
   try {
     const users = await User.findAll();
     return res.json(users);
@@ -10,7 +14,8 @@ export const getUsers = async (req, res) => {
     console.error(err);
     return res.status(500).json({ error: "Internal server error" });
   }
-};
+}
+]
 
 export const getUserById = async (req, res) => {
   try {
@@ -127,3 +132,5 @@ export const getUserInfo = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+ 
+

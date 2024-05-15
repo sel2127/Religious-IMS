@@ -30,6 +30,8 @@ import ViewMoreProfile from './components/profile/ViewMoreProfile';
 import GoogleTranslate from './common/GoogleTranslate';
 import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
+import EventSearch from './components/EventSearch';
+//import { path } from 'path';
 
 
 function App() {
@@ -70,6 +72,7 @@ function App() {
         <Route path='/viewmoreprofile' element={<ViewMoreProfile/>}/>
         <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
         <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
+        <Route path="/search/:query" element={<EventSearch />} />
       </Routes>
       <Footer/>
       </div>

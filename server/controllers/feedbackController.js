@@ -7,6 +7,7 @@ import Feedback from "../models/FeedbackModel.js";
 import Users from "../models/Users.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { Op } from 'sequelize';
 
 import jwt, { decode } from "jsonwebtoken";
 
@@ -16,7 +17,7 @@ import {
 } from "../middlewares/authMiddleware.js";
 import { Sequelize, where } from "sequelize";
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 app.use(cors());
 
 // Serve  files from the 'uploads' directory
@@ -48,13 +49,7 @@ export const createFeedback = [
 
     const userId = req.userId;
 
-    // Extract user ID from decoded token
-    // const token = req.cookies.accessToken;
-    // const decoded = jwt.verify(token,process.env.JWT_SECRET);
-    //    req.user = decoded;
-    //    // console.log("dec",decoded.userId)
-    //    const userId=decoded.userId
-    // console.log("user id",userId)
+   
 
     try {
       const existingFeedback = await Feedback.findOne({ where: { userId } });
@@ -81,7 +76,7 @@ export const createFeedback = [
 ];
 // api to retrive feedback
 export const getAllFeedback = [
-  //isAuthenticated,
+  isAuthenticated,
   async (req, res) => {
     try {
       const feedbackList = await Feedback.findAll();
@@ -165,19 +160,6 @@ export const updateFeedbackById = [
   },
 ];
 
-// for feddback count in databae
-export const getFeedbackCount = [
-  async (req, res) => {
-    try {
-      const feedbackCount = await Feedback.countDocuments();
-      return res.json(feedbackCount);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ error: "Error in getting feedback count" });
-    }
-  },
-];
-
 
 export const getFeedbackByName = [
   async (req, res) => {
@@ -227,7 +209,7 @@ export const getFeedbackByName = [
 ];
 export const getAllFeedbackWithWriterName = async (req, res) => {
   try {
-    const feedback = await Feedback.findAll({
+    const feedbacks = await Feedback.findAll({
       include: [
         {
           model: Users,
@@ -235,9 +217,121 @@ export const getAllFeedbackWithWriterName = async (req, res) => {
           as: 'user',
         },
       ],
+      order: [['createdAt', 'DESC']], 
+      limit: 2, 
     });
 
-    console.log('Feedback: ', feedback);
+    if (feedbacks.length > 0) {
+      const formattedFeedbacks = feedbacks.map((item) => {
+        const user = item.user;
+
+        return {
+          feedbackId: item.id,
+          userId: item.userId,
+          date: item.createdAt,
+          writer: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          message: item.message,
+        };
+      });
+
+      res.json(formattedFeedbacks);
+    } else {
+      console.log('No feedback found');
+      res.status(404).json({ message: 'No feedback found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+
+// Controller function for searching feedback
+export const searchFeedback = async (searchQuery) => {
+  try {
+    const feedback = await Feedback.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { message: { [Sequelize.Op.like]: `%${searchQuery}%` } },
+          { userId: { [Sequelize.Op.like]: `%${searchQuery}%` } },
+          { '$user.firstName$': { [Sequelize.Op.like]: `%${searchQuery}%` } }, 
+          { '$user.lastName$': { [Sequelize.Op.like]: `%${searchQuery}%` } }, 
+          { '$user.email$': { [Sequelize.Op.like]: `%${searchQuery}%` } },
+
+        ],
+      },
+      include: [
+        {
+          model: Users,
+          as: 'user',
+          attributes: ['firstName', 'lastName', 'email'],
+        },
+      ],
+    });
+    //display feedback
+    if(feedback.length>0){
+      const searchFeedback=feedback.map((feedback)=>{
+        const user=feedback.user;
+return{
+  feedbackId: feedback.id,
+  userId: feedback.userId,
+  date: feedback.createdAt,
+  writer: `${user.firstName} ${user.lastName}`,
+  email: user.email,
+  message: feedback.message,
+
+}      
+})
+return searchFeedback;
+    }
+    //return feedback;
+  } catch (error) {
+    console.error('Error searching for feedback:', error);
+    return [];
+  }
+};
+
+export const search = async (req, res) => {
+  const searchTerm = req.query.q; 
+
+  try {
+    let feedback;
+
+    if (searchTerm) {
+      feedback = await Feedback.findAll({
+        where: {
+          [Op.or]: [
+            { message: { [Op.iLike]: `%${searchTerm}%` } }, 
+            { userId: searchTerm }, // Search for feedback by userId
+          ],
+        },
+        include: [
+          {
+            model: Users,
+            attributes: ['firstName', 'lastName', 'email'],
+            as: 'user',
+            where: {
+              [Op.or]: [
+                { firstName: { [Op.iLike]: `%${searchTerm}%` } }, // Case-insensitive search for writer's first name
+                { lastName: { [Op.iLike]: `%${searchTerm}%` } }, // Case-insensitive search for writer's last name
+              ],
+            },
+          },
+        ],
+      });
+    } else {
+      feedback = await Feedback.findAll({
+        include: [
+          {
+            model: Users,
+            attributes: ['firstName', 'lastName', 'email'],
+            as: 'user',
+          },
+        ],
+      });
+    }
 
     if (feedback.length > 0) {
       const formattedFeedback = feedback.map((item) => {
@@ -253,8 +347,6 @@ export const getAllFeedbackWithWriterName = async (req, res) => {
         };
       });
 
-      console.log('Formatted Feedback: ', formattedFeedback);
-
       res.json(formattedFeedback);
     } else {
       console.log('No feedback found');
@@ -265,6 +357,15 @@ export const getAllFeedbackWithWriterName = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
+
+
+
+
+
+
 
 
 

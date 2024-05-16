@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
-import { setImagePreview } from '../app/reducers/imageReducer';
+import { setImagePreview } from '../app/actions/imageAction';
 import aba from "../assets/Images/aba.jpg";
-import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
+import { useNavigate } from 'react-router-dom'; // For protected routes
 import { setUserData } from '../app/actions/userAction';
 
 
 
 const ProfilePage = () => {
+  const userData = useSelector((state) => state.user.userData);
+
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate(); 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -25,20 +27,20 @@ const ProfilePage = () => {
     reader.readAsDataURL(file);
   };
 
-  const userData = useSelector((state) => state.user.userData);
 
-const fetchData = async (dispatch) => {
-  try {
-    const response = await axios.get('http://localhost:5000/api/userinfo', {
-      withCredentials: true, // Ensure cookies are sent with the request
-    });
-
-    const userData = response.data.user;
-    dispatch(setUserData(userData));
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-  }
-};
+  const fetchData = async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/userinfo', userData, {
+        withCredentials: true, 
+      });
+  
+      const userData = response.data.user;
+      dispatch(setUserData(userData));
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
+  
 
   useEffect(() => {
     // Check if image data exists in localStorage
@@ -58,7 +60,6 @@ const fetchData = async (dispatch) => {
 
   return (
     <div className="w-full">
-      <Breadcrumb />
       <div className=" w-full rounded-lg">
         <div className="flex flex-col lg:flex-row">
           {/* sidebar */}

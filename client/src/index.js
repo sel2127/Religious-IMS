@@ -10,7 +10,9 @@ import './i18n';
 
 let persistor = persistStore(store);
 
-ReactDOM.render( // Use ReactDOM.render() instead of createRoot
+
+
+ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor = {persistor}>
     <App />

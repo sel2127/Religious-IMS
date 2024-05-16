@@ -1,9 +1,7 @@
 import { Sequelize, DataTypes } from "sequelize";
 import db from "../config/Database.js";
 
-// const {DataTypes} = Sequelize;
 
-// table name - adminlist
 const AdminModel = db.define(
   'admin', 
   {
@@ -64,6 +62,10 @@ const AdminModel = db.define(
         validate: {
             notEmpty: true
         },
+      },
+      verificationCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
 }, {
     freezeTableName: true

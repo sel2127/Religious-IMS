@@ -4,15 +4,12 @@ import temari from '../assets/Images/temari.jpg';
 import senbete from '../assets/Images/imagess.jpg';
 import st from '../assets/Images/st.jpg';
 import course from '../assets/Images/course.jpeg'
-import Breadcrumb from '../common/Breadcrumb';
 
 
 const SundaySchool = () => {
     return (
         <div className=''>
-                 <Breadcrumb/>
-
-                 <Breadcrumb/>
+             
 
             <div className='text-3xl text-center font-bold mb-4 text-dark-blue'>
                 <h2>የባህረጥበብ ሰንበት ትምህርት አመሰራረት</h2>

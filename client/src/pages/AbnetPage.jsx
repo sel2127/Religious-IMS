@@ -1,14 +1,12 @@
 import React from "react";
 import abi from "../assets/Images/abi.jpg";
 import likawuntizra from "../assets/Images/likawuntizra.jpg";
-import Breadcrumb from '../common/Breadcrumb';
 
 
 
 const AbnetPage = () => {
   return (
     <div className="w-full m-auto">
-     <Breadcrumb/>
       <div className="h-full w-full flex flex-col gap-8 mt-8 ">
       <div className=" p-5 ">
           <h1 className="text-3xl text-dark-blue font-bold mb-4 text-center justify-center mt-5">

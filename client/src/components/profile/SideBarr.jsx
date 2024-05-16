@@ -6,24 +6,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import './Sidebarr.css';
 
 function Sidebarr({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(true); 
 
-  const handleLogout = async () => {
-    try {
-      await axios.post("http://localhost:5000/user/logout");// Handle successful logout
-      console.log("Redirecting to login page...");
-      navigate("/login"); // Redirect to the login page
-    } catch (error) {
-      console.error("Error logging out:", error);// Handle error scenarios
-    }
-  };
+  const toogle = () => setIsOpen(!isOpen); 
 
   const menuItem = [
     {
       path: "/profile",
-      name: "My profile",
+      name: "የኔ መረጃዎች",
       icon: <FaUserAlt />,
     },
     {
@@ -33,34 +23,34 @@ function Sidebarr({ children }) {
     },
     {
       path: "/editprofile",
-      name: "Edit Profile",
+      name: "መረጃዎን ለመቀየር",
       icon: <FaEdit />,
     },
     {
       path: "/changepassword",
-      name: "Change Password",
+      name: "የይለፍ ቃሎን ለመቀየር ",
       icon: <FaEdit />,
     },
     {
       path: "/feedbackform",
-      name: "Give Feedback",
+      name: "አስተያየት ለመስጠት",
       icon: <FaCommentAlt />,
     },
     {
       path: "/logout",
-      name: "Logout",
+      name: "ለመዉጣት",
       icon: <FaPowerOff />,
     },
   ];
 
   return (
     <div className="mt-10 mr-10">
-      <div className="container">
-        <div style={{ width: isOpen ? "400px" : "50px" }} className="sidebar">
+      <div className="conatiner">
+        <div className="sidebar" style={{ width: isOpen ? "300px" : "70px" }}>
           <div className="top-section">
-            <h1 style={{ display: isOpen ? "block" : "none" }}>User Profile</h1>
+            <h1 style={{ display: isOpen ? "block" : "none" }}>የእርስዎ መረጃዎች</h1>
             <div className="bars" style={{ marginLeft: isOpen ? "50px" : "0px" }}>
-              <FaBars onClick={toggle} />
+              <FaBars onClick={toogle} />
             </div>
           </div>
           {menuItem.map((item, index) => (
@@ -69,7 +59,6 @@ function Sidebarr({ children }) {
               key={index}
               className="link"
               activeClassName="active"
-              onClick={item.path === "/logout" ? (e) => { e.preventDefault(); handleLogout(); } : null} // Prevent default for logout
             >
               <div className="icon">{item.icon}</div>
               <div

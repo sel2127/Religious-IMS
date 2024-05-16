@@ -1,9 +1,7 @@
-import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
+import { DataTypes } from 'sequelize';
+import db from '../config/Database.js';
 
-const { DataTypes } = Sequelize;
-
-const Users = db.define('user', {
+const User = db.define('User', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -30,7 +28,7 @@ const Users = db.define('user', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true, // Enforce uniqueness
+    // unique: true,
     validate: {
       isEmail: true,
     },
@@ -38,7 +36,7 @@ const Users = db.define('user', {
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true, // Enforce uniqueness
+    // unique: true,
     validate: {
       notEmpty: true,
     },
@@ -52,4 +50,4 @@ const Users = db.define('user', {
   },
 });
 
-export default Users;
+export default User;

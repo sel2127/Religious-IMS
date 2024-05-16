@@ -8,10 +8,9 @@ import eventRouter from "./routes/eventRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
 import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
-// import { authMiddleware } from './middlewares/authMiddleware.js';
 import UserRoute from "./routes/UserRoutes.js";
 import donationRoute from "./routes/donationRoutes.js";
-import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js';
+import feedbackRoute from "./routes/feedbackRoute.js"
 
 dotenv.config();
 const app = express();
@@ -27,24 +26,10 @@ db.sync()
 // Parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded());
-
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     next();
-//   });
 
 // Serve static files
 app.use(express.static("public"));
 
-
-// Define API route before applying authMiddleware
-// app.get('/api', (req, res) => {
-//     res.json({
-//         success: 1,
-//         message: 'This is a REST API'
-//     });
-// });
 
 // Configure session middleware
 app.use(session({
@@ -58,6 +43,7 @@ app.use(session({
 
 // Define routes
 app.use(donationRoute);
+app.use(feedbackRoute);
 app.use(UserRoute); // Use the UserRoute without prefixing here
 app.use("/events", eventRouter);
 
@@ -68,15 +54,7 @@ app.use("/upload", uploadRouter);
 app.use("/api", calendarRoutes);
 
 // Mount admin routes
-// app.use("/adminlogin", adminRouter);
 app.use("/admin", adminRouter);
-
-//for password Recovery
-app.use(passwordRecoveryRoute);
-
-
-// Apply authMiddleware only to routes that require authentication
-// app.use(authMiddleware);
 
 // Default route for handling 404 errors
 app.use((req, res) => {

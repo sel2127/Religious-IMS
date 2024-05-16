@@ -15,7 +15,7 @@ function MemberRegisterationPage() {
                 <FormComponent />
             </div>
             </div>
-            </div>
+            </div> 
         // </div>
     );
 }

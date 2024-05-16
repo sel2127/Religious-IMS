@@ -100,7 +100,7 @@ export const getFeedbackById = [
       return res.status(200).json(feedback);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ msg: err.msg });
+      return res.status(500).json({ msg: error.msg });
     }
   },
 ];

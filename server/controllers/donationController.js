@@ -33,3 +33,17 @@ dfsd
     res.status(500).json({ message: 'Failed to create donation', error: error.message });
   }
 };
+ 
+// get all donations 
+export const getAllDonation = [
+  //isAuthenticated,
+  async (req, res) => {
+    try {
+      const donation = await Donation.findAll();
+      return res.json(donation);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  },
+];

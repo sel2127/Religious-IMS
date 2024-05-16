@@ -26,17 +26,18 @@ const Login = () => {
     }
 
     if (!phoneRegex.test(phoneLogin)) {
-      setError('Please enter a valid phone number.');
+      setError("Please enter a valid phone number.");
       return false;
     }
 
     if (passwordLogin.length < 8) {
-      setError('Password should be at least 8 characters long.');
+      setError("Password should be at least 8 characters long.");
       return false;
     }
 
-    setError('');
+    setError("");
     return true;
+  };
   };
 
   const loginn = () => {
@@ -114,6 +115,8 @@ const Login = () => {
         </div>
       </div>
     </div>
+  );
+};
   );
 };
 

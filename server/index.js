@@ -10,15 +10,21 @@ import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
 import UserRoute from "./routes/UserRoutes.js";
 import donationRoute from "./routes/donationRoutes.js";
-
-dotenv.config();
+import FeedbackRoute from './routes/FeedbackRoute.js'
+import path from 'path'
+import { Sequelize } from "sequelize";
 const app = express();
+const __dirname = path.resolve();
+
+// Serve uploaded files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+dotenv.config();
 
 // Configure CORS
 app.use(cors({
-     credentials: true,
+    credentials: true,
     origin: ['http://localhost:3000'],
-    methods: ['POST', 'GET'],
+    methods: ['POST', 'GET','PUT','DELETE'],
 }));
 db.sync()
 
@@ -43,6 +49,7 @@ app.use(session({
 // Define routes
 app.use(donationRoute);
 app.use(UserRoute); // Use the UserRoute without prefixing here
+app.use(FeedbackRoute);
 app.use("/events", eventRouter);
 
 // Mount upload routes

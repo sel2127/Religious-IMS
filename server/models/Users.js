@@ -30,7 +30,7 @@ const Users = db.define('user', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true, // Enforce uniqueness
+    unique:true,
     validate: {
       isEmail: true,
     },
@@ -38,7 +38,7 @@ const Users = db.define('user', {
   phone: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true, // Enforce uniqueness
+    unique:true,
     validate: {
       notEmpty: true,
     },
@@ -51,5 +51,6 @@ const Users = db.define('user', {
     },
   },
 });
+
 
 export default Users;

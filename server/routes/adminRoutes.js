@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertDefaultAdmin, logout } from '../controllers/adminController.js';
+import {  insertDefaultAdmin, logout } from '../controllers/adminController.js';
 import { updateAdminProfile } from '../controllers/adminController.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import { getAdminProfile } from '../controllers/adminController.js';
@@ -12,7 +12,6 @@ adminRouter.get('/logout', logout);
 adminRouter.put('/admin/:id', authMiddleware, updateAdminProfile)
 
 adminRouter.get('/profile', authMiddleware, getAdminProfile);
-
 export default adminRouter;
 
 

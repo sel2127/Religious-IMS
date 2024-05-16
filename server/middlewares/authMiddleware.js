@@ -1,6 +1,7 @@
 import jwt, { decode } from 'jsonwebtoken';
 import { AdminModel } from '../models/adminModel.js';
 import Users from '../models/Users.js';
+import Feedback from '../models/FeedbackModel.js';
 
 export const authMiddleware = async (req, res, next) => {
   // Get the token from the request headers
@@ -47,6 +48,7 @@ export function isAuthenticated(req, res, next) {
     req.user = decoded;
     console.log("dec", decoded.userId)
     const uid = decoded.userId
+    req.userId=uid;
     const users = Users.findOne({ where: { id: uid } });
     if (!users) {
       return res.status(404).json({
@@ -63,3 +65,28 @@ export function isAuthenticated(req, res, next) {
       .json({ success: false, message: "Server error!", error: error.message });
   }
 }
+
+// for feedback creator
+export const isFeedbackCreator=async(req,res,next)=>{
+  const userId=req.user.userId; // get user id form authenticated user
+  const feedbackId=req.params.id;
+  try {
+    // find feedback by id
+    const feedback = await Feedback.findOne({ where: { id: feedbackId } });
+    if(!feedback){
+      return res.status(404).json({ success: false, message: 'Feedback not found' });
+    }
+    // check it authenticated useer is creator of feedback
+    if(userId !== feedback.userId){
+      return res
+      .status(403)
+      .json({ success: false, message: 'Unauthorized - you are not the owner of the feedback' });
+    
+  }
+    next();
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({message:"server error!"})
+  }
+};

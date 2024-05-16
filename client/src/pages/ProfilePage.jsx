@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
-import { setImagePreview } from '../store/reducers/imageReducer';
+import { setImagePreview } from '../app/actions/imageAction';
 import aba from "../assets/Images/aba.jpg";
 import SideBarr from "../components/profile/SideBarr";
-import { useNavigate } from 'react-router-dom'; // For protected routes
-import { setUserData } from '../store/actions/userAction';
+import { useNavigate } from 'react-router-dom'; 
+import { setUserData } from '../app/actions/userAction';
 
 
 
@@ -19,14 +19,18 @@ const ProfilePage = () => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      dispatch(setImagePreview(reader.result));
+      const imageData=reader.result;
+      const userId=userData.id;
+      const imageInfo={userId,imageData}
+      //save image with user id on localstoarge
+      localStorage.setItem(`user-${userId}-image`, JSON.stringify(imageInfo));
+      dispatch(setImagePreview(imageData));
     };
 
     reader.readAsDataURL(file);
   };
 
   // const [userData, setUserData] = useState({});
-  const userData = useSelector((state) => state.user.userData);
 
  
 
@@ -44,11 +48,11 @@ const fetchData = async (dispatch) => {
 };
 
   useEffect(() => {
-    // Check if image data exists in localStorage
-    const savedImagePreview = localStorage.getItem("imagePreview");
+    const userId=userData.id;
+    const imageData = localStorage.getItem(`user-${userId}-image`);
 
-    if (savedImagePreview) {
-      dispatch(setImagePreview(savedImagePreview));
+    if (imageData) {
+      dispatch(setImagePreview(JSON.parse(imageData).imageData));
     }
 
     // Fetch user profile data
@@ -79,7 +83,7 @@ const fetchData = async (dispatch) => {
                     <img
                       src={imagePreview ? imagePreview : aba}
                       alt="profile"
-                      className="h-75 w-75 rounded-full mt-10 m-auto cursor-pointer"
+                      className="h-60 w-60 rounded-full mt-10 m-auto cursor-pointer"
                     />
                   </label>
                   <input
@@ -92,21 +96,22 @@ const fetchData = async (dispatch) => {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-4 p-4">
                   <p className="font-bold text-xl text-dark-blue">
-                    <marquee>Welcome, {userData.firstName} {userData.lastName}</marquee>
+                    <marquee>እንኳን ደህና መጡ, {userData.firstName} {userData.lastName}</marquee>
                   </p>
                   <p>{userData.email}</p>
                   <div className="mt-10">
-                    <p>Your phone: {userData.phone}</p>
+                    <p className='text-2xl'>ስልክ: {userData.phone}</p>
                   </div>
                 </div>
                 <div className="justify-center items-center mt-10">
-                  <p className='text-center font-bold text-4xl'>Thank you for visiting our website</p>
+                  <p className='text-center font-bold text-3xl'>ድህረገጻችንን ስለጎበኙ እናመሰግናለን!</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 };

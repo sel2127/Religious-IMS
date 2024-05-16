@@ -1,53 +1,53 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Sidebarr from "./profile/SideBarr";
-import Breadcrumb from "../common/Breadcrumb";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FeedbackForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [imagePath, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 const navigate=useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setErrorMessage(null);
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("message", message);
-    formData.append("image", imagePath);
 
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/feedback/create",
-        formData
-      );
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setErrorMessage(null);
 
-      if (response.data.message === "Feedback submitted successfully") {
-        setName("");
-        setEmail("");
-        setMessage("");
-        setImage(null);
-        alert("Feedback submitted successfully!");
-        navigate('/feedback')
-      } else {
-        throw new Error("Unexpected response from server");
-      }
-    } catch (error) {
-      setErrorMessage("Error submitting feedback. Please try again.");
-    } finally {
-      setIsLoading(false);
+  const formData = { message }; 
+  
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/api/feedback/create",
+      formData,
+      { withCredentials: true }
+    );
+
+    if (response.data.message === "Feedback submitted successfully") {
+      setMessage("");
+      toast.success("Feedback submitted successfully!");
+      navigate('/feedback');
+    } else {
+      throw new Error("Unexpected response from server");
     }
-  };
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.error === "User has already submitted feedback") {
+      toast.warn("You have already submitted feedback");
+     // navigate('/feedback')
+    } else {
+      setErrorMessage("Error submitting feedback. Please try again.");
+    }
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="">
+      <ToastContainer/>
       <div className=" rounded-lg">
         <div className="flex flex-col lg:flex-row">
           {/* sidebar */}
@@ -61,7 +61,7 @@ const navigate=useNavigate();
                 onSubmit={handleSubmit}
                 className=" flex flex-col space-y-4   "
               >
-                <input
+                {/* <input
                   type="text"
                   id="name"
                   placeholder="ስም"
@@ -71,8 +71,8 @@ const navigate=useNavigate();
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
                   required
                   autoComplete="name" 
-                />
-                <input
+                /> */}
+                {/* <input
                   type="email"
                   placeholder="ኢሜል"
                   id="email"
@@ -82,28 +82,29 @@ const navigate=useNavigate();
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
                   required
                   autoComplete="email" 
-                />
+                /> */}
                 <textarea
                   rows={5}
-                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ...። "
+                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ ... "
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
  ml-10 mr-10"
+           minLength={5}
                   required
                   autoComplete="off"
                 />
-                <input
+                {/* <input
                   type="file"
                   accept="image/*"
                   id="image"
                   onChange={(e) => setImage(e.target.files[0])}
                   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
-                  required
+                  //required
                   autoComplete="off"
-                />
+                /> */}
 
                 <div className="border-gray-200  flex items-center">
                   <button

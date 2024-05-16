@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import "../assets/styles/header.css"
 import SearchInput from "./SearchInput";
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 
 

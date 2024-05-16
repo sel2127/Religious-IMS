@@ -3,12 +3,14 @@ import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { updateUserData } from '../../store/actions/updateUserData';
+import { useNavigate } from 'react-router-dom';
+import { updateUserData } from '../../app/actions/updateUserData';
 
 const EditProfile = () => {
 
   const userDataFromStoreEdit = useSelector((state) => state.user.userData);
   const dispatch = useDispatch(); // Get the dispatch function from react-redux
+  const navigate = useNavigate();
 
   const handleSaveProfile = async (event) => {
     event.preventDefault();
@@ -22,6 +24,7 @@ const EditProfile = () => {
     const updatedUserData = { firstName, lastName, email, phone };
 
     dispatch(updateUserData(updatedUserData)); // Dispatch the action with updated data
+    navigate('/profile')
   };
 
   return (

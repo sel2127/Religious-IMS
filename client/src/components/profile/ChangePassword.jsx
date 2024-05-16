@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePassword } from "../../store/actions/passwordActions";
+import { updatePassword } from "../../app/actions/passwordActions";
 
 function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");

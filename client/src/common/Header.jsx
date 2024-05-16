@@ -4,6 +4,9 @@ import "../assets/styles/header.css"
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import cookies from "js-cookie";
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 
 
 const Header = () => {
@@ -21,6 +24,8 @@ const Header = () => {
   ];
   const {t} = useTranslation();
 
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access state from Redux store
+  console.log(isAuthenticated);
 
   const handleSetActiveLink = (path) => {
     setActiveLink(path);
@@ -39,7 +44,8 @@ const Header = () => {
           </div>
           <div className="w-1/4 flex items-center">
             <div className="w-1/5 flex justify-end">
-             <a href="/login">
+            {isAuthenticated !== undefined && ( // Check if defined
+            <Link to={isAuthenticated ? "/profile" : "/login"}>
              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -54,7 +60,8 @@ const Header = () => {
                   d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                 />
               </svg>
-             </a>
+             </Link>
+              )}
             </div>
 
             <div className="w-1/5 flex justify-end">

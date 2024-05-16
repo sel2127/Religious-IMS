@@ -6,7 +6,7 @@ import {
   setEventDescription,
   setEventImage,
   setEventId,
-} from '../store/actions/eventAction';
+} from '../app/actions/eventAction';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';

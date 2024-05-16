@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import {persistReducer} from 'redux-persist';
 import { combineReducers } from '@reduxjs/toolkit';
 import passwordReducer from './reducers/passwordReducer';
+import authReducer from './reducers/authReducer';
 
 const persistConfig={
   key:"root",
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   user: userReducer,
   image:imageReducer,
   password: passwordReducer,
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

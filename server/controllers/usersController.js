@@ -39,8 +39,7 @@ export const updateUser = async (req, res) => {
 
     const user = await User.findByPk(userId);
     if (user) {
-      await user.update(updates);
-      // 'user' now contains the updated document
+      await user.update(updates);// 'user' now contains the updated document
     }
 
     if (!user) {
@@ -143,8 +142,6 @@ export const logoutUser = async (req, res) => {
   res.clearCookie('accessToken'); // Clear the access token cookie
   res.json({ message: 'Logout successful' });
 };
-
-
 
 
 

@@ -32,7 +32,6 @@ import ViewMoreProfile from './components/profile/ViewMoreProfile';
 import OTPInput from "./Auth/OTPInput";
 import Reset from "./Auth/Reset";
 
-import GoogleTranslate from './common/GoogleTranslate';
 
 
 export const RecoveryContext = createContext();
@@ -54,7 +53,7 @@ function App() {
     <Router>
       <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
-      {/* <GoogleTranslate /> */}
+     
       {/* <Breadcrumb/> */}
       <Routes>
       <Route path="/" element={<LandingPage />} />

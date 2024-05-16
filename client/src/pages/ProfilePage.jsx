@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { setImagePreview } from '../app/actions/imageAction';
 import aba from "../assets/Images/aba.jpg";
-import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; 
 import { setUserData } from '../app/actions/userAction';
@@ -98,7 +97,6 @@ const fetchData = async (dispatch) => {
 
   return (
     <div className="w-full">
-      <Breadcrumb />
       <div className=" w-full rounded-lg">
         <div className="flex flex-col lg:flex-row">
           {/* sidebar */}

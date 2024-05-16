@@ -1,9 +1,7 @@
 import { Sequelize, DataTypes } from "sequelize";
 import db from "../config/Database.js";
 
-// const {DataTypes} = Sequelize;
 
-// table name - adminlist
 const AdminModel = db.define(
   'admin', 
   {

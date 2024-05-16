@@ -3,9 +3,7 @@ import { Sequelize } from "sequelize";
 const db = new Sequelize('capstone', 'root', '', {
     host: 'localhost',
     dialect: 'mysql'
-    
 });
-
 
 // Check database connection
 db.authenticate()

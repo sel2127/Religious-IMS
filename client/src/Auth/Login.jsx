@@ -38,6 +38,7 @@ const Login = () => {
     setError("");
     return true;
   };
+  };
 
   const loginn = () => {
     axios.defaults.withCredentials = true;
@@ -116,6 +117,8 @@ const Login = () => {
        </div>
       </div>
     </div>
+  );
+};
   );
 };
 

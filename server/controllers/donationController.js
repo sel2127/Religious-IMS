@@ -8,7 +8,7 @@ export const createDonation = async (req, res) => {
     if (!first_name || !last_name || !email || !tx_ref || !amount || !currency) {
       return res.status(400).json({ message: 'All fields are required' });
     }
-
+dfsd
     // Check if tx_ref is unique
     const existingDonation = await Donation.findOne({ where: { tx_ref } });
     if (existingDonation) {

@@ -1,17 +1,36 @@
 import React from "react";
-import profileData from "../profileData";
 import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateUserData } from '../../app/actions/updateUserData';
 
 const EditProfile = () => {
+
+  const userDataFromStoreEdit = useSelector((state) => state.user.userData);
+  const dispatch = useDispatch(); // Get the dispatch function from react-redux
+
+  const handleSaveProfile = async (event) => {
+    event.preventDefault();
+    
+    // Extract form data and update it based on your form structure
+    const firstName= document.getElementById('firstName').value;
+    const lastName= document.getElementById('lastName').value;
+    const email= document.getElementById('email').value;
+    const phone= document.getElementById('phone').value;
+
+    const updatedUserData = { firstName, lastName, email, phone };
+
+    dispatch(updateUserData(updatedUserData)); // Dispatch the action with updated data
+  };
+
   return (
     <div className="w-full">
     <Breadcrumb/>
     <div className=" w-full rounded-lg">
-    <h1 className="text-center text-3xl font-bold custom-font mb-4">መረጃዎን እዚህ ላይ ይቀይሩ</h1>
+    <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit your profile here</h1>
 
       <div className="flex flex-col lg:flex-row ">
-        {/* sidebar */}
         <div>
           <Sidebarr/>
         </div>
@@ -24,16 +43,17 @@ const EditProfile = () => {
 
         <input
             type="text"
-            id="name"
-            defaultValue={profileData.username}
-            placeholder="አዲስ መለያ ስም ያስገቡ"
+            id="firstName"
+            name="firstName"
+            defaultValue={userDataFromStoreEdit.firstName}
+            placeholder="Enter new first name"
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
             onInput={(e) => {
               if (e.target.value.length < 3) {
                 e.target.setCustomValidity(
-                  "መለያ ስሞ ከ 3 ፊደል መብለጥ አለበት"
+                  "Username must be at least 3 characters long"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -43,16 +63,17 @@ const EditProfile = () => {
           />
           <input
             type="text"
-            id="name"
-            defaultValue={profileData.username}
-            placeholder="አዲስ መለያ ስም ያስገቡ"
+            id="lastName"
+            name="lastName"
+            defaultValue={userDataFromStoreEdit.lastName}
+            placeholder="Enter new last name"
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
          ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             required
             onInput={(e) => {
               if (e.target.value.length < 3) {
                 e.target.setCustomValidity(
-                  "መለያ ስሞ ከ 3 መብለጥ አለበት "
+                  "Username must be at least 3 characters long"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -64,14 +85,15 @@ const EditProfile = () => {
             type="email"
             placeholder="Email"
             id="email"
-            defaultValue={profileData.email}
+            name="email"
+            defaultValue={userDataFromStoreEdit.email}
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
-  mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
+                   mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
             onInput={(e) => {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
               if (!e.target.value.match(emailRegex)) {
                 e.target.setCustomValidity(
-                  "ትክክለኛ የኢሜል አድራሻዎን ያስገቡ"
+                  "Please enter a valid email address"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -84,10 +106,10 @@ const EditProfile = () => {
             name="phone"
             type="number"
             id="phone"
-            defaultValue={profileData.phone}
+            defaultValue={userDataFromStoreEdit.phone}
             placeholder="Phone"
             className="border rounded-3xl px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
-  mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
+                  mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
             minLength={10}
             maxLength={10}
             onInput={(e) => {
@@ -96,7 +118,7 @@ const EditProfile = () => {
 
               if (!ethiopianPattern1.test(e.target.value)) {
                 e.target.setCustomValidity(
-                  "ትክክልኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (09 + 8 digits )"
+                  "Please enter a valid Ethiopian phone number (09 + 8 digits )"
                 );
               } else {
                 e.target.setCustomValidity("");
@@ -108,17 +130,14 @@ const EditProfile = () => {
         </form>
         <div className="border-gray-200  flex justify-center space-between  mt-10">
             <button
-              id="submit"
-              type="submit"
-              className="bg-blue-500 text-white text-center  px-6 py-1 rounded-3xl "
-            >
-              ያዘምኑ
+              id="submit" className="bg-blue-500 text-white text-center  px-6 py-1 rounded-3xl " onClick={handleSaveProfile} >
+              Save
             </button>
             <button
               className="bg-red-500 text-white text-center  px-6 py-1 rounded-3xl ml-10"
               onClick={() => window.history.back()}
             >
-              ያጥፋ
+              Cancel
             </button>
           </div>
         </div>

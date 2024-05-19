@@ -1,3 +1,4 @@
+
 import jwt, { decode } from 'jsonwebtoken';
 import { AdminModel } from '../models/adminModel.js';
 import Users from '../models/Users.js';
@@ -46,14 +47,15 @@ export function isAuthenticated(req, res, next) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
-    console.log("dec", decoded.userId)
+    // console.log("dec", decoded.userId)
     const uid = decoded.userId
     req.userId=uid;
     const users = Users.findOne({ where: { id: uid } });
+    console.log("Fetched user:", users);
     if (!users) {
       return res.status(404).json({
         success: false,
-        message: "User does not exist",
+        message: "User does not exist", 
       });
     }
 

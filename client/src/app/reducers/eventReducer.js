@@ -11,7 +11,7 @@ const initialState = {
       case 'SET_EVENT_NAME':
         return { ...state, eventName: action.payload };
       case 'SET_EVENT_DATE':
-        return { ...state, eventDate: action.payload };
+        return { ...state, eventDate: action.payload.toISOString() }; // Convert to ISO string
       case 'SET_EVENT_DESCRIPTION':
         return { ...state, eventDescription: action.payload };
       case 'SET_EVENT_IMAGE':

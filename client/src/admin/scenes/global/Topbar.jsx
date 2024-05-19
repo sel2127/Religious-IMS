@@ -9,6 +9,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import axios from 'axios';
 
 const TopBar = () => {
   const theme = useTheme();
@@ -24,12 +25,14 @@ const TopBar = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    // Remove the token from local storage
-    localStorage.removeItem('token');
-  
-    // Redirect to the login page
-    window.location.href = '/admin/login';
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:5000/admin/logout');
+
+      window.location.href = '/admin/login'
+    } catch (error) {
+      console.error('Error logging out:', error)
+    }
   };
 
   return (

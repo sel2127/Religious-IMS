@@ -3,14 +3,12 @@ import Calender from '../components/Calender'
 import Buhe from '../assets/Images/buhe.jpg'
 import Meskel from '../assets/Images/meskel.jpg'
 import Timket from '../assets/Images/timket.jpg'
-import Breadcrumb from '../common/Breadcrumb';
 
 
 
 const Event = () => {
     return (
         <div>
-            <Breadcrumb />
 
             <div className='mx-auto py-8'>
                 <div className='flex flex-row space-x-4 pb-8'>

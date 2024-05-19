@@ -56,3 +56,21 @@ export const searchEvent = async (req, res) => {
     return res.status(500).json({ message: 'Error searching for events' });
   }
 };
+export const deleteEvent = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const event = await EventModel.findByPk(id);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Delete the user
+    await event.destroy();
+
+    res.status(200).json({ message: 'Event deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting event:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

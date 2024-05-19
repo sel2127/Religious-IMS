@@ -84,7 +84,7 @@ const handleSubmit = async (e) => {
                   autoComplete="email" 
                 /> */}
                 <textarea
-                  rows={5}
+                  rows={7}
                   placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ ... "
                   id="message"
                   value={message}

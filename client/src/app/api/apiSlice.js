@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { loginSuccess, loginFailure, registerSuccess, registerFailure } from '../actions/authAction';
+import { donateSuccess, donateFailure } from '../actions/donationAction';
 
 export const loginUser = (phone, password) => async (dispatch) => {
   try {
@@ -11,20 +12,17 @@ export const loginUser = (phone, password) => async (dispatch) => {
       userData.event.eventDate = userData.event.eventDate.toISOString(); // Serialize the date
     }
 
-    dispatch(loginSuccess({ message: 'Login successful', user: userData })); // Ensure payload structure
-    return response.data; // Return the full response data
+    dispatch(loginSuccess({ message: 'Login successful', user: userData }));
+    return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
       dispatch(loginFailure('Invalid phone number or password'));
     } else {
       dispatch(loginFailure('Login failed. Please try again later.'));
     }
-    throw error; // Throw the error to be caught in the caller
+    throw error;
   }
 };
-
-
-
 
 export const registerUser = (userData) => async (dispatch) => {
   try {
@@ -34,3 +32,12 @@ export const registerUser = (userData) => async (dispatch) => {
     dispatch(registerFailure(error.response.data.message));
   }
 };
+
+// export const donateUser = (formData) => async (dispatch) => {
+//   try {
+//     const response = await axios.post('http://localhost:5000/api/donations', formData, {withCredentials:true});
+//     dispatch(donateSuccess(response.data));
+//   } catch (error) {
+//     dispatch(donateFailure(error.response.data.message));
+//   }
+// };

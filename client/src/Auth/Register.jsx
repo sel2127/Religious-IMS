@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../app/api/apiSlice'; 
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer, cssTransition } from 'react-toastify';
-
 axios.defaults.withCredentials = true;
 
 const Register = () => {
@@ -107,7 +106,6 @@ const Register = () => {
           <input type='password' onChange={(e) => { setConfirmPasswordReg(e.target.value); }} placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
           {error && <p className='text-red-500'>{error}</p>}
           <div className='mr-auto underline decoration-dotted mt-4 cursor-pointer hover:text-[#79a6d2]'>
-            {/* <a href="/login">አካውንት አለዎት?</a> */}
           </div>
           <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
             <button onClick={registration} className="w-full mx-auto text-base font-bold text-white">

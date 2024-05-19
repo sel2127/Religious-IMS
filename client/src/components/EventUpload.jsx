@@ -52,7 +52,7 @@ const EventUpload = ({
 
   return (
     <div>
-      <div className='mx-auto py-8 mt-16 flex justify-center items-center border border-gray-300 w-1/2 rounded rounded-3xl '>
+      <div className='mx-auto py-8 mt-16 flex justify-center items-center border border-gray-300 w-1/2 rounded rounded-3x1 '>
         <form onSubmit={handleFormSubmit} className='w-full max-w-lg'>
           <div className='flex flex-col space-y-4'>
             <div>

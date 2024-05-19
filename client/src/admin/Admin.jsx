@@ -18,6 +18,7 @@ import Pie from "./scenes/pie";
 import EventUpload from "./scenes/eventUpload"
 import FAQ from "./scenes/faq";
 import Login from "./login";
+import Forgot from "./forgot";
 
 function Admin() {
   const [theme, colorMode] = useMode();
@@ -44,19 +45,21 @@ function Admin() {
   // }, []);
 
   const isLoginPage = location.pathname === '/admin/login';
+  const isForgotPage = location.pathname === '/admin/forgot';
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme = {theme}>
         <CssBaseline />
     <div className='dashboard'> 
-    {!isLoginPage && <Sidebar />}
+    {!isLoginPage && !isForgotPage && <Sidebar />}
     {/* <Sidebar /> */}
       <main className='content'>
-      {!isLoginPage && <Topbar />}
+      {!isLoginPage && !isForgotPage && <Topbar />}
         {/* <Topbar /> */}
         <Routes>
           <Route path="login" element={<Login />} />
+          <Route path="forgot" element={<Forgot />}/>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="team" element={<Team />} />
           <Route path="users" element={<Users />} />

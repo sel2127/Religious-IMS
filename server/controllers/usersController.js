@@ -19,17 +19,18 @@ async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
-    const id = req.params.id;
-    const user = await User.findOne({ where: { id: id } });
+    const userId = req.userId; // Extracted from isAuthenticated middleware
+    const user = await User.findByPk(userId);
     if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
-    return res.status(200).json(user);
+    res.status(200).json({ user });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ msg: error.message });
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 export const createUser = async (req, res) => {
   try {
@@ -47,17 +48,34 @@ export const createUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    res
-      .status(201)
-      .json({ message: "User created successfully!", user: newUser });
+    // Return success message and user details as JSON
+    res.status(201).json({ message: 'User created successfully!', user: newUser });
   } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Error creating user:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-export const updateUser = (req, res) => {
-  // Implement logic to update user details
+export const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.user; // Assuming user ID is retrieved from JWT
+    const updates = req.body; // Updated user data
+
+    const user = await User.findByPk(userId);
+    if (user) {
+      await user.update(updates);
+      // 'user' now contains the updated document
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User updated successfully!', user });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 };
 
 export const deleteUser = (req, res) => {
@@ -73,7 +91,7 @@ export const loginUser = async (req, res) => {
 
     // Check if user exists with the provided phone number
     if (!user) {
-      return res.status(400).json({ message: "Invalid Credentials" });
+      return res.status(400).json({ message: 'User not found' });
     }
 
     // Compare the provided password with the hashed password stored in the database
@@ -81,50 +99,30 @@ export const loginUser = async (req, res) => {
 
     // If passwords don't match, return error
     if (!isPasswordMatch) {
-      return res.status(400).json({ message: "Invalid Credentials" });
+      return res.status(400).json({ message: 'Invalid Credentials' });
     }
 
     // If the provided credentials are valid, generate a JWT token
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "7h",
+      expiresIn: '7h',
     });
 
-    res.cookie("accessToken", token, {
+
+
+    res.cookie('accessToken', token, {
       httpOnly: true,
       secure: false,
-      sameSite: "strict",
+      sameSite: "strict"
+
     });
-    req.userId = user.id;
 
-    res.json({ message: "Login successful", user });
+    res.json({ message: 'Login successful', user });
   } catch (error) {
-    console.error("Error logging in:", error);
-    res.status(500).json({ message: "Server Error", error: error.message });
+    console.error('Error logging in:', error);
+    res.status(500).json({ message: 'Server Error', error: error.message });
   }
+
 };
-
-// export const getUserInfo = async (req, res) => {
-//   try {
-//     // Check if user is authenticated (middleware ensures this)
-//     if (!req.user) {
-//       return res.status(401).json({ message: 'Unauthorized' });
-//     }
-
-//     const user = await User.findOne({ where: { id: req.user.userId } }); // Retrieve user data
-
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Remove sensitive data (e.g., password hash) before sending response
-//     const safeUser = { ...user, password: undefined };
-
-//     res.status(200).json(safeUser); // Send user information
-//   } catch (error) {
-//     console.error('Error fetching user profile:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
 
 export const getUserInfo = async (req, res) => {
   try {
@@ -142,4 +140,36 @@ export const getUserInfo = async (req, res) => {
   }
 };
  
+export const logoutUser = async (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.clearCookie('accessToken'); // Clear the access token cookie
+  res.json({ message: 'Logout successful' });
+};
+
+export const updatePassword = async (req, res) => {
+
+  const { userId, newPassword } = req.body; // Access the userId and newPassword directly
+
+  // Find the user by userId
+  const user = await User.findOne({ where: { id: userId } });
+
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  // Hash the new password before updating the user
+  const hashedPassword = await bcrypt.hash(newPassword, 10); // Adjust cost factor as needed
+  console.log("Generated hashedPassword:", hashedPassword);
+
+  // Update the user's password with the hashed value
+  user.password = hashedPassword;
+  try {
+    await user.save();
+    return res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+
+};
 

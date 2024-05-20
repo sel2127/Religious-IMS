@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -13,22 +13,20 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../components/Header";
 import axios from "axios";
 
-const ForgotPassword = () => {
+const Reset = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [error, setError] = useState('');
-  const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const { token } = useParams();
 
   const handleFormSubmit = async (values) => {
-      // values.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:5000/admin/forgot', { email });
+      const response = await axios.post(`http://localhost:5000/admin/reset/${token}`, values);
       setMessage(response.data.message);
-      setEmail('');
+      navigate('/admin/login');
     } catch (error) {
-      setMessage(error.response.data.message);
+      setError(error.response.data.message);
     }
   };
 
@@ -44,12 +42,12 @@ const ForgotPassword = () => {
       alignItems="center"
       marginX="auto"
     >
-      <Header title="Forgot Password" subtitle="Enter your email to reset your password" />
+      <Header title="Reset Password" subtitle="Enter your new password" />
 
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
-        validationSchema={forgotPasswordSchema}
+        validationSchema={resetPasswordSchema}
       >
         {({
           values,
@@ -70,14 +68,26 @@ const ForgotPassword = () => {
               <TextField
                 fullWidth
                 variant="filled"
-                type="email"
-                label="Email"
+                type="password"
+                label="New Password"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
+                value={values.password}
+                name="password"
+                error={!!touched.password && !!errors.password}
+                helperText={touched.password && errors.password}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="password"
+                label="Confirm Password"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.confirmPassword}
+                name="confirmPassword"
+                error={!!touched.confirmPassword && !!errors.confirmPassword}
+                helperText={touched.confirmPassword && errors.confirmPassword}
               />
             </Box>
             <Box display="flex" justifyContent="center" mt="30px">
@@ -93,19 +103,23 @@ const ForgotPassword = () => {
           <Typography color="error">{error}</Typography>
         </Box>
       )}
-      <Box display="flex" justifyContent="center" mt="10px">
-        <Link to="/admin/login">Back to Login</Link>
-      </Box>
+      {message && (
+        <Box mt={2}>
+          <Typography color="success">{message}</Typography>
+        </Box>
+      )}
     </Box>
   );
 };
 
-const forgotPasswordSchema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Email is required"),
+const resetPasswordSchema = yup.object().shape({
+  password: yup.string().required("Password is required"),
+  confirmPassword: yup.string().oneOf([yup.ref("password"), null], "Passwords must match").required("Confirm Password is required"),
 });
 
 const initialValues = {
-  email: "",
+  password: "",
+  confirmPassword: "",
 };
 
-export default ForgotPassword;
+export default Reset;

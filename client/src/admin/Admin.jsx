@@ -19,6 +19,8 @@ import EventUpload from "./scenes/eventUpload"
 import FAQ from "./scenes/faq";
 import Login from "./login";
 import Forgot from "./forgot";
+import Reset from './reset';
+
 
 function Admin() {
   const [theme, colorMode] = useMode();
@@ -60,6 +62,7 @@ function Admin() {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="forgot" element={<Forgot />}/>
+          <Route path="/reset/:token" element={<Reset />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="team" element={<Team />} />
           <Route path="users" element={<Users />} />

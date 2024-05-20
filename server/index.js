@@ -8,7 +8,10 @@ import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
 import { authMiddleware } from './middlewares/authMiddleware.js';
 import UserRoute from "./routes/UserRoute.js";
+import dotenv from 'dotenv';
+import exphbs from 'express-handlebars';
 
+dotenv.config();
 const app = express();
 // app.use(cors());
 app.use(cors({
@@ -20,7 +23,11 @@ app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
 
-const port = 5000;
+const hbs = exphbs.create({});
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+const port = process.env.APP_PORT;
 // new
 // db.sync({ alter: true })
 //   .then(() => {

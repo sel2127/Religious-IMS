@@ -6,12 +6,14 @@ import aba from "../assets/Images/aba.jpg";
 import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
 import { setUserData } from '../app/actions/userAction';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
 
   const handleFileChange = (e) => {
@@ -36,9 +38,14 @@ const fetchData = async (dispatch) => {
     const userData = response.data.user;
     dispatch(setUserData(userData));
   } catch (error) {
+  if (error.response && error.response.status === 401) {
     console.error('Error fetching user profile:', error);
+    // Redirect to login page or display an error message
+    navigate('/login'); // Adjust redirection if needed
+  } 
   }
 };
+
 
   useEffect(() => {
     // Check if image data exists in localStorage

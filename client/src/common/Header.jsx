@@ -24,8 +24,9 @@ const Header = () => {
   ];
   const {t} = useTranslation();
 
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access state from Redux store
-  console.log(isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access state from Redux store
+  // console.log(isAuthenticated);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const handleSetActiveLink = (path) => {
     setActiveLink(path);
@@ -44,8 +45,8 @@ const Header = () => {
           </div>
           <div className="w-1/4 flex items-center">
             <div className="w-1/5 flex justify-end">
-            {isAuthenticated !== undefined && ( // Check if defined
-            <Link to={isAuthenticated ? "/profile" : "/login"}>
+            {/* {isLoggedIn !== undefined && ( // Check if defined */}
+            <Link to={isLoggedIn ? "/profile" : "/login"}>
              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -61,7 +62,7 @@ const Header = () => {
                 />
               </svg>
              </Link>
-              )}
+              {/* )} */}
             </div>
 
             <div className="w-1/5 flex justify-end">

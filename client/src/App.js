@@ -21,21 +21,19 @@ import Admin from './admin/Admin';
 import "./assets/styles/main.css";
 import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
-import Abnet from './pages/AbnetPage';
 import FeedbackPage from './pages/FeedbackPage';
 import Chat from './pages/UserChat';
+import AdminChat from './pages/AdminChat';
 import FeedbackForm from './components/FeedbackForm';
 import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
 import OTPInput from "./Auth/OTPInput";
 import Reset from "./Auth/Reset";
-
 import GoogleTranslate from './common/GoogleTranslate';
 import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
 import EventSearch from './components/EventSearch';
-//import { path } from 'path';
 
 
 export const RecoveryContext = createContext();
@@ -55,7 +53,7 @@ function App() {
     value={{ otp, setOTP, setEmail, email }}
   >
     <Router>
-      <div className={shouldApplyPadding ? "app-container" : ""}>
+      <div className={shouldApplyPadding ? "app-container px-4 md:px-8 lg:px-16 xl:px-20": ""}>
       {!isPathInAdmin && <Header />}
       {/* <GoogleTranslate /> */}
       {/* <Breadcrumb/> */}
@@ -73,7 +71,7 @@ function App() {
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<Member />} />
         <Route path="/chat" element={<Chat />} />
-        {/* <Route path="/abnet" element={<AbnetPage />} /> */}
+        <Route path="/adminchat" element={<AdminChat />} />
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />
@@ -87,6 +85,8 @@ function App() {
         <Route path='/otpinput' element={ <OTPInput />}/>
         <Route path='/reset' element={ <Reset />}/>
         <Route path="/search/:query" element={<EventSearch />} />
+        <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
+        <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
       </Routes>
       <ToastContainer />
 

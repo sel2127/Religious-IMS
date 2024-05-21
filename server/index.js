@@ -9,8 +9,8 @@ import uploadRouter from "./routes/uploadRoutes.js";
 import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
 import UserRoute from "./routes/UserRoutes.js";
+import feedbackRoute from "./routes/feedbackRoute.js";
 import donationRoute from "./routes/donationRoutes.js";
-import feedbackRoute from "./routes/feedbackRoute.js"
 
 dotenv.config();
 const app = express();
@@ -19,7 +19,7 @@ const app = express();
 app.use(cors({
      credentials: true,
     origin: ['http://localhost:3000'],
-    methods: ['POST', 'GET','PUT'],
+    methods: ['POST', 'GET', 'PUT', 'DELETE'],
 }));
 db.sync()
 
@@ -44,16 +44,10 @@ app.use(session({
 // Define routes
 app.use(donationRoute);
 app.use(feedbackRoute);
-app.use(UserRoute); // Use the UserRoute without prefixing here
+app.use(UserRoute);
 app.use("/events", eventRouter);
-
-// Mount upload routes
 app.use("/upload", uploadRouter);
-
-// Mount calendar routes
 app.use("/api", calendarRoutes);
-
-// Mount admin routes
 app.use("/admin", adminRouter);
 
 // Default route for handling 404 errors

@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 
 const db = new Sequelize('capstone', 'root', '', {
     host: 'localhost',
+    port: 3306,  // Ensure this is correct
     dialect: 'mysql'
 });
 

@@ -46,7 +46,7 @@ const Notify = () => {
         setEvents(filteredEvents.slice(0, 4));
       })
       .catch((error) => console.error(error));
-  }, [searchQuery]);
+  }, );
 
   useEffect(() => {
     const modal = modalRef.current;

@@ -27,7 +27,7 @@ const Feedback = db.define("feedback", {
    
 });
 
-Feedback.belongsTo(Users, { foreignKey: 'userId' });
+Feedback.belongsTo(Users, { foreignKey: 'userId',as:'user' });
 
 // Sync the model with the database
 db.sync({ alter: true })

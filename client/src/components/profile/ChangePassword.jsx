@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePassword } from "../../app/actions/passwordActions";
@@ -43,7 +42,6 @@ function ChangePassword() {
 
   return (
     <div className="w-full">
-      <Breadcrumb />
       <h1 className="text-center text-3xl font-bold custom-font mb-4">
         Change Your Password
       </h1>
@@ -57,7 +55,7 @@ function ChangePassword() {
             </div>
             <div className="lg:w-1/2 m-auto">
               <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
-                <div className=" h-full overflow-hidden shadow  rounded-lg">
+                <div className=" min-h-full overflow-hidden shadow  rounded-lg">
                   <form
                     className="space-y-4  flex flex-col  text-center lg: w-full  mt-10  py-10"
                     type="post"

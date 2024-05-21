@@ -37,7 +37,7 @@ function Sidebarr({ children }) {
       icon: <FaCommentAlt />,
     },
     {
-      path: "/logout",
+      path: "/login",
       name: "ለመዉጣት",
       icon: <FaPowerOff />,
     },

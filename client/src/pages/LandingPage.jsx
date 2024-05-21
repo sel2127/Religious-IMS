@@ -21,7 +21,7 @@ import { feedbackCount, fetchDonation, fetchEvents, fetchFeedback, fetchFeedback
 
 const LandingPage = () => {
   //const [feedbackData, setFeedbackData] = useState([]);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -30,46 +30,46 @@ const LandingPage = () => {
       require("owl.carousel");
     }
   }, []);
-  
-  const feedbackData=useSelector(state=>state.feedback.feedbackData);
-  const error=useSelector(state=>state.feedback.error);
-  useEffect(()=>{
-    dispatch(fetchFeedback());
 
-  },[dispatch]);
-  if(error){
-    //return <div>Error:{error}</div>
-  }
-  const events=useSelector(state=>state.feedback.event);
-  useEffect(()=>{
-    dispatch(getEvents());
+  // const feedbackData=useSelector(state=>state.feedback.feedbackData);
+  // const error=useSelector(state=>state.feedback.error);
+  // useEffect(()=>{
+  //   dispatch(fetchFeedback());
 
-  },[dispatch])
- 
-  // number of feedbacks
-  const fcount=useSelector(state=>state.feedback.fcount);
-  useEffect(()=>{
-    dispatch(fetchFeedbackCount());
-  },[dispatch])
-  
+  // },[dispatch]);
+  // if(error){
+  //   //return <div>Error:{error}</div>
+  // }
+  //   const events=useSelector(state=>state.feedback.event);
+  //   useEffect(()=>{
+  //     dispatch(getEvents());
 
-  // number of users
-  const ucount=useSelector(state=>state.feedback.ucount);
-  useEffect(()=>{
-    dispatch(fetchUsersCount());
-  },[dispatch])
+  //   },[dispatch])
 
-  // numberof  event
-  const ecount=useSelector(state=>state.feedback.ecount);
-  useEffect(()=>{
-    dispatch(fetchEvents());
-  },[dispatch]);
-  
-//  number of donation
-const dcount=useSelector(state=>state.feedback.dcount);
-useEffect(()=>{
-  dispatch(fetchDonation());
-},[dispatch])
+  //   // number of feedbacks
+  //   const fcount=useSelector(state=>state.feedback.fcount);
+  //   useEffect(()=>{
+  //     dispatch(fetchFeedbackCount());
+  //   },[dispatch])
+
+
+  //   // number of users
+  //   const ucount=useSelector(state=>state.feedback.ucount);
+  //   useEffect(()=>{
+  //     dispatch(fetchUsersCount());
+  //   },[dispatch])
+
+  //   // numberof  event
+  //   const ecount=useSelector(state=>state.feedback.ecount);
+  //   useEffect(()=>{
+  //     dispatch(fetchEvents());
+  //   },[dispatch]);
+
+  // //  number of donation
+  // const dcount=useSelector(state=>state.feedback.dcount);
+  // useEffect(()=>{
+  //   dispatch(fetchDonation());
+  // },[dispatch])
 
 
   const options = {
@@ -123,18 +123,18 @@ useEffect(()=>{
   };
 
   //   mapping of feedbackData
-  const items2 = feedbackData && feedbackData.length > 0 ? feedbackData.map((feedback) => (
-    <div key={feedback.feedbackId}>
-      <div className="flex items-center justify-center gap-8 h-full">
-        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
-          <div className="mt-8">{feedback.message}</div>
-          <div className="font-bold">
-            <p>{feedback.writer} </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )) : null;
+  // const items2 = feedbackData && feedbackData.length > 0 ? feedbackData.map((feedback) => (
+  //   <div key={feedback.feedbackId}>
+  //     <div className="flex items-center justify-center gap-8 h-full">
+  //       <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
+  //         <div className="mt-8">{feedback.message}</div>
+  //         <div className="font-bold">
+  //           <p>{feedback.writer} </p>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // )) : null;
 
   return (
     <div>
@@ -146,89 +146,89 @@ useEffect(()=>{
           <p className="mt-5">በደብራችን በቅርብ ግዜ የተከናወኑ መርሃግብራትን እዚህ ያገኛሉ</p>
         </div>
         <div>
-         
-          {events.map((event) => {
-  const eventDateTime = new Date(event.eventdate);
 
-  const ethiopianHour = eventDateTime.getHours() + 6; 
-  const ethiopianMinute = eventDateTime.getMinutes();
+          {/* {events.map((event) => {
+            const eventDateTime = new Date(event.eventdate);
 
-  let ethiopianHourFormat = ethiopianHour % 12; 
-  if (ethiopianHourFormat === 0) ethiopianHourFormat = 12; 
+            const ethiopianHour = eventDateTime.getHours() + 6;
+            const ethiopianMinute = eventDateTime.getMinutes();
 
-  const period = ethiopianHour < 12 ? "AM" : "PM"; 
+            let ethiopianHourFormat = ethiopianHour % 12;
+            if (ethiopianHourFormat === 0) ethiopianHourFormat = 12;
 
-  const ethiopianTime = `${ethiopianHourFormat}:${ethiopianMinute.toString().padStart(2, "0")} ${period}`;
-  
-  const date = new Date(event.eventdate);
-  const formattedDates = date.toDateString();
-  return (
-    <div key={event.id} className="mt-10 bg-gray-100 flex">
-      <div className="w-1/4 flex flex-col items-center justify-center">
-       
-        <p className="text-sm"> {formattedDates}</p>
-        <p className="text-sm"> {ethiopianTime}</p>
+            const period = ethiopianHour < 12 ? "AM" : "PM";
+
+            const ethiopianTime = `${ethiopianHourFormat}:${ethiopianMinute.toString().padStart(2, "0")} ${period}`;
+
+            const date = new Date(event.eventdate);
+            const formattedDates = date.toDateString();
+            return (
+              <div key={event.id} className="mt-10 bg-gray-100 flex">
+                <div className="w-1/4 flex flex-col items-center justify-center">
+
+                  <p className="text-sm"> {formattedDates}</p>
+                  <p className="text-sm"> {ethiopianTime}</p>
 
 
-      </div>
-      <div className="w-2/4 flex flex-col justify-center">
-        <p className="text-lg">{event.eventDesc}</p>
-        <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
-          <button className="w-full mx-auto text-lg font-bold text-white">
-            እይ
-          </button>
-        </div>
-      </div>
-      <div className="w-1/4 p-5 flex items-center justify-center">
-        <img
-          src={`/assets/${event.eventImage}`}
-          alt={`event-${event.id}`}
-          className="w-2/3"
-        />
-      </div>
-    </div>
-  );
-})}
-         
+                </div>
+                <div className="w-2/4 flex flex-col justify-center">
+                  <p className="text-lg">{event.eventDesc}</p>
+                  <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
+                    <button className="w-full mx-auto text-lg font-bold text-white">
+                      እይ
+                    </button>
+                  </div>
+                </div>
+                <div className="w-1/4 p-5 flex items-center justify-center">
+                  <img
+                    src={`/assets/${event.eventImage}`}
+                    alt={`event-${event.id}`}
+                    className="w-2/3"
+                  />
+                </div>
+              </div>
+            );
+          })} */}
+
         </div>
         <div className="mt-20 flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={PeopleIcon} alt="people icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-xl">{ucount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">ሰዎች</div>
-    </div>
-  </div>
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={VolunteerIcon} alt="volunteer icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-xl">{dcount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">በጎ ፈቃደኛ</div>
-    </div>
-  </div>
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={DonationIcon} alt="donation icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-2xl">{fcount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">አስተያየቶች</div>
-    </div>
-  </div>
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={SermonIcon} alt="sermon icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-2xl">{ecount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">ስብከቶች</div>
-    </div>
-  </div>
-</div>
+          <div className="flex items-center w-full md:w-1/4">
+            <div className="w-1/3 sm:w-1/4 ">
+              <img src={PeopleIcon} alt="people icon" className="w-2/3 sm:w-full" />
+            </div>
+            <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
+              {/* <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-xl">{ucount}</div> */}
+              <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">ሰዎች</div>
+            </div>
+          </div>
+          <div className="flex items-center w-full md:w-1/4">
+            <div className="w-1/3 sm:w-1/4 ">
+              <img src={VolunteerIcon} alt="volunteer icon" className="w-2/3 sm:w-full" />
+            </div>
+            <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
+              {/* <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-xl">{dcount}</div> */}
+              <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">በጎ ፈቃደኛ</div>
+            </div>
+          </div>
+          <div className="flex items-center w-full md:w-1/4">
+            <div className="w-1/3 sm:w-1/4 ">
+              <img src={DonationIcon} alt="donation icon" className="w-2/3 sm:w-full" />
+            </div>
+            <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
+              {/* <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-2xl">{fcount}</div> */}
+              <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">አስተያየቶች</div>
+            </div>
+          </div>
+          <div className="flex items-center w-full md:w-1/4">
+            <div className="w-1/3 sm:w-1/4 ">
+              <img src={SermonIcon} alt="sermon icon" className="w-2/3 sm:w-full" />
+            </div>
+            <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
+              {/* <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-2xl">{ecount}</div> */}
+              <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">ስብከቶች</div>
+            </div>
+          </div>
+        </div>
         <div className="mt-20 flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold">እርዳታ</h1>
           <div className="mt-10 grid grid-cols-3 gap-4">
@@ -313,7 +313,7 @@ useEffect(()=>{
         <div className="mt-10 bg-gray-100 h-96 p-6">
           <h1 className="text-3xl font-bold text-center">አስተያየታችሁ ያግዘናል</h1>
           <div className="mt-10">
-            <OwlCarousel
+            {/* <OwlCarousel
               className="owl-theme"
               loop
               margin={10}
@@ -321,7 +321,7 @@ useEffect(()=>{
               {...options2}
             >
               {items2}
-            </OwlCarousel>
+            </OwlCarousel> */}
           </div>
         </div>
         <div className="mt-10">

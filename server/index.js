@@ -23,11 +23,8 @@ app.options('*', cors());
 app.use(express.json());
 app.use(cookieParser());
 
-const hbs = exphbs.create({});
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-
 const port = process.env.APP_PORT;
+
 // new
 // db.sync({ alter: true })
 //   .then(() => {
@@ -59,6 +56,7 @@ app.use("/api", calendarRoutes);
 // Mount admin routes
 // app.use("/adminlogin", adminRouter);
 app.use("/admin", adminRouter);
+
 
 // Start the server
 app.listen(port, () => {

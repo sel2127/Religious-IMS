@@ -170,19 +170,19 @@ const User = () => {
       headerName: "Email",
       flex: 1,
     },
-    {
-      field: "edit",
-      headerName: "Edit",
-      flex: 0.5,
-      renderCell: (params) => (
-        <IconButton
-          aria-label="edit"
-          onClick={() => handleEdit(params.row.id)}
-        >
-          <EditIcon />
-        </IconButton>
-      ),
-    },
+    // {
+    //   field: "edit",
+    //   headerName: "Edit",
+    //   flex: 0.5,
+    //   renderCell: (params) => (
+    //     <IconButton
+    //       aria-label="edit"
+    //       onClick={() => handleEdit(params.row.id)}
+    //     >
+    //       <EditIcon />
+    //     </IconButton>
+    //   ),
+    // },
     {
       field: "delete",
       headerName: "Delete",

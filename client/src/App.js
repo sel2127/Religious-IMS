@@ -21,6 +21,7 @@ import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
 import Abnet from './pages/AbnetPage';
 import FeedbackPage from './pages/FeedbackPage';
+import LiveStream from './pages/LiveStream';
 
 
 function App() {

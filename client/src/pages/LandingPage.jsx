@@ -98,8 +98,7 @@ autoplayTimeout: 6000,
     <div key={3}>
       <div className="flex items-center justify-center gap-8 h-full">
         <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
-          <div>
-            
+          <div>            
           </div>
           <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
           <div className="font-bold">ለማ መጣ</div>
@@ -117,46 +116,46 @@ autoplayTimeout: 6000,
           <p className="mt-5">በደብራችን በቅርብ ግዜ የተከናወኑ መርሃግብራትን እዚህ ያገኛሉ</p>
         </div>
         <div>
-          <div className="mt-10 bg-gray-100 flex">
-            <div className="w-1/4 flex flex-col items-center justify-center">
+          <div className="mt-10 bg-gray-100 sm:flex-col lg:flex md:flex">
+            <div className="lg:w-1/4 md:w-1/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b">
               <p className="text-sm">ህዳር 10 2016</p>
               <p className="text-sm">ሐሙስ 4:30</p>
             </div>
-            <div className="w-2/4 flex flex-col justify-center">
+            <div className="lg:w-2/4 md:w-2/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b sm:px-4">
               <p className="text-lg">ወጥመድ ተሰበረ፥ እኛም አመለጥን (መዝ 88፥12)</p>
-              <p className="text-sm">ስብከት በብጹዕ ወቅዱስ አቡነ ናትናኤል</p>
-              <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
+              <p className="text-sm">ስብከት በብጹዕ አቡነ ናትናኤል</p>
+              <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center sm:hidden">
                 <button className="w-full mx-auto text-lg font-bold text-white">
                   እይ
                 </button>
               </div>
             </div>
-            <div className="w-1/4 p-5 flex items-center justify-center">
+            <div className="lg:w-1/4 md:w-1/4 sm:w-full p-5 flex items-center sm:py-2 justify-center sm:border-b">
               <img src={Event1} alt="first event" className="w-2/3" />
             </div>
           </div>
-          <div className="mt-10 bg-gray-100 flex">
-            <div className="w-1/4 flex flex-col items-center justify-center">
+          <div className="mt-10 bg-gray-100 sm:flex-col lg:flex md:flex">
+            <div className="lg:w-1/4 md:w-1/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b">
               <p className="text-sm">መጋቢት 27 2016</p>
               <p className="text-sm">ሰኞ 3:30</p>
             </div>
-            <div className="w-2/4 flex flex-col justify-center">
-              <p className="text-lg">
+            <div className="lg:w-2/4 md:w-2/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b sm:px-4">
+            <p className="text-lg">
                 የመድኃኔዓለም በዓለ ንግስ አከባበር በደብራችን ደብረ መድኃኒት መድኃኔዓለም ቤተክርስቲያን
               </p>
-              <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
+              <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center sm:hidden">
                 <button className="w-full mx-auto text-lg font-bold text-white">
                   እይ
                 </button>
               </div>
             </div>
-            <div className="w-1/4 p-5 flex items-center justify-center">
+            <div className="lg:w-1/4 md:w-1/4 sm:w-full p-5 flex items-center sm:py-2 justify-center sm:border-b">
               <img src={Event2} alt="first event" className="w-2/3" />
             </div>
           </div>
         </div>
-        <div className="mt-20 flex flex-cols space-x-8 items-center justify-center">
-          <div className="flex items-center">
+        <div className="mt-20 lg:flex md:flex sm:flex-col lg:space-x-8 md:space-x-8 lg:space-x-0 items-center justify-center">
+          <div className="flex items-center sm:py-4 justify-center">
             <div className="w-1/3">
               <img src={PeopleIcon} alt="people icon" className="w-2/3" />
             </div>
@@ -165,7 +164,7 @@ autoplayTimeout: 6000,
               <div className="text-gray-400 font-bold text-xl">ሰዎች</div>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center sm:py-4 justify-center">
             <div className="w-1/3">
               <img src={VolunteerIcon} alt="volunteer icon" className="w-2/3" />
             </div>
@@ -174,7 +173,7 @@ autoplayTimeout: 6000,
               <div className="text-gray-400 font-bold text-xl">በጎ ፈቃደኛ</div>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center sm:py-4 justify-center">
             <div className="w-1/3">
               <img src={DonationIcon} alt="donation icon" className="w-2/3" />
             </div>
@@ -183,7 +182,7 @@ autoplayTimeout: 6000,
               <div className="text-gray-400 font-bold text-xl">እርዳታ</div>
             </div>
           </div>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <div className="w-1/3">
               <img src={SermonIcon} alt="sermon icon" className="w-2/3" />
             </div>
@@ -191,11 +190,11 @@ autoplayTimeout: 6000,
               <div className="text-dark-blue font-bold text-xl">186</div>
               <div className="text-gray-400 font-bold text-xl">ስብከቶች</div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="mt-20 flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold">እርዳታ</h1>
-          <div className="mt-10 grid grid-cols-3 gap-4">
+          <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-4">
             <div className="flex flex-col items-center">
               <div className="px-6 flex justify-center imgListHeight">
                 <img src={Drought} alt="sermon icon" className="" />
@@ -205,16 +204,16 @@ autoplayTimeout: 6000,
                   <h1 className="text-center font-bold text-xl">
                     በድርቅ ለተጎዱ ወገኖች
                   </h1>
-                  <p className="text-sm mt-3">
+                  <p className="text-sm mt-3 text-center">
                     አንዱ ደብራችን የሚሰጠው እርዳታ በድርቅ ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን በማበርከት
                     የህሊና ግደታችሁን ተወጡ
                   </p>
                 </div>
-                <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
+                {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
                   <button className="w-full mx-auto text-lg font-bold text-white">
                     ስጥ
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex flex-col items-center">
@@ -226,16 +225,16 @@ autoplayTimeout: 6000,
                   <h1 className="text-center font-bold text-xl">
                     በጦርነት ለተጎዱ ወገኖች
                   </h1>
-                  <p className="text-sm mt-3">
+                  <p className="text-sm mt-3 text-center">
                     ሌላው ደብራችን የሚሰጠው እርዳታ በጦርነት ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን
                     በማበርከት የህሊና ግደታችሁን ተወጡ
                   </p>
                 </div>
-                <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
+                {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
                   <button className="w-full mx-auto text-lg font-bold text-white">
                     ስጥ
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex flex-col items-center">
@@ -247,21 +246,21 @@ autoplayTimeout: 6000,
                   <h1 className="text-center font-bold text-xl">
                     ለቤተክርስቲያኗ ሕንጻ ማሰሪያ
                   </h1>
-                  <p className="text-sm mt-3">
+                  <p className="text-sm mt-3 text-center">
                     አዲስ የተጀመረውን የሕንጻ ቤተክርስቲያን ለማስፈጸም የበኩልዎን አስተዋጽዖ ያድርጉ
                   </p>
                 </div>
-                <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
+                {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
                   <button className="w-full mx-auto text-lg font-bold text-white">
                     ስጥ
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
-        <div className="mt-10 bg-light-blue h-48 px-8 py-4 flex flex-col justify-center">
-          <div className="text-white font-bold text-3xl mx-auto underline">
+        <div className="mt-10 bg-light-blue px-8 py-6 flex flex-col justify-center">
+          <div className="text-white font-bold lg:text-3xl md:text-3xl sm:text-2xl mx-auto underline text-center">
             የመጽሐፍቅዱስ ጥቅሶች
           </div>
           <OwlCarousel
@@ -274,7 +273,7 @@ autoplayTimeout: 6000,
             {items}
           </OwlCarousel>
         </div>
-        <div className="mt-10 bg-gray-100 h-96 p-6">
+        <div className="mt-10 bg-gray-100 p-6">
           <h1 className="text-3xl font-bold text-center">አስተያየታችሁ ያግዘናል</h1>
           <div className="mt-10">
           <OwlCarousel
@@ -289,9 +288,9 @@ autoplayTimeout: 6000,
           </div>
         </div>
         <div className="mt-10">
-        <video controls className="w-full">
+        {/* <video controls className="w-full">
         <source src="../Images/video1.mp4" type="video/mp4" />
-      </video>
+      </video> */}
         </div>
       </div>
     </div>

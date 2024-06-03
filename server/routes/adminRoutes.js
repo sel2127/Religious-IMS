@@ -43,4 +43,5 @@ adminRouter.post('/forgot', forgot);
 adminRouter.get('/reset/:token', reset);
 adminRouter.post('/reset/:token', updateAdminPassword);
 
+
 export default adminRouter;

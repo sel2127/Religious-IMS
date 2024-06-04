@@ -20,7 +20,7 @@ import FAQ from "./scenes/faq";
 import Login from "./login";
 import Forgot from "./forgot";
 import Reset from './reset';
-
+import PrivateRoute from './PrivateRoute';
 
 function Admin() {
   const [theme, colorMode] = useMode();
@@ -48,32 +48,55 @@ function Admin() {
 
   const isLoginPage = location.pathname === '/admin/login';
   const isForgotPage = location.pathname === '/admin/forgot';
+  const isResetPage = location.pathname.startsWith('/admin/reset/');
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme = {theme}>
         <CssBaseline />
     <div className='dashboard'> 
-    {!isLoginPage && !isForgotPage && <Sidebar />}
+    {!isLoginPage && !isForgotPage && !isResetPage && <Sidebar />}
     {/* <Sidebar /> */}
       <main className='content'>
-      {!isLoginPage && !isForgotPage && <Topbar />}
+      {!isLoginPage && !isForgotPage && !isResetPage && <Topbar />}
         {/* <Topbar /> */}
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="forgot" element={<Forgot />}/>
           <Route path="/reset/:token" element={<Reset />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="team" element={<Team />} />
-          <Route path="users" element={<Users />} />
-          <Route path="donation" element={<Donations />} />
-          <Route path="form" element={<Form />} />
-          <Route path="calendar" element={<Calendar />} />
-          <Route path="bar" element={<Bar />} />
-          <Route path="pie" element={<Pie />} />
-          <Route path="line" element={<Line />} />
-          <Route path="event" element={<EventUpload />} />
-          <Route path="faq" element={<FAQ />} />
+          <Route path="dashboard" element={<PrivateRoute>
+                      <Dashboard />
+                    </PrivateRoute>} />
+          <Route path="team"element={<PrivateRoute>
+                      <Team />
+                    </PrivateRoute>} />
+          <Route path="users" element={<PrivateRoute>
+                      <Users />
+                    </PrivateRoute>} />
+          <Route path="donation" element={<PrivateRoute>
+                      <Donations />
+                    </PrivateRoute>} />
+          <Route path="form" element={<PrivateRoute>
+                      <Form />
+                    </PrivateRoute>} />
+          <Route path="calendar" element={<PrivateRoute>
+                      <Calendar />
+                    </PrivateRoute>} />
+          <Route path="bar" element={<PrivateRoute>
+                      <Bar />
+                    </PrivateRoute>} />
+          <Route path="pie" element={<PrivateRoute>
+                      <Pie />
+                    </PrivateRoute>} />
+          <Route path="line" element={<PrivateRoute>
+                      <Line />
+                    </PrivateRoute>} />
+          <Route path="event" element={<PrivateRoute>
+                      <EventUpload />
+                    </PrivateRoute>} />
+          <Route path="faq" element={<PrivateRoute>
+                      <FAQ />
+                    </PrivateRoute>} />
         </Routes>
       </main>   
     </div>

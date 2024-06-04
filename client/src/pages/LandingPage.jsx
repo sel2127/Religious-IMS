@@ -10,7 +10,6 @@ import Event2 from "../assets/Images/event2.jpg";
 import PeopleIcon from "../assets/Images/peopleIcon.png";
 import VolunteerIcon from "../assets/Images/volunteerIcon.png";
 import DonationIcon from "../assets/Images/donationIcon.png";
-import SermonIcon from "../assets/Images/sermonIcon.png";
 import Hntsa from "../assets/Images/hntsa.jpg";
 import War from "../assets/Images/war.jpg";
 import Drought from "../assets/Images/drought.jpg";

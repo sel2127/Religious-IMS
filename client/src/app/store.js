@@ -23,7 +23,6 @@ const reducers = combineReducers({
   user: userReducer,
   image:imageReducer,
   password: passwordReducer,
-  auth: authReducer,
   chat: chatReducer,
 
 });

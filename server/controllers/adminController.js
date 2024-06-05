@@ -1,19 +1,30 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import {AdminModel} from '../models/adminModel.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import multer from 'multer';
 import Users from "../models/Users.js";
 import nodemailer from "nodemailer";
 import crypto from 'crypto';
-import {AdminModel} from '../models/adminModel.js';
-
 
 // Method to insert default admin
 export const insertDefaultAdmin = async (req, res) => {
   // Get the email and password from the request body
   const { email, password } = req.body;
   try {
-  
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash('admin', saltRounds);
+
+    // Create the default admin record in the database    
+    await AdminModel.create({
+      firstname: 'admin',
+      lastname: 'admin',
+      email: 'admin@gmail.com',
+      phone: '0011223344',
+      password: hashedPassword,
+      image: null,
+      role: 'admin'
+    });
 
     // Check if the email exists in the database
     const admin = await AdminModel.findOne({ where: { email } });
@@ -28,7 +39,7 @@ export const insertDefaultAdmin = async (req, res) => {
     }
 
     // Token-based authentication
-    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '7h' });
+    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '1h' });
 
     // Return the token to the client
     res.cookie('admin_token', token, {
@@ -48,8 +59,9 @@ export const logout = (req, res) => {
     secure: true,
     sameSite: 'Strict'
   });
-  res.json({ success: true, message: 'Logout successful' });  
+  
   // res.redirect('/admin/login');
+  res.json({ success: true, message: 'Logout successful' });  
 };
 
 // export const sendPasswordResetEmail = async (req, res) => {

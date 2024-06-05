@@ -9,6 +9,7 @@ import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Donations from "./scenes/donation";
+import Chat from "./scenes/chat";
 import Users from "./scenes/users";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
@@ -64,6 +65,7 @@ function Admin() {
           <Route path="team" element={<Team />} />
           <Route path="users" element={<Users />} />
           <Route path="donation" element={<Donations />} />
+          <Route path="chat" element={<Chat />} />
           <Route path="form" element={<Form />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="bar" element={<Bar />} />

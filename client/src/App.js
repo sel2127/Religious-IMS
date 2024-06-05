@@ -23,7 +23,6 @@ import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
 import FeedbackPage from './pages/FeedbackPage';
 import Chat from './pages/UserChat';
-import AdminChat from './pages/AdminChat';
 import FeedbackForm from './components/FeedbackForm';
 import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
@@ -70,8 +69,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<Member />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/adminchat" element={<AdminChat />} />
+        <Route path="/chat" element={<Chat/>} />
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />

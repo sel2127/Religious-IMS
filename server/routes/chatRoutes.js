@@ -1,13 +1,10 @@
 import express from 'express';
-import { getChatHistory, saveMessage } from '../controllers/chatController.js';
-
+import { sendMessage, getChatMessages } from '../controllers/chatController.js';
+import { isAuthenticated, authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// Get chat history
-router.get('/chat/history', getChatHistory);
-
-// Save a new message
-router.post('/chat/send', saveMessage);
+router.post('/send-message', isAuthenticated, authMiddleware, sendMessage);
+router.get('/chat-messages/:userId/:adminId', isAuthenticated, getChatMessages);
 
 export default router;

@@ -31,7 +31,7 @@ function App() {
   return (
     <Router>
       <div className={shouldApplyPadding ? "app-container" : ""}>
-      {!isPathInAdmin && <Header />}
+      {/* {!isPathInAdmin && <Header />} */}
 
       {/* <Breadcrumb/> */}
       <Routes>

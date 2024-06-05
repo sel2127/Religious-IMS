@@ -64,7 +64,7 @@ const Bar = () => {
 
   return (
     <Box m="20px">
-      <Header title="Bar Chart" subtitle="Simple Bar Chart" />
+      <Header subtitle="Bar Chart" />
       <Box height="75vh">
       {/* <LineChart data={userData} xKey="createdAt" yKey="id" /> */}
       <BarChart data={getWeekData()} xKey="week" yKey="userCount" />

@@ -34,7 +34,7 @@ const LandingPage = () => {
     <div key={1}>
       <div>
         <div className="text-lg text-white mt-6 text-center">
-          አንተን ተስፋ የሚያደርጉ አያፍሩም፥በከንቱ የሚገበዙ ያፍራሉ
+          አንተን ተስፋ የሚያደርጉ አያፍሩም፥ በከንቱ የሚገበዙ ያፍራሉ
         </div>
         <div className="text-lg text-white font-bold mt-4 text-center">
           መዝሙረ ዳዊት 25፥3
@@ -68,15 +68,22 @@ const LandingPage = () => {
     rewind: true,
     dots: true,
     autoplay: true,
-autoplayTimeout: 6000,
-  };
+    autoplayTimeout: 6000,
+    responsive: {
+  0: {
+    items: 1
+  },
+  768: {
+    items: 2
+  }
+  }
+}
 
   const items2 = [
     <div key={1}>
-      <div className="flex items-center justify-center gap-8 h-full">
-        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
-          <div>
-            
+      <div className="flex items-center justify-center lg:gap-8 md:gap-8 sm:gap-2 h-full">
+        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center lg:p-8 md:p-8 sm:p-2 text-lg">
+          <div>            
           </div>
           <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
           <div className="font-bold">ለማ ደረሰ</div>
@@ -84,8 +91,8 @@ autoplayTimeout: 6000,
       </div>
     </div>,
     <div key={2}>
-      <div className="flex items-center justify-center gap-8 h-full">
-        <div className="bg-white rounded-2xl w-3/4  flex flex-col items-center justify-center p-8 text-lg">
+      <div className="flex items-center justify-center lg:gap-8 md:gap-8 sm:gap-2 h-full">
+        <div className="bg-white rounded-2xl w-3/4  flex flex-col items-center justify-center lg:p-8 md:p-8 sm:p-2 text-lg">
           <div>
             
           </div>
@@ -95,8 +102,8 @@ autoplayTimeout: 6000,
       </div>
     </div>,
     <div key={3}>
-      <div className="flex items-center justify-center gap-8 h-full">
-        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center p-8 text-lg">
+      <div className="flex items-center justify-center lg:gap-8 md:gap-8 sm:gap-2 h-full">
+        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center lg:p-8 md:p-8 sm:p-2 text-lg">
           <div>            
           </div>
           <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
@@ -121,8 +128,8 @@ autoplayTimeout: 6000,
               <p className="text-sm">ሐሙስ 4:30</p>
             </div>
             <div className="lg:w-2/4 md:w-2/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b sm:px-4">
-              <p className="text-lg">ወጥመድ ተሰበረ፥ እኛም አመለጥን (መዝ 88፥12)</p>
-              <p className="text-sm">ስብከት በብጹዕ አቡነ ናትናኤል</p>
+              <p className="text-lg text-center">ወጥመድ ተሰበረ፥ እኛም አመለጥን (መዝ 88፥12)</p>
+              <p className="text-sm text-center">ስብከት በብጹዕ አቡነ ናትናኤል</p>
               <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center sm:hidden">
                 <button className="w-full mx-auto text-lg font-bold text-white">
                   እይ
@@ -139,7 +146,7 @@ autoplayTimeout: 6000,
               <p className="text-sm">ሰኞ 3:30</p>
             </div>
             <div className="lg:w-2/4 md:w-2/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b sm:px-4">
-            <p className="text-lg">
+            <p className="text-lg text-center">
                 የመድኃኔዓለም በዓለ ንግስ አከባበር በደብራችን ደብረ መድኃኒት መድኃኔዓለም ቤተክርስቲያን
               </p>
               <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center sm:hidden">
@@ -272,7 +279,7 @@ autoplayTimeout: 6000,
             {items}
           </OwlCarousel>
         </div>
-        <div className="mt-10 bg-gray-100 p-6">
+        <div className="mt-10 bg-gray-100 lg:p-6 md:p-6 sm:p-2">
           <h1 className="text-3xl font-bold text-center">አስተያየታችሁ ያግዘናል</h1>
           <div className="mt-10">
           <OwlCarousel

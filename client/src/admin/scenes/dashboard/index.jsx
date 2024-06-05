@@ -1,4 +1,6 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { useRef, useState, useEffect } from "react";
+import axios from "axios";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -13,10 +15,56 @@ import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import Line from "../line";
+import Pie from "../pie";
+import Bar from "../bar";
+import html2canvas from 'html2canvas';
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const dashboardRef = useRef(null);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalEvents, setTotalEvents] = useState(0);
+
+  useEffect(() => {
+    const fetchTotalUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/admin/users');
+        setTotalUsers(response.data.length);
+      } catch (error) {
+        console.error('Error fetching total users:', error);
+      }
+    };
+
+    fetchTotalUsers();
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchTotalEvents = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:5000/admin/events');
+  //       setTotalEvents(response.data.length);
+  //     } catch (error) {
+  //       console.error('Error fetching total users:', error);
+  //     }
+  //   };
+
+  //   fetchTotalEvents();
+  // }, []);
+
+  const handleDownloadReports = () => {
+    html2canvas(dashboardRef.current, {
+      useCORS: true,
+      allowTaint: true,
+      scale: 2, // Adjust the scale factor for higher resolution
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = 'dashboard-screenshot.png';
+      link.href = imgData;
+      link.click();
+    });
+  };
 
   return (
     <Box m="20px">
@@ -33,6 +81,7 @@ const Dashboard = () => {
               fontWeight: "bold",
               padding: "10px 20px",
             }}
+            onClick={handleDownloadReports}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports
@@ -46,6 +95,7 @@ const Dashboard = () => {
         gridTemplateColumns="repeat(12, 1fr)"
         gridAutoRows="140px"
         gap="20px"
+        ref={dashboardRef}
       >
         {/* ROW 1 */}
         <Box
@@ -56,7 +106,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
+            title={totalUsers}
             subtitle="Members Joined"
             progress="0.75"
             increase="+14%"
@@ -113,7 +163,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
+            title={totalEvents}
             subtitle="Events Uploaded"
             progress="0.80"
             increase="+43%"
@@ -128,7 +178,7 @@ const Dashboard = () => {
         {/* ROW 2 */}
         <Box
           gridColumn="span 8"
-          gridRow="span 2"
+          gridRow="span 4"
           backgroundColor={colors.primary[400]}
         >
           <Box
@@ -140,27 +190,27 @@ const Dashboard = () => {
           >
             <Box>
               <Typography
-                variant="h5"
+                variant="h2"
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Donations Received
+                Users
               </Typography>
-              <Typography
+              {/* <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
               >
                 $59,342.32
-              </Typography>
+              </Typography> */}
             </Box>
-            <Box>
+            {/* <Box>
               <IconButton>
                 <DownloadOutlinedIcon
                   sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
                 />
               </IconButton>
-            </Box>
+            </Box> */}
           </Box>
           <Box height="250px" m="-20px 0 0 0">
             {/* <LineChart isDashboard={true} /> */}
@@ -169,11 +219,39 @@ const Dashboard = () => {
         </Box>
         <Box
           gridColumn="span 4"
-          gridRow="span 2"
+          gridRow="span 4"
           backgroundColor={colors.primary[400]}
           overflow="auto"
         >
+          {/* <Box
+          gridColumn="span 6"
+          gridRow="span 4"
+          backgroundColor={colors.primary[400]}
+          p="30px"
+        > */}
+          <Typography variant="h5" fontWeight="600" mt="25px" ml="10px">
+            Donations
+          </Typography>
           <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            // mt="25px"
+          >
+            {/* <ProgressCircle size="125" /> */}
+            <Pie isDashboard={true} />
+
+            {/* <Typography
+              variant="h5"
+              color={colors.greenAccent[500]}
+              sx={{ mt: "15px" }}
+            >
+              1400 Members Joined
+            </Typography> */}
+            {/* <Typography>Includes </Typography> */}
+          </Box>
+        {/* </Box> */}
+          {/* <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
@@ -184,8 +262,8 @@ const Dashboard = () => {
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
               Recent Transactions
             </Typography>
-          </Box>
-          {mockTransactions.map((transaction, i) => (
+          </Box> */}
+          {/* {mockTransactions.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
               display="flex"
@@ -215,37 +293,37 @@ const Dashboard = () => {
                 ${transaction.cost}
               </Box>
             </Box>
-          ))}
+          ))} */}
         </Box>
 
         {/* ROW 3 */}
-        <Box
-          gridColumn="span 6"
+        {/* <Box
+          gridColumn="span 12"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Members
+            Donations
           </Typography>
           <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
-            mt="25px"
+            // mt="25px"
           >
             <ProgressCircle size="125" />
+            <Bar isDashboard={true} />
             <Typography
               variant="h5"
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              1400 Members Joined
+              1400 Donations Made
             </Typography>
-            {/* <Typography>Includes </Typography> */}
           </Box>
-        </Box>
-        <Box
+        </Box> */}
+        {/* <Box
           gridColumn="span 6"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -260,7 +338,7 @@ const Dashboard = () => {
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

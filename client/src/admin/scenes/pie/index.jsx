@@ -65,7 +65,7 @@ const Line = () => {
 
   return (
     <Box m="20px">
-      <Header title="Pie Chart" subtitle="Simple Pie Chart" />
+      <Header subtitle="Pie Chart" />
       <Box height="75vh">
         <PieChart data={getPieChartData()} nameKey="name" valueKey="value" />
       </Box>

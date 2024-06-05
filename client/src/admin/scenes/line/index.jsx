@@ -48,7 +48,7 @@ const Line = () => {
 
   return (
     <Box m="20px">
-      <Header title="Line Chart" subtitle="Simple Line Chart" />
+      <Header subtitle="Line Chart" />
       <Box height="75vh">
       {/* <LineChart data={userData} xKey="createdAt" yKey="id" /> */}
       <LineChart data={getWeekData()} xKey="week" yKey="userCount" />

@@ -9,7 +9,9 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { saveAs } from 'file-saver';
-import { utils, write } from 'xlsx';
+// import { utils, write } from 'xlsx';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import LineChart from '../../components/LineChart';
 
 const User = () => {
@@ -110,35 +112,66 @@ const User = () => {
     }
   };
 
+  // const handleGenerateReport = async () => {
+  //   try {
+  //     setReportGenerating(true);
+
+  //     // Generate the report data
+  //     const reportData = users.map((user) => ({
+  //       ID: user.id,
+  //       'First Name': user.firstName,
+  //       'Last Name': user.lastName,
+  //       'Phone Number': user.phone,
+  //       'Email': user.email,
+  //     }));
+
+  //     // Create a new workbook and worksheet
+  //     const workbook = utils.book_new();
+  //     const worksheet = utils.json_to_sheet(reportData);
+
+  //     // Add the worksheet to the workbook
+  //     utils.book_append_sheet(workbook, worksheet, 'Users');
+
+  //     // Generate the Excel file
+  //     const excelBuffer = write(workbook, { type: 'array', bookType: 'xlsx' });
+
+  //     // Create a file blob from the buffer
+  //     const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+  //     // Save the file using file-saver
+  //     saveAs(blob, 'user_report.xlsx');
+
+  //     setReportGenerating(false);
+  //   } catch (error) {
+  //     console.error('Error generating report:', error);
+  //   }
+  // };
+
   const handleGenerateReport = async () => {
     try {
       setReportGenerating(true);
-
+  
       // Generate the report data
-      const reportData = users.map((user) => ({
-        ID: user.id,
-        'First Name': user.firstName,
-        'Last Name': user.lastName,
-        'Phone Number': user.phone,
-        'Email': user.email,
-      }));
-
-      // Create a new workbook and worksheet
-      const workbook = utils.book_new();
-      const worksheet = utils.json_to_sheet(reportData);
-
-      // Add the worksheet to the workbook
-      utils.book_append_sheet(workbook, worksheet, 'Users');
-
-      // Generate the Excel file
-      const excelBuffer = write(workbook, { type: 'array', bookType: 'xlsx' });
-
-      // Create a file blob from the buffer
-      const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-      // Save the file using file-saver
-      saveAs(blob, 'user_report.xlsx');
-
+      const reportData = users.map((user) => [
+        user.id,
+        user.firstName,
+        user.lastName,
+        user.phone,
+        user.email,
+      ]);
+  
+      // Create a new PDF document
+      const doc = new jsPDF();
+  
+      // Add the report data to the PDF using jspdf-autotable
+      doc.autoTable({
+        head: [['ID', 'First Name', 'Last Name', 'Phone Number', 'Email']],
+        body: reportData,
+      });
+  
+      // Save the PDF file
+      doc.save('user_report.pdf');
+  
       setReportGenerating(false);
     } catch (error) {
       console.error('Error generating report:', error);
@@ -170,19 +203,19 @@ const User = () => {
       headerName: "Email",
       flex: 1,
     },
-    {
-      field: "edit",
-      headerName: "Edit",
-      flex: 0.5,
-      renderCell: (params) => (
-        <IconButton
-          aria-label="edit"
-          onClick={() => handleEdit(params.row.id)}
-        >
-          <EditIcon />
-        </IconButton>
-      ),
-    },
+    // {
+    //   field: "edit",
+    //   headerName: "Edit",
+    //   flex: 0.5,
+    //   renderCell: (params) => (
+    //     <IconButton
+    //       aria-label="edit"
+    //       onClick={() => handleEdit(params.row.id)}
+    //     >
+    //       <EditIcon />
+    //     </IconButton>
+    //   ),
+    // },
     {
       field: "delete",
       headerName: "Delete",

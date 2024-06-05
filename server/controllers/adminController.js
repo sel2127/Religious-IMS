@@ -48,9 +48,8 @@ export const logout = (req, res) => {
     secure: true,
     sameSite: 'Strict'
   });
-  
-  // res.redirect('/admin/login');
   res.json({ success: true, message: 'Logout successful' });  
+  // res.redirect('/admin/login');
 };
 
 // export const sendPasswordResetEmail = async (req, res) => {

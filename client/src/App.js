@@ -53,11 +53,11 @@ function App() {
   >
     <Router>
       <div className={shouldApplyPadding ? "app-container px-4 md:px-8 lg:px-16 xl:px-20": ""}>
-      {!isPathInAdmin && <Header />}
+      {/* {!isPathInAdmin && <Header />} */}
       {/* <GoogleTranslate /> */}
       {/* <Breadcrumb/> */}
       <Routes>
-      <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
         <Route path="/sunday" element={<SundaySchool />} />
         <Route path="/login" element={<Login />} />

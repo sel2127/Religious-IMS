@@ -18,9 +18,9 @@ const Header = () => {
             <img src={Logo} alt="Logo" className="w-20" />
           </div>
           <div className="w-2/4 flex items-center">
-            <div className="w-2/3 mx-auto border border-gray-400 rounded-full h-10 px-5 flex items-center">
+            {/* <div className="w-2/3 mx-auto border border-gray-400 rounded-full h-10 px-5 flex items-center">
               <input type="text" placeholder="ፈልግ" className="" />
-            </div>
+            </div> */}
           </div>
           <div className="w-1/4 flex items-center">
             <div className="w-1/5 flex justify-end">

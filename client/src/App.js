@@ -38,17 +38,14 @@ export const RecoveryContext = createContext();
 
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
-  const shouldApplyPadding = !isPathInAdmin;
-
-  
+  const shouldApplyPadding = !isPathInAdmin;  
   const [email, setEmail] = useState();
   const [otp, setOTP] = useState();
-
- 
+  const [setPage] = useState();
 
   return (
     <RecoveryContext.Provider
-    value={{ otp, setOTP, setEmail, email }}
+    value={{ otp, setOTP, setEmail, email , setPage }}
   >
     <Router>
       <div className={shouldApplyPadding ? "app-container" : ""}>

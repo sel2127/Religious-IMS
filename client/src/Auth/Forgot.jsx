@@ -13,7 +13,7 @@ const Forgot = () => {
     function nagigateToOtp() {
       if (email) {
         const OTP = Math.floor(Math.random() * 9000 + 1000);
-        console.log(OTP);
+        // console.log(OTP);
         setOTP(OTP);
   
         axios 

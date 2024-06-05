@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import "../assets/styles/main.css";
-import axios from "axios";
+import React, { useState } from 'react'
+import '../assets/styles/main.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserLoggedIn } from '../app/reducers/authReducer';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [phoneLogin, setPhoneLogin] = useState("");
@@ -18,6 +20,9 @@ const Login = () => {
   };
 
   const validateForm = () => {
+    // Regular expression pattern to match email format
+
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/; // Regular expression for 10-digit phone number
 
     if (!phoneLogin || !passwordLogin) {
@@ -39,18 +44,20 @@ const Login = () => {
     return true;
   };
 
+  const dispatch = useDispatch();
   const loginn = () => {
     axios.defaults.withCredentials = true;
-
+    // Add the token to the request headers for subsequent requests
+    //  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     if (validateForm()) {
-      axios
-        .post("http://localhost:5000/user/login", {
-          phone: phoneLogin,
-          password: passwordLogin,
-        })
+      axios.post('http://localhost:5000/user/login', {
+        phone: phoneLogin,
+        password: passwordLogin
+      })
         .then((response) => {
           console.log(response);
-          navigate("/"); // Redirect to the home
+          dispatch(setUserLoggedIn(true)); // Dispatch action to update login status
+          navigate('/'); // Redirect to the home
         })
         .catch((error) => {
           console.error(error);
@@ -58,6 +65,8 @@ const Login = () => {
         });
     }
   };
+
+
 
   return (
     <div>
@@ -101,19 +110,17 @@ const Login = () => {
             <div className="w-1/2 flex items-center justify-end underline decoration-dotted cursor-pointer hover:text-[#79a6d2]">
               <a href="/forgot">የይለፍ ቃል ረሳሁ</a>
             </div>
+            <div className='w-1/2 flex items-center justify-end underline decoration-dotted cursor-pointer hover:text-[#79a6d2]'>
+              <a href="/forgot">የይለፍ ቃል ረሳሁ</a></div>
           </div>
           <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-            <button
-              onClick={loginn}
-              className="w-full mx-auto text-base font-bold text-white"
-            >
+            <button onClick={loginn} className="w-full mx-auto text-base font-bold text-white">
               ግባ
             </button>
           </div>
-          <div className="mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]">
-            <a href="/register">አዲስ አካውንት ለመክፈት</a>
-          </div>
-       </div>
+          <div className='mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]'><a href="/register">አዲስ አካውንት ለመክፈት</a></div>
+
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import aba from "../assets/Images/aba.jpg";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; // For protected routes
 import { setUserData } from '../app/actions/userAction';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -14,7 +15,8 @@ const ProfilePage = () => {
 
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -28,19 +30,23 @@ const ProfilePage = () => {
   };
 
 
-  const fetchData = async (dispatch) => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/userinfo', userData, {
-        withCredentials: true, 
-      });
-  
-      const userData = response.data.user;
-      dispatch(setUserData(userData));
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
-  
+const fetchData = async (dispatch) => {
+  try {
+    const response = await axios.get('http://localhost:5000/api/userinfo', {
+      withCredentials: true, // Ensure cookies are sent with the request
+    });
+
+    const userData = response.data.user;
+    dispatch(setUserData(userData));
+  } catch (error) {
+  if (error.response && error.response.status === 401) {
+    console.error('Error fetching user profile:', error);
+    // Redirect to login page or display an error message
+    navigate('/login'); // Adjust redirection if needed
+  } 
+  }
+};
+
 
   useEffect(() => {
     // Check if image data exists in localStorage

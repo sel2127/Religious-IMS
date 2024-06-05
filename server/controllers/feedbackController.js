@@ -49,8 +49,6 @@ export const createFeedback = [
 
     const userId = req.userId;
 
-   
-
     try {
       const existingFeedback = await Feedback.findOne({ where: { userId } });
       if (existingFeedback) {
@@ -218,7 +216,7 @@ export const getAllFeedbackWithWriterName = async (req, res) => {
         },
       ],
       order: [['createdAt', 'DESC']], 
-      limit: 2, 
+      limit: 3, 
     });
 
     if (feedbacks.length > 0) {

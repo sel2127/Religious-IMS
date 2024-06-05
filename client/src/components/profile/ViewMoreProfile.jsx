@@ -9,7 +9,7 @@ function ViewMoreProfile() {
   const userDataFromStore = useSelector((state) => state.user.userData);
   console.log(userDataFromStore);
   return (
-    <div className="w-full">
+    <div className="">
     <div className=" w-full rounded-lg">
       <div className="flex flex-col lg:flex-row">
         {/* sidebar */}

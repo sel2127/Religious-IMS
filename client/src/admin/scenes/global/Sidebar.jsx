@@ -19,6 +19,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import { FaUser } from "react-icons/fa";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -239,7 +240,13 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
+        <Item
+              title="memberships"
+              to="/admin/members"
+              icon={<FaUser />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Item
               title="Donations"
               to="/admin/donation"

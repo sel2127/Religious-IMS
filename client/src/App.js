@@ -31,7 +31,7 @@ import ViewMoreProfile from './components/profile/ViewMoreProfile';
 import OTPInput from "./Auth/OTPInput";
 import Reset from "./Auth/Reset";
 
-import GoogleTranslate from './common/GoogleTranslate';
+//import GoogleTranslate from './common/GoogleTranslate';
 import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
 import EventSearch from './components/EventSearch';

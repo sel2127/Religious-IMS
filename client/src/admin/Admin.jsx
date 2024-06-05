@@ -19,6 +19,7 @@ import EventUpload from "./scenes/eventUpload"
 import FAQ from "./scenes/faq";
 import Login from "./login";
 import Forgot from "./forgot";
+import Membership from './scenes/membership';
 
 function Admin() {
   const [theme, colorMode] = useMode();
@@ -64,6 +65,7 @@ function Admin() {
           <Route path="team" element={<Team />} />
           <Route path="users" element={<Users />} />
           <Route path="donation" element={<Donations />} />
+          <Route path="members" element={<Membership />} />
           <Route path="form" element={<Form />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="bar" element={<Bar />} />

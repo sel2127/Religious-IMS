@@ -58,6 +58,7 @@ export function isAuthenticated(req, res, next) {
         message: "User does not exist", 
       });
     }
+    
 
     next();// Allow access to the route
   } catch (error) {

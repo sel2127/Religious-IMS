@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { setImagePreview } from '../app/actions/imageAction';
 import aba from "../assets/Images/aba.jpg";
-import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
 import { useNavigate } from 'react-router-dom'; 
 import { setUserData } from '../app/actions/userAction';
@@ -98,9 +97,8 @@ const fetchData = async (dispatch) => {
 
   return (
     <div className="w-full">
-      <Breadcrumb />
       <div className=" w-full rounded-lg">
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row md:flex-row">
           {/* sidebar */}
           <div>
             <SideBarr />
@@ -114,7 +112,7 @@ const fetchData = async (dispatch) => {
                     <img
                       src={imagePreview ? imagePreview : aba}
                       alt="profile"
-                      className="h-60 w-60 rounded-full mt-10 m-auto cursor-pointer"
+                      className="lg:h-60 lg:w-60 sm:w-32 sm:h-32 rounded-full mt-10 m-auto cursor-pointer"
                     />
                   </label>
                   <input
@@ -135,7 +133,7 @@ const fetchData = async (dispatch) => {
                   </div>
                 </div>
                 <div className="justify-center items-center mt-10">
-                  <p className='text-center font-bold text-3xl'>ድህረገጻችንን ስለጎበኙ እናመሰግናለን!</p>
+                  <p className='text-center font-bold md:font-semibold text-3xl md:text-2xl'>ድህረገጻችንን ስለጎበኙ እናመሰግናለን!</p>
                 </div>
               </div>
             </div>

@@ -11,19 +11,15 @@ import calendarRoutes from "./routes/calendarRoutes.js";
 // import { authMiddleware } from './middlewares/authMiddleware.js';
 import UserRoute from "./routes/UserRoutes.js";
 import donationRoute from "./routes/donationRoutes.js";
-import FeedbackRoute from './routes/FeedbackRoute.js'
-import path from 'path'
-import { Sequelize } from "sequelize";
-const app = express();
-const __dirname = path.resolve();
-
-// Serve uploaded files from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js';
+import feedbackRoute from './routes/feedbackRoute.js';
+import memberRoute from './routes/memberRoute.js'
 dotenv.config();
+const app = express();
 
 // Configure CORS
 app.use(cors({
-    credentials: true,
+     credentials: true,
     origin: ['http://localhost:3000'],
     methods: ['POST', 'GET','PUT','DELETE'],
 }));
@@ -32,6 +28,12 @@ db.sync()
 // Parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded());
+
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     next();
+//   });
 
 // Serve static files
 app.use(express.static("public"));
@@ -58,7 +60,8 @@ app.use(session({
 // Define routes
 app.use(donationRoute);
 app.use(UserRoute); // Use the UserRoute without prefixing here
-app.use(FeedbackRoute);
+app.use(feedbackRoute);
+app.use(memberRoute);
 app.use("/events", eventRouter);
 
 // Mount upload routes
@@ -71,6 +74,8 @@ app.use("/api", calendarRoutes);
 // app.use("/adminlogin", adminRouter);
 app.use("/admin", adminRouter);
 
+//for password Recovery
+app.use(passwordRecoveryRoute);
 
 
 // Apply authMiddleware only to routes that require authentication
@@ -81,8 +86,8 @@ app.use((req, res) => {
     res.status(404).send("Not Found");
 });
 
- //Start the server
- const PORT = process.env.PORT || 5000;
- app.listen(PORT, () => {
-     console.log(`Server is running on port ${PORT}`);
- });
+// Start the server
+const port = process.env.APP_PORT;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});

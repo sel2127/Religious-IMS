@@ -109,8 +109,9 @@ const Header = () => {
                   </svg>
                 </div>
                 <div class="dropdown-content">
-                  <a href="/feedback">አስተያየቶች</a>
+                  <a href="/member">ሰብካ ጉባዬ ምዝገባ</a>
                   <a href="/donation">ልገሳ</a>
+                  <a href="/feedback">አስተያየቶች</a>
                   <a href="#">Link 3</a>
                 </div>
               </div>

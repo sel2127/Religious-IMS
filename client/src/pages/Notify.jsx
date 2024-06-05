@@ -3,8 +3,6 @@ import Logo from "../assets/Images/logo.png";
 import "../assets/styles/notify.css";
 
 const Notify = () => {
-  // for event search
-
   const modalRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -28,7 +26,7 @@ const Notify = () => {
   // }, []);
 
   useEffect(() => {
-   // fetch events from server
+    // Fetch events from the server
     fetch("http://localhost:5000/events")
       .then((response) => response.json())
       .then((data) => {

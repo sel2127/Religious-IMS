@@ -61,7 +61,7 @@ const ProfilePage = () => {
   return (
     <div className="w-full">
       <div className=" w-full rounded-lg">
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:flex-row md:flex-row">
           {/* sidebar */}
           <div>
             <SideBarr />

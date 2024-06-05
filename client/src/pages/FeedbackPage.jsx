@@ -59,9 +59,9 @@ const FeedbackPage = () => {
  
 
   return (
-    <div className="w-full m-auto">
+    <div className="lg:w-full  m-auto">
       <ToastContainer />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-8">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-8 ">
         {
   feedbackData && feedbackData.length === 0 ? (
     <div className="text-center text-gray-500">No feedbacks found.</div>
@@ -69,9 +69,9 @@ const FeedbackPage = () => {
             feedbackData.map((feedback) => (
               <div
                 key={feedback.feedbackId}
-                className="h-auto bg-gray-200 text-black rounded-md"
+                className="h-auto bg-gray-200 text-black rounded-md "
               >
-                <div className="rounded-t-xl flex justify-start items-center ml-2 mt-5">
+                <div className="rounded-t-xl flex justify-start items-center  lg:ml-2 mt-5">
                   <img
                     src={
                       getUserImageFromLocalStorage(feedback.userId)
@@ -79,11 +79,11 @@ const FeedbackPage = () => {
                         : Ava
                     }
                     alt="Profile Image"
-                    className="rounded-full w-32 h-32"
+                    className="rounded-full md:w-32 md:h-32 sm:w-20 sm:h-20"
                   />
-                  <div className="ml-2">
-                    <p className="text-base font-semibold">{feedback.writer}</p>
-                    <p className="text-base font-semibold">{feedback.email}</p>
+                  <div className="md:ml-2">
+                    <p className="text-base md:text-sm font-semibold">{feedback.writer}</p>
+                    <p className="text-base  md:text-sm font-semibold">{feedback.email}</p>
                   </div>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-4 p-4">

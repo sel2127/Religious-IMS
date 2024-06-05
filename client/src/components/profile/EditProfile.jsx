@@ -1,5 +1,4 @@
 import React from "react";
-import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -29,9 +28,8 @@ const EditProfile = () => {
 
   return (
     <div className="w-full">
-      <Breadcrumb />
       <div className=" w-full rounded-lg">
-        <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit your profile here</h1>
+        {/* <h1 className="text-center text-3xl font-bold custom-font mb-4">Edit your profile here</h1> */}
 
         <div className="flex flex-col lg:flex-row ">
           <div>

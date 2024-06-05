@@ -43,5 +43,10 @@ adminRouter.post('/forgot', forgot);
 adminRouter.get('/reset/:token', reset);
 adminRouter.post('/reset/:token', updateAdminPassword);
 
+adminRouter.get('/users', getUsers);
+adminRouter.post('/users', createUser);
+adminRouter.get('/users/:id', getUserById);
+adminRouter.put('/users/:id', updateUser);
+adminRouter.delete('/users/:id', deleteUser);
 
 export default adminRouter;

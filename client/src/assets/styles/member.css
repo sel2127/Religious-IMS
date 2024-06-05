@@ -1,0 +1,30 @@
+.container {
+    width: 100%;
+    max-width: 600px; /* Set a maximum width for the form */
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Styles for mobile devices */
+  @media (max-width: 320px) {
+    .container {
+      padding: 0; 
+    }
+    
+    
+  }
+  
+  /* Styles for tablet devices */
+  @media (min-width: 321px) and (max-width: 768px) {
+    .container {
+      max-width: 500px; /* Adjust the maximum width for tablets */
+    }
+  }
+  
+  /* Styles for larger screens (laptops and desktops) */
+  @media (min-width: 769px) {
+    .container {
+      max-width: 600px;
+      padding: 20px;
+    }
+  }

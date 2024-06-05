@@ -67,7 +67,7 @@ export function isAuthenticated(req, res, next) {
     if (!users) {
       return res.status(404).json({
         success: false,
-        message: "User does not exist",
+        message: "User does not exist", 
       });
     }
 

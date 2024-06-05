@@ -42,9 +42,9 @@ function ChangePassword() {
 
   return (
     <div className="w-full">
-      <h1 className="text-center text-3xl font-bold custom-font mb-4">
+      {/* <h1 className="text-center text-3xl font-bold custom-font mb-4">
         Change Your Password
-      </h1>
+      </h1> */}
 
       <div className="change-password-container  ">
         <div className=" w-full rounded-lg">

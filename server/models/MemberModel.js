@@ -1,52 +1,62 @@
-// models/MemberModel.js
+import { Sequelize } from "sequelize";
+import db from "../config/Database.js"; 
+import Users from "../models/Users.js";
 
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/connection');
-const User = require('./user');
+const { DataTypes } = Sequelize;
 
-const MemberModel = sequelize.define('MemberModel', {
+  const MemberModel = db.define('Member', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: User,
-          key: 'id'
-        }
-      },
-  fullname: {
-    type: DataTypes.STRING,
-    allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+          model: Users,
+          key: 'id',
+      }
   },
-  gender: {
-    type: DataTypes.STRING, // Assuming you want to store 'Male' or 'Female'
-    allowNull: false
-  },
-  age: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
- 
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
+    
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    bapiname: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    fathername: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    adress: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique:true
+    },
+    gender: {
+      type: DataTypes.ENUM('male', 'female'),
+      allowNull: false
+    }
+  });
+  MemberModel.belongsTo(Users, { foreignKey: 'userId' });
 
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  address: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
 
-
-}, {
-  // Other model options (if any)
-});
-
-// Define the association between MemberModel and User models
-MemberModel.belongsTo(User, { foreignKey: 'userId' });
-
-module.exports = MemberModel;
+export default MemberModel;

@@ -34,7 +34,7 @@ export const searchEvent = async (req, res) => {
   try {
     const events = await EventModel.findAll({
       order: [['createdAt', 'DESC']], // sort by date
-
+    limit:3,
       where: {
         [Op.or]: [
           { eventName: { [Op.like]: `%${query}%` } },

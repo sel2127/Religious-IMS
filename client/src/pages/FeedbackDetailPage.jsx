@@ -20,23 +20,7 @@ const FeedbackDetailPage = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
-  //const { feedbackData, loading, error } = useSelector((state) => state.feedback.feedbackData);
-  //const dispatch=useDispatch();
-  // fecth feedback with name
-  // useEffect(() => {
-  //   const fetchFeedbackData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `http://localhost:5000/api/feedback/byname/${id}`
-  //       );
-  //       setFeedbackData(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchFeedbackData();
-  // }, [id]);
+ 
 
   const dispatch = useDispatch();
   const feedbackData = useSelector((state) => state.feedback.feedbackData);
@@ -78,13 +62,13 @@ const FeedbackDetailPage = () => {
   };
 
   return (
-    <div className="w-full m-auto">
+    <div className="w-full m-auto ">
       <ToastContainer />
-      <div className="  lg:grid-cols-1  mt-8">
+      <div className="  lg:grid-cols-1   mt-8 ">
         {feedbackData.map((feedback) => (
           <div
             key={feedback.feedbackId}
-            className="h-auto bg-gray-200 text-black rounded-xl"
+            className="h-auto bg-gray-200 text-black rounded-xl "
           >
             <div className="rounded-t-xl flex justify-center items-center">
               <img
@@ -94,20 +78,20 @@ const FeedbackDetailPage = () => {
                     : Ava
                 }
                 alt="Profile Image"
-                className="rounded-full w-32 h-32 mt-10"
-              />
+                className="rounded-full mt-5 md:w-32 md:h-32 sm:w-20 sm:h-20"
+                />
               <div className="ml-2">
-                <p className="text-base font-semibold">
+                <p className="text-base md:font-semibold">
                   {feedback.firstName} {feedback.lastName}
                 </p>
-                <p className="text-base font-semibold">{feedback.email}</p>
+                <p className="text-base md:font-semibold">{feedback.email}</p>
               </div>
             </div>
             <div className="flex flex-col justify-center items-center gap-4 p-4">
               <p className="mt-5">{feedback.message}</p>
-              <div className="flex gap-8 mt-5">
+              <div className="flex sm:flex-col  md:flex-row lg:flex-row gap-8 mt-5 ">
                 <Link to={`/editfeedback/${feedback.feedbackId}`}>
-                  <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                  <button className="text-white bg-dark-blue lg:text-xl sm:text-base px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
                     <FaEdit />
                   </button>
                 </Link>

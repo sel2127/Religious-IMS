@@ -88,28 +88,7 @@ const EditFeedbackForm = () => {
                 onSubmit={handleSubmit}
                 className=" flex flex-col space-y-4  mt-10  "
               >
-                {/* <input
-                  type="text"
-                  id="name"
-                  placeholder="ስም"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
-         ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
-                  required
-                  autoComplete="name"
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500
-  mt-5 ml-10 mr-10  h-10 px-6 border border-gray-300  rounded-full"
-                  required
-                  autoComplete="email"
-                /> */}
+               
                 <textarea
                   rows={8}
                   placeholder="አስተያየትዎን እዚህ ላይ ይጻፉ.... "

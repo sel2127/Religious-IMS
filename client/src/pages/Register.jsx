@@ -12,7 +12,7 @@ const Register = () => {
             id="fristname"
             name="fristname"
             placeholder="የእርስዎ ስም"
-            className=" mt-10 w-full h-10 px-6 border border-gray-300  rounded-full"
+            className=" mt-10 w-full  border border-gray-300  rounded-full"
             required
             onInput={(e) => {
               if (e.target.value.length < 3) {

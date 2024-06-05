@@ -29,13 +29,13 @@ import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
 import OTPInput from "./Auth/OTPInput";
 import Reset from "./Auth/Reset";
-import GoogleTranslate from './common/GoogleTranslate';
 import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
 import EventSearch from './components/EventSearch';
 
 
 export const RecoveryContext = createContext();
+
 
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
@@ -45,17 +45,19 @@ function App() {
   const [email, setEmail] = useState();
   const [otp, setOTP] = useState();
 
- 
+
 
   return (
     <RecoveryContext.Provider
     value={{ otp, setOTP, setEmail, email }}
   >
+    <RecoveryContext.Provider
+    value={{ otp, setOTP, setEmail, email }}
+  >
     <Router>
       <div className={shouldApplyPadding ? "app-container px-4 md:px-8 lg:px-16 xl:px-20": ""}>
-      {/* {!isPathInAdmin && <Header />} */}
-      {/* <GoogleTranslate /> */}
-      {/* <Breadcrumb/> */}
+      <Header/>
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
@@ -74,9 +76,12 @@ function App() {
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />
         <Route path="/feedback" element={<FeedbackPage/>}/>
+        <Route path="/feedback" element={<FeedbackPage/>}/>
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path='/feedbackform' element={<FeedbackForm/>}/>
+        <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
+        <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
         <Route path='/editprofile' element={<EditProfile/>}/>
         <Route path='/changepassword' element={<ChangePassword/>}/>
         <Route path='/viewmoreprofile' element={<ViewMoreProfile/>}/>
@@ -92,6 +97,7 @@ function App() {
       </div>
       
     </Router>
+    </RecoveryContext.Provider>
     </RecoveryContext.Provider>
   );
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { loginSuccess, loginFailure, registerSuccess, registerFailure } from '../actions/authAction';
+import { donateSuccess, donateFailure } from '../actions/donationAction';
 
 export const loginUser = (phone, password) => async (dispatch) => {
   try {

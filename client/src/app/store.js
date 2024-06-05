@@ -8,6 +8,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import passwordReducer from './reducers/passwordReducer';
 import authReducer from './reducers/authReducer';
 import chatReducer from './reducers/chatReducer';
+import donationReducer from './reducers/donationReducer';
 
 
 const persistConfig={

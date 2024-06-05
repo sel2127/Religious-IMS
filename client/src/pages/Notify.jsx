@@ -114,16 +114,9 @@ const Notify = () => {
   }, []);
 
   return (
-    <div className="">
-      <div className="mt-5">
-       {/* <SearchInput
-         value={searchQuery}
-         onChange={(e) => setSearchQuery(e.target.value)}
-         placeholder="Search events"
-       /> */}
-      </div>
-      <div className="w-full bg-gray-100 py-12 mt-5">
-        <div className="w-1/2 bg-white p-10 mx-auto">
+    <div>
+      <div className="w-full bg-gray-100 py-12">
+        <div className="lg:w-1/2 md:w-3/4 sm:w-5/6 bg-white p-10 mx-auto">
           <div id="myBtn" className="">
             {filteredEvents.map((event) => {
               // Extract the date portion from the eventdate string
@@ -134,7 +127,7 @@ const Notify = () => {
                 <div key={event.id}>
                   <div className="flex items-center border-b border-gray-200 py-6">
 
-                    <div className="w-1/2 flex items-center gap-4 cursor-pointer" onClick={() => openModal(event)}>
+                    <div className="w-1/2 lg:flex md:flex sm:block items-center gap-4 cursor-pointer" onClick={() => openModal(event)}>
                       {/* Display event details */}
                       <div className="w-1/4">
                         <img src={`../../assets/${event.eventImage}`} alt="image" className="w-20" />

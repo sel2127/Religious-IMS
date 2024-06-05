@@ -79,6 +79,7 @@ const EventUpload = () => {
     );
   };
 
+  
   return (
     <Box m="20px">
       <Header title="Event Upload" subtitle="Upload an Event" />

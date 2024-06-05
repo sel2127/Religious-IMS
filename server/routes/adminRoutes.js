@@ -11,7 +11,8 @@ import {
     updateUser,
     deleteUser,
     forgot,
-    reset
+    reset,
+    updateAdminPassword
   } from '../controllers/adminController.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 const adminRouter = express.Router();
@@ -39,5 +40,8 @@ adminRouter.put('/users/:id', updateUser);
 adminRouter.delete('/users/:id', deleteUser);
 
 adminRouter.post('/forgot', forgot);
-adminRouter.post('/reset', reset);
+adminRouter.get('/reset/:token', reset);
+adminRouter.post('/reset/:token', updateAdminPassword);
+
+
 export default adminRouter;

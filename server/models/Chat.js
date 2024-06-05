@@ -1,23 +1,37 @@
-import { Sequelize } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import db from '../config/Database.js';
+import User from './Users.js';
+import { AdminModel } from './adminModel.js';
 
-const { DataTypes } = Sequelize;
-
-const Chat = db.define('chat', {
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+const Chat = db.define('Chat', {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id',
     },
-    content: {
-        type: DataTypes.STRING,
-        allowNull: false
+  },
+  adminId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: AdminModel,
+      key: 'id',
     },
-    sender: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-}, {
-    timestamps: true
+  },
+  content: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sender: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  timestamp: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
 });
 
 export default Chat;

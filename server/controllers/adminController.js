@@ -1,31 +1,19 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {AdminModel} from '../models/adminModel.js';
-
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import multer from 'multer';
 import Users from "../models/Users.js";
 import nodemailer from "nodemailer";
 import crypto from 'crypto';
+import {AdminModel} from '../models/adminModel.js';
+
 
 // Method to insert default admin
 export const insertDefaultAdmin = async (req, res) => {
   // Get the email and password from the request body
   const { email, password } = req.body;
   try {
-    // const saltRounds = 10;
-    // const hashedPassword = await bcrypt.hash('admin', saltRounds);
-
-    // // Create the default admin record in the database    
-    // await AdminModel.create({
-    //   firstname: 'admin',
-    //   lastname: 'admin',
-    //   email: 'admin@gmail.com',
-    //   phone: '0011223344',
-    //   password: hashedPassword,
-    //   image: null,
-    //   role: 'admin'
-    // });
+  
 
     // Check if the email exists in the database
     const admin = await AdminModel.findOne({ where: { email } });
@@ -40,7 +28,7 @@ export const insertDefaultAdmin = async (req, res) => {
     }
 
     // Token-based authentication
-    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '1h' });
+    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '7h' });
 
     // Return the token to the client
     res.cookie('admin_token', token, {
@@ -60,47 +48,46 @@ export const logout = (req, res) => {
     secure: true,
     sameSite: 'Strict'
   });
-  
-  // res.redirect('/admin/login');
   res.json({ success: true, message: 'Logout successful' });  
+  // res.redirect('/admin/login');
 };
 
-export const sendPasswordResetEmail = async (req, res) => {
-  const { email } = req.body;
+// export const sendPasswordResetEmail = async (req, res) => {
+//   const { email } = req.body;
 
-  try {
-    // Generate a unique reset token
-    const resetToken = crypto.randomBytes(20).toString('hex');
+//   try {
+//     // Generate a unique reset token
+//     const resetToken = crypto.randomBytes(20).toString('hex');
 
-    // Save the reset token and its expiration date in the database (associated with the user's email)
+//     // Save the reset token and its expiration date in the database (associated with the user's email)
 
-    // Generate the password reset confirmation URL
-    const resetURL = `http://localhost:3000/reset-password/${resetToken}`;
+//     // Generate the password reset confirmation URL
+//     const resetURL = `http://localhost:3000/reset/${resetToken}`;
 
-    // Create a nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      // Configure your email provider here
-    });
+//     // Create a nodemailer transporter
+//     const transporter = nodemailer.createTransport({
+//       // Configure your email provider here
+//     });
 
-    // Create the email content
-    const mailOptions = {
-      from: 'debremedhanit27@example.com',
-      to: email,
-      subject: 'Password Reset',
-      html: `<p>Please click the following link to reset your password:</p>
-             <p><a href="${resetURL}">${resetURL}</a></p>`,
-    };
+//     // Create the email content
+//     const mailOptions = {
+//       from: 'debremedhanit27@example.com',
+//       to: email,
+//       subject: 'Password Reset',
+//       html: `<p>Please click the following link to reset your password:</p>
+//              <p><a href="${resetURL}">${resetURL}</a></p>`,
+//     };
 
-    // Send the email
-    await transporter.sendMail(mailOptions);
+//     // Send the email
+//     await transporter.sendMail(mailOptions);
 
-    // Return success response
-    res.json({ success: true, message: 'Password reset email sent' });
-  } catch (error) {
-    console.error('Error sending password reset email:', error);
-    res.status(500).json({ success: false, message: 'Error sending password reset email' });
-  }
-};
+//     // Return success response
+//     res.json({ success: true, message: 'Password reset email sent' });
+//   } catch (error) {
+//     console.error('Error sending password reset email:', error);
+//     res.status(500).json({ success: false, message: 'Error sending password reset email' });
+//   }
+// };
 
 // export const getAdminProfile = async (req, res) => {
 //   try {
@@ -283,90 +270,124 @@ export const deleteUser = async (req, res) => {
 };
 
 // Generate a random verification code
-const generateVerificationCode = () => {
-  const codeLength = 6;
-  const characters = '0123456789';
+// const generateVerificationCode = () => {
+//   const codeLength = 6;
+//   const characters = '0123456789';
 
-  let verificationCode = ''
-  for (let i = 0; i < codeLength; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    verificationCode += characters.charAt(randomIndex);
-  }
+//   let verificationCode = ''
+//   for (let i = 0; i < codeLength; i++) {
+//     const randomIndex = Math.floor(Math.random() * characters.length);
+//     verificationCode += characters.charAt(randomIndex);
+//   }
 
-  return verificationCode;
-}
+//   return verificationCode;
+// }
 
-const sendVerificationCode = async (email, verificationCode) => {
-  const transporter = nodemailer.createTransport({
-    // Configure email provider
-    service: 'gmail',
-    auth: {
-      user: 'debremedhanit27@gmail.com',
-      pass: '12345678',
-    },
-  });
+// const sendVerificationCode = async (email, verificationCode) => {
+//   const transporter = nodemailer.createTransport({
+//     // Configure email provider
+//     service: 'gmail',
+//     auth: {
+//       user: 'debremedhanit27@gmail.com',
+//       pass: '12345678',
+//     },
+//   });
 
-  const mailOptions = {
-    from: 'debremedhanit27@gmail.com',
-    to: email,
-    subject: 'Password Reset Verification Code',
-    text: `Your verification code is: ${verificationCode}`,
-  };
+//   const mailOptions = {
+//     from: 'debremedhanit27@gmail.com',
+//     to: email,
+//     subject: 'Password Reset Verification Code',
+//     text: `Your verification code is: ${verificationCode}`,
+//   };
 
-  await transporter.sendMail(mailOptions);
-};
+//   await transporter.sendMail(mailOptions);
+// };
 
-// Step 1: Forgot password - Generate verification code and send email
-export const forgot = async (req, res) => {
-  const { email } = req.body;
-
+export const forgot = async(req, res) => {
   try {
+    const { email } = req.body;
     const admin = await AdminModel.findOne({ email });
 
     if (!admin) {
-      return res.status(404).json({ message: 'Admin not found' });
+      return res.status(404).json({ message: 'No user found with that email.' });
     }
 
-    const verificationCode = generateVerificationCode();
-
-    // Save the verification code to the admin document in the database
-    admin.verificationCode = verificationCode;
+    // Generate a reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    admin.resetPasswordToken = resetToken;
+    admin.resetPasswordExpires = Date.now() + 3600000; // 1 hour
     await admin.save();
 
-    // Send the verification code to the admin's email
-    await sendVerificationCode(email, verificationCode);
+    // Send the password reset email
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'tassolutions25@gmail.com',
+        pass: 'agax sxpd onmy dbjs',
+      },
+    });
 
-    res.status(200).json({ message: 'Verification code sent successfully' });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    const mailOptions = {
+      from: 'tassolutions25@gmail.com',
+      to: admin.email,
+      subject: 'Password Reset Request',
+      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://${req.headers.host}/admin/reset/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.json({ message: 'A reset email has been sent to the provided email address.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while processing the request.' });
+  }
+};
+
+export const reset = async(req, res) => {
+  try {
+    const { token } = req.params;
+    const admin = await AdminModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!admin) {
+      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+
+    res.render('reset', { token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while processing the request.' });
   }
 }
 
-// Step 2: Reset password - Verify verification code and update password
-export const reset = async (req, res) => {
-  const { email, verificationCode, password } = req.body;
-
+export const updateAdminPassword = async(req, res) => {
   try {
-    const admin = await AdminModel.findOne({ email });
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const admin = await AdminModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
 
     if (!admin) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
     }
 
-    // Check if the verification code provided is correct
-    if (admin.verificationCode !== verificationCode) {
-      return res.status(400).json({ message: 'Invalid verification code' });
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: 'Passwords do not match.' });
     }
 
-    // Update the password
     admin.password = password;
-    admin.verificationCode = null;
+    admin.resetPasswordToken = undefined;
+    admin.resetPasswordExpires = undefined;
     await admin.save();
 
-    res.status(200).json({ message: 'Password reset successfully' });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.json({ message: 'Password has been reset successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while processing the request.' });
   }
-};
+}

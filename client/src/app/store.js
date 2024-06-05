@@ -7,6 +7,8 @@ import {persistReducer} from 'redux-persist';
 import { combineReducers } from '@reduxjs/toolkit';
 import passwordReducer from './reducers/passwordReducer';
 import authReducer from './reducers/authReducer';
+import chatReducer from './reducers/chatReducer';
+
 
 const persistConfig={
   key:"root",
@@ -16,10 +18,14 @@ const persistConfig={
 };
 
 const reducers = combineReducers({
+  auth: authReducer,
+  donation: donationReducer, 
   user: userReducer,
   image:imageReducer,
   password: passwordReducer,
   auth: authReducer,
+  chat: chatReducer,
+
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

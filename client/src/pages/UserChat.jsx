@@ -1,77 +1,95 @@
-// // UserChat.js
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import io from 'socket.io-client';
+// UserChat.js
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 
-// const UserChat = () => {
-//   const [messages, setMessages] = useState([]);
-//   const [input, setInput] = useState('');
+const UserChat = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [socket, setSocket] = useState(null);
 
-//   useEffect(() => {
-//     const socket = io('http://localhost:5000', {
-//       withCredentials: true, 
-//     });
+  useEffect(() => {
+    const savedMessages = localStorage.getItem('userChatMessages');
+    if (savedMessages) {
+      setMessages(JSON.parse(savedMessages));
+    }
 
-//     socket.on('connect', () => {
-//       console.log('Connected to chat server');
-//     });
+    const newSocket = io('http://localhost:5000', {
+      withCredentials: true,
+    });
 
-//     socket.on('chat history', (history) => {
-//       setMessages(history);
-//     });
+    newSocket.on('connect', () => {
+      console.log('Connected to chat server');
+    });
 
-//     socket.on('message', (message) => {
-//       setMessages((prevMessages) => [...prevMessages, message]);
-//     });
+    newSocket.on('chat history', (messages) => {
+      setMessages(messages);
+      localStorage.setItem('userChatMessages', JSON.stringify(messages));
+    });
 
-//     return () => {
-//       socket.disconnect();
-//     };
-//   }, []);
+    newSocket.on('new message', (message) => {
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages, message];
+        localStorage.setItem('userChatMessages', JSON.stringify(updatedMessages));
+        return updatedMessages;
+      });
+    });
 
-//   const handleMessageSubmit = async () => {
-//     try {
-//       await axios.post('http://localhost:5000/chat/send', {
-//         content: input,
-//       }, {
-//         withCredentials: true
-//       });
-//       setInput('');
-//     } catch (error) {
-//       console.error('Error sending message:', error);
-//     }
-//   };
+    newSocket.on('disconnect', () => {
+      console.log('Disconnected from chat server');
+    });
 
-//   return (
-//     <div className="flex flex-col h-screen">
-//       <div className="flex-grow overflow-y-scroll bg-gray-100">
-//         {messages.map((message, index) => (
-//           <div key={index} className="flex flex-col items-start my-2">
-//             <div className="rounded-lg px-4 py-2 bg-white shadow">
-//               <p className="text-gray-800">{message.content}</p>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//       <div className="p-4 bg-white">
-//         <div className="flex items-center">
-//           <input
-//             type="text"
-//             value={input}
-//             onChange={(e) => setInput(e.target.value)}
-//             placeholder="Type your message..."
-//             className="flex-grow h-10 px-4 border border-gray-300 rounded-full focus:outline-none"
-//           />
-//           <button
-//             onClick={handleMessageSubmit}
-//             className="ml-4 px-6 py-2 font-semibold text-white bg-blue-500 rounded-full focus:outline-none"
-//           >
-//             Send
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+    setSocket(newSocket);
 
-// export default UserChat;
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
+
+  const handleSendMessage = () => {
+    if (socket) {
+      const message = { content: input, sender: 'user' };
+      console.log('Sending message:', message);
+      socket.emit('send message', message);
+      setInput('');
+    } else {
+      console.error('Socket is not initialized');
+    }
+  };
+
+
+  return (
+    <div className="flex flex-col h-screen">
+      <div className="flex-grow overflow-y-scroll bg-gray-100 p-4">
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`flex my-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+          >
+            <div className={`rounded-lg px-4 py-2 ${message.sender === 'user' ? 'bg-blue-200' : 'bg-white'} shadow`}>
+              <p className="text-gray-800">{message.content}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="p-4 bg-white">
+        <div className="flex items-center">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your message..."
+            className="flex-grow border rounded p-2"
+          />
+          <button
+            onClick={handleSendMessage}
+            className="ml-2 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserChat;

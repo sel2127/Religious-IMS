@@ -10,29 +10,41 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const TopBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:5000/admin/logout");// Handle successful logout
+      console.log("Redirecting to login page...");
+      navigate("/login"); // Redirect to the login page
+    } catch (error) {
+      console.error("Error logging out:", error);// Handle error scenarios
+    }
+  };
+
+  // const handleLogout = async () => {
+  //   try {
+  //     await axios.get('http://localhost:5000/admin/logout');
+
+  //     window.location.href = '/admin/login'
+  //   } catch (error) {
+  //     console.error('Error logging out:', error)
+  //   }
+  // };
+  
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await axios.get('http://localhost:5000/admin/logout');
-
-      window.location.href = '/admin/login'
-    } catch (error) {
-      console.error('Error logging out:', error)
-    }
   };
 
   return (

@@ -52,15 +52,21 @@ export const insertDefaultAdmin = async (req, res) => {
 };
 
 // Logout
-export const logout = (req, res) => {
-  // Clear the cookie
-  res.clearCookie('admin_token', {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'Strict'
-  });
-  res.json({ success: true, message: 'Logout successful' });  
-  // res.redirect('/admin/login');
+// export const logout = (req, res) => {
+//   // Clear the cookie
+//   res.clearCookie('admin_token', {
+//     httpOnly: true,
+//     secure: true,
+//     sameSite: 'Strict'
+//   });
+//   res.json({ success: true, message: 'Logout successful' });  
+//   // res.redirect('/admin/login');
+// };
+
+export const logout = async (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.clearCookie('admin_token'); // Clear the access token cookie
+  res.json({ message: 'Logout successful' });
 };
 
 // export const sendPasswordResetEmail = async (req, res) => {

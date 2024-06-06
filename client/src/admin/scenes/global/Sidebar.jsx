@@ -19,6 +19,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from "react-router-dom";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -46,19 +47,31 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const [admin, setAdmin] = useState(null);
 
+  // const handleLogout = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:5000/admin/logout');
+  //     console.log(response);
+  
+  //     if (response.data.success) {
+  //       // Redirect the user to the login page
+  //       window.location.href = '/admin/login';
+  //     } else {
+  //       console.error('Logout failed:', response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error logging out:', error);
+  //   }
+  // };
+
+  const navigate = useNavigate();
+  
   const handleLogout = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/admin/logout');
-      console.log(response);
-  
-      if (response.data.success) {
-        // Redirect the user to the login page
-        window.location.href = '/admin/login';
-      } else {
-        console.error('Logout failed:', response.data.message);
-      }
+      await axios.get("http://localhost:5000/admin/logout");// Handle successful logout
+      console.log("Redirecting to login page...");
+      navigate("/login"); // Redirect to the login page
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);// Handle error scenarios
     }
   };
 

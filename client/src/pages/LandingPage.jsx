@@ -114,7 +114,7 @@ const LandingPage = () => {
   ];
   return (
     <div>
-      <div className="pt-4">
+      <div className="lg:pt-4 md:pt-4 sm:pt-0">
         <Slider />
         <div className="mt-10 flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold">የቅርብ ቀን መርሃግብራት</h1>

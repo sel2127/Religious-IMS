@@ -19,9 +19,9 @@ input:focus {
 }
 .bg-breadcrumb {
     background-image: url('../Images/breadcrumb.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .app-container {
     padding: 0 80px 0 80px;

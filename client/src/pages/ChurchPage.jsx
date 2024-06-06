@@ -9,19 +9,10 @@ import abat from '../assets/Images/admin.jpg';
 import Map from "../components/Map";
 import Breadcrumb from '../common/Breadcrumb';
 
-
-
-
-
 function ChurchPage() {
   return (
 
     <div className=''>
-      {/* <Breadcrumb/> */}
-
-      <Breadcrumb/>
-
-
       <div className='text-5xl text-center font-bold mb-4'>
         {/* <h2>ታሪክ</h2> */}
       </div>

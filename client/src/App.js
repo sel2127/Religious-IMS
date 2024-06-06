@@ -15,7 +15,6 @@ import Notify from './pages/Notify';
 import Header from './common/Header';
 import DonationCause from './pages/DonationCause';
 import Dona from './pages/dona';
-
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
 import Admin from './admin/Admin';
@@ -28,9 +27,9 @@ import FeedbackForm from './components/FeedbackForm';
 import EditProfile from './components/profile/EditProfile';
 import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
-
 import OTPInput from "./Auth/OTPInput";
 import Reset from "./Auth/Reset";
+import Recovered from './Auth/Rec';
 
 
 
@@ -41,16 +40,20 @@ function App() {
   const shouldApplyPadding = !isPathInAdmin;  
   const [email, setEmail] = useState();
   const [otp, setOTP] = useState();
-  const [setPage] = useState();
+  const [page, setPage] = useState("login");
+
+  // function navigatePass(){
+  //   if (page === "reset") return <Reset/>;
+  //   return <Recovered />;
+  // }
 
   return (
     <RecoveryContext.Provider
-    value={{ otp, setOTP, setEmail, email , setPage }}
+    value={{ otp, setOTP, setEmail, email, page , setPage }}
   >
     <Router>
       <div className={shouldApplyPadding ? "app-container" : ""}>
       {!isPathInAdmin && <Header />}
-     
       {/* <Breadcrumb/> */}
       <Routes>
       <Route path="/" element={<LandingPage />} />
@@ -78,7 +81,8 @@ function App() {
         <Route path='/changepassword' element={<ChangePassword/>}/>
         <Route path='/viewmoreprofile' element={<ViewMoreProfile/>}/>
         <Route path='/otpinput' element={ <OTPInput />}/>
-        <Route path='/reset' element={ <Reset />}/>
+        {/* <Route path='/reset' element={ <Reset />}/> */}
+        {/* <navigatePass />   */}
       </Routes>
       <Footer/>
       </div>

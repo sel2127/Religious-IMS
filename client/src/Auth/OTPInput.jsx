@@ -21,16 +21,33 @@ export default function () {
       .catch(console.log);
   }
 
-  function verfiyOTP() {
-    if (parseInt(OTPinput.join("")) === otp) {
-      setPage("reset");
-      return;
+  // function verifyOTP() {
+  //   if (parseInt(OTPinput.join("")) === otp) {
+  //     setPage("reset");
+  //     return;
+  //   }
+  //   alert(
+  //     "The code you have entered is not correct, try again or re-send the link"
+  //   );
+  //   return;
+  // }
+  function verifyOTP() {
+    console.log("Entered OTP:", OTPinput.join("")); // Log the joined OTP string
+    console.log("Stored OTP:", otp); // Log the stored OTP value
+  
+    const enteredOTP = parseInt(OTPinput.join("")); // Convert and store entered OTP
+  
+    console.log("Converted Entered OTP:", enteredOTP); // Log the converted OTP
+  
+    if (enteredOTP === otp) {
+      console.log("OTP Verification Successful!");
+      setPage("reset"); // Update page state
+    } else {
+      console.log("OTP Verification Failed!");
     }
-    alert(
-      "The code you have entered is not correct, try again or re-send the link"
-    );
-    return;
   }
+
+  
 
   React.useEffect(() => {
     let interval = setInterval(() => {
@@ -135,7 +152,7 @@ export default function () {
                 <div className="flex flex-col space-y-5">
                   <div>
                     <a
-                      onClick={() => verfiyOTP()}
+                      onClick={() => verifyOTP()}
                       className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm"
                     >
                       Verify Account

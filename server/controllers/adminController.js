@@ -12,19 +12,19 @@ export const insertDefaultAdmin = async (req, res) => {
   // Get the email and password from the request body
   const { email, password } = req.body;
   try {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash('admin', saltRounds);
+    // const saltRounds = 10;
+    // const hashedPassword = await bcrypt.hash('admin', saltRounds);
 
-    // Create the default admin record in the database    
-    await AdminModel.create({
-      firstname: 'admin',
-      lastname: 'admin',
-      email: 'admin@gmail.com',
-      phone: '0011223344',
-      password: hashedPassword,
-      image: null,
-      role: 'admin'
-    });
+    // // Create the default admin record in the database    
+    // await AdminModel.create({
+    //   firstname: 'admin',
+    //   lastname: 'admin',
+    //   email: 'admin@gmail.com',
+    //   phone: '0011223344',
+    //   password: hashedPassword,
+    //   image: null,
+    //   role: 'admin'
+    // });
 
     // Check if the email exists in the database
     const admin = await AdminModel.findOne({ where: { email } });

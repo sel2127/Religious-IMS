@@ -1,6 +1,8 @@
+
 import React, { useState } from "react";
-import { FaBars, FaCommentAlt, FaEdit, FaPowerOff, FaReadme, Fath, FaUserAlt } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { FaBars, FaCommentAlt, FaEdit, FaPowerOff, FaReadme, FaUserAlt } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
 import './Sidebarr.css';
 
 function Sidebarr({ children }) {
@@ -16,7 +18,7 @@ function Sidebarr({ children }) {
     },
     {
       path: "/viewmoreprofile",
-      name: "የበለጠ ለማየት",
+      name: "View more",
       icon: <FaReadme />,
     },
     {
@@ -35,7 +37,7 @@ function Sidebarr({ children }) {
       icon: <FaCommentAlt />,
     },
     {
-      path: "/logout",
+      path: "/login",
       name: "ለመዉጣት",
       icon: <FaPowerOff />,
     },

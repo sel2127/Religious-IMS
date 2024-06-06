@@ -4,92 +4,55 @@ import { useSelector, useDispatch } from "react-redux";
 import { setImagePreview } from '../app/actions/imageAction';
 import aba from "../assets/Images/aba.jpg";
 import SideBarr from "../components/profile/SideBarr";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; // For protected routes
 import { setUserData } from '../app/actions/userAction';
 
 
 
 const ProfilePage = () => {
+  const userData = useSelector((state) => state.user.userData);
+
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // For protected routes
-  const userData = useSelector((state) => state.user.userData);
+  const navigate = useNavigate(); 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
     reader.onload = () => {
-      const imageData=reader.result;
-      const userId=userData.id;
-      const imageInfo={userId,imageData}
-      //save image with user id on localstoarge
-      localStorage.setItem(`user-${userId}-image`, JSON.stringify(imageInfo));
-      dispatch(setImagePreview(imageData));
+      dispatch(setImagePreview(reader.result));
     };
 
     reader.readAsDataURL(file);
   };
 
-  // const [userData, setUserData] = useState({});
 
- 
-
-const fetchData = async (dispatch) => {
-  try {
-    const response = await axios.get('http://localhost:5000/api/userinfo', {
-      withCredentials: true, // Ensure cookies are sent with the request
-    });
-
-    const userData = response.data.user;
-    dispatch(setUserData(userData));
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-  }
-};
+  const fetchData = async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/userinfo', userData, {
+        withCredentials: true, 
+      });
+  
+      const userData = response.data.user;
+      dispatch(setUserData(userData));
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
+  
 
   useEffect(() => {
-    const userId=userData.id;
-    const imageData = localStorage.getItem(`user-${userId}-image`);
+    // Check if image data exists in localStorage
+    const savedImagePreview = localStorage.getItem("imagePreview");
 
-    if (imageData) {
-      dispatch(setImagePreview(JSON.parse(imageData).imageData));
+    if (savedImagePreview) {
+      dispatch(setImagePreview(savedImagePreview));
     }
 
     // Fetch user profile data
     fetchData(dispatch);
-
-    // const accessToken = document.cookie
-    //   .split('; ')
-    //   .find(row => row.startsWith('token='))
-    //   ?.split('=')[1];
-
-    // const accessToken = Cookies.get('token'); // Use js-cookie to get token
-
-//     const fetchData = async () => {
-//       const accessToken = document.getElementById('userDataForm')?.elements['accessToken']?.value;
-// console.log('tokennn:', accessToken)
-//   if (accessToken) {
-//     axios
-//       .get('http://localhost:5000/user/userinfo', {
-//         headers: {
-//           Authorization: `Bearer ${accessToken}`,
-//         }
-//       }, {withCredentials:true})
-//       .then((response) => {
-//         setUserData(response.data);
-//       })
-//       .catch((error) => {
-//         console.error('Error fetching user profile:', error);
-//       });
-//   } else {
-//     console.warn("No access token found in hidden form");
-//   }
-// };
-
-// fetchData(); // Call the function to fetch data
-
-}, [userData,dispatch]); // Empty dependency array to run only once after mount
+}, [dispatch]); // Empty dependency array to run only once after mount
 // console.log(userData);
   if (!userData) {
     return <div>Loading...</div>;
@@ -112,7 +75,7 @@ const fetchData = async (dispatch) => {
                     <img
                       src={imagePreview ? imagePreview : aba}
                       alt="profile"
-                      className="lg:h-60 lg:w-60 sm:w-32 sm:h-32 rounded-full mt-10 m-auto cursor-pointer"
+                      className="h-75 w-75 rounded-full mt-10 m-auto cursor-pointer"
                     />
                   </label>
                   <input
@@ -125,11 +88,11 @@ const fetchData = async (dispatch) => {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-4 p-4">
                   <p className="font-bold text-xl text-dark-blue">
-                    <marquee>እንኳን ደህና መጡ, {userData.firstName} {userData.lastName}</marquee>
+                    <marquee>Welcome, {userData.firstName} {userData.lastName}</marquee>
                   </p>
                   <p>{userData.email}</p>
                   <div className="mt-10">
-                    <p className='text-2xl'>ስልክ: {userData.phone}</p>
+                    <p>Your phone: {userData.phone}</p>
                   </div>
                 </div>
                 <div className="justify-center items-center mt-10">
@@ -140,7 +103,6 @@ const fetchData = async (dispatch) => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

@@ -14,6 +14,7 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import { ToastContainer,toast } from "react-toastify";
 
 const Form = () => {
   const theme = useTheme();
@@ -125,12 +126,23 @@ const Form = () => {
 
       const response = await axios.put(endpoint, formDataToSend, config);
       console.log(response.data);
+      if (response.data.message === 'Admin profile updated successfully') {
+        toast.success('Admin profile updated successfully');
+      } else {
+        throw new Error("Unexpected response from server");
+      }
     } catch (error) {
       console.error('Error updating admin profile:', error);
+      toast.error('Error updating admin profile:')
     }
   };
 
   return (
+    <div>
+      <ToastContainer
+      autoClose={3000}
+      closeOnClick 
+      />
     <Box m="20px">
       <Header title="UPDATE ADMIN" subtitle="Update Admin Profile" />
 
@@ -317,7 +329,9 @@ const Form = () => {
         )}
       </Formik>
     </Box>
+    </div>
   );
+ 
 };
 
 // const initialValues = {

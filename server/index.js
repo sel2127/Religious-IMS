@@ -8,82 +8,56 @@ import eventRouter from "./routes/eventRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
 import adminRouter from './routes/adminRoutes.js';
 import calendarRoutes from "./routes/calendarRoutes.js";
-// import { authMiddleware } from './middlewares/authMiddleware.js';
 import UserRoute from "./routes/UserRoutes.js";
+import feedbackRoute from "./routes/feedbackRoute.js";
 import donationRoute from "./routes/donationRoutes.js";
-import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js';
-import feedbackRoute from './routes/feedbackRoute.js';
-import memberRoute from './routes/memberRoute.js'
+import createChatServer from "./chatServer.js";
+import chatRoutes from "./routes/chatRoutes.js"; 
+import memberRoute from "./routes/memberRoute.js"; 
+import passwordRecoveryRoute from "./routes/passwordRecoveryRoute.js"; 
+
+
 dotenv.config();
 const app = express();
 
 // Configure CORS
 app.use(cors({
-     credentials: true,
-    origin: ['http://localhost:3000'],
-    methods: ['POST', 'GET','PUT','DELETE'],
+  credentials: true,
+  origin: ['http://localhost:3000'],
+  methods: ['POST', 'GET', 'PUT', 'DELETE'],
 }));
-db.sync()
+db.sync();
 
 // Parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded());
-
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     next();
-//   });
 
 // Serve static files
 app.use(express.static("public"));
 
 
-// Define API route before applying authMiddleware
-// app.get('/api', (req, res) => {
-//     res.json({
-//         success: 1,
-//         message: 'This is a REST API'
-//     });
-// });
-
-// Configure session middleware
-app.use(session({
-    secret: process.env.SESS_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: 'auto'
-    }
-}));
 
 // Define routes
 app.use(donationRoute);
-app.use(UserRoute); // Use the UserRoute without prefixing here
+app.use(UserRoute); 
 app.use(feedbackRoute);
 app.use(memberRoute);
 app.use("/events", eventRouter);
-
-// Mount upload routes
 app.use("/upload", uploadRouter);
-
-// Mount calendar routes
 app.use("/api", calendarRoutes);
 
 // Mount admin routes
 // app.use("/adminlogin", adminRouter);
 app.use("/admin", adminRouter);
-
-//for password Recovery
+app.use("/chat", chatRoutes); // Use chat routes
 app.use(passwordRecoveryRoute);
 
 
-// Apply authMiddleware only to routes that require authentication
-// app.use(authMiddleware);
+
 
 // Default route for handling 404 errors
 app.use((req, res) => {
-    res.status(404).send("Not Found");
+  res.status(404).send("Not Found");
 });
 
 // Start the server

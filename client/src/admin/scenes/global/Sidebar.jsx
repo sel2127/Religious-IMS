@@ -49,11 +49,17 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get('http://localhost:5000/admin/logout');
-
-      window.location.href = '/admin/login'
+      const response = await axios.get('http://localhost:5000/admin/logout');
+      console.log(response);
+  
+      if (response.data.success) {
+        // Redirect the user to the login page
+        window.location.href = '/admin/login';
+      } else {
+        console.error('Logout failed:', response.data.message);
+      }
     } catch (error) {
-      console.error('Error logging out:', error)
+      console.error('Error logging out:', error);
     }
   };
 

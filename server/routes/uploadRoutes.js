@@ -20,5 +20,6 @@ const upload = multer({ storage });
 
 // Route to handle file upload (uploading an event)
 uploadRouter.post("/", upload.single("image"), uploadEvent);
+// uploadRouter.post('/upload', handleFormSubmit);
 
 export default uploadRouter;

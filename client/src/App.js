@@ -21,7 +21,6 @@ import Admin from './admin/Admin';
 import "./assets/styles/main.css";
 import EventUpload from './components/EventUpload';
 import ProfilePage from './pages/ProfilePage';
-import Abnet from './pages/AbnetPage';
 import FeedbackPage from './pages/FeedbackPage';
 import Chat from './pages/UserChat';
 import FeedbackForm from './components/FeedbackForm';
@@ -30,15 +29,13 @@ import ChangePassword from './components/profile/ChangePassword';
 import ViewMoreProfile from './components/profile/ViewMoreProfile';
 import OTPInput from "./Auth/OTPInput";
 import Reset from "./Auth/Reset";
-
-//import GoogleTranslate from './common/GoogleTranslate';
 import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
 import EventSearch from './components/EventSearch';
-//import { path } from 'path';
 
 
 export const RecoveryContext = createContext();
+
 
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
@@ -48,19 +45,21 @@ function App() {
   const [email, setEmail] = useState();
   const [otp, setOTP] = useState();
 
- 
+
 
   return (
     <RecoveryContext.Provider
     value={{ otp, setOTP, setEmail, email }}
   >
+    <RecoveryContext.Provider
+    value={{ otp, setOTP, setEmail, email }}
+  >
     <Router>
-      <div className={shouldApplyPadding ? "app-container" : ""}>
-      {!isPathInAdmin && <Header />}
-      {/* <GoogleTranslate /> */}
-      {/* <Breadcrumb/> */}
+      <div className={shouldApplyPadding ? "app-container px-4 md:px-8 lg:px-16 xl:px-20": ""}>
+      <Header/>
+
       <Routes>
-      <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
         <Route path="/sunday" element={<SundaySchool />} />
         <Route path="/login" element={<Login />} />
@@ -72,10 +71,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<Member />} />
-        <Route path="/chat" element={<Chat />} />
-        {/* <Route path="/abnet" element={<AbnetPage />} /> */}
-        {/* <Route path="/member" element={<MemberRegisterationPage />} /> */}
-        <Route path="/abnet" element={<Abnet />} />
+        <Route path="/chat" element={<Chat/>} />
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
         <Route path="/upload" element={<EventUpload />} />
@@ -92,6 +88,8 @@ function App() {
         <Route path='/otpinput' element={ <OTPInput />}/>
         <Route path='/reset' element={ <Reset />}/>
         <Route path="/search/:query" element={<EventSearch />} />
+        <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
+        <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
       </Routes>
       <ToastContainer />
 
@@ -99,6 +97,7 @@ function App() {
       </div>
       
     </Router>
+    </RecoveryContext.Provider>
     </RecoveryContext.Provider>
   );
 }

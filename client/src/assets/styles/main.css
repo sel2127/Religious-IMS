@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 .app-container {
-    padding: 0 80px 0 80px;
+  
 }
+=======
+>>>>>>> origin/tsimointegrate
 input:focus {
     outline: none;
     border-color: #79a6d2;
@@ -25,4 +28,25 @@ input:focus {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+.app-container {
+    padding: 0 80px 0 80px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .app-container {
+        padding: 0 40px 0 40px;
+    }
+    .imgListHeight {
+        height: 300px;
+    }
+}
+
+@media (max-width: 767px) {
+    .app-container {
+        padding: 0 20px 0 20px;
+    }
+    .imgListHeight {
+        height: 200px;
+    }
 }

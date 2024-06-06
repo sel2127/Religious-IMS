@@ -191,44 +191,44 @@ useEffect(()=>{
 })}
          
         </div>
-        <div className="mt-20 flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={PeopleIcon} alt="people icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-xl">{ucount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">ሰዎች</div>
-    </div>
-  </div>
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={VolunteerIcon} alt="volunteer icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-xl">{dcount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">በጎ ፈቃደኛ</div>
-    </div>
-  </div>
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={DonationIcon} alt="donation icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-2xl">{fcount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">አስተያየቶች</div>
-    </div>
-  </div>
-  <div className="flex items-center w-full md:w-1/4">
-    <div className="w-1/3 sm:w-1/4 ">
-      <img src={SermonIcon} alt="sermon icon" className="w-2/3 sm:w-full" />
-    </div>
-    <div className="w-2/3 sm:w-3/4 md:w-full flex flex-col">
-      <div className="text-dark-blue font-bold text-xl sm:text-2xl md:text-2xl">{ecount}</div>
-      <div className="text-gray-400 font-bold text-xl sm:text-2xl md:text-xl">ስብከቶች</div>
-    </div>
-  </div>
-</div>
+        <div className="mt-20 grid grid-cols-4">
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={PeopleIcon} alt="people icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">{ucount}</div>
+              <div className="text-gray-400 font-bold text-xl">ሰዎች</div>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={VolunteerIcon} alt="volunteer icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">{dcount}</div>
+              <div className="text-gray-400 font-bold text-xl">በጎ ፈቃደኛ</div>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={DonationIcon} alt="donation icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">{fcount}</div>
+              <div className="text-gray-400 font-bold text-xl">አስተያየቶች</div>
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="w-1/3">
+              <img src={SermonIcon} alt="sermon icon" className="w-2/3" />
+            </div>
+            <div className="w-2/3 flex flex-col">
+              <div className="text-dark-blue font-bold text-xl">{ecount}</div>
+              <div className="text-gray-400 font-bold text-xl">መርሃ ግብራት</div>
+            </div>
+          </div>
+        </div>
         <div className="mt-20 flex flex-col items-center justify-center">
           <h1 className="text-3xl font-bold">እርዳታ</h1>
           <div className="mt-10 grid grid-cols-3 gap-4">

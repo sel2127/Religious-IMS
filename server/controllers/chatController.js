@@ -1,62 +1,36 @@
-const WebSocket = require('ws'); // WebSocket library
-const { validationResult } = require('express-validator'); // For validating request data
-const { v4: uuidv4 } = require('uuid'); // For generating message IDs
-const jwt = require('jsonwebtoken'); // For token verification
-import db from '../config/Database.js';
+import Chat from '../models/Chat.js';
 
+export const sendMessage = async (req, res) => {
+  const userId = req.userId;
+  const adminId = req.admin?.id || null;
+  const { content, sender } = req.body;
 
-// Create WebSocket server
-const wss = new WebSocket.Server({ noServer: true });
+  console.log('userId:', userId); 
+  console.log('adminId:', adminId); 
 
-// Store connected clients
-const clients = {};
-
-wss.on('connection', (ws, req) => {
-  const token = req.cookies.accessToken;
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const userId = decoded.userId;
-
-  clients[userId] = ws;
-
-  ws.on('close', () => {
-    delete clients[userId];
-  });
-});
-
-exports.getChatHistory = async (req, res) => {
   try {
-    const userId = req.user.userId; // Access user ID from authenticated request
-    const chatHistory = await db.query('SELECT * FROM messages WHERE user_id = ?', [userId]);
-    res.json(chatHistory);
+    const chatMessage = await Chat.create({ userId, adminId, content, sender });
+    res.status(201).json(chatMessage);
   } catch (error) {
-    console.error('Error fetching chat history:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error sending message:', error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
-exports.sendMessage = async (req, res) => {
+export const getChatMessages = async (req, res) => {
+  const { userId, adminId } = req.params;
+
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { content } = req.body;
-    const userId = req.user.userId; // Access user ID from authenticated request
-
-    // Save message to the database
-    const messageId = uuidv4(); // Generate unique message ID
-    await db.query('INSERT INTO messages (id, content, user_id, timestamp) VALUES (?, ?, ?, NOW())', [messageId, content, userId]);
-
-    // Broadcast message to connected clients
-    const message = { id: messageId, content, user_id: userId, timestamp: new Date() };
-    Object.values(clients).forEach(client => {
-      client.send(JSON.stringify(message));
+    const chatMessages = await Chat.findAll({
+      where: {
+        userId,
+        adminId,
+      },
+      order: [['timestamp', 'ASC']],
     });
-
-    res.status(201).json({ message: 'Message sent successfully' });
+    res.status(200).json(chatMessages);
   } catch (error) {
-    console.error('Error sending message:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error fetching messages:', error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };

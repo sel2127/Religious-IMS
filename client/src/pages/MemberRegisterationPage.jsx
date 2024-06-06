@@ -127,7 +127,7 @@ function MemberRegistrationPage() {
   // });
 
   return (
-    <div className="container">
+    <div className="container w-full">
 <ToastContainer
         position="top-right"
         closeOnClick

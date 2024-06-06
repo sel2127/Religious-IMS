@@ -176,11 +176,11 @@ const LandingPage = () => {
               <p className="text-sm">ሐሙስ 4:30</p>
             </div>
             <div className="lg:w-2/4 md:w-2/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b sm:px-4">
-              <p className="text-lg text-center">ወጥመድ ተሰበረ፥ እኛም አመለጥን (መዝ 88፥12)</p>
-              <p className="text-sm text-center">ስብከት በብጹዕ አቡነ ናትናኤል</p>
-              <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center sm:hidden">
+              <p className="text-lg text-center">{t('trap')}</p>
+              <p className="text-sm text-center">{t('father_1')}</p>
+              <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
                 <button className="w-full mx-auto text-lg font-bold text-white">
-                  እይ
+                  {t('see')}
                 </button>
               </div>
             </div>
@@ -189,17 +189,17 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="mt-10 bg-gray-100 sm:flex-col lg:flex md:flex">
-            <div className="lg:w-1/4 md:w-1/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b">
-              <p className="text-sm">መጋቢት 27 2016</p>
-              <p className="text-sm">ሰኞ 3:30</p>
+            <div className="w-1/4 flex flex-col items-center justify-center">
+            <p className="text-sm">{t('date_two')}</p> 
+            <p className="text-sm">{t('day_time_two')}</p>
             </div>
             <div className="lg:w-2/4 md:w-2/4 sm:w-full flex flex-col items-center sm:py-2 justify-center sm:border-b sm:px-4">
-            <p className="text-lg text-center">
-                የመድኃኔዓለም በዓለ ንግስ አከባበር በደብራችን ደብረ መድኃኒት መድኃኔዓለም ቤተክርስቲያን
+              <p className="text-lg">
+              {t('event_two')}
               </p>
               <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center sm:hidden">
                 <button className="w-full mx-auto text-lg font-bold text-white">
-                  እይ
+                {t('see')}
                 </button>
               </div>
             </div>
@@ -215,7 +215,7 @@ const LandingPage = () => {
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">500</div>
-              <div className="text-gray-400 font-bold text-xl">ሰዎች</div>
+              <div className="text-gray-400 font-bold text-xl">{t('people')}</div>
             </div>
           </div>
           <div className="flex items-center sm:py-4 justify-center">
@@ -224,7 +224,7 @@ const LandingPage = () => {
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">136</div>
-              <div className="text-gray-400 font-bold text-xl">በጎ ፈቃደኛ</div>
+              <div className="text-gray-400 font-bold text-xl">{t('volunteer')}</div>
             </div>
           </div>
           <div className="flex items-center sm:py-4 justify-center">
@@ -233,7 +233,7 @@ const LandingPage = () => {
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">200</div>
-              <div className="text-gray-400 font-bold text-xl">እርዳታ</div>
+              <div className="text-gray-400 font-bold text-xl">{t('help')}</div>
             </div>
           </div>
           {/* <div className="flex items-center">
@@ -242,12 +242,12 @@ const LandingPage = () => {
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">186</div>
-              <div className="text-gray-400 font-bold text-xl">ስብከቶች</div>
+              <div className="text-gray-400 font-bold text-xl">{t('sermon')}</div>
             </div>
           </div> */}
         </div>
         <div className="mt-20 flex flex-col items-center justify-center">
-          <h1 className="text-3xl font-bold">እርዳታ</h1>
+          <h1 className="text-3xl font-bold">{t('help')}</h1>
           <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-4">
             <div className="flex flex-col items-center">
               <div className="px-6 flex justify-center imgListHeight">
@@ -256,16 +256,15 @@ const LandingPage = () => {
               <div className="flex flex-col items-center py-6 px-10">
                 <div className="h-[120px]">
                   <h1 className="text-center font-bold text-xl">
-                    በድርቅ ለተጎዱ ወገኖች
+                  {t('drought')}
                   </h1>
                   <p className="text-sm mt-3 text-center">
-                    አንዱ ደብራችን የሚሰጠው እርዳታ በድርቅ ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን በማበርከት
-                    የህሊና ግደታችሁን ተወጡ
+                      {t('church_help')}
                   </p>
                 </div>
                 {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
                   <button className="w-full mx-auto text-lg font-bold text-white">
-                    ስጥ
+                  {t('ለመለገስ')} 
                   </button>
                 </div> */}
               </div>
@@ -277,16 +276,15 @@ const LandingPage = () => {
               <div className="flex flex-col items-center py-6 px-10">
                 <div className="h-[120px]">
                   <h1 className="text-center font-bold text-xl">
-                    በጦርነት ለተጎዱ ወገኖች
+                   {t('war')}
                   </h1>
                   <p className="text-sm mt-3 text-center">
-                    ሌላው ደብራችን የሚሰጠው እርዳታ በጦርነት ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን
-                    በማበርከት የህሊና ግደታችሁን ተወጡ
+                  {t('war_help')}
                   </p>
                 </div>
                 {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
                   <button className="w-full mx-auto text-lg font-bold text-white">
-                    ስጥ
+                  {t('ለመለገስ')}
                   </button>
                 </div> */}
               </div>
@@ -298,24 +296,24 @@ const LandingPage = () => {
               <div className="flex flex-col items-center py-6 px-10">
                 <div className="h-[120px]">
                   <h1 className="text-center font-bold text-xl">
-                    ለቤተክርስቲያኗ ሕንጻ ማሰሪያ
+                  {t('build')}
                   </h1>
                   <p className="text-sm mt-3 text-center">
-                    አዲስ የተጀመረውን የሕንጻ ቤተክርስቲያን ለማስፈጸም የበኩልዎን አስተዋጽዖ ያድርጉ
+                  {t('build_one')}
                   </p>
                 </div>
                 {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
                   <button className="w-full mx-auto text-lg font-bold text-white">
-                    ስጥ
+                  {t('ለመለገስ')}
                   </button>
                 </div> */}
               </div>
             </div>
           </div>
         </div>
-        <div className="mt-10 bg-light-blue px-8 py-6 flex flex-col justify-center">
-          <div className="text-white font-bold lg:text-3xl md:text-3xl sm:text-2xl mx-auto underline text-center">
-            የመጽሐፍቅዱስ ጥቅሶች
+        <div className="mt-10 bg-light-blue h-48 px-8 py-4 flex flex-col justify-center">
+        <div className="text-white font-bold lg:text-3xl md:text-3xl sm:text-2xl mx-auto underline text-center">
+          {t('verses')}
           </div>
           <OwlCarousel
             className="owl-theme"
@@ -328,7 +326,7 @@ const LandingPage = () => {
           </OwlCarousel>
         </div>
         <div className="mt-10 bg-gray-100 lg:p-6 md:p-6 sm:p-2">
-          <h1 className="text-3xl font-bold text-center">አስተያየታችሁ ያግዘናል</h1>
+          <h1 className="text-3xl font-bold text-center">{t('comment')}</h1>
           <div className="mt-10">
             {/* <OwlCarousel
               className="owl-theme"

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserLoggedIn } from '../app/reducers/authReducer';
+import { useTranslation } from "react-i18next";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
@@ -12,7 +13,7 @@ const Login = () => {
   const [passwordLogin, setPasswordLogin] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -110,13 +111,15 @@ const Login = () => {
             <div className="w-1/2 flex items-center justify-end underline decoration-dotted cursor-pointer hover:text-[#79a6d2]">
               <a href="/forgot">የይለፍ ቃል ረሳሁ</a>
             </div>
+            <div className='w-1/2 flex items-center justify-end underline decoration-dotted cursor-pointer hover:text-[#79a6d2]'>
+              <a href="/forgot">{t('forgot_p')}</a></div>
           </div>
           <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
             <button onClick={loginn} className="w-full mx-auto text-base font-bold text-white">
-              ግባ
+            {t('enter')}
             </button>
           </div>
-          <div className='mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]'><a href="/register">አዲስ አካውንት ለመክፈት</a></div>
+          <div className='mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]'><a href="/register">{t('new_acc')}</a></div>
 
         </div>
       </div>

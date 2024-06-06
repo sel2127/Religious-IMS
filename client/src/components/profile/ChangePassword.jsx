@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Sidebarr from "./SideBarr";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePassword } from "../../app/actions/passwordActions";
+import { useTranslation } from "react-i18next";
 
 function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const { t } = useTranslation();
 
   const userData = useSelector((state) => state.user.userData);
   const userId = userData.id;
@@ -43,7 +45,7 @@ function ChangePassword() {
   return (
     <div className="w-full">
       <h1 className="text-center text-3xl font-bold custom-font mb-4">
-        Change Your Password
+       {t('change')}
       </h1>
 
       <div className="change-password-container  ">

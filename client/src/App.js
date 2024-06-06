@@ -15,6 +15,7 @@ import Notify from './pages/Notify';
 import Header from './common/Header';
 import DonationCause from './pages/DonationCause';
 import { ToastContainer } from 'react-toastify';
+import Dona from './pages/dona';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
 import Admin from './admin/Admin';
@@ -38,22 +39,23 @@ export const RecoveryContext = createContext();
 
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
-  const shouldApplyPadding = !isPathInAdmin;
-
-  
+  const shouldApplyPadding = !isPathInAdmin;  
   const [email, setEmail] = useState();
   const [otp, setOTP] = useState();
+  const [page, setPage] = useState("login");
 
- 
+  // function navigatePass(){
+  //   if (page === "reset") return <Reset/>;
+  //   return <Recovered />;
+  // }
 
   return (
     <RecoveryContext.Provider
-    value={{ otp, setOTP, setEmail, email }}
+    value={{ otp, setOTP, setEmail, email, page , setPage }}
   >
     <Router>
       <div className={shouldApplyPadding ? "app-container px-4 md:px-8 lg:px-16 xl:px-20": ""}>
       {!isPathInAdmin && <Header />}
-     
       {/* <Breadcrumb/> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />

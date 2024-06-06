@@ -1,7 +1,10 @@
 import React from "react";
 import Logo from "../assets/Images/logo.png";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+
+  const { t } = useTranslation();
   return (
     <div>
       <div className="border-t border-gray-300 mt-20">
@@ -9,7 +12,7 @@ const Footer = () => {
           <div className="w-1/4 flex flex-col items-center px-4">
             <img src={Logo} alt="Logo" className="w-20" />
             <p className="font-bold text-sm text-gray-500 mt-4">
-              ይህ የደብረ መድኃኒት መድኃኔዓለም ቤተክርስቲያን ድህረገጽ ነው። ላላወቁት በማሳወቅ የድርሻችንን እንወጣ።
+               {t('announce')}
             </p>
             <div className="flex gap-4 items-center mt-6">
             <svg
@@ -72,7 +75,7 @@ const Footer = () => {
           </div>
           <div className="w-3/4 grid grid-cols-3 gap-4">
             <div className="flex flex-col">
-              <h4 className="font-bold text-lg ">እኛን ለማግኘት</h4>
+              <h4 className="font-bold text-lg ">{t('contact')}</h4>
               <div className="flex mt-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -127,44 +130,44 @@ const Footer = () => {
                   />
                 </svg>
                 <p className="font-bold text-sm text-gray-500 ml-2">
-                  ቦሌ ቡልቡላ፣ አዲስ አበባ ኢትዮጵያ
+                  {t('addr')}
                 </p>
               </div>
             </div>
             <div className="flex flex-col">
-              <h4 className="font-bold text-lg ">ሌሎች ገጾች</h4>
+              <h4 className="font-bold text-lg ">{t('other')}</h4>
               <div className="mt-4">
                 <ul className="font-bold text-sm text-gray-500">
                   <li className="">
-                    <a href="#">ዋና ገጽ</a>
+                    <a href="#">{t('main')}</a>
                   </li>
                   <li>
-                    <a href="#">ዋና ገጽ</a>
+                    <a href="#">{t('main')}</a>
                   </li>
                   <li>
-                    <a href="#">ዋና ገጽ</a>
+                    <a href="#">{t('main')}</a>
                   </li>
                   <li>
-                    <a href="#">ዋና ገጽ</a>
+                    <a href="#">{t('main')}</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="flex flex-col">
-              <h4 className="font-bold text-lg ">ስለ ደብራችን</h4>
+              <h4 className="font-bold text-lg ">{t('about')}</h4>
               <div className="mt-4">
                 <ul className="font-bold text-sm text-gray-500">
                   <li className="">
-                    <a href="#">እርዳታ</a>
+                    <a href="#">{t('help')}</a>
                   </li>
                   <li>
-                    <a href="#">ሰንበት ትምህርት ቤት</a>
+                    <a href="#">{t('sun_sch')}</a>
                   </li>
                   <li>
-                    <a href="#">መርሃግብራት</a>
+                    <a href="#">{t('መርሃግብራት')}</a>
                   </li>
                   <li>
-                    <a href="#">ዋና ገጽ</a>
+                    <a href="#">{t('main')}</a>
                   </li>
                 </ul>
               </div>
@@ -175,7 +178,6 @@ const Footer = () => {
       <div className="border-t border-gray-300 mt-10 py-4">
     <p className="text-gray-500 text-xs">copyright &copy; 2024 debremedhanit. All rights reserved</p>
 </div>
-{/* <div className="mt-10"></div> */}
     </div>
   );
 };

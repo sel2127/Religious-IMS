@@ -57,7 +57,7 @@ const DonationChoice = () => {
         <div className='pt-8'>
             <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600 px-20 py-10">
                 <form method="POST" action="https://api.chapa.co/v1/hosted/pay" onSubmit={handleSubmit} className='space-y-4'>
-                    <input type="hidden" name="public_key" value="CHAPUBK_TEST-jcYsFaHwWLWb6iNssOiC7Rm75DrykuYI" />
+                    <input type="hidden" name="public_key" value="CHAPUBK_TEST-vCjZBtzKJhTAFtqbOL3NT5D6BGEI4hPY" />
 
                     <div className="flex flex-col">
                         <input type="text" name="first_name" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.first_name && 'border-red-500'}`} placeholder='First Name' />

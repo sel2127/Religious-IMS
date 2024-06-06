@@ -4,7 +4,7 @@ const app = require('../index');  // Your main application file
 describe('Login tests', () => {
   it('should login with valid credentials', async () => {
     const response = await request(app)
-      .post('/api/login')
+      .post('/user/login')
       .send({ username: 'johndoe', password: 'secret123' })
       .expect(200);
 
@@ -14,7 +14,7 @@ describe('Login tests', () => {
 
   it('should fail login with invalid credentials', async () => {
     const response = await request(app)
-      .post('/api/login')
+      .post('/user/login')
       .send({ username: 'invalid_user', password: 'wrong_password' })
       .expect(401);
 

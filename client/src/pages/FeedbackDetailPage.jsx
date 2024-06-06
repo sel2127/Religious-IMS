@@ -2,9 +2,14 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Ava from "../assets/Images/ava.png";
 import { MdDelete } from "react-icons/md";
-import { FaArrowAltCircleLeft, FaBackward, FaEdit, FaReadme } from "react-icons/fa";
+import {
+  FaArrowAltCircleLeft,
+  FaBackward,
+  FaEdit,
+  FaReadme,
+} from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast,cssTransition } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeedbackByName } from "../app/actions/feedbackAction";
@@ -15,12 +20,10 @@ const FeedbackDetailPage = () => {
     return imageData ? JSON.parse(imageData).imageData : null;
   };
   const [isOpen, setIsOpen] = useState(false);
-  //const [feedbackData, setFeedbackData] = useState([]);
   const [selectedFeedbackId, setSelectedFeedbackId] = useState(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
- 
 
   const dispatch = useDispatch();
   const feedbackData = useSelector((state) => state.feedback.feedbackData);
@@ -57,18 +60,23 @@ const FeedbackDetailPage = () => {
         console.error(error); // Log other errors to the console for debugging
         toast.error("An error occurred while deleting the feedback");
       }
-      // navigate("/feedback");
     }
   };
+  const Fade = cssTransition({
+    enter: "fade-enter",
+    exit: "fade-exit",
+  });
 
   return (
-    <div className="w-full m-auto ">
-      <ToastContainer />
-      <div className="  lg:grid-cols-1   mt-8 ">
+    <div className="w-full m-auto">
+<ToastContainer
+        position="top-right"
+       
+      />      <div className="grid lg:grid-cols-1 mt-8 ">
         {feedbackData.map((feedback) => (
           <div
             key={feedback.feedbackId}
-            className="h-auto bg-gray-200 text-black rounded-xl "
+            className="h-auto bg-gray-200 text-black rounded-xl"
           >
             <div className="rounded-t-xl flex justify-center items-center">
               <img
@@ -79,7 +87,7 @@ const FeedbackDetailPage = () => {
                 }
                 alt="Profile Image"
                 className="rounded-full mt-5 md:w-32 md:h-32 sm:w-20 sm:h-20"
-                />
+              />
               <div className="ml-2">
                 <p className="text-base md:font-semibold">
                   {feedback.firstName} {feedback.lastName}
@@ -89,36 +97,36 @@ const FeedbackDetailPage = () => {
             </div>
             <div className="flex flex-col justify-center items-center gap-4 p-4">
               <p className="mt-5">{feedback.message}</p>
-              <div className="flex sm:flex-col  md:flex-row lg:flex-row gap-8 mt-5 ">
+              <div className="flex flex-wrap justify-center gap-4 mt-5 ">
                 <Link to={`/editfeedback/${feedback.feedbackId}`}>
-                  <button className="text-white bg-dark-blue lg:text-xl sm:text-base px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                  <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
                     <FaEdit />
                   </button>
                 </Link>
                 <button
                   onClick={() => handleDelete(feedback.feedbackId)}
-                  className="text-white px-6 py-1 text-xl bg-red-600 hover:bg-red-800 rounded-md focus:outline-white ring-focus"
+                  className="text-white text-xl bg-red-600 hover:bg-red-800 rounded-md px-6 py-1 focus:outline-white ring-focus"
                 >
                   <MdDelete />
                 </button>
                 <Link to="/feedback">
-                <button className=" text-white px-6 py-1 text-xl bg-red-600 hover:bg-red-800 rounded-md focus:outline-white ring-focus">
-                   <FaArrowAltCircleLeft/>
-                </button>
-              </Link>
+                  <button className="text-white text-xl bg-red-600 hover:bg-red-800 rounded-md px-6 py-1 focus:outline-white ring-focus">
+                    <FaArrowAltCircleLeft />
+                  </button>
+                </Link>
               </div>
-              
             </div>
           </div>
         ))}
       </div>
 
       {isOpen && (
-        <div className="absolute top-5 right-5 mt-10 justify-center items-center">
-          <div className="bg-white border border-gray-300 p-4 rounded-md shadow">
-            <div className="flex flex-col items-center">
+        <div className="fixed top-0 right-0 left-0 bottom-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div className=" bg-gray-500 border  p-4 rounded-md shadow">
+          
+            <div className="flex flex-col items-center ">
               <div>
-                <p className="mt-5 px-6 py-3 text-center items-center">
+                <p className="mt-5 px-6 py-3 text-center  top-5 right-5 justify-end">
                   የመረጡትን አስተያየት ለማጥፋት እርግጠኛ ነዎት?
                 </p>
               </div>
@@ -139,7 +147,6 @@ const FeedbackDetailPage = () => {
                 </div>
               </div>
             </div>
-            <div className="overlay" onClick={closeDialog}></div>
           </div>
         </div>
       )}

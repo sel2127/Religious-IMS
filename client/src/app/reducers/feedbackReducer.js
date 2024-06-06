@@ -15,6 +15,7 @@ import {
   SET_EVENTS_COUNT,
   SET_DONATION_COUNT,
   SET_EVENTS,
+  SET_MEMBERS_COUNT,
 } from "../actions/feedbackAction";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   ucount:0,
   ecount:0,
   dcount:0,
+  membercount:0,
   error: "",
 };
 
@@ -114,6 +116,11 @@ const feedbackReducer = (state = initialState, action) => {
             ...state,
             dcount:action.payload
           }
+          case SET_MEMBERS_COUNT:
+            return{
+              ...state,
+              membercount:action.payload
+            }
     default:
       return state;
   }

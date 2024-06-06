@@ -81,9 +81,9 @@ const EditFeedbackForm = () => {
 
       <div className=" rounded-lg">
         <div className="flex flex-col lg:flex-row">
-          <div className="lg:w-1/2 m-auto">
+          <div className="lg:w-1/2 m-auto sm:w-300">
             <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
-              <div className="flex flex-col items-center justify-center px-20 py-10"></div>
+              <div className="flex flex-col items-center justify-center px-20 py-10 sm:px-10 sm:py-5"></div>
               <form
                 onSubmit={handleSubmit}
                 className=" flex flex-col space-y-4  mt-10  "

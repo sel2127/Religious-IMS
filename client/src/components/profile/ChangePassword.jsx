@@ -3,7 +3,7 @@ import Breadcrumb from "../../common/Breadcrumb";
 import Sidebarr from "./SideBarr";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePassword } from "../../app/actions/passwordActions";
-import { ToastContainer ,toast} from "react-toastify";
+import { ToastContainer ,toast,cssTransition} from "react-toastify";
 function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,7 +26,7 @@ function ChangePassword() {
     e.preventDefault();
     
     if (newPassword !== confirmPassword) {
-      toast.warning("Passwords do not match");
+      toast.warning("Passwords do not match and put more thna 8 character");
     } else {
       setPasswordError("");
     
@@ -44,10 +44,25 @@ setConfirmPassword('');
     }
   };
 
+  const Fade = cssTransition({
+    enter: "fade-enter",
+    exit: "fade-exit",
+  });
   return (
     <div className="w-full">
     {/* <Breadcrumb /> */}
-    <ToastContainer/>
+    <ToastContainer  
+     position="top-right"
+     autoClose={3000}
+     transition={Fade}
+     hideProgressBar
+     newestOnTop={false}
+     closeOnClick
+     rtl={false}
+     pauseOnFocusLoss
+     draggable
+     pauseOnHover
+   />
     <h1 className="text-center text-3xl font-bold custom-font mb-4">Change Your Password</h1>
 
     <div className="change-password-container  ">

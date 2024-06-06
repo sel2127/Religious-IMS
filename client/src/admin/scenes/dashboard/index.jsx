@@ -16,7 +16,7 @@ import axios from "axios";
 import { saveAs } from "file-saver";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchUsersCount } from "../../../app/actions/feedbackAction";
+import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchMembers, fetchUsersCount } from "../../../app/actions/feedbackAction";
 import { donations } from './../../data/mockData';
 const Dashboard = () => {
   const dispatch=useDispatch();
@@ -39,6 +39,10 @@ const Dashboard = () => {
  const eventuploaded=useSelector(state=>state.feedback.ecount);
  useEffect(()=>{
 dispatch(fetchEvents());
+ },[dispatch])
+ const membersJoined=useSelector(state=>state.feedback.membercount);
+ useEffect(()=>{
+  dispatch(fetchMembers());
  },[dispatch])
   const downloadPdf = () => {
    
@@ -88,7 +92,7 @@ dispatch(fetchEvents());
         >
           <StatBox
             title={usercount}
-            subtitle="Members Joined"
+            subtitle="users Joined"
             progress="0.75"
             increase="+14%"
             icon={
@@ -270,7 +274,7 @@ dispatch(fetchEvents());
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              {usercount} Members Joined
+              {membersJoined} Members Joined for sebeka gubae
             </Typography>
             {/* <Typography>Includes </Typography> */}
           </Box>

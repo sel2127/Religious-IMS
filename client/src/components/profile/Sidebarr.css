@@ -6,6 +6,8 @@
   }
   .conatiner{
     display: flex;
+   flex-direction: column;
+   margin-right: auto;
    
    
   }
@@ -15,7 +17,7 @@
     flex: 1;
   }
   .sidebar{
-  background:#000;
+  background:gray;
   color: white;
   height: 100vh;
   width: 50%;
@@ -49,3 +51,24 @@
   .icon, .link-text{
     font-size: 20px;
   }
+  .sidebar {
+    overflow: hidden;
+    background-color: #1f2937; /* dark gray for background */
+    color: white;
+    transition: width 0.3s;
+  }
+  .sidebar .link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 0.375rem; /* rounded corners */
+  }
+  .sidebar .link:hover {
+    background-color: #374151; /* darker gray on hover */
+  }
+  .sidebar .active {
+    background-color: #374151; /* active state background */
+  }
+  

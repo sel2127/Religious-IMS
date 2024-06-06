@@ -14,7 +14,7 @@ export const uploadEvent = async (req, res) => {
       eventImage: eventImage,
     });
 
-    res.status(201).json({ event });
+    res.status(201).json({ message:"Event uploaded Successfully",event });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

@@ -8,6 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import axios from "axios";
 import "../../adminCss/admin.css";
+import { ToastContainer ,toast,cssTransition} from "react-toastify";
 
 const EventUpload = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -20,10 +21,14 @@ const EventUpload = () => {
       formData.append("eventdate", values.eventdate);
       formData.append("image", values.image);
 
-      await axios.post("http://localhost:5000/upload", formData, {
+      const response=await axios.post("http://localhost:5000/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+      if (response.data.message === 'Event uploaded Successfully') {
+        toast.success('Event uploaded Successfully');
+      } else {
+        throw new Error("Unexpected response from server");
+      }
       // Reset form values after successful upload
       values.eventname = "";
       values.eventDesc = "";
@@ -78,8 +83,16 @@ const EventUpload = () => {
       />
     );
   };
-
+  const Fade = cssTransition({
+    enter: "fade-enter",
+    exit: "fade-exit",
+  });
   return (
+    <div>
+      <ToastContainer
+       position="top-right"
+      closeOnClick
+      />
     <Box m="20px">
       <Header title="Event Upload" subtitle="Upload an Event" />
 
@@ -163,6 +176,7 @@ const EventUpload = () => {
         )}
       </Formik>
     </Box>
+    </div>
   );
 };
 

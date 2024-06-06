@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "../assets/styles/main.css";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -10,6 +12,8 @@ const Login = () => {
   const [passwordLogin, setPasswordLogin] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [countryCode, setCountryCode] = useState("ET");
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
 
@@ -17,26 +21,26 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const validatePhoneNumber = (phone, countryCode) => {
+    const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase());
+    return phoneNumber && phoneNumber.isValid();
+  };
+
   const validateForm = () => {
-    const phoneRegex = /^\d{10}$/; // Regular expression for 10-digit phone number
+    const errors = {};
 
     if (!phoneLogin || !passwordLogin) {
-      setError("Please enter both phone number and password.");
-      return false;
+      errors.form = "Please enter both phone number and password.";
+    } 
+     if (!validatePhoneNumber(phoneLogin, countryCode)) {
+      errors.phone = "Please enter a valid phone number.";
+    } 
+     if (passwordLogin.length < 8) {
+      errors.password = "Password should be at least 8 characters long.";
     }
 
-    if (!phoneRegex.test(phoneLogin)) {
-      setError("Please enter a valid phone number.");
-      return false;
-    }
-
-    if (passwordLogin.length < 8) {
-      setError("Password should be at least 8 characters long.");
-      return false;
-    }
-
-    setError("");
-    return true;
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const loginn = () => {
@@ -54,7 +58,7 @@ const Login = () => {
         })
         .catch((error) => {
           console.error(error);
-          // Handle the login error if needed
+          setError("Login failed. Please check your credentials and try again.");
         });
     }
   };
@@ -63,15 +67,19 @@ const Login = () => {
     <div>
       <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600">
         <div className="flex flex-col items-center justify-center px-20 py-10">
-          <input
-            type="tel"
-            onChange={(e) => {
-              setPhoneLogin(e.target.value);
+          <PhoneInput
+            country={"et"}
+            value={phoneLogin}
+            onChange={(phone, country) => {
+              setPhoneLogin(phone);
+              setCountryCode(country.countryCode);
             }}
             placeholder="ስልክ ቁጥር"
-            className=" mt-10 w-full h-10 px-6 border border-gray-300  rounded-full"
+            className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
-          <div className="relative w-full ">
+          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+          
+          <div className="relative w-full">
             <input
               type={showPassword ? 'text' : 'password'}
               onChange={(e) => setPasswordLogin(e.target.value)}
@@ -85,7 +93,8 @@ const Login = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
-          {error && <p className="text-red-500">{error}</p>}
+          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+          {errors.form && <p className="text-red-500">{errors.form}</p>}
           <div className="w-full flex items-center mt-6">
             <div className="w-1/2 flex">
               <input
@@ -102,7 +111,7 @@ const Login = () => {
               <a href="/forgot">የይለፍ ቃል ረሳሁ</a>
             </div>
           </div>
-          <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+          <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
             <button
               onClick={loginn}
               className="w-full mx-auto text-base font-bold text-white"
@@ -113,7 +122,7 @@ const Login = () => {
           <div className="mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]">
             <a href="/register">አዲስ አካውንት ለመክፈት</a>
           </div>
-       </div>
+        </div>
       </div>
     </div>
   );

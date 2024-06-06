@@ -96,14 +96,14 @@ const fetchData = async (dispatch) => {
   }
 
   return (
-    <div className="w-full">
-      <div className=" w-full rounded-lg">
+    <div className="lg:w-full ">
+      <div className=" rounded-lg">
         <div className="flex flex-col lg:flex-row md:flex-row">
           {/* sidebar */}
           <div>
             <SideBarr />
           </div>
-          <div className='lg:w-1/2 m-auto'>
+          <div className='lg:w-1/2 lg:ml-5 sm:ml-0  md:ml-5 sm:w-full'>
 
             <div className="   flex flex-col  h-screen mt-10">
               <div className=" h-full overflow-hidden shadow bg-gray-200 rounded-lg">
@@ -133,7 +133,7 @@ const fetchData = async (dispatch) => {
                   </div>
                 </div>
                 <div className="justify-center items-center mt-10">
-                  <p className='text-center font-bold md:font-semibold text-3xl md:text-2xl'>ድህረገጻችንን ስለጎበኙ እናመሰግናለን!</p>
+                  <p className='text-center font-bold md:font-semibold text-3xl md:text-2xl sm:text-xl sm:font-semibold'>ድህረገጻችንን ስለጎበኙ እናመሰግናለን!</p>
                 </div>
               </div>
             </div>

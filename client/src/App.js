@@ -15,7 +15,7 @@ import Notify from './pages/Notify';
 import Header from './common/Header';
 import DonationCause from './pages/DonationCause';
 import { ToastContainer } from 'react-toastify';
-import Dona from './pages/dona';
+// import Dona from './pages/dona';
 import DonationChoice from './pages/DonationChoice';
 import ContactUs from "./pages/ContactUs";
 import Admin from './admin/Admin';

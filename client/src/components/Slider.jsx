@@ -36,6 +36,7 @@ useEffect(() => {
                     <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-10 h-10 flex items-center">
                         <button className="w-full mx-auto text-lg font-bold text-white">
                         {t('ev')}
+                        </button>
                     <p className='lg:text-5xl md:text-4xl sm:text-2xl font-bold'>የተለያዪ መርሃግብራት</p>
                     <div className="lg:w-1/6 md:w-1/5 sm:w-1/3 px-4 bg-dark-blue border border-gray-200 rounded-full mt-10 h-12 flex items-center justify-center">
                     <a href="/notify" className="cursor-pointer">

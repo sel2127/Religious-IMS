@@ -123,28 +123,7 @@ function MemberRegisterationPage() {
             required
           />
           {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
-          <input
-            type="text"
-            id="bapiname"
-            name="bapiname"
-            placeholder="የክርስትና ስም"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={bapiname}
-            onChange={(e) => setBapiname(e.target.value)}
-            required
-          />
-          {errors.bapiname && <p className="text-red-500 text-sm">{errors.bapiname}</p>}
-          <input
-            type="text"
-            id="fathername"
-            name="fathername"
-            placeholder="የንስሃ አባት ስም"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={fathername}
-            onChange={(e) => setFathername(e.target.value)}
-            required
-          />
-          {errors.fathername && <p className="text-red-500 text-sm">{errors.fathername}</p>}
+         
           <input
             type="text"
             id="adress"

@@ -3,10 +3,10 @@ import MemberModel from './../models/MemberModel.js';
 export const createMember =[
   isAuthenticated,
    async (req, res) => {
-  const { firstName, lastName, bapiname, fathername, adress, email, phone, gender } = req.body;
+  const { firstName, lastName,adress, email, phone, gender } = req.body;
 
   // Validate incoming request data
-  if (!firstName || !lastName || !bapiname || !fathername || !adress || !email || !phone) {
+  if (!firstName || !lastName || !adress || !email || !phone) {
     return res.status(400).json({ error: 'Invalid request data' });
   }
   const userId = req.userId;
@@ -20,11 +20,9 @@ export const createMember =[
 
     // Create a new member
     const member = await MemberModel.create({
-    userId,
-    firstName,
+      userId,
+      firstName,
       lastName,
-      bapiname,
-      fathername,
       adress,
       email,
       phone,

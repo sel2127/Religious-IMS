@@ -9,6 +9,16 @@ function Sidebarr({ children }) {
   const [isOpen, setIsOpen] = useState(true); 
 
   const toogle = () => setIsOpen(!isOpen); 
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:5000/user/logout");// Handle successful logout
+      console.log("Redirecting to login page...");
+      navigate("/login"); // Redirect to the login page
+    } catch (error) {
+      console.error("Error logging out:", error);// Handle error scenarios
+    }
+  };
 
   const menuItem = [
     {
@@ -37,7 +47,7 @@ function Sidebarr({ children }) {
       icon: <FaCommentAlt />,
     },
     {
-      path: "/login",
+      path: "/logout",
       name: "ለመዉጣት",
       icon: <FaPowerOff />,
     },
@@ -59,6 +69,7 @@ function Sidebarr({ children }) {
               key={index}
               className="link"
               activeClassName="active"
+              onClick={item.path === "/logout" ? (e) => { e.preventDefault(); handleLogout(); } : null} // Prevent default for logout
             >
               <div className="icon">{item.icon}</div>
               <div

@@ -27,14 +27,7 @@ const { DataTypes } = Sequelize;
       type: DataTypes.STRING,
       allowNull: false
     },
-    bapiname: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    fathername: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+  
     adress: {
       type: DataTypes.STRING,
       allowNull: false

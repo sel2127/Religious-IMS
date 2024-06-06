@@ -1,36 +1,21 @@
-import Chat from '../models/Chat.js';
+import ChatMessage from '../models/ChatMessage.js';
 
-export const sendMessage = async (req, res) => {
-  const userId = req.userId;
-  const adminId = req.admin?.id || null;
-  const { content, sender } = req.body;
-
-  console.log('userId:', userId); 
-  console.log('adminId:', adminId); 
-
+// Get chat history for a user
+export const getChatHistory = async (req, res) => {
   try {
-    const chatMessage = await Chat.create({ userId, adminId, content, sender });
-    res.status(201).json(chatMessage);
+    const { userId } = req.params;
+    const messages = await ChatMessage.findAll({ where: { userId } });
+    res.json(messages);
   } catch (error) {
-    console.error('Error sending message:', error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-export const getChatMessages = async (req, res) => {
-  const { userId, adminId } = req.params;
-
+// Save a new chat message
+export const saveMessage = async (message) => {
   try {
-    const chatMessages = await Chat.findAll({
-      where: {
-        userId,
-        adminId,
-      },
-      order: [['timestamp', 'ASC']],
-    });
-    res.status(200).json(chatMessages);
+    await ChatMessage.create(message);
   } catch (error) {
-    console.error('Error fetching messages:', error);
-    res.status(500).json({ message: 'Server Error' });
+    console.error('Error saving message:', error);
   }
 };

@@ -7,11 +7,11 @@
 //     const { setEmail, email, setOTP } = useContext(RecoveryContext);
 //     const navigate = useNavigate();
   
-//     function nagigateToOtp() {
-//       if (email) {
-//         const OTP = Math.floor(Math.random() * 9000 + 1000);
-//         console.log(OTP);
-//         setOTP(OTP);
+    // function nagigateToOtp() {
+    //   if (email) {
+    //     const OTP = Math.floor(Math.random() * 9000 + 1000);
+    //     // console.log(OTP);
+    //     setOTP(OTP);
   
 //         axios 
 //           .post("http://localhost:5000/send_recovery_email", {

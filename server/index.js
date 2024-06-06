@@ -1,21 +1,19 @@
-import express from "express";
+import express from 'express';
 import cors from 'cors';
-import session from "express-session";
 import dotenv from 'dotenv';
-import cookieParser from "cookie-parser";
-import db from "./config/Database.js";
-import eventRouter from "./routes/eventRoutes.js";
-import uploadRouter from "./routes/uploadRoutes.js";
+import cookieParser from 'cookie-parser';
+import db from './config/Database.js';
+import eventRouter from './routes/eventRoutes.js';
+import uploadRouter from './routes/uploadRoutes.js';
 import adminRouter from './routes/adminRoutes.js';
-import calendarRoutes from "./routes/calendarRoutes.js";
-import UserRoute from "./routes/UserRoutes.js";
-import feedbackRoute from "./routes/feedbackRoute.js";
-import donationRoute from "./routes/donationRoutes.js";
-import createChatServer from "./chatServer.js";
-import chatRoutes from "./routes/chatRoutes.js"; 
-import memberRoute from "./routes/memberRoute.js"; 
-import passwordRecoveryRoute from "./routes/passwordRecoveryRoute.js"; 
-
+import calendarRoutes from './routes/calendarRoutes.js';
+import UserRoute from './routes/UserRoutes.js';
+import feedbackRoute from './routes/feedbackRoute.js';
+import donationRoute from './routes/donationRoutes.js';
+import createChatServer from './chatServer.js';
+import chatRoutes from './routes/chatRoutes.js'; 
+import memberRoute from './routes/memberRoute.js'; 
+import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js'; 
 
 dotenv.config();
 const app = express();
@@ -35,8 +33,6 @@ app.use(cookieParser());
 // Serve static files
 app.use(express.static("public"));
 
-
-
 // Define routes
 app.use(donationRoute);
 app.use(UserRoute); 
@@ -47,13 +43,9 @@ app.use("/upload", uploadRouter);
 app.use("/api", calendarRoutes);
 
 // Mount admin routes
-// app.use("/adminlogin", adminRouter);
 app.use("/admin", adminRouter);
 app.use("/chat", chatRoutes); // Use chat routes
 app.use(passwordRecoveryRoute);
-
-
-
 
 // Default route for handling 404 errors
 app.use((req, res) => {
@@ -61,7 +53,9 @@ app.use((req, res) => {
 });
 
 // Start the server
-const port = process.env.APP_PORT;
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+const port = process.env.APP_PORT || 5000;
+const server = createChatServer(app);
+
+server.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });

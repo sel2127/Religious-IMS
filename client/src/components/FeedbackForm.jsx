@@ -82,7 +82,7 @@ const FeedbackForm = () => {
                     id="submit"
                     type="submit"
                     disabled={isLoading}
-                    className={`w-1/2 bg-[#2d5986] hover:bg-[#79a6d2] text-white rounded-md hover:bg-blue-700 h-10 mb-4 ${
+                    className={`w-1/2 bg-[#2d5986] hover:bg-[#79a6d2] text-white rounded-md h-10 mb-4 ${
                       isLoading ? "cursor-not-allowed opacity-50" : ""
                     }`}
                   >

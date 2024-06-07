@@ -67,8 +67,8 @@ const ProfilePage = () => {
             <SideBarr />
           </div>
           <div className="lg:w-1/2 mx-auto">
-            <div className="   flex flex-col">
-              <div className=" h-full overflow-hidden bg-white shadow py-10 rounded-lg">
+            <div className="flex flex-col">
+              <div className="h-full overflow-hidden bg-white shadow py-10 rounded-lg">
                 <div className="rounded-t-xl flex justify-center items-center">
                   <label htmlFor="fileInput">
                     <img

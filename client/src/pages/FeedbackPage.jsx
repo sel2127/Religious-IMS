@@ -61,7 +61,7 @@ const FeedbackPage = () => {
   return (
     <div className="lg:w-full  m-auto">
       <ToastContainer />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-8 ">
+      <div className="grid grid-cols-4 gap-4 mt-8 ">
         {
   feedbackData && feedbackData.length === 0 ? (
     <div className="text-center text-gray-500">No feedbacks found.</div>
@@ -69,10 +69,10 @@ const FeedbackPage = () => {
             feedbackData.map((feedback) => (
               <div
                 key={feedback.feedbackId}
-                className="h-auto bg-gray-200 text-black rounded-md "
+                className="bg-gray-100 text-black p-4"
               >
-                <div className="rounded-t-xl flex justify-start items-center  lg:ml-2 mt-5">
-                  <img
+                <div className="rounded-lg flex flex-col gap-y-2 items-center">
+                  {/* <img
                     src={
                       getUserImageFromLocalStorage(feedback.userId)
                         ? getUserImageFromLocalStorage(feedback.userId)
@@ -80,17 +80,19 @@ const FeedbackPage = () => {
                     }
                     alt="Profile Image"
                     className="rounded-full md:w-32 md:h-32 sm:w-20 sm:h-20"
-                  />
-                  <div className="md:ml-2">
-                    <p className="text-base md:text-sm font-semibold">{feedback.writer}</p>
-                    <p className="text-base  md:text-sm font-semibold">{feedback.email}</p>
+                  /> */}
+                  <div>
+                  <p className="text-sm font-semibold">{feedback.writer}</p>
                   </div>
-                </div>
-                <div className="flex flex-col justify-center items-center gap-4 p-4">
+                  {/* <div>
+                  <p className="text-sm font-semibold">{feedback.email}</p>
+                  </div>     */}
+                  <div>
                   <p>{feedback.message}</p>
-                  <div className="flex gap-8">
+                  </div>
+                  <div className="flex justify-center">
                     <Link to={`/feedback/${feedback.userId}`}>
-                      <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                      <button className="text-white bg-[#2d5986] hover:bg-[#79a6d2] text-xl w-8 h-8 flex justify-center items-center rounded-full focus:outline-white ring-focus">
                         <FaReadme />
                       </button>
                     </Link>

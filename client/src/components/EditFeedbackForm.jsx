@@ -76,27 +76,24 @@ const EditFeedbackForm = () => {
   };
 
   return (
-    <div className="">
+    <div className="bg-gray-100 py-10">
       <ToastContainer />
 
-      <div className=" rounded-lg">
-        <div className="flex flex-col lg:flex-row">
-          <div className="lg:w-1/2 m-auto">
-            <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
-              <div className="flex flex-col items-center justify-center px-20 py-10"></div>
+      <div className="rounded-lg">
+        <div className="flex flex-col">
+          <div className="lg:w-1/2 mx-auto">
+            <div className="bg-white rounded-xl flex flex-col space-y-4 w-full p-10">
               <form
                 onSubmit={handleSubmit}
-                className=" flex flex-col space-y-4  mt-10  "
+                className=""
               >
-               
                 <textarea
                   rows={8}
                   placeholder="አስተያየትዎን እዚህ ላይ ይጻፉ.... "
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="border  rounded-md mt-10 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 
- ml-10 mr-10"
+                  className="border rounded-md focus:outline-none focus:ring-2 w-full focus:[#79a6d2]"
                   required
                   autoComplete="off"
                 />
@@ -116,22 +113,29 @@ const EditFeedbackForm = () => {
 
                 {selected && <p>የመረጡት ምስል: {selected}</p>} */}
 
-                <div className="border-gray-200  flex flex-col items-center mt-10">
+                <div className="flex flex-col w-full items-center justify-center space-y-4 mt-6">
+                  <div className="w-full flex items-center justify-center">
                   <button
                     id="submit"
                     type="submit"
                     disabled={isLoading}
-                    className={` w-1/2 m-auto bg-blue-500 text-white rounded-md hover:bg-blue-700 h-10  mb-4 
+                    className={`bg-[#2d5986] w-1/2 hover:bg-[#79a6d2] text-white text-center rounded-md h-10 
      ${isLoading ? "cursor-not-allowed opacity-50" : ""}`}
                   >
-                    {isLoading ? "Submitting..." : "አስተያየትዎን ያዘምኑ"}
+                    {isLoading ? "Submitting..." : "አስተያየትዎን ይቀይሩ"}
                   </button>
-                  <Link
-              className="bg-red-500 w-1/2 m-auto  text-white text-center  rounded-md hover:bg-pink-700 h-10  mb-4"
+                  </div>
+                  <div className="w-full">
+                  <Link className="w-full flex items-center justify-center"
               onClick={() => window.history.back()}
             >
+              <button
+              className="text-white w-1/2 text-center rounded-md bg-red-600 hover:bg-red-400 h-10"
+              >
               አይ
-            </Link>                
+              </button>
+            </Link>      
+            </div>          
                 </div>
                 {errorMessage && (
                   <p className="text-red-500 text-sm">{errorMessage}</p>

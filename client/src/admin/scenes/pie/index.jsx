@@ -1,20 +1,3 @@
-// import { Box } from "@mui/material";
-// import Header from "../../components/Header";
-// import PieChart from "../../components/PieChart";
-
-// const Pie = () => {
-//   return (
-//     <Box m="20px">
-//       <Header title="Pie Chart" subtitle="Simple Pie Chart" />
-//       <Box height="75vh">
-//         <PieChart />
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default Pie;
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box } from "@mui/material";
@@ -23,11 +6,13 @@ import PieChart from "../../components/PieChart";
 
 const Line = () => {
   const [userData, setUserData] = useState([]);
+  const [membersData, setMembersData] = useState([]);
 
   useEffect(() => {
     fetchUserData();
+    fetchMembersData();
   }, []);
-  
+
   const fetchUserData = async () => {
     try {
       const response = await axios.get('http://localhost:5000/admin/users');
@@ -40,10 +25,22 @@ const Line = () => {
     }
   };
 
+  const fetchMembersData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/members');
+      setMembersData(response.data);
+    } catch (error) {
+      console.error('Error fetching members:', error);
+    }
+  };
+
   const getPieChartData = () => {
-    // Group user data by week and count the number of users in each week
-    const userCountByWeek = userData.reduce((acc, user) => {
-      const createdAt = new Date(user.createdAt);
+    // Combine user data and member data
+    const combinedData = [...userData, ...membersData];
+
+    // Group combined data by week and count the number of entries in each week
+    const userCountByWeek = combinedData.reduce((acc, item) => {
+      const createdAt = new Date(item.createdAt);
       const weekNumber = getWeekNumber(createdAt);
       acc[weekNumber] = (acc[weekNumber] || 0) + 1;
       return acc;

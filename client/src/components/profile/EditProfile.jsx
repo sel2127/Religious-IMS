@@ -87,7 +87,7 @@ const EditProfile = () => {
     <div className="lg:w-full">
       <ToastContainer/>
       <div className="w-full sm:mr-10 rounded-lg">
-        <h1 className="text-center text-3xl font-bold custom-font mb-4 sm:text-center sm:text-xl sm:font-semibold sm:mt-5">Edit your profile here</h1>
+        {/* <h1 className="text-center text-3xl font-bold custom-font mb-4 sm:text-center sm:text-xl sm:font-semibold sm:mt-5">Edit your profile here</h1> */}
 
         <div className="flex flex-col lg:flex-row ">
           <div>

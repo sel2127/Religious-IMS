@@ -10,13 +10,15 @@ import { setUserData } from '../app/actions/userAction';
 import { useDispatch,useSelector } from "react-redux";
 
 function MemberRegistrationPage() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const userDataFromStoreEdit = useSelector((state) => state.user.userData);
+
+  const [firstName, setFirstName] = useState(userDataFromStoreEdit.firstName);
+  const [lastName, setLastName] = useState(userDataFromStoreEdit.lastName);
   const [bapiname, setBapiname] = useState("");
   const [fathername, setFathername] = useState("");
   const [adress, setAdress] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(userDataFromStoreEdit.email);
+  const [phone, setPhone] = useState(userDataFromStoreEdit.phone);
   const [countryCode, setCountryCode] = useState("et");
   const [gender, setGender] = useState("");
   const [errors, setErrors] = useState({});
@@ -35,12 +37,12 @@ function MemberRegistrationPage() {
     if (!lastName || !/^[a-zA-Z\s]+$/.test(lastName)) {
       errors.lastName = "Last name must only contain letters";
     }
-    if (!bapiname || !/^[a-zA-Z\s]+$/.test(bapiname)) {
-      errors.bapiname = "Bapiname must only contain letters";
-    }
-    if (!fathername || !/^[a-zA-Z\s]+$/.test(fathername)) {
-      errors.fathername = "Fathername must only contain letters";
-    }
+    // if (!bapiname || !/^[a-zA-Z\s]+$/.test(bapiname)) {
+    //   errors.bapiname = "Bapiname must only contain letters";
+    // }
+    // if (!fathername || !/^[a-zA-Z\s]+$/.test(fathername)) {
+    //   errors.fathername = "Fathername must only contain letters";
+    // }
     if (!adress || adress.length < 3) {
       errors.adress = "Address must be at least 3 characters long";
     }
@@ -131,9 +133,10 @@ function MemberRegistrationPage() {
 <ToastContainer
         position="top-right"
         closeOnClick
-      />      <div className="justify-center items-center mt-8">
+      />      
+      {/* <div className="justify-center items-center mt-8">
         <h1 className="text-xl font-bold px-10 ml-10 sm:text-base sm:px-0">የቤተክርስቲያን የሰበካ ጉባኤ አባልነት ቅጽ</h1>
-      </div>
+      </div> */}
       <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600">
         <div className="flex flex-col items-center justify-center  px-20 py-10 form-field">
           <input
@@ -142,7 +145,7 @@ function MemberRegistrationPage() {
             name="fristname"
             placeholder="የእርስዎ ስም"
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.firstName}
+            value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
@@ -153,7 +156,7 @@ function MemberRegistrationPage() {
             name="lastname"
             placeholder="የአባት ስም"
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.lastName}
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
@@ -164,14 +167,14 @@ function MemberRegistrationPage() {
             placeholder="ኢሜል"
             id="email"
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.email}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           <PhoneInput
             country={"et"}
-            value={userData.phone}
+            value={phone}
             onChange={(phone, country) => {
               setPhone(phone);
               setCountryCode(country.countryCode);
@@ -184,7 +187,7 @@ function MemberRegistrationPage() {
             disableDropdown={false}
           />
           {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-          <input
+          {/* <input
             type="text"
             id="bapiname"
             name="bapiname"
@@ -204,7 +207,7 @@ function MemberRegistrationPage() {
             value={fathername}
             onChange={(e) => setFathername(e.target.value)}
             required
-          />
+          /> */}
           {errors.fathername && <p className="text-red-500 text-sm">{errors.fathername}</p>}
           <input
             type="text"

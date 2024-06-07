@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-import Member from "./scenes/members";
+import Member from "./scenes/member";
 import Donations from "./scenes/donation";
 import Chat from "./scenes/chat";
 import Users from "./scenes/users";
@@ -68,8 +68,8 @@ function Admin() {
           <Route path="dashboard" element={<PrivateRoute>
                       <Dashboard />
                     </PrivateRoute>} />
-          <Route path="team"element={<PrivateRoute>
-                      <Team />
+          <Route path="member"element={<PrivateRoute>
+                      <Member />
                     </PrivateRoute>} />
           <Route path="users" element={<PrivateRoute>
                       <Users />

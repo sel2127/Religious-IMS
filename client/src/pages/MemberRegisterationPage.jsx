@@ -10,13 +10,15 @@ import { setUserData } from '../app/actions/userAction';
 import { useDispatch,useSelector } from "react-redux";
 
 function MemberRegistrationPage() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const userDataFromStoreEdit = useSelector((state) => state.user.userData);
+
+  const [firstName, setFirstName] = useState(userDataFromStoreEdit.firstName);
+  const [lastName, setLastName] = useState(userDataFromStoreEdit.lastName);
   const [bapiname, setBapiname] = useState("");
   const [fathername, setFathername] = useState("");
   const [adress, setAdress] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(userDataFromStoreEdit.email);
+  const [phone, setPhone] = useState(userDataFromStoreEdit.phone);
   const [countryCode, setCountryCode] = useState("et");
   const [gender, setGender] = useState("");
   const [errors, setErrors] = useState({});
@@ -142,7 +144,7 @@ function MemberRegistrationPage() {
             name="fristname"
             placeholder="የእርስዎ ስም"
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.firstName}
+            value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
@@ -153,7 +155,7 @@ function MemberRegistrationPage() {
             name="lastname"
             placeholder="የአባት ስም"
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.lastName}
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
@@ -164,14 +166,14 @@ function MemberRegistrationPage() {
             placeholder="ኢሜል"
             id="email"
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.email}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           <PhoneInput
             country={"et"}
-            value={userData.phone}
+            value={phone}
             onChange={(phone, country) => {
               setPhone(phone);
               setCountryCode(country.countryCode);

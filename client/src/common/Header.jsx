@@ -27,6 +27,7 @@ const Header = () => {
   // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access state from Redux store
   // console.log(isAuthenticated);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  console.log('isLoggedIn on initial render:', isLoggedIn);
 
   const handleSetActiveLink = (path) => {
     setActiveLink(path);

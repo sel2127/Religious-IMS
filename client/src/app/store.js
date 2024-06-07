@@ -12,7 +12,7 @@ const persistConfig={
   key:"root",
   version: 1,
   storage,
-  whitelist: ['user'], // Persist only the 'user' reducer state
+  whitelist: ['user','auth'], // Persist only the 'user' reducer state
 };
 
 const reducers = combineReducers({

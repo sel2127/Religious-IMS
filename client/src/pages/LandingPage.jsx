@@ -20,6 +20,7 @@ const LandingPage = () => {
   //const [feedbackData, setFeedbackData] = useState([]);
   const dispatch=useDispatch();
 
+  const { t } = useTranslation();
 
   useEffect(() => {
     const $owlCarousel = $(".owl-carousel");
@@ -81,30 +82,29 @@ useEffect(()=>{
     <div key={1}>
       <div>
         <div className="text-lg text-white mt-6 text-center">
-          አንተን ተስፋ የሚያደርጉ አያፍሩም፥ በከንቱ የሚገበዙ ያፍራሉ
+        {t('verse_one')}
         </div>
         <div className="text-lg text-white font-bold mt-4 text-center">
-          መዝሙረ ዳዊት 25፥3
+        {t('psalm_25')}
         </div>
       </div>
     </div>,
     <div key={2}>
       <div>
         <div className="text-lg text-white mt-6 text-center">
-          ማንም እግዚአብሔርን እወዳለሁ እያለ ወንድሙን ቢጠላ ሐሰተኛ ነው፥ ያየውን ወንድሙን የማይወድ ያላየውን
-          እግዚአብሔርን ሊወደው እንዴት ይችላል?
+        {t('verse_two')}
         </div>
         <div className="text-lg text-white font-bold mt-4 text-center">
-          1ኛ የዮሐንስ መልእክት 4፥20
+        {t('The 1st epistle of john')}
         </div>
       </div>
     </div>,
     <div key={3}>
       <div className="text-lg text-white mt-6 text-center">
-        እግዚአብሔር ብርሃኔና መድኃኒቴ ነው፥የሚያስፈራኝ ማን ነው?
+      {t('verse_three')}
       </div>
       <div className="text-lg text-white font-bold mt-4 text-center">
-        መዝሙረ ዳዊት 27፥1
+      {t('psalm_27')}
       </div>
     </div>,
   ];
@@ -141,8 +141,8 @@ useEffect(()=>{
           <div>
             
           </div>
-          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
-          <div className="font-bold">ለማ ሄደ</div>
+          <div className="mt-8">{t('feedback_1')}</div>
+          <div className="font-bold">{t('feedback_giver')}</div>
         </div>        
       </div>
     </div>,
@@ -151,8 +151,8 @@ useEffect(()=>{
         <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center lg:p-8 md:p-8 sm:p-2 text-lg">
           <div>            
           </div>
-          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
-          <div className="font-bold">ለማ መጣ</div>
+          <div className="mt-8">{t('feedback_1')}</div>
+          <div className="font-bold">{t('feedback_giver')}</div>
         </div>        
       </div>
     </div>,
@@ -162,9 +162,9 @@ useEffect(()=>{
       <div className="pt-4">
         <Slider />
         <div className="mt-10 flex flex-col items-center justify-center">
-          <h1 className="text-3xl font-bold">የቅርብ ቀን መርሃግብራት</h1>
+          <h1 className="text-3xl font-bold">{t('recent')}</h1>
           {/* <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full" enable-background="new 0 0 76.00 76.00" xml:space="preserve" fill="#a8a8a8" stroke="#a8a8a8"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="#a8a8a8" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 34.8333,26.9167L 37.2083,12.6667L 38.7917,12.6667L 41.1667,26.9167L 34.8333,26.9167 Z M 42.75,37.2083L 55.4167,49.875L 53.0416,51.4583L 38,35.625L 22.9583,51.4583L 20.5833,49.875L 33.25,37.2083L 33.25,32.0625L 34.8333,32.0625L 34.8333,28.1042L 41.1667,28.1042L 41.1667,32.0625L 42.75,32.0625L 42.75,37.2083 Z M 38,39.5833L 50.6667,52.25L 50.6667,60.1667L 41.1667,60.1667L 41.1667,53.8333C 41.1667,52.0844 39.7489,50.6667 38,50.6667C 36.2511,50.6667 34.8333,52.0844 34.8333,53.8333L 34.8333,60.1667L 25.3333,60.1667L 25.3333,52.25L 38,39.5833 Z "></path> </g></svg> */}
-          <p className="mt-5">በደብራችን በቅርብ ግዜ የተከናወኑ መርሃግብራትን እዚህ ያገኛሉ</p>
+          <p className="mt-5">{t('recent_second')}</p>
         </div>
         {events.map((event) => {
             const eventDateTime = new Date(event.eventdate);
@@ -187,7 +187,7 @@ useEffect(()=>{
                   <p className="text-lg truncate">{event.eventDesc}</p>
                   <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-6 h-10 flex items-center">
                     <button className="w-full mx-auto text-lg font-bold text-white">
-                      እይ
+                    {t('see')}
                     </button>
                   </div>
                 </div>
@@ -209,7 +209,7 @@ useEffect(()=>{
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">{ucount}</div>
-              <div className="text-gray-400 font-bold text-xl">ሰዎች</div>
+              <div className="text-gray-400 font-bold text-xl">{t('people')}</div>
             </div>
           </div>
           <div className="flex items-center sm:py-4 justify-center">
@@ -218,7 +218,7 @@ useEffect(()=>{
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">{dcount}</div>
-              <div className="text-gray-400 font-bold text-xl">በጎ ፈቃደኛ</div>
+              <div className="text-gray-400 font-bold text-xl">{t('volunteer')}</div>
             </div>
           </div>
           <div className="flex items-center sm:py-4 justify-center">
@@ -227,7 +227,7 @@ useEffect(()=>{
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">{fcount}</div>
-              <div className="text-gray-400 font-bold text-xl">አስተያየቶች</div>
+              <div className="text-gray-400 font-bold text-xl">{t('feed')}</div>
             </div>
           </div>
           {/* <div className="flex items-center">
@@ -241,7 +241,7 @@ useEffect(()=>{
           </div> */}
         </div>
         <div className="mt-20 flex flex-col items-center justify-center">
-          <h1 className="text-3xl font-bold">እርዳታ</h1>
+          <h1 className="text-3xl font-bold">{t('help')}</h1>
           <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1 gap-4">
             <div className="flex flex-col items-center">
               <div className="px-6 flex justify-center imgListHeight">
@@ -250,11 +250,10 @@ useEffect(()=>{
               <div className="flex flex-col items-center py-6 px-10">
                 <div className="h-[120px]">
                   <h1 className="text-center font-bold text-xl">
-                    በድርቅ ለተጎዱ ወገኖች
+                  {t('drought')}
                   </h1>
                   <p className="text-sm mt-3 text-center">
-                    አንዱ ደብራችን የሚሰጠው እርዳታ በድርቅ ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን በማበርከት
-                    የህሊና ግደታችሁን ተወጡ
+                  {t('church_help')}
                   </p>
                 </div>
                 {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
@@ -271,11 +270,10 @@ useEffect(()=>{
               <div className="flex flex-col items-center py-6 px-10">
                 <div className="h-[120px]">
                   <h1 className="text-center font-bold text-xl">
-                    በጦርነት ለተጎዱ ወገኖች
+                  {t('war')}
                   </h1>
                   <p className="text-sm mt-3 text-center">
-                    ሌላው ደብራችን የሚሰጠው እርዳታ በጦርነት ለተጎዱ ወገኖች ሲሆን እናንተም የአቅማችሁን
-                    በማበርከት የህሊና ግደታችሁን ተወጡ
+                  {t('war_help')}
                   </p>
                 </div>
                 {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
@@ -292,10 +290,10 @@ useEffect(()=>{
               <div className="flex flex-col items-center py-6 px-10">
                 <div className="h-[120px]">
                   <h1 className="text-center font-bold text-xl">
-                    ለቤተክርስቲያኗ ሕንጻ ማሰሪያ
+                  {t('build')}
                   </h1>
                   <p className="text-sm mt-3 text-center">
-                    አዲስ የተጀመረውን የሕንጻ ቤተክርስቲያን ለማስፈጸም የበኩልዎን አስተዋጽዖ ያድርጉ
+                  {t('build_one')}
                   </p>
                 </div>
                 {/* <div className="w-1/3 bg-dark-blue border border-gray-200 rounded-full mt-5 h-10 flex items-center">
@@ -309,7 +307,7 @@ useEffect(()=>{
         </div>
         <div className="mt-10 bg-light-blue px-8 py-6 flex flex-col justify-center">
           <div className="text-white font-bold lg:text-3xl md:text-3xl sm:text-2xl mx-auto underline text-center">
-            የመጽሐፍቅዱስ ጥቅሶች
+          {t('verses')}
           </div>
           <OwlCarousel
             className="owl-theme"
@@ -322,7 +320,7 @@ useEffect(()=>{
           </OwlCarousel>
         </div>
         <div className="mt-10 bg-gray-100 lg:p-6 md:p-6 sm:p-2">
-          <h1 className="text-3xl font-bold text-center">አስተያየታችሁ ያግዘናል</h1>
+          <h1 className="text-3xl font-bold text-center">{t('comment')}</h1>
           <div className="mt-10">
             <OwlCarousel
               className="owl-theme"

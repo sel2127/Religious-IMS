@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { useTranslation } from "react-i18next";
 
 axios.defaults.withCredentials = true;
 
@@ -22,6 +23,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const [countryCode, setCountryCode] = useState("ET");
   const [errors, setErrors] = useState({});
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -116,14 +118,14 @@ const Register = () => {
           <input
             type="text"
             onChange={(e) => setFirstnameReg(e.target.value)}
-            placeholder="የመጀመሪያ ስም"
+            placeholder="{t('first_name')}"
             className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.firstname && <p className="text-red-500 text-sm">{errors.firstname}</p>}
           <input
             type="text"
             onChange={(e) => setLastnameReg(e.target.value)}
-            placeholder="የአባት ስም"
+            placeholder="{t('last_name')}"
             className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.lastname && <p className="text-red-500 text-sm">{errors.lastname}</p>}
@@ -134,28 +136,28 @@ const Register = () => {
               setPhone(phone);
               setCountryCode(country.countryCode);
             }}
-            placeholder="ስልክ ቁጥር"
+            placeholder="{t('phone_number')}"
             className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           <input
             type="email"
             onChange={(e) => setEmailReg(e.target.value)}
-            placeholder="ኢሜል"
+            placeholder="{t('email')}"
             className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           <input
             type="password"
             onChange={(e) => setPasswordReg(e.target.value)}
-            placeholder="ይለፍ ቃል"
+            placeholder="{t('pass')}"
             className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           <input
             type="password"
             onChange={(e) => setConfirmPasswordReg(e.target.value)}
-            placeholder="ይለፍ ቃል አረጋግጥ"
+            placeholder="{t('con_pass')}"
             className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
@@ -165,7 +167,7 @@ const Register = () => {
               onClick={registration}
               className="w-full mx-auto text-base font-bold text-white"
             >
-              ተመዝገብ
+              {t('reg')}
             </button>
           </div>
         </div>

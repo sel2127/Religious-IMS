@@ -68,8 +68,8 @@ function Admin() {
           <Route path="dashboard" element={<PrivateRoute>
                       <Dashboard />
                     </PrivateRoute>} />
-          <Route path="team"element={<PrivateRoute>
-                      <Team />
+          <Route path="members" element={<PrivateRoute>
+                      <Member />
                     </PrivateRoute>} />
           <Route path="users" element={<PrivateRoute>
                       <Users />

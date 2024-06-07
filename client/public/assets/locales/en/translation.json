@@ -17,8 +17,66 @@
     "feedback_giver":"Tesfaye Derese",
     "recent":"Recent day schedules",
     "recent_second":"Here you will find a schedule that has taken place in our parish in recent times",
-    "date_one":"November 10 2016",
-    "day_time":"Thursday 4:30"
+    "date_one":"November 10 2024",
+    "day_time":"Thursday 4:30",
+    "father_1":"Sermon in the Blessed Father Nathaniel",
+    "see":"See",
+    "date_two":"March 27 2024",
+    "day_time_two":"Monday 3:30",
+    "event_two":"The celebration of our Saviour held in the Church of Medhanialem",
+    "people":"People",
+    "volunteer":"Volunteers",
+    "help":"Help",
+    "sermon":"Sermons",
+    "drought":"For drought affected parties",
+    "church_help":"One of our parish's grants is given to those affected by drought, with you contributing your best get on your conscience duty",
+    "war":"For war-affected parties",
+    "war_help":"Another aid our parish provides to war-affected parties, and you can afford it by contributing, you fulfill your conscientious obligation",
+    "build":"Binding for the building of the church",
+    "build_one":"Contribute to executing the newly started building of the Church ",
+    "verses":"Book of Holy Verses",
+    "comment":"Your comment helps us",
+    "trap":"Trap broken, and we escaped",
+    "announce":"This is the website of the Church of the Cure Medicine World Let's do our part by informing those who don't know",
+    "contact":"To contact us",
+    "addr":"Bole Bulbula, Addis Ababa ,Ethiopia",
+    "other":"Other pages",
+    "main":"Main page",
+    "about":"About our Church",
+    "sun_sch":"Sunday School",
+    "sun_event":"Sunday Events",
+    "ev":"All events",
+    "chu":"Medhanialem Church",
+    "daily":"Get sermons daily",
+    "se":"All sermons",
+    "enter":"Enter",
+    "return":"Return to Login",
+    "remember":"Remember me",
+    "forgot_p":"Forgot Password",
+    "new_acc":"Create a new account",
+    "change":"Change Your Password",
+    "email_ver":"Email Verification",
+    "sent_code":"We have sent a code to your email",
+    "ver":"Verify Account",
+    "rec":"Didn't recieve code?",
+    "first_name":"First Name",
+    "last_name":"Last Name",
+    "phone_number":"Phone Number",
+    "email":"Email",
+    "pass":"Password",
+    "con_pass":"Confirm Password",
+    "reg":"Register",
+    "sebeka":"Sebeka Gubae Registration",
+    "pass_ma":"Passwords do not match and put more than 8 character",
+    "feed":"Feedbacks"
 
-    
+
+
+
+
+
+
+
+
+
 }

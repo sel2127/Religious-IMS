@@ -3,6 +3,7 @@ import Sidebarr from "./SideBarr";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePassword } from "../../app/actions/passwordActions";
 import { ToastContainer ,toast,cssTransition} from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
@@ -13,6 +14,7 @@ function ChangePassword() {
   const userData = useSelector((state) => state.user.userData);
   const userId = userData.id;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleNewPasswordChange = (e) => {
     setNewPassword(e.target.value);
@@ -26,7 +28,7 @@ function ChangePassword() {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      toast.warning("Passwords do not match and put more thna 8 character");
+      toast.warning("Passwords do not match and put more than 8 character");
       setPasswordError("Passwords do not match");
     } else {
       setPasswordError("");
@@ -54,10 +56,10 @@ function ChangePassword() {
      closeOnClick
      
    />
-    <h1 className="text-center text-3xl font-bold custom-font mb-4">Change Your Password</h1>
-      <h1 className="text-center text-3xl font-bold custom-font mb-4">
+    <h1 className="text-center text-3xl font-bold custom-font mb-4">{t('change')}</h1>
+      {/* <h1 className="text-center text-3xl font-bold custom-font mb-4">
        የይለፍ ቃሎን ይቀይሩ
-      </h1>
+      </h1> */}
 
       <div className="change-password-container  ">
         <div className=" w-full rounded-lg">

@@ -46,25 +46,25 @@ function ChangePassword() {
         Change Your Password
       </h1> */}
 
-      <div className="change-password-container  ">
-        <div className=" w-full rounded-lg">
-          <div className="flex flex-col lg:flex-row">
+<div className="w-full change-password-container bg-gray-100 py-10">
+      <div className=" w-full rounded-lg">
+        <div className="flex flex-col lg:flex-row md:flex-row">
             {/* sidebar */}
             <div>
               <Sidebarr />
             </div>
             <div className="lg:w-1/2 m-auto">
-              <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
-                <div className=" min-h-full overflow-hidden shadow  rounded-lg">
+              <div className="bg-white rounded-xl flex flex-col ">
+                <div className=" min-h-full overflow-hidden shadow py-10 rounded-lg">
                   <form
-                    className="space-y-4  flex flex-col  text-center lg: w-full  mt-10  py-10"
+                    className="space-y-4 flex flex-col text-center lg: w-full "
                     type="post"
                   >
                     <input
                       type="password"
                       id="password"
                       placeholder="Current Password"
-                      className="ml-10 mr-10 border rounded-xl px-6 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 "
+                      className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 "
                       required
                       autoComplete="current-password"
                     />
@@ -73,8 +73,8 @@ function ChangePassword() {
                       id="new"
                       value={newPassword}
                       onChange={handleNewPasswordChange}
-                      placeholder="new password(min 6 characters)"
-                      className="ml-10 mr-10 border rounded-xl px-4 py-2  focus:outline-none focus:ring-2 focus:ring-gray-500  "
+                      placeholder="new password (min 6 characters)"
+                      className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500  "
                       required
                       autoComplete="current-password"
                     />
@@ -82,7 +82,7 @@ function ChangePassword() {
                       type="password"
                       value={confirmPassword}
                       onChange={handleConfirmPasswordChange}
-                      placeholder="Confirm Password (Min 6 Characters)"
+                      placeholder="Confirm Password (min 6 Characters)"
                       id="confirm"
                       className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500   "
                       required
@@ -100,12 +100,12 @@ function ChangePassword() {
                     <button
                       type="submit"
                       onClick={handleSubmit}
-                      className="bg-blue-500 text-white text-center  px-6 py-2 rounded-3xl mr-4"
+                      className="bg-[#2d5986] hover:bg-[#79a6d2] text-white text-center  px-6 py-2 rounded-3xl mr-4"
                     >
                       Confirm
                     </button>
                     <button
-                      className="bg-red-500 text-white text-center  px-6 py-2 rounded-3xl"
+                      className="bg-red-600 hover:bg-red-400 text-white text-center  px-6 py-2 rounded-3xl"
                       onClick={() => window.history.back()}
                     >
                       Cancel

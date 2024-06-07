@@ -23,22 +23,40 @@ const Line = () => {
     }
   };
 
-  const getWeekData = () => {
-    // Group user data by week and count the number of users in each week
-    const userCountByWeek = userData.reduce((acc, user) => {
+  // const getWeekData = () => {
+  //   // Group user data by week and count the number of users in each week
+  //   const userCountByWeek = userData.reduce((acc, user) => {
+  //     const createdAt = new Date(user.createdAt);
+  //     const weekNumber = getWeekNumber(createdAt);
+  //     acc[weekNumber] = (acc[weekNumber] || 0) + 1;
+  //     return acc;
+  //   }, {});
+
+  //   // Convert the grouped data into an array of objects with 'week' and 'userCount' properties
+  //   const weekData = Object.keys(userCountByWeek).map(weekNumber => ({
+  //     week: `Week ${weekNumber}`,
+  //     userCount: userCountByWeek[weekNumber],
+  //   }));
+
+  //   return weekData;
+  // };
+
+  const getDayData = () => {
+    // Group user data by day and count the number of users in each day
+    const userCountByDay = userData.reduce((acc, user) => {
       const createdAt = new Date(user.createdAt);
-      const weekNumber = getWeekNumber(createdAt);
-      acc[weekNumber] = (acc[weekNumber] || 0) + 1;
+      const dayNumber = createdAt.getDate();
+      acc[dayNumber] = (acc[dayNumber] || 0) + 1;
       return acc;
     }, {});
-
-    // Convert the grouped data into an array of objects with 'week' and 'userCount' properties
-    const weekData = Object.keys(userCountByWeek).map(weekNumber => ({
-      week: `Week ${weekNumber}`,
-      userCount: userCountByWeek[weekNumber],
+  
+    // Convert the grouped data into an array of objects with 'day' and 'userCount' properties
+    const dayData = Object.keys(userCountByDay).map(dayNumber => ({
+      day: `Day ${dayNumber}`,
+      userCount: userCountByDay[dayNumber],
     }));
-
-    return weekData;
+  
+    return dayData;
   };
 
   const getWeekNumber = (date) => {
@@ -51,7 +69,7 @@ const Line = () => {
       <Header subtitle="Line Chart" />
       <Box height="75vh">
       {/* <LineChart data={userData} xKey="createdAt" yKey="id" /> */}
-      <LineChart data={getWeekData()} xKey="week" yKey="userCount" />
+      <LineChart data={getDayData()} xKey="day" yKey="userCount" />
 
       </Box>
     </Box>

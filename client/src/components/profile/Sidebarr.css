@@ -5,9 +5,7 @@
   
   }
   .conatiner{
-    display: flex;
-   
-   
+    display: flex;  
   }
   .main{
     width: 100%;
@@ -15,37 +13,36 @@
     flex: 1;
   }
   .sidebar{
-  background:#000;
-  color: white;
-  height: 100vh;
+  background:#fff;
+  color: #000;
   width: 50%;
   transition: all 0.5s;
   }
   .top-section{
   display: flex;
   align-items: center;
-  padding: 20px 15px;
+  padding: 10px 15px ;
   }
   .bars{
     display: flex;
-    font-size: 25px;
-    margin-left: 50px;
+    font-size: 20px;
+    /* margin-left: 70px; */
   }
   .link{
     display: flex;
-    color: white;
+    color: #2d5986;
     padding: 10px 15px;
     gap: 15px;
   }
   .link:hover{
-    background: lightskyblue;
-    color: #000;
+    background: #79a6d2;
+    color: #fff;
     transition: all 0.5s;
   }
   .active{
-    background: lightskyblue;
-    color: #000;
+    background: #79a6d2;
+    color: #fff;
   }
   .icon, .link-text{
-    font-size: 20px;
+    font-size: 16px;
   }

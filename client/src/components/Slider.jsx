@@ -6,11 +6,8 @@ import $ from 'jquery';
 import Hero1 from '../assets/Images/hero1.jpg'
 import Hero2 from '../assets/Images/hero2.jpg'
 import Hero3 from '../assets/Images/hero3.jpg'
-import { useTranslation } from "react-i18next";
 
 const Slider = () => {
-
-    const { t } = useTranslation();
 
 useEffect(() => {
   const $owlCarousel = $('.owl-carousel');
@@ -32,11 +29,6 @@ useEffect(() => {
             <div className='relative w-full lg:h-[600px] md:h-[600px] sm:h-[400px]'>
                 <img src={Hero1} alt="Hero image 1" className="w-full h-full object-cover" />
                 <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-70 flex flex-col items-center justify-center text-white'>
-                    <p className='text-5xl font-bold'>{t('sun_event')}</p>
-                    <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-10 h-10 flex items-center">
-                        <button className="w-full mx-auto text-lg font-bold text-white">
-                        {t('ev')}
-                        </button>
                     <p className='lg:text-5xl md:text-4xl sm:text-2xl font-bold'>የተለያዪ መርሃግብራት</p>
                     <div className="lg:w-1/6 md:w-1/5 sm:w-1/3 px-4 bg-dark-blue border border-gray-200 rounded-full mt-10 h-12 flex items-center justify-center">
                     <a href="/notify" className="cursor-pointer">
@@ -52,10 +44,11 @@ useEffect(() => {
             <div className='relative w-full lg:h-[600px] md:h-[600px] sm:h-[400px]'>
                 <img src={Hero2} alt="Hero image 2" className="w-full h-full object-cover" />
                 <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-70 flex flex-col items-center justify-center text-white'>
-                    <p className='text-5xl font-bold'>{t('chu')}</p>
-                    <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-10 h-10 flex items-center">
-                        <button className="w-full mx-auto text-lg font-bold text-white">
-                        {t('about')}
+                    <p className='lg:text-5xl md:text-4xl sm:text-2xl text-center font-bold'>የደብረ መድኃኒት መድኃኔዓለም ቤተክርስቲያን</p>
+                    <div className="lg:w-1/6 md:w-1/5 sm:w-1/3 px-4 bg-dark-blue border border-gray-200 rounded-full mt-10 h-10 flex items-center justify-center">
+                    <a href="/church" className="cursor-pointer">
+                        <button className="w-full mx-auto text-lg font-bold text-white text-center">
+                            ስለ ደብሩ
                         </button>
                     </a>
                     </div>
@@ -66,10 +59,11 @@ useEffect(() => {
             <div className='relative w-full lg:h-[600px] md:h-[600px] sm:h-[400px]'>
                 <img src={Hero3} alt="Hero image 3" className="w-full h-full object-cover" />
                 <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-70 flex flex-col items-center justify-center text-white'>
-                    <p className='text-5xl font-bold'>{t('daily')}</p>
-                    <div className="w-1/6 bg-dark-blue border border-gray-200 rounded-full mt-10 h-10 flex items-center">
-                        <button className="w-full mx-auto text-lg font-bold text-white">
-                        {t('se')}
+                    <p className='lg:text-5xl md:text-4xl sm:text-2xl font-bold'>አስተያየትዎን ያስቀምጡ</p>
+                    <div className="lg:w-1/6 md:w-1/5 sm:w-1/3 px-4 bg-dark-blue border border-gray-200 rounded-full mt-10 h-10 flex items-center justify-center">
+                    <a href="/feedback" className="cursor-pointer">
+                        <button className="w-full mx-auto text-lg font-bold text-white text-center">
+                            አስተያየት
                         </button>
                     </a>
                     </div>

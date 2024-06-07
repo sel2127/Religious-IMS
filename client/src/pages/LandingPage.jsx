@@ -17,12 +17,12 @@ import axios from "axios";
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { feedbackCount, fetchDonation, fetchEvents, fetchFeedback, fetchFeedbackCount, fetchUsersCount, getEvents } from "../app/actions/feedbackAction";
-
+import { useTranslation } from "react-i18next";
 const LandingPage = () => {
   //const [feedbackData, setFeedbackData] = useState([]);
   const dispatch = useDispatch();
 
-
+  const { t } = useTranslation();
   useEffect(() => {
     const $owlCarousel = $(".owl-carousel");
     if ($owlCarousel.length) {

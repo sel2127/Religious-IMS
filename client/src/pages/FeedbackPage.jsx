@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Ava from "../assets/Images/ava.png";
 import { FaReadme } from "react-icons/fa";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFeedback, fetchFeedback } from "../app/actions/feedbackAction";
+import {  fetchFeedback } from "../app/actions/feedbackAction";
 
 const FeedbackPage = () => {
   const getUserImageFromLocalStorage = (userId) => {
@@ -30,10 +30,10 @@ const FeedbackPage = () => {
     return <div>Error: {error}</div>;
   }
 
-  const handleDelete = (id) => {
-    setSelectedFeedbackId(id);
-    setIsOpen(true);
-  };
+  // const handleDelete = (id) => {
+  //   setSelectedFeedbackId(id);
+  //   setIsOpen(true);
+  // };
 
   const closeDialog = () => {
     setSelectedFeedbackId(null);

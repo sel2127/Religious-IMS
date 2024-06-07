@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { setImagePreview } from '../app/reducers/imageReducer';
 import aba from "../assets/Images/aba.jpg";
+import Breadcrumb from "../common/Breadcrumb";
 import SideBarr from "../components/profile/SideBarr";
 import { setUserData } from '../app/actions/userAction';
 import { useNavigate } from 'react-router-dom';
@@ -10,8 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const ProfilePage = () => {
-  const userData = useSelector((state) => state.user.userData);
-
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +27,7 @@ const ProfilePage = () => {
     reader.readAsDataURL(file);
   };
 
+  const userData = useSelector((state) => state.user.userData);
 
 const fetchData = async (dispatch) => {
   try {
@@ -66,7 +66,7 @@ const fetchData = async (dispatch) => {
   return (
     <div className="w-full">
       <div className=" w-full rounded-lg">
-        <div className="flex flex-col lg:flex-row md:flex-row">
+        <div className="flex flex-col lg:flex-row">
           {/* sidebar */}
           <div>
             <SideBarr />

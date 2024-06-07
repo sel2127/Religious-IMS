@@ -57,9 +57,9 @@ const FeedbackForm = () => {
           <div>
             <Sidebarr />
           </div>
-          <div className="lg:w-2/4 mt-10">
+          <div className="lg:w-full ml-5 mt-10 m-auto">
             <div className="bg-gray-200 rounded-xl flex flex-col h-auto">
-              <div className="flex flex-col items-center justify-center px-10 py-5 lg:px-20 lg:py-10">
+              <div className="flex flex-col items-center justify-center px-10 py-5 sm:px-20 sm:py-10">
                 {/* Content here */}
               </div>
 
@@ -84,7 +84,7 @@ const FeedbackForm = () => {
                     id="submit"
                     type="submit"
                     disabled={isLoading}
-                    className={`w-1/2 bg-blue-500 text-white rounded-md hover:bg-blue-700 h-10 mb-4 ${
+                    className={`w-1/2 sm:w-full bg-blue-500 text-white rounded-md hover:bg-blue-700 h-10 mb-4 ${
                       isLoading ? "cursor-not-allowed opacity-50" : ""
                     }`}
                   >

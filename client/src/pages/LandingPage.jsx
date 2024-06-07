@@ -35,7 +35,6 @@ const LandingPage = () => {
 
   },[dispatch]);
   if(error){
-    //return <div>Error:{error}</div>
   }
   const events=useSelector(state=>state.feedback.event);
   useEffect(()=>{

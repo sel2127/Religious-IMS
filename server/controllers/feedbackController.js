@@ -216,7 +216,7 @@ export const getAllFeedbackWithWriterName = async (req, res) => {
         },
       ],
       order: [['createdAt', 'DESC']], 
-      limit: 3, 
+      limit: 10, 
     });
 
     if (feedbacks.length > 0) {

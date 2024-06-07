@@ -23,7 +23,11 @@ app.use(cors({
   credentials: true,
   origin: ['http://localhost:3000'],
   methods: ['POST', 'GET', 'PUT', 'DELETE'],
+  credentials: true,
+  origin: ['http://localhost:3000'],
+  methods: ['POST', 'GET', 'PUT', 'DELETE'],
 }));
+db.sync();
 db.sync();
 
 // Parse JSON bodies
@@ -36,6 +40,7 @@ app.use(express.static("public"));
 // Define routes
 app.use(donationRoute);
 app.use(UserRoute); 
+app.use(UserRoute); 
 app.use(feedbackRoute);
 app.use(memberRoute);
 app.use("/events", eventRouter);
@@ -45,10 +50,12 @@ app.use("/api", calendarRoutes);
 // Mount admin routes
 app.use("/admin", adminRouter);
 app.use("/chat", chatRoutes); // Use chat routes
+app.use("/chat", chatRoutes); // Use chat routes
 app.use(passwordRecoveryRoute);
 
 // Default route for handling 404 errors
 app.use((req, res) => {
+  res.status(404).send("Not Found");
   res.status(404).send("Not Found");
 });
 
@@ -59,3 +66,4 @@ const server = createChatServer(app);
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+

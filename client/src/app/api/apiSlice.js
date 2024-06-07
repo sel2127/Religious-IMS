@@ -32,3 +32,4 @@ export const registerUser = (userData) => async (dispatch) => {
     dispatch(registerFailure(error.response.data.message));
   }
 };
+

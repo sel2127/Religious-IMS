@@ -37,11 +37,13 @@ import EventSearch from './components/EventSearch';
 export const RecoveryContext = createContext();
 
 
+
 function App() {
   const isPathInAdmin = window.location.pathname.startsWith('/admin');
   const shouldApplyPadding = !isPathInAdmin;  
   const [email, setEmail] = useState();
   const [otp, setOTP] = useState();
+
 
 
 
@@ -52,10 +54,14 @@ function App() {
     <RecoveryContext.Provider
     value={{ otp, setOTP, setEmail, email }}
   >
+    <RecoveryContext.Provider
+    value={{ otp, setOTP, setEmail, email }}
+  >
     <Router>
       <div className={shouldApplyPadding ? "app-container px-4 md:px-8 lg:px-16 xl:px-20": ""}>
       {!isPathInAdmin && <Header />}
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/church" element={<ChurchPage />} />
         <Route path="/sunday" element={<SundaySchool />} />
@@ -68,6 +74,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/donation" element={<Donation />} />
         <Route path="/member" element={<Member />} />
+        <Route path="/chat" element={<Chat/>} />
         <Route path="/chat" element={<Chat/>} />
         <Route path="/donate/d" element={<DonationCause />} />
         <Route path="/donate/c" element={<DonationChoice />} />
@@ -87,6 +94,8 @@ function App() {
         <Route path="/search/:query" element={<EventSearch />} />
         <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
         <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
+        <Route path='/feedback/:id' element={<FeedbackDetailPage/>}/>
+        <Route path='/editfeedback/:id' element={<EditFeedbackForm/>} />
       </Routes>
       <ToastContainer />
 
@@ -94,6 +103,7 @@ function App() {
           </div>
       
     </Router>
+    </RecoveryContext.Provider>
     </RecoveryContext.Provider>
     </RecoveryContext.Provider>
   );

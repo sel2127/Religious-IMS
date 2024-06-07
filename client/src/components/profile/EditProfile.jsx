@@ -109,7 +109,7 @@ const EditProfile = () => {
                       validateFormFields();
                     }}
                     placeholder="Enter new first name"
-                    className="px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
+                    className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
                     autoComplete="name"
                   />
@@ -125,7 +125,7 @@ const EditProfile = () => {
                       validateFormFields();
                     }}
                     placeholder="Enter new last name"
-                    className="px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
+                    className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
                     autoComplete="name"
                   />
@@ -141,7 +141,7 @@ const EditProfile = () => {
                       setEmail(e.target.value);
                       validateFormFields();
                     }}
-                    className="px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
+                    className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
                     autoComplete="email" 
                   />
@@ -159,7 +159,7 @@ const EditProfile = () => {
                       validateFormFields();
                     }}
                     placeholder="Phone"
-                    className="px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
+                    className="py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                   />
                   <p className="text-red-500">{phoneError}</p>
 

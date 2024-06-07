@@ -7,7 +7,7 @@ export const getAllEvents = async (req, res) => {
     const events = await EventModel.findAll({
       order: [['createdAt', 'DESC']], // Sort by creation date 
 
-      limit: 2,
+      limit: 4,
     });
     res.status(200).json(events);
   } catch (error) {

@@ -127,15 +127,15 @@ function MemberRegistrationPage() {
   // });
 
   return (
-    <div className="container w-full">
+    <div className="container ">
 <ToastContainer
         position="top-right"
         closeOnClick
       />      <div className="justify-center items-center mt-8">
         <h1 className="text-xl font-bold px-10 ml-10 sm:text-base sm:px-0">የቤተክርስቲያን የሰበካ ጉባኤ አባልነት ቅጽ</h1>
       </div>
-      <div className="max-w-md border border-gray-300 lg:p-6 sm:p-2 rounded-md shadow-md mt-10">
-        <div className="flex flex-col items-center justify-center form-field">
+      <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600">
+        <div className="flex flex-col items-center justify-center  px-20 py-10 form-field">
           <input
             type="text"
             id="fristname"

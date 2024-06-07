@@ -86,8 +86,8 @@ const FeedbackDetailPage = () => {
                     : Ava
                 }
                 alt="Profile Image"
-                className="rounded-full mt-5 md:w-32 md:h-32 sm:w-20 sm:h-20"
-              />
+                className="rounded-full w-32 h-32"
+                />
               <div className="ml-2">
                 <p className="text-base md:font-semibold">
                   {feedback.firstName} {feedback.lastName}

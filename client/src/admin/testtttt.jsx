@@ -1,61 +1,112 @@
-import { useEffect, useState } from 'react';
-import { Box, Badge, IconButton } from '@mui/material';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
-import { useTheme, useContext } from '@mui/material/styles';
-import { tokens } from '../../theme';
-import { ColorModeContext } from '../../contexts/ColorModeContext';
+import React , { useState } from 'react'
+import '../assets/styles/main.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const TopBar = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const colorMode = useContext(ColorModeContext);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [hasCurrentDayTodos, setHasCurrentDayTodos] = useState(false);
 
-  useEffect(() => {
-    const checkCurrentDayTodos = async () => {
-      try {
-        const today = new Date().toISOString().slice(0, 10);
-        const response = await fetch(`http://localhost:5000/api/calendarevents?tododate=${today}`);
-        const events = await response.json();
-        setHasCurrentDayTodos(events.length > 0);
-      } catch (error) {
-        console.error('Failed to fetch current day events:', error);
-      }
-    };
 
-    checkCurrentDayTodos();
-  }, []);
+const Register = () => {
+
+    const [firstnameReg, setFirstnameReg] = useState('');
+    const [lastnameReg, setLastnameReg] = useState('');
+    const [emailReg, setEmailReg] = useState('');
+    const [phonenumberReg,setPhoneNumberReg] = useState('');
+    const [passwordReg, setPasswordReg] = useState('');
+    const [confirmPasswordReg, setConfirmPasswordReg] = useState('');
+    const [error, setError] = useState('');
+
+ 
+
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/; // Regular expression for 10-digit phone number
+
+    if (
+      !firstnameReg ||
+      !lastnameReg ||
+      !emailReg ||
+      !phonenumberReg||
+      !passwordReg ||
+      !confirmPasswordReg
+    ) {
+      setError('Please fill in all fields.');
+      return false;
+    }
+
+    if (!emailRegex.test(emailReg)) {
+      setError('Please enter a valid email address.');
+      return false;
+    }
+
+    if (!phoneRegex.test(phonenumberReg)) {
+      setError('Please enter a valid phone number.');
+      return false;
+    }
+
+
+    if (passwordReg.length < 8) {
+      setError('Password should be at least 8 characters long.');
+      return false;
+    }
+
+    if (passwordReg !== confirmPasswordReg) {
+      setError('Passwords do not match.');
+      return false;
+    }
+
+    setError('');
+    return true;
+  };
+
+  const registration = () => {
+    if (validateForm()) {
+    axios.post('http://localhost:5000/user/register', 
+    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg}).then((response)=>{console.log(response);
+    }).then((response) => {
+      console.log(response);
+      navigate('/login'); // Redirect to the login page
+    })
+    .catch((error) => {
+      console.error(error);
+      // Handle the registration error if needed
+    });
+  }
+  };
+
+
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
-      {/* SEARCH BAR */}
-      <Box display="flex" backgroundColor={colors.primary[400]} borderRadius="3px">
-        {/* <InputBase sx={{ml: 2, flex: 1 }} placehlder="Search" />
-        <IconButton type="button" sx={{ p: 1 }}>
-          <SearchIcon />
-        </IconButton> */}
-      </Box>
+    <div>
 
-      {/* Icons */}
-      <Box display="flex">
-        <IconButton onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === 'dark' ? (
-            <DarkModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon />
-          )}
-        </IconButton>
-        <IconButton>
-          <Badge color="secondary" variant="dot" invisible={!hasCurrentDayTodos}>
-            <NotificationsOutlinedIcon />
-          </Badge>
-        </IconButton>
-      </Box>
-    </Box>
-  );
-};
+      <div className='mx-auto border border-gray-300 lg:w-1/2 md:w-1/2 sm:w-full mt-10 rounded rounded-3xl text-gray-600'>
+        <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>
+    
+        <input type="text" onChange = {(e) => { setFirstnameReg(e.target.value);}}
+         placeholder='የመጀመሪያ ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type="text" onChange = {(e) => { setLastnameReg(e.target.value);}}
+        placeholder='የአባት ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type="tel" onChange = {(e) => { setPhoneNumberReg(e.target.value);}}
+        placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type="email" onChange = {(e) => { setEmailReg(e.target.value);}}
+        placeholder='ኢሜል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type="password" onChange = {(e) => { setPasswordReg(e.target.value);}}
+        placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+        <input type='password' onChange={(e) => {setConfirmPasswordReg(e.target.value);}} 
+        placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+         {error && <p className='text-red-500'>{error}</p>}
+        <div className='mr-auto underline decoration-dotted mt-4 cursor-pointer hover:text-[#79a6d2]'>
+            <a href="/login">አካውንት አለዎት?</a></div>            
+        <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+                <button onClick={registration} className="w-full mx-auto text-base font-bold text-white">
+                  ተመዝገብ
+                </button>
+              </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
-export default TopBar;
+export default Register

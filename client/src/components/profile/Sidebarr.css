@@ -39,7 +39,7 @@
     color: #fff;
     transition: all 0.5s;
   }
-  .active{
+  .profileactive .active{
     background: #79a6d2;
     color: #fff;
   }

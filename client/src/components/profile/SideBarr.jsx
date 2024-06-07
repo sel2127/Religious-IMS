@@ -56,7 +56,7 @@ function Sidebarr({ children }) {
   return (
     <div className="mx-10">
       <div className="conatiner">
-        <div className="sidebar rounded-lg" style={{ width: isOpen ? "220px" : "50px" }}>
+        <div className="sidebar rounded-lg profileactive" style={{ width: isOpen ? "220px" : "50px" }}>
           <div className="top-section border-b border-gray-200">
             <h1 className="text-xl" style={{ display: isOpen ? "block" : "none" }}>የእርስዎ መረጃዎች</h1>
             <div className="bars" style={{ marginLeft: isOpen ? "auto" : "0px" }}>
@@ -68,7 +68,7 @@ function Sidebarr({ children }) {
               to={item.path}
               key={index}
               className="link border-b"
-              activeClassName="active"
+              activeClassName=""
               onClick={item.path === "/logout" ? (e) => { e.preventDefault(); handleLogout(); } : null} // Prevent default for logout
             >
               <div className="icon">{item.icon}</div>

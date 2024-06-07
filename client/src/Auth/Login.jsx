@@ -72,13 +72,13 @@ const Login = () => {
 
   return (
     <div>
-      <div className='mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3xl text-gray-600'>
-        <div className='flex flex-col items-center justify-center px-20 py-10'>
+      <div className='mx-auto border border-gray-300 lg:w-1/2 md:w-1/2 sm:w-full mt-10 rounded rounded-3xl text-gray-600'>
+      <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>
 
           <input type="tel" onChange={(e) => { setPhoneLogin(e.target.value); }}
-            placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+            placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300 rounded-full' />
           <input type="password" onChange={(e) => { setPasswordLogin(e.target.value); }}
-            placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+            placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300 rounded-full' />
           {error && <p className='text-red-500'>{error}</p>}
           <div className='w-full flex items-center mt-6'>
             <div className='w-1/2 flex'>

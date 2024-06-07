@@ -39,3 +39,68 @@
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {display: block;}
   
+
+  
+
+  /* The sidepanel menu */
+.sidepanel {
+  height: 100%; /* Specify a height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #fbfbfb; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 40px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+  border-right: #ddd 1px solid;
+}
+
+/* The sidepanel links */
+.sidepanel a {
+  padding: 4px 8px 4px 32px;
+  text-decoration: none;
+  /* font-size: 14px; */
+  color: #000;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel .padding {
+  padding: 4px 8px 4px 32px;
+  text-decoration: none;
+  /* font-size: 14px; */
+  color: #000;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  padding: 0px 5px 2px 0px;
+  /* right: 25px; */
+  font-size: 36px;
+  /* margin-left: 50px; */
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  /* background-color: #111; */
+  color: #000;
+  /* padding-top: 20px; */
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #f1f1f1;
+}

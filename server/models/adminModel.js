@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import db from '../config/Database.js';
 
-const AdminModel = db.define('Admins', {
+const AdminModel = db.define('admins', {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,

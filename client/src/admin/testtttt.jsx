@@ -1,112 +1,410 @@
-import React , { useState } from 'react'
-import '../assets/styles/main.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import {AdminModel} from '../models/adminModel.js';
+import { authMiddleware } from '../middlewares/authMiddleware.js';
+import multer from 'multer';
+import Users from "../models/UserModel.js";
+import nodemailer from "nodemailer";
+import crypto from 'crypto';
 
+// Method to insert default admin
+export const insertDefaultAdmin = async (req, res) => {
+  // Get the email and password from the request body
+  const { email, password } = req.body;
+  try {
+    // const saltRounds = 10;
+    // const hashedPassword = await bcrypt.hash('admin', saltRounds);
 
+    // // Create the default admin record in the database    
+    // await AdminModel.create({
+    //   firstname: 'admin',
+    //   lastname: 'admin',
+    //   email: 'admin@gmail.com',
+    //   phone: '0011223344',
+    //   password: hashedPassword,
+    //   image: null,
+    //   role: 'admin'
+    // });
 
-const Register = () => {
-
-    const [firstnameReg, setFirstnameReg] = useState('');
-    const [lastnameReg, setLastnameReg] = useState('');
-    const [emailReg, setEmailReg] = useState('');
-    const [phonenumberReg,setPhoneNumberReg] = useState('');
-    const [passwordReg, setPasswordReg] = useState('');
-    const [confirmPasswordReg, setConfirmPasswordReg] = useState('');
-    const [error, setError] = useState('');
-
- 
-
-  const navigate = useNavigate();
-
-  const validateForm = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{10}$/; // Regular expression for 10-digit phone number
-
-    if (
-      !firstnameReg ||
-      !lastnameReg ||
-      !emailReg ||
-      !phonenumberReg||
-      !passwordReg ||
-      !confirmPasswordReg
-    ) {
-      setError('Please fill in all fields.');
-      return false;
+    // Check if the email exists in the database
+    const admin = await AdminModel.findOne({ where: { email } });
+    if (!admin) {
+      return res.json({ success: false, message: 'Invalid credentials' });
     }
 
-    if (!emailRegex.test(emailReg)) {
-      setError('Please enter a valid email address.');
-      return false;
+    // Compare the password with the hashed password stored in the database
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
+    if (!isPasswordValid) {
+      return res.json({ success: false, message: 'Invalid credentials' });
     }
 
-    if (!phoneRegex.test(phonenumberReg)) {
-      setError('Please enter a valid phone number.');
-      return false;
-    }
+    // Token-based authentication
+    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '1h' });
 
-
-    if (passwordReg.length < 8) {
-      setError('Password should be at least 8 characters long.');
-      return false;
-    }
-
-    if (passwordReg !== confirmPasswordReg) {
-      setError('Passwords do not match.');
-      return false;
-    }
-
-    setError('');
-    return true;
-  };
-
-  const registration = () => {
-    if (validateForm()) {
-    axios.post('http://localhost:5000/user/register', 
-    {firstName:firstnameReg ,lastName : lastnameReg , email : emailReg , phone : phonenumberReg, password:passwordReg}).then((response)=>{console.log(response);
-    }).then((response) => {
-      console.log(response);
-      navigate('/login'); // Redirect to the login page
-    })
-    .catch((error) => {
-      console.error(error);
-      // Handle the registration error if needed
+    // Return the token to the client
+    res.cookie('admin_token', token, {
+      httpOnly: true,
     });
+    res.json({ success: true, message: 'Login Successful', token });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Internal server error' })
   }
-  };
+};
 
+// Logout
+// export const logout = (req, res) => {
+//   // Clear the cookie
+//   res.clearCookie('admin_token', {
+//     httpOnly: true,
+//     secure: true,
+//     sameSite: 'Strict'
+//   });
+//   res.json({ success: true, message: 'Logout successful' });  
+//   // res.redirect('/admin/login');
+// };
 
+export const logout = async (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.clearCookie('admin_token'); // Clear the access token cookie
+  res.json({ message: 'Logout successful' });
+};
 
-  return (
-    <div>
+// export const sendPasswordResetEmail = async (req, res) => {
+//   const { email } = req.body;
 
-      <div className='mx-auto border border-gray-300 lg:w-1/2 md:w-1/2 sm:w-full mt-10 rounded rounded-3xl text-gray-600'>
-        <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>
+//   try {
+//     // Generate a unique reset token
+//     const resetToken = crypto.randomBytes(20).toString('hex');
+
+//     // Save the reset token and its expiration date in the database (associated with the user's email)
+
+//     // Generate the password reset confirmation URL
+//     const resetURL = `http://localhost:3000/reset/${resetToken}`;
+
+//     // Create a nodemailer transporter
+//     const transporter = nodemailer.createTransport({
+//       // Configure your email provider here
+//     });
+
+//     // Create the email content
+//     const mailOptions = {
+//       from: 'debremedhanit27@example.com',
+//       to: email,
+//       subject: 'Password Reset',
+//       html: `<p>Please click the following link to reset your password:</p>
+//              <p><a href="${resetURL}">${resetURL}</a></p>`,
+//     };
+
+//     // Send the email
+//     await transporter.sendMail(mailOptions);
+
+//     // Return success response
+//     res.json({ success: true, message: 'Password reset email sent' });
+//   } catch (error) {
+//     console.error('Error sending password reset email:', error);
+//     res.status(500).json({ success: false, message: 'Error sending password reset email' });
+//   }
+// };
+
+// export const getAdminProfile = async (req, res) => {
+//   try {
+//     const adminId = req.admin.id;
+//     const admin = await AdminModel.findByPk(adminId, {
+//       attributes: ['firstname', 'lastname', 'email', 'phone', 'role', 'image']
+//     });
+//     if (!admin) {
+//       return res.status(404).json({ error: 'Admin not found' });
+//     }
+
+//     // Return the admin profile
+//     // res.json({
+//     //   firstname: admin.firstname,
+//     //   lastname: admin.lastname,
+//     //   role: admin.role,
+//     //   image: admin.image,
+//     // });
+//     return res.status(200).json(admin);
+//   } catch (error) {
+//     console.error('Error fetching admin profile:', error);
+//     res.status(500).json({ error: 'Server error' })
+//   }
+// };
+
+// adminController.js
+
+export const getAdminProfile = async (req, res) => {
+  try {
+    // Assuming the decoded token contains the admin ID
+    const adminId = req.admin.id;
+
+    // Retrieve the admin profile from the database based on the admin ID
+    const admin = await AdminModel.findByPk(adminId);
+
+    if (!admin) {
+      return res.status(404).json({ success: false, message: 'Admin not found' });
+    }
+
+    res.json(admin);
+  } catch (error) {
+    console.error('Error fetching admin profile:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+// Multer configuration for file upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '../client/public/assets/'); // Set the destination folder for uploaded images
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const extension = file.mimetype.split('/')[1];
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension); // Set the filename for the uploaded image
+  },
+});
+
+const upload = multer({ storage: storage });
+
+export const updateAdminProfile = async (req, res) => {
+  try {
+    const { firstname, lastname, email, phone, currentPassword, password, confirmPassword } = req.body;
+
+    // Get the admin ID from the authenticated cookie
+    // const adminId = req.cookies.admin;
+    const adminId = req.admin.id;
+
+    // Update the admin profile in the database
+    const admin = await AdminModel.findByPk(adminId);
+    if (!admin) {
+      return res.status(404).json({ error: 'Admin not found' });
+    }
     
-        <input type="text" onChange = {(e) => { setFirstnameReg(e.target.value);}}
-         placeholder='የመጀመሪያ ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="text" onChange = {(e) => { setLastnameReg(e.target.value);}}
-        placeholder='የአባት ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="tel" onChange = {(e) => { setPhoneNumberReg(e.target.value);}}
-        placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="email" onChange = {(e) => { setEmailReg(e.target.value);}}
-        placeholder='ኢሜል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type="password" onChange = {(e) => { setPasswordReg(e.target.value);}}
-        placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
-        <input type='password' onChange={(e) => {setConfirmPasswordReg(e.target.value);}} 
-        placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
-         {error && <p className='text-red-500'>{error}</p>}
-        <div className='mr-auto underline decoration-dotted mt-4 cursor-pointer hover:text-[#79a6d2]'>
-            <a href="/login">አካውንት አለዎት?</a></div>            
-        <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-                <button onClick={registration} className="w-full mx-auto text-base font-bold text-white">
-                  ተመዝገብ
-                </button>
-              </div>
-        </div>
-      </div>
-    </div>
-  )
+    // Check if the current password is correct
+    const isCurrentPasswordValid = await bcrypt.compare(currentPassword, admin.password);
+    if (!isCurrentPasswordValid){
+      return res.status(401).json({ error: 'Invalid current password' });
+    }
+    // Update the admin profile fields
+    admin.firstname = firstname;
+    admin.lastname = lastname;
+    admin.email = email;
+    admin.phone = phone;
+
+    // Update password if provided
+    if (password && (password !== '')) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      admin.password = hashedPassword;
+    }
+
+    // Update image if provided
+    if (req.file) {
+      admin.image = req.file.filename;
+    }
+
+    await admin.save(); // Save the updated admin profile
+    res.status(200).json({ success: true, message: 'Admin profile updated successfully' });
+    // res.status(500).json({ success: false, message: 'Error updating admin profile' });
+  } catch (error) {
+    console.error('Error updating admin profile:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+export const uploadImage = upload.single('image');
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await Users.findAll();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+export const createUser = (req, res) => {
+    
 }
 
-export default Register
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update the user data based on req.body
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.phone = req.body.phone;
+    user.email = req.body.email;
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Delete the user
+    await user.destroy();
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+// Generate a random verification code
+// const generateVerificationCode = () => {
+//   const codeLength = 6;
+//   const characters = '0123456789';
+
+//   let verificationCode = ''
+//   for (let i = 0; i < codeLength; i++) {
+//     const randomIndex = Math.floor(Math.random() * characters.length);
+//     verificationCode += characters.charAt(randomIndex);
+//   }
+
+//   return verificationCode;
+// }
+
+// const sendVerificationCode = async (email, verificationCode) => {
+//   const transporter = nodemailer.createTransport({
+//     // Configure email provider
+//     service: 'gmail',
+//     auth: {
+//       user: 'debremedhanit27@gmail.com',
+//       pass: '12345678',
+//     },
+//   });
+
+//   const mailOptions = {
+//     from: 'debremedhanit27@gmail.com',
+//     to: email,
+//     subject: 'Password Reset Verification Code',
+//     text: `Your verification code is: ${verificationCode}`,
+//   };
+
+//   await transporter.sendMail(mailOptions);
+// };
+
+export const forgot = async(req, res) => {
+  try {
+    const { email } = req.body;
+    const admin = await AdminModel.findOne({ email });
+
+    if (!admin) {
+      return res.status(404).json({ message: 'No user found with that email.' });
+    }
+
+    // Generate a reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    admin.resetPasswordToken = resetToken;
+    admin.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await admin.save();
+
+    // Send the password reset email
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'tassolutions25@gmail.com',
+        pass: 'agax sxpd onmy dbjs',
+      },
+    });
+
+    const mailOptions = {
+      from: 'tassolutions25@gmail.com',
+      to: admin.email,
+      subject: 'Password Reset Request',
+      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://${req.headers.host}/admin/reset/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.json({ message: 'A reset email has been sent to the provided email address.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while processing the request.' });
+  }
+};
+
+export const reset = async(req, res) => {
+  try {
+    const { token } = req.params;
+    const admin = await AdminModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!admin) {
+      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+
+    res.render('reset', { token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while processing the request.' });
+  }
+}
+
+export const updateAdminPassword = async(req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    const admin = await AdminModel.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!admin) {
+      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: 'Passwords do not match.' });
+    }
+
+    admin.password = password;
+    admin.resetPasswordToken = undefined;
+    admin.resetPasswordExpires = undefined;
+    await admin.save();
+
+    res.json({ message: 'Password has been reset successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'An error occurred while processing the request.' });
+  }
+}

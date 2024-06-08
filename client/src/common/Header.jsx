@@ -166,23 +166,23 @@ const Header = () => {
           <div className="lg:w-4/6 md:w-4/6 flex items-center lg:text-base md:text-sm">
             <div className="w-1/6 flex">
               <a href="/" className="cursor-pointer">
-                ዋና ገጽ
+              {t("ዋና ገጽ")}
               </a>
             </div>
 
             <div className="w-1/6">
               <a href="/church" className="cursor-pointer">
-                ስለ ደብሩ
+              {t("ስለ ደብሩ")}
               </a>
             </div>
             <div className="w-1/6">
               <a href="/sunday" className="cursor-pointer">
-                ሰንበት ት/ቤት
+              {t("sun_sch")} 
               </a>
             </div>
             <div className="w-1/6">
               <a href="/abnet" className="cursor-pointer">
-                አብነት
+              {t("ab")} 
               </a>
             </div>
             <div className="w-1/6 flex items-center">

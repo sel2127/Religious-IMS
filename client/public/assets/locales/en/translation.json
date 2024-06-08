@@ -41,7 +41,6 @@
     "contact":"To contact us",
     "addr":"Bole Bulbula, Addis Ababa ,Ethiopia",
     "other":"Other pages",
-    "main":"Main page",
     "about":"About our Church",
     "sun_sch":"Sunday School",
     "sun_event":"Sunday Events",
@@ -68,7 +67,9 @@
     "reg":"Register",
     "sebeka":"Sebeka Gubae Registration",
     "pass_ma":"Passwords do not match and put more than 8 character",
-    "feed":"Feedbacks"
+    "feed":"Feedbacks",
+    "ab":"Abinet"
+
 
 
 

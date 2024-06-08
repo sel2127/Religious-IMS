@@ -23,6 +23,7 @@ const Register = () => {
   const [countryCode, setCountryCode] = useState("ET");
   const [errors, setErrors] = useState({});
 
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -115,7 +116,7 @@ const Register = () => {
       <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>
           <input type="text" onChange={(e) => { setFirstnameReg(e.target.value); }} placeholder='የመጀመሪያ ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
           <input type="text" onChange={(e) => { setLastnameReg(e.target.value); }} placeholder='የአባት ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-          <input type="tel" onChange={(e) => { setPhoneNumberReg(e.target.value); }} placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="tel" onChange={(e) => { setPhone(e.target.value); }} placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
           <input type="email" onChange={(e) => { setEmailReg(e.target.value); }} placeholder='ኢሜል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
           <input type="password" onChange={(e) => { setPasswordReg(e.target.value); }} placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
           <input type='password' onChange={(e) => { setConfirmPasswordReg(e.target.value); }} placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />

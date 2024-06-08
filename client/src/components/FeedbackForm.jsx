@@ -49,20 +49,18 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div className="">
+    <div className="w-full bg-gray-100 py-10">
       <ToastContainer />
-      <div className="rounded-lg">
-        <div className="flex flex-col lg:flex-row">
+      <div className=" w-full rounded-lg">
+        <div className="flex flex-col lg:flex-row md:flex-row">
           {/* sidebar */}
           <div>
             <Sidebarr />
           </div>
-          <div className="lg:w-full ml-5 mt-10 m-auto">
-            <div className="bg-gray-200 rounded-xl flex flex-col h-auto">
-              <div className="flex flex-col items-center justify-center px-10 py-5 sm:px-20 sm:py-10">
-                {/* Content here */}
-              </div>
-
+          <div className="lg:w-2/4 mx-auto">
+            <div className="bg-white rounded-xl flex flex-col">
+              <div className="py-10">
+              
               <form
                 onSubmit={handleSubmit}
                 className="flex flex-col space-y-4 px-4 lg:px-10"
@@ -84,7 +82,7 @@ const FeedbackForm = () => {
                     id="submit"
                     type="submit"
                     disabled={isLoading}
-                    className={`w-1/2 sm:w-full bg-blue-500 text-white rounded-md hover:bg-blue-700 h-10 mb-4 ${
+                    className={`w-1/2 bg-[#2d5986] hover:bg-[#79a6d2] text-white rounded-md h-10 mb-4 ${
                       isLoading ? "cursor-not-allowed opacity-50" : ""
                     }`}
                   >
@@ -95,6 +93,7 @@ const FeedbackForm = () => {
                   <p className="text-red-500 text-sm">{errorMessage}</p>
                 )}
               </form>
+              </div>
             </div>
           </div>
         </div>

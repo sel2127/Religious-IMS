@@ -64,13 +64,13 @@ const Footer = () => {
                     <a href="#">{t('main')}</a>
                   </li>
                   <li>
-                    <a href="#">{t('main')}</a>
+                  <a href="/member">የአባልነት ምዝገባ</a>
                   </li>
                   <li>
-                    <a href="#">{t('main')}</a>
+                  <a href="/feedback">አስተያየቶች</a>
                   </li>
                   <li>
-                    <a href="#">{t('main')}</a>
+                  <a href="/notify">መልዕክት</a>
                   </li>
                 </ul>
               </div>
@@ -79,18 +79,27 @@ const Footer = () => {
               <h4 className="font-bold text-lg ">{t('about')}</h4>
               <div className="mt-4">
                 <ul className="font-bold text-sm text-gray-500">
+                <li>
+                  <a href="/church" className="cursor-pointer">
+                ለመለገስ
+              </a>
+                  </li>
                   <li className="">
-                    <a href="#">{t('help')}</a>
+                  <a href="/church" className="cursor-pointer">
+                ስለ እኛ
+              </a>
                   </li>
                   <li>
-                    <a href="#">{t('sun_sch')}</a>
+                  <a href="/" className="cursor-pointer">
+                ሰንበት ት/ቤት
+              </a>
                   </li>
                   <li>
-                    <a href="#">{t('መርሃግብራት')}</a>
+                  <a href="/church" className="cursor-pointer">
+                አብነት
+              </a>
                   </li>
-                  <li>
-                    <a href="#">{t('main')}</a>
-                  </li>
+                  
                 </ul>
               </div>
             </div>

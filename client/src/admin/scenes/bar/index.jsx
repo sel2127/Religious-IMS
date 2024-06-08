@@ -22,39 +22,72 @@ import BarChart from "../../components/BarChart";
 
 const Bar = () => {
   const [userData, setUserData] = useState([]);
+  const [donations, setDonations] = useState([]);
+
+  // useEffect(() => {
+  //   fetchUserData();
+  // }, []);
+  
+  // const fetchUserData = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:5000/admin/users');
+  //     setUserData(response.data.map(user => ({
+  //       ...user,
+  //       id: user.id.toString(), // Ensure ID is a string for DataGrid
+  //     })));
+  //   } catch (error) {
+  //     console.error('Error fetching users:', error);
+  //   }
+  // };
 
   useEffect(() => {
-    fetchUserData();
+    fetchDonations();
   }, []);
-  
-  const fetchUserData = async () => {
+
+  const fetchDonations = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/admin/users');
-      setUserData(response.data.map(user => ({
-        ...user,
-        id: user.id.toString(), // Ensure ID is a string for DataGrid
-      })));
+      const response = await axios.get('http://localhost:5000/api/donation'); // Adjust the endpoint path
+      console.log('Fetched donations:', response.data);
+      setDonations(response.data);
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error('Error fetching donations:', error);
     }
   };
 
-  const getWeekData = () => {
-    // Group user data by week and count the number of users in each week
-    const userCountByWeek = userData.reduce((acc, user) => {
+  // const getWeekData = () => {
+  //   // Group user data by week and count the number of users in each week
+  //   const userCountByWeek = userData.reduce((acc, user) => {
+  //     const createdAt = new Date(user.createdAt);
+  //     const weekNumber = getWeekNumber(createdAt);
+  //     acc[weekNumber] = (acc[weekNumber] || 0) + 1;
+  //     return acc;
+  //   }, {});
+
+  //   // Convert the grouped data into an array of objects with 'week' and 'userCount' properties
+  //   const weekData = Object.keys(userCountByWeek).map(weekNumber => ({
+  //     week: `Week ${weekNumber}`,
+  //     userCount: userCountByWeek[weekNumber],
+  //   }));
+
+  //   return weekData;
+  // };
+  
+  const getDayData = () => {
+    // Group user data by day and count the number of users in each day
+    const userCountByDay = donations.reduce((acc, user) => {
       const createdAt = new Date(user.createdAt);
-      const weekNumber = getWeekNumber(createdAt);
-      acc[weekNumber] = (acc[weekNumber] || 0) + 1;
+      const dayNumber = createdAt.getDate();
+      acc[dayNumber] = (acc[dayNumber] || 0) + 1;
       return acc;
     }, {});
-
-    // Convert the grouped data into an array of objects with 'week' and 'userCount' properties
-    const weekData = Object.keys(userCountByWeek).map(weekNumber => ({
-      week: `Week ${weekNumber}`,
-      userCount: userCountByWeek[weekNumber],
+  
+    // Convert the grouped data into an array of objects with 'day' and 'userCount' properties
+    const dayData = Object.keys(userCountByDay).map(dayNumber => ({
+      day: `Day ${dayNumber}`,
+      donationsCount: userCountByDay[dayNumber],
     }));
-
-    return weekData;
+  
+    return dayData;
   };
 
   const getWeekNumber = (date) => {
@@ -66,8 +99,8 @@ const Bar = () => {
     <Box m="20px">
       <Header subtitle="Bar Chart" />
       <Box height="75vh">
-      {/* <LineChart data={userData} xKey="createdAt" yKey="id" /> */}
-      <BarChart data={getWeekData()} xKey="week" yKey="userCount" />
+      {/* <LineChart data={donations} xKey="createdAt" yKey="id" /> */}
+      <BarChart data={getDayData()} xKey="day" yKey="donationsCount" />
 
       </Box>
     </Box>

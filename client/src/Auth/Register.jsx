@@ -111,60 +111,19 @@ const Register = () => {
         draggable
         pauseOnHover
       />
-      <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600">
-        <div className="flex flex-col items-center justify-center px-20 py-10">
-          <input
-            type="text"
-            onChange={(e) => setFirstnameReg(e.target.value)}
-            placeholder="የመጀመሪያ ስም"
-            className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
-          />
-          {errors.firstname && <p className="text-red-500 text-sm">{errors.firstname}</p>}
-          <input
-            type="text"
-            onChange={(e) => setLastnameReg(e.target.value)}
-            placeholder="የአባት ስም"
-            className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
-          />
-          {errors.lastname && <p className="text-red-500 text-sm">{errors.lastname}</p>}
-          <PhoneInput
-            country={"et"}
-            value={phone}
-            onChange={(phone, country) => {
-              setPhone(phone);
-              setCountryCode(country.countryCode);
-            }}
-            placeholder="ስልክ ቁጥር"
-            className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
-          />
-          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-          <input
-            type="email"
-            onChange={(e) => setEmailReg(e.target.value)}
-            placeholder="ኢሜል"
-            className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
-          />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-          <input
-            type="password"
-            onChange={(e) => setPasswordReg(e.target.value)}
-            placeholder="ይለፍ ቃል"
-            className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
-          />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-          <input
-            type="password"
-            onChange={(e) => setConfirmPasswordReg(e.target.value)}
-            placeholder="ይለፍ ቃል አረጋግጥ"
-            className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
-          />
-          {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
-          {error && <p className="text-red-500">{error}</p>}
-          <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-            <button
-              onClick={registration}
-              className="w-full mx-auto text-base font-bold text-white"
-            >
+      <div className='mx-auto border border-gray-300 lg:w-1/2 md:w-1/2 sm:w-full mt-10 rounded rounded-3xl text-gray-600'>
+      <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>
+          <input type="text" onChange={(e) => { setFirstnameReg(e.target.value); }} placeholder='የመጀመሪያ ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="text" onChange={(e) => { setLastnameReg(e.target.value); }} placeholder='የአባት ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="tel" onChange={(e) => { setPhoneNumberReg(e.target.value); }} placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="email" onChange={(e) => { setEmailReg(e.target.value); }} placeholder='ኢሜል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="password" onChange={(e) => { setPasswordReg(e.target.value); }} placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type='password' onChange={(e) => { setConfirmPasswordReg(e.target.value); }} placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          {error && <p className='text-red-500'>{error}</p>}
+          <div className='mr-auto underline decoration-dotted mt-4 cursor-pointer hover:text-[#79a6d2]'>
+          </div>
+          <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+            <button onClick={registration} className="w-full mx-auto text-base font-bold text-white">
               ተመዝገብ
             </button>
           </div>

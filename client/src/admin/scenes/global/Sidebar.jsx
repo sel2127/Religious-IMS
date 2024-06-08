@@ -20,6 +20,7 @@ import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import { FaUser } from "react-icons/fa";
+import profile from "../../../assets/Images/profile.png"
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -179,7 +180,7 @@ const Sidebar = () => {
                   alt="profile-picture"
                   width="100px"
                   height="100px"
-                  src={`../../../assets/${admin.image}`}
+                  src={`../../../assets/${(admin.image != null) ? admin.image : profile}`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>

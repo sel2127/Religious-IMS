@@ -123,7 +123,7 @@ const Login = () => {
               onClick={loginn}
               className="w-full mx-auto text-base font-bold text-white"
             >
-              {t('forgot_p')}
+              {t('enter')}
             </button>
           </div>
           <div className="mt-6 underline decoration-dotted font-semibold cursor-pointer hover:text-[#79a6d2]">

@@ -99,7 +99,7 @@ const FeedbackDetailPage = () => {
               <p className="mt-5">{feedback.message}</p>
               <div className="flex flex-wrap justify-center gap-4 mt-5 ">
                 <Link to={`/editfeedback/${feedback.feedbackId}`}>
-                  <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                  <button name="edit-btn" className="  text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
                     <FaEdit />
                   </button>
                 </Link>

@@ -80,6 +80,7 @@ const EventUpload = () => {
         value={values.eventdate}
         dateFormat="yyyy-MM-dd"
         className="custom-datepicker"
+        name="eventdate"
       />
     );
   };
@@ -170,7 +171,7 @@ const EventUpload = () => {
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <Button type="submit" className='event' color="secondary" variant="contained">
                 Upload Event
               </Button>
             </Box>

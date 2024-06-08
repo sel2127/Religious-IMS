@@ -32,9 +32,13 @@ function ChangePassword() {
       setPasswordError("");
     
       try {
-        dispatch(updatePassword( userId, newPassword )); // Include both userId and newPassword directly in the payload
-        console.log("Password update successful!");
-        
+       dispatch(updatePassword( userId, newPassword )); // Include both userId and newPassword directly in the payload
+        toast.success("Password update successful!");
+        // if (response.data.message === "Password updated successfully") {
+        //   toast.success("Password updated successfully");
+        // } else {
+        //   throw new Error("Unexpected response from server");
+        // }
         // Maybe redirect to a different page
       } catch (error) {
         console.error("Error updating password:", error); // Show error message to the user based on the error details

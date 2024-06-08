@@ -85,6 +85,7 @@ const EditFeedbackForm = () => {
             <div className="  bg-gray-200 rounded-xl  flex flex-col  h-screen mt-10">
               <div className="flex flex-col items-center justify-center px-20 py-10 sm:px-10 sm:py-5"></div>
               <form
+              name="edit-feedback"
                 onSubmit={handleSubmit}
                 className=" flex flex-col space-y-4  mt-10  "
               >
@@ -93,6 +94,7 @@ const EditFeedbackForm = () => {
                   rows={8}
                   placeholder="አስተያየትዎን እዚህ ላይ ይጻፉ.... "
                   id="message"
+                  name="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="border  rounded-md mt-10 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 

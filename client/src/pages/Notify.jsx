@@ -68,25 +68,23 @@ const Notify = () => {
     };
   }, []);
 
-  const deleteEvent = (id) => {
-    fetch(`http://localhost:5000/events/${id}`, {
-      method: "DELETE"
+ const deleteEvent = (id) => {
+  fetch(`http://localhost:5000/events/${id}`, {
+    method: "DELETE"
+  })
+    .then((response) => {
+      if (response.ok) {
+        // Event deleted successfully
+        toast.success('Event deleted successfully');
+        setDeletedEventId(id);
+      } else {
+        throw new Error("Failed to delete event");
+      }
     })
-      .then((response) => {
-        if (response.ok) {
-          // Event deleted successfully
-          if (response.data.message === 'Event deleted successfully') {
-            toast.success('Event deleted successfully');
-          } 
-          setDeletedEventId(id);
-        } else {
-          throw new Error("Failed to delete event");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
   const filteredEvents = events.filter((event) => event.id !== deletedEventId);
 

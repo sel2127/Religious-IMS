@@ -71,6 +71,7 @@ const FeedbackForm = () => {
                   rows={7}
                   placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ ... "
                   id="message"
+                  name="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="border rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"

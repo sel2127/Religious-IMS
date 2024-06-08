@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
 import { EventModel } from "../models/EventModel.js";
-
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 // Fetch all events
 export const getAllEvents = async (req, res) => {
   try {
@@ -56,7 +56,9 @@ export const searchEvent = async (req, res) => {
     return res.status(500).json({ message: 'Error searching for events' });
   }
 };
-export const deleteEvent = async (req, res) => {
+export const deleteEvent = [
+  authMiddleware,
+  async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -73,4 +75,4 @@ export const deleteEvent = async (req, res) => {
     console.error('Error deleting event:', error);
     res.status(500).json({ message: 'Server Error' });
   }
-};
+}]

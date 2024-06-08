@@ -90,7 +90,7 @@ const FeedbackPage = () => {
                   <p>{feedback.message}</p>
                   <div className="flex gap-8">
                     <Link to={`/feedback/${feedback.userId}`}>
-                      <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                      <button name="btn" className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
                         <FaReadme />
                       </button>
                     </Link>

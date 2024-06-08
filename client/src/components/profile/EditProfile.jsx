@@ -73,6 +73,7 @@ const EditProfile = () => {
       const updatedUserData = { firstName, lastName, email, phone };
       dispatch(updateUserData(updatedUserData));
       toast.success("Your profile is updated successfully.");
+
     } catch (error) {
       console.error(error);
       toast.error("Error updating profile. Please try again.");

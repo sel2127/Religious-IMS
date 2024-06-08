@@ -69,19 +69,23 @@ const Login = () => {
         <div className="flex flex-col items-center justify-center px-20 py-10">
           <PhoneInput
             country={"et"}
+           
             value={phoneLogin}
             onChange={(phone, country) => {
               setPhoneLogin(phone);
               setCountryCode(country.countryCode);
+              
             }}
             placeholder="ስልክ ቁጥር"
-            className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
-          />
+            className="phone mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
+            name="phone"
+         />
           {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           
           <div className="relative w-full">
             <input
               type={showPassword ? 'text' : 'password'}
+              name="password"
               onChange={(e) => setPasswordLogin(e.target.value)}
               placeholder='ይለፍ ቃል'
               className='mt-6 w-full h-10 px-6 border border-gray-300 rounded-full pr-12'
@@ -114,6 +118,7 @@ const Login = () => {
           <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
             <button
               onClick={loginn}
+              type="submit"
               className="w-full mx-auto text-base font-bold text-white"
             >
               ግባ

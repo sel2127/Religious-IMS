@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { type } from 'jquery';
 
 axios.defaults.withCredentials = true;
 
@@ -115,6 +116,7 @@ const Register = () => {
         <div className="flex flex-col items-center justify-center px-20 py-10">
           <input
             type="text"
+            name="firstname"
             onChange={(e) => setFirstnameReg(e.target.value)}
             placeholder="የመጀመሪያ ስም"
             className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
@@ -122,6 +124,7 @@ const Register = () => {
           {errors.firstname && <p className="text-red-500 text-sm">{errors.firstname}</p>}
           <input
             type="text"
+            name="fathername"
             onChange={(e) => setLastnameReg(e.target.value)}
             placeholder="የአባት ስም"
             className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
@@ -135,11 +138,12 @@ const Register = () => {
               setCountryCode(country.countryCode);
             }}
             placeholder="ስልክ ቁጥር"
-            className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
+            className="phone mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           <input
             type="email"
+            name="email"
             onChange={(e) => setEmailReg(e.target.value)}
             placeholder="ኢሜል"
             className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
@@ -147,6 +151,7 @@ const Register = () => {
           {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           <input
             type="password"
+            name="pass"
             onChange={(e) => setPasswordReg(e.target.value)}
             placeholder="ይለፍ ቃል"
             className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
@@ -154,6 +159,7 @@ const Register = () => {
           {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           <input
             type="password"
+            name="password"
             onChange={(e) => setConfirmPasswordReg(e.target.value)}
             placeholder="ይለፍ ቃል አረጋግጥ"
             className="mt-6 w-full h-10 px-6 border border-gray-300 rounded-full"
@@ -162,8 +168,9 @@ const Register = () => {
           {error && <p className="text-red-500">{error}</p>}
           <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
             <button
+            type='submit'
               onClick={registration}
-              className="w-full mx-auto text-base font-bold text-white"
+              className="submit w-full mx-auto text-base font-bold text-white"
             >
               ተመዝገብ
             </button>

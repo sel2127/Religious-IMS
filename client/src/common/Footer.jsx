@@ -43,7 +43,7 @@ const Footer = () => {
               <div className="flex">
               <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 7.00005L10.2 11.65C11.2667 12.45 12.7333 12.45 13.8 11.65L20 7" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <rect x="3" y="5" width="18" height="14" rx="2" stroke="#000000" stroke-width="2" stroke-linecap="round"></rect> </g></svg>
                 <p className="font-bold text-sm text-gray-500 ml-2">
-                  debremedhanit27@gmail.com
+                  debremedhanit27@ gmail.com
                 </p>
               </div>
               <div className="flex">
@@ -53,10 +53,10 @@ const Footer = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col lg:mt-0 md:mt-0 sm:mt-6">
+            <div className="flex flex-col lg:justify-center lg:mx-auto md:mx-auto sm:mx-0 lg:mt-0 md:mt-0 sm:mt-6">
               <h4 className="font-bold text-lg ">ሌሎች ገጾች</h4>
               <div className="mt-4">
-                <ul className="font-bold text-sm text-gray-500">
+                <ul className="font-bold flex flex-col text-sm text-gray-500">
                   <li className="">
                     <a href="/">ዋና ገጽ</a>
                   </li>
@@ -72,7 +72,7 @@ const Footer = () => {
                 </ul>
               </div>
             </div>
-            <div className="flex flex-col lg:mt-0 md:mt-0 sm:mt-6">
+            <div className="flex flex-col lg:mx-auto md:mx-auto sm:mx-0 lg:mt-0 md:mt-0 sm:mt-6">
               <h4 className="font-bold text-lg ">ስለ ደብራችን</h4>
               <div className="mt-4">
                 <ul className="font-bold text-sm text-gray-500">

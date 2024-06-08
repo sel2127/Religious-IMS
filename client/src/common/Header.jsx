@@ -67,55 +67,66 @@ const Header = () => {
           <div className="w-1/4 flex items-center">
             <div className="w-1/5 flex justify-end">
               {/* {isLoggedIn !== undefined && ( // Check if defined */}
+              <div class="dropdown">
+              <div className="flex items-center">
+                <button class="dropbtn mr-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="dropdown-content">
               <Link to={isLoggedIn ? "/profile" : "/login"}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                  />
-                </svg>
+              ተጠቃሚ
               </Link>
+                <a href="/admin/login">አስተዳዳሪ</a>
+              </div>
+            </div>
               {/* )} */}
             </div>
 
             <div className="w-1/5 flex justify-end">
-              <svg
-                viewBox="0 0 24 24"
-                className="w-6 h-6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
-                    stroke="#1C274C"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  ></path>{" "}
-                  <path
-                    d="M8 12H8.009M11.991 12H12M15.991 12H16"
-                    stroke="#1C274C"
-                    stroke-width="2"
+              <a href="/contact">
+                <svg
+                  viewBox="0 0 48 48"
+                  className="w-6 h-6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M26 33H29.5C36.4036 33 42 27.4036 42 20.5C42 13.5964 36.4036 8 29.5 8H18.5C11.5964 8 6 13.5964 6 20.5C6 28.4145 11.2167 33.2537 16.9239 36.2262C19.7585 37.7025 22.6136 38.6566 24.7728 39.2414C25.2149 39.3611 25.626 39.4649 26 39.5542V33ZM28 42C28 42 27.2439 41.8897 26 41.6077C20.2362 40.3007 4 35.305 4 20.5C4 12.4919 10.4919 6 18.5 6H29.5C37.5081 6 44 12.4919 44 20.5C44 28.5081 37.5081 35 29.5 35H28V42Z"
+                      fill="#333333"
+                    ></path>{" "}
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M25.4068 12.05C24.085 12.0079 22.7009 12.2548 21.5479 12.8141C20.3942 13.3737 19.3772 14.2999 19.0314 15.6471C18.8941 16.182 19.2164 16.727 19.7514 16.8643C20.2863 17.0016 20.8313 16.6793 20.9686 16.1443C21.1205 15.5527 21.5946 15.0143 22.4208 14.6135C23.2363 14.218 24.2897 14.0155 25.3432 14.049C26.4024 14.0827 27.3619 14.3511 28.0241 14.7918C28.3077 14.9805 28.5696 15.2174 28.7523 15.5344C28.9415 15.8624 29 16.1964 29 16.5C29 16.9899 28.8581 17.3425 28.6476 17.6194C28.4264 17.9104 28.0947 18.1616 27.6643 18.3699C26.7873 18.7944 25.6897 18.9516 24.9332 19.0022C24.408 19.0374 24 19.4736 24 20V21.5C24 22.0523 24.4477 22.5 25 22.5C25.5114 22.5 25.9343 22.1153 25.993 21.62C26.0431 21.1967 26.356 20.8517 26.7724 20.7606C27.3579 20.6326 27.9692 20.4443 28.5357 20.1701C29.8012 19.5576 31 18.4226 31 16.5C31 14.9863 30.2219 13.8521 29.1322 13.1268C28.0762 12.424 26.7235 12.0919 25.4068 12.05ZM20.675 11.0146C22.1657 10.2915 23.8805 10.0004 25.4704 10.051C27.0442 10.101 28.7902 10.4968 30.2402 11.4618C31.7827 12.4884 33 14.2006 33 16.5C33 19.4627 31.0769 21.1621 29.407 21.9704C28.8736 22.2285 28.3273 22.4209 27.8052 22.5651C27.3754 23.6964 26.2821 24.5 25 24.5C23.3431 24.5 22 23.1568 22 21.5V20C22 18.4209 23.2241 17.1121 24.7996 17.0067C25.4723 16.9617 26.2637 16.8259 26.793 16.5697C26.861 16.5368 26.9133 16.5072 26.953 16.4824C26.9421 16.4745 26.9298 16.466 26.916 16.4568C26.6467 16.2775 26.0799 16.0734 25.2796 16.048C24.4948 16.023 23.772 16.181 23.2937 16.413C23.0267 16.5425 22.9256 16.6444 22.8949 16.683C22.4657 18.263 20.8451 19.2099 19.2541 18.8015C17.6493 18.3896 16.6822 16.7546 17.0942 15.1498C17.6336 13.0486 19.192 11.734 20.675 11.0146ZM22.8835 16.6997C22.8833 16.6997 22.8846 16.697 22.8881 16.6919C22.8855 16.6973 22.8837 16.6998 22.8835 16.6997ZM27.0553 16.4092L27.1747 16.5L27.0553 16.4092ZM25 27C24.4477 27 24 27.4477 24 28C24 28.5523 24.4477 29 25 29C25.5523 29 26 28.5523 26 28C26 27.4477 25.5523 27 25 27ZM22 28C22 26.3432 23.3431 25 25 25C26.6568 25 28 26.3432 28 28C28 29.6569 26.6568 31 25 31C23.3431 31 22 29.6569 22 28Z"
+                      fill="#333333"
+                    ></path>{" "}
+                  </g>
+                </svg>
+              </a>
             </div>
             <div className="w-1/5 flex justify-end">
               <a href="/notify">
@@ -165,24 +176,50 @@ const Header = () => {
         <div className="flex py-3 font-bold border-b border-gray-300">
           <div className="lg:w-4/6 md:w-4/6 flex items-center lg:text-base md:text-sm">
             <div className="w-1/6 flex">
-              <a href="/" className="cursor-pointer">
+              <a
+                href="/"
+                className={`cursor-pointer ${
+                  window.location.pathname === "/" ? "header-active-links" : ""
+                }`}
+              >
                 ዋና ገጽ
               </a>
             </div>
 
             <div className="w-1/6">
-              <a href="/church" className="cursor-pointer">
+              <a
+                href="/church"
+                className={`cursor-pointer ${
+                  window.location.pathname === "/church"
+                    ? "header-active-links"
+                    : ""
+                }`}
+              >
                 ስለ ደብሩ
               </a>
             </div>
             <div className="w-1/6">
-              <a href="/sunday" className="cursor-pointer">
+              <a
+                href="/sunday"
+                className={`cursor-pointer ${
+                  window.location.pathname === "/sunday"
+                    ? "header-active-links"
+                    : ""
+                }`}
+              >
                 ሰንበት ት/ቤት
               </a>
             </div>
             <div className="w-1/6">
-              <a href="/abnet" className="cursor-pointer">
-                አብነት
+              <a
+                href="/contact"
+                className={`cursor-pointer ${
+                  window.location.pathname === "/contact"
+                    ? "header-active-links"
+                    : ""
+                }`}
+              >
+                አግኙን
               </a>
             </div>
             <div className="w-1/6 flex items-center">
@@ -205,9 +242,36 @@ const Header = () => {
                   </svg>
                 </div>
                 <div class="dropdown-content">
-                  <a href="/member">የአባልነት ምዝገባ</a>
-                  <a href="/feedback">አስተያየቶች</a>
-                  <a href="/donate/c">ለመለገስ</a>
+                  <a
+                    href="/member"
+                    className={`cursor-pointer ${
+                      window.location.pathname === "/member"
+                        ? "header-active-links"
+                        : ""
+                    }`}
+                  >
+                    የአባልነት ምዝገባ
+                  </a>
+                  <a
+                    href="/feedback"
+                    className={`cursor-pointer ${
+                      window.location.pathname === "/feedback"
+                        ? "header-active-links"
+                        : ""
+                    }`}
+                  >
+                    አስተያየቶች
+                  </a>
+                  <a
+                    href="/abnet"
+                    className={`cursor-pointer ${
+                      window.location.pathname === "/abnet"
+                        ? "header-active-links"
+                        : ""
+                    }`}
+                  >
+                    አብነት
+                  </a>
                 </div>
               </div>
               <div></div>
@@ -262,7 +326,7 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="lg:hidden md:hidden sm:block">
+      <div className="lg:hidden md:hidden sm:block border-b border-gray-200">
         <div id="mySidepanel" className="sidepanel font-xs">
           <div className="flex justify-end">
             <a
@@ -273,26 +337,81 @@ const Header = () => {
               &times;
             </a>
           </div>
-          <a href="/" className="border-b border-t border-gray-200">
+          <a
+            href="/"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/" ? "header-active-links" : ""
+            }`}
+          >
             ዋና ገጽ
           </a>
-          <a href="/church" className="border-b border-gray-200">
+          <a
+            href="/church"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/church"
+                ? "header-active-links"
+                : ""
+            }`}
+          >
             ስለ ደብሩ
           </a>
-          <a href="/senbet" className="border-b border-gray-200">
+          <a
+            href="/senbet"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/senbet"
+                ? "header-active-links"
+                : ""
+            }`}
+          >
             ሰንበት ት/ቤት
           </a>
-          <a href="/abnet" className="border-b border-gray-200">
+          <a
+            href="/abnet"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/abnet" ? "header-active-links" : ""
+            }`}
+          >
             አብነት
           </a>
-          <a href="/member" className="border-b border-gray-200">
+          <a
+            href="/member"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/member"
+                ? "header-active-links"
+                : ""
+            }`}
+          >
             የአባልነት ምዝገባ
           </a>
-          <a href="/feedback" className="border-b border-gray-200">
+          <a
+            href="/feedback"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/feedback"
+                ? "header-active-links"
+                : ""
+            }`}
+          >
             አስተያየቶች
           </a>
-          <a href="/donate/c" className="border-b border-gray-200">
+          <a
+            href="/donate/c"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/donate/c"
+                ? "header-active-links"
+                : ""
+            }`}
+          >
             ለመለገስ
+          </a>
+          <a
+            href="/contact"
+            className={`cursor-pointer border-b border-t border-gray-200 ${
+              window.location.pathname === "/contact"
+                ? "header-active-links"
+                : ""
+            }`}
+          >
+            አግኙን
           </a>
           <div className="padding">
             <div class="dropdown">
@@ -321,7 +440,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="flex items-center pt-2">
+        <div className="flex items-center py-2">
           <div className="w-1/3">
             <button class="openbtn" onclick="openNav()">
               &#9776;
@@ -331,25 +450,37 @@ const Header = () => {
             <img src={Logo} alt="Logo" className="w-12" />
           </div>
           <div className="w-1/3 flex justify-end gap-2">
-            <a href="/login"></a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-5 h-5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-              />
-            </svg>
-            <a href="/chat">
+            <div class="dropdown">
+              <div className="flex items-center">
+                <button class="dropbtn mr-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="dropdown-content">
+              <Link to={isLoggedIn ? "/profile" : "/login"}>
+              ተጠቃሚ
+              </Link>
+                <a href="/admin/login">አስተዳዳሪ</a>
+              </div>
+            </div>
+
+            <a href="/contact">
               <svg
-                viewBox="0 0 24 24"
-                className="w-5 h-5"
+                viewBox="0 0 48 48"
+                className="w-6 h-6"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -362,17 +493,16 @@ const Header = () => {
                 <g id="SVGRepo_iconCarrier">
                   {" "}
                   <path
-                    d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7"
-                    stroke="#1C274C"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M26 33H29.5C36.4036 33 42 27.4036 42 20.5C42 13.5964 36.4036 8 29.5 8H18.5C11.5964 8 6 13.5964 6 20.5C6 28.4145 11.2167 33.2537 16.9239 36.2262C19.7585 37.7025 22.6136 38.6566 24.7728 39.2414C25.2149 39.3611 25.626 39.4649 26 39.5542V33ZM28 42C28 42 27.2439 41.8897 26 41.6077C20.2362 40.3007 4 35.305 4 20.5C4 12.4919 10.4919 6 18.5 6H29.5C37.5081 6 44 12.4919 44 20.5C44 28.5081 37.5081 35 29.5 35H28V42Z"
+                    fill="#333333"
                   ></path>{" "}
                   <path
-                    d="M8 12H8.009M11.991 12H12M15.991 12H16"
-                    stroke="#1C274C"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M25.4068 12.05C24.085 12.0079 22.7009 12.2548 21.5479 12.8141C20.3942 13.3737 19.3772 14.2999 19.0314 15.6471C18.8941 16.182 19.2164 16.727 19.7514 16.8643C20.2863 17.0016 20.8313 16.6793 20.9686 16.1443C21.1205 15.5527 21.5946 15.0143 22.4208 14.6135C23.2363 14.218 24.2897 14.0155 25.3432 14.049C26.4024 14.0827 27.3619 14.3511 28.0241 14.7918C28.3077 14.9805 28.5696 15.2174 28.7523 15.5344C28.9415 15.8624 29 16.1964 29 16.5C29 16.9899 28.8581 17.3425 28.6476 17.6194C28.4264 17.9104 28.0947 18.1616 27.6643 18.3699C26.7873 18.7944 25.6897 18.9516 24.9332 19.0022C24.408 19.0374 24 19.4736 24 20V21.5C24 22.0523 24.4477 22.5 25 22.5C25.5114 22.5 25.9343 22.1153 25.993 21.62C26.0431 21.1967 26.356 20.8517 26.7724 20.7606C27.3579 20.6326 27.9692 20.4443 28.5357 20.1701C29.8012 19.5576 31 18.4226 31 16.5C31 14.9863 30.2219 13.8521 29.1322 13.1268C28.0762 12.424 26.7235 12.0919 25.4068 12.05ZM20.675 11.0146C22.1657 10.2915 23.8805 10.0004 25.4704 10.051C27.0442 10.101 28.7902 10.4968 30.2402 11.4618C31.7827 12.4884 33 14.2006 33 16.5C33 19.4627 31.0769 21.1621 29.407 21.9704C28.8736 22.2285 28.3273 22.4209 27.8052 22.5651C27.3754 23.6964 26.2821 24.5 25 24.5C23.3431 24.5 22 23.1568 22 21.5V20C22 18.4209 23.2241 17.1121 24.7996 17.0067C25.4723 16.9617 26.2637 16.8259 26.793 16.5697C26.861 16.5368 26.9133 16.5072 26.953 16.4824C26.9421 16.4745 26.9298 16.466 26.916 16.4568C26.6467 16.2775 26.0799 16.0734 25.2796 16.048C24.4948 16.023 23.772 16.181 23.2937 16.413C23.0267 16.5425 22.9256 16.6444 22.8949 16.683C22.4657 18.263 20.8451 19.2099 19.2541 18.8015C17.6493 18.3896 16.6822 16.7546 17.0942 15.1498C17.6336 13.0486 19.192 11.734 20.675 11.0146ZM22.8835 16.6997C22.8833 16.6997 22.8846 16.697 22.8881 16.6919C22.8855 16.6973 22.8837 16.6998 22.8835 16.6997ZM27.0553 16.4092L27.1747 16.5L27.0553 16.4092ZM25 27C24.4477 27 24 27.4477 24 28C24 28.5523 24.4477 29 25 29C25.5523 29 26 28.5523 26 28C26 27.4477 25.5523 27 25 27ZM22 28C22 26.3432 23.3431 25 25 25C26.6568 25 28 26.3432 28 28C28 29.6569 26.6568 31 25 31C23.3431 31 22 29.6569 22 28Z"
+                    fill="#333333"
                   ></path>{" "}
                 </g>
               </svg>

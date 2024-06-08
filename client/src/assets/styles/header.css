@@ -104,3 +104,7 @@
 .openbtn:hover {
   background-color: #f1f1f1;
 }
+
+.header-active-links {
+  color: #79a6d2;
+}

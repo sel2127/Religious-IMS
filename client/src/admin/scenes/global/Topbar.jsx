@@ -76,9 +76,9 @@ const TopBar = () => {
             <NotificationsOutlinedIcon />
           </Badge>
 </IconButton>
-      <IconButton>
+      {/* <IconButton>
         <SettingsOutlinedIcon />
-      </IconButton>
+      </IconButton> */}
       <IconButton onClick={handleMenuOpen}>
         <PersonOutlinedIcon />
       </IconButton>  
@@ -90,9 +90,9 @@ const TopBar = () => {
           <MenuItem onClick={handleLogout}>
             Logout
           </MenuItem>
-          <MenuItem component={Link} to="/hello" onClick={handleMenuClose}>
+          {/* <MenuItem component={Link} to="/hello" onClick={handleMenuClose}>
             Hello
-          </MenuItem>
+          </MenuItem> */}
         </Menu>    
     </Box>
    </Box>

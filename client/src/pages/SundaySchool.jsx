@@ -1,9 +1,13 @@
 import React from 'react';
 import senbet from '../assets/Images/senbet.jpg';
+import senbet3 from '../assets/Images/senbet3.jpg';
+import senbet4 from '../assets/Images/senbet4.jpg';
+import senbet6 from '../assets/Images/senbet6.jpg';
+import senbet8 from '../assets/Images/senbet8.jpg';
 import temari from '../assets/Images/temari.jpg';
 import senbete from '../assets/Images/imagess.jpg';
 import st from '../assets/Images/st.jpg';
-import course from '../assets/Images/course.jpeg'
+import course from '../assets/Images/course.jpg'
 
 
 const SundaySchool = () => {
@@ -19,16 +23,16 @@ const SundaySchool = () => {
 
             <div className='py-8 flex flex-cols justify-center space-x-8 min-h-full'>
                 <div className='relative' style={{ width: '100%' }}>
-                    <img src={senbet} alt="Image" className="object-cover w-full h-full" />
+                <img src={senbet6} alt="Image" className="object-cover w-full h-full" />
                 </div>
                 <div className=' relative' style={{ width: '100%' }}>
-                    <img src={st} alt="Image" className="object-cover w-full h-full" />
+                    <img src={senbet3} alt="Image" className="object-cover w-full h-full" />
                 </div>
                 <div className=' relative' style={{ width: '100%' }}>
-                    <img src={temari} alt="Image" className="object-cover w-full h-full" />
+                    <img src={senbet4} alt="Image" className="object-cover w-full h-full" />
                 </div>
                 <div className=' relative' style={{ width: '100%' }}>
-                    <img src={senbete} alt="Image" className="object-cover w-full h-full" />
+                <img src={senbet8} alt="Image" className="object-cover w-full h-full" />
                 </div>
             </div>
             <div className='py-8'>
@@ -47,7 +51,7 @@ const SundaySchool = () => {
                     <div className='lg:w-1/2 p-4 flex flex-col justify-center items-center'>
                         <h1 className='text-dark-blue font-bold text-5x1'>ኮርስ የሚሰጥበት ሰአት</h1>
                         <div className='flex flex-col p-4 '>
-                            <span><p className=''>ከ 5-12 አመት፡ ቅዳሜ 2፡00pm-4:00pm</p></span><span><p className='pl-16'>እሁድ 1፡30pm-3:30pm</p></span>
+                            <span><p className=''>ከ 5-12 አመት፡ እሁድ 2፡00pm-4:00pm</p></span><span><p className='pl-16'>እሁድ 1፡30pm-3:30pm</p></span>
 
                         </div>
                         <div className='flex flex-col p-4 '>
@@ -58,27 +62,27 @@ const SundaySchool = () => {
                         </div>
                     </div>
                     <div className='lg:w-1/2 p-4 flex justify-center items-center'>
-                        <img src={course} alt="Image" className="object-cover w-full h-full" />
+                        <img src={course} alt="Image" className="object-cover w-3/4" />
                         </div>
                 </div>
             </div>
             <div className=' py-8  min-h-full'>
                 <div className='bg-gray-100 flex flex-cols'>
                     <div className='lg:w-1/2 p-4 flex justify-center items-center'>
-                        <img src={senbet} alt="Image" className="object-cover w-full h-full" />
+                        <img src={senbet} alt="Image" className="object-cover w-3/4" />
 
                     </div>
                     <div className='lg:w-1/2 p-4 flex flex-col justify-center items-center'>
                         <h1 className='text-dark-blue font-bold text-5x1'>የመዝሙር ጥናት ሰአት</h1>
                         <div className='flex flex-col p-4 '>
-                            <span><p className=''>ከ 5-12 አመት፡ ቅዳሜ 2፡00pm-4:00pm</p></span><span><p className='pl-16'>እሁድ 1፡30pm-3:30pm</p></span>
+                            <span><p className=''>ከ 5-12 አመት፡ እሁድ 2፡00pm-4:00pm</p></span><span><p className='pl-16'>እሁድ 1፡30pm-3:30pm</p></span>
 
                         </div>
                         <div className='flex flex-col p-4 '>
                             <span><p className=''>ከ 12-18 አመት፡ ቅዳሜ 4፡00pm-6:00pm</p></span><span><p className='pl-8'>እሁድ 4፡00pm-6:00pm</p></span>
                         </div>
                         <div className='flex flex-col p-4 '>
-                            <span><p className=''>ከ 18+ አመት፡ ቅዳሜ 6፡00pm-8:00pm</p></span><span><p className='pl-8'>እሁድ 6፡00pm-8:00pm</p></span>
+                            <span><p className=''>ከ 18+ አመት፡ ሰኞ 6፡00pm-8:00pm</p></span><span><p className='pl-8'>እሁድ 6፡00pm-8:00pm</p></span>
                         </div>
                     </div>
 

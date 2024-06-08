@@ -89,7 +89,7 @@ const FeedbackPage = () => {
                   <p className="text-sm font-semibold">{feedback.email}</p>
                   </div>     */}
                   <div>
-                  <p>{feedback.message}</p>
+                  <p className="truncate">{feedback.message}</p>
                   </div>
                   <div className="flex justify-center">
                     <Link to={`/feedback/${feedback.userId}`}>

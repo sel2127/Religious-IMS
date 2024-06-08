@@ -65,12 +65,10 @@ function Admin() {
           <Route path="login" element={<Login />} />
           <Route path="forgot" element={<Forgot />}/>
           <Route path="/reset/:token" element={<Reset />} />
-          {/* <Route path="dashboard" element={<PrivateRoute>
+          <Route path="dashboard" element={<PrivateRoute>
                       <Dashboard />
-                    </PrivateRoute>} /> */}
-                     <Route path="dashboard" element={
-                      <Dashboard />
-                    } />
+                    </PrivateRoute>} />
+                   
           <Route path="team"element={<PrivateRoute>
                       <Team />
                     </PrivateRoute>} />
@@ -95,12 +93,10 @@ function Admin() {
           <Route path="line" element={<PrivateRoute>
                       <Line />
                     </PrivateRoute>} />
-          {/* <Route path="event" element={<PrivateRoute>
+          <Route path="event" element={<PrivateRoute>
                       <EventUpload />
-                    </PrivateRoute>} /> */}
-                     <Route path="event" element={
-                      <EventUpload />
-                    } />
+                    </PrivateRoute>} />
+                    
           <Route path="faq" element={<PrivateRoute>
                       <FAQ />
                     </PrivateRoute>} />

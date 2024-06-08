@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState("");
+  const [events, setEvents] = useState([]);
+  const [newEventsCount, setNewEventsCount] = useState(0);
 
   const currentLanguageCode = cookies.get("i18next") || "am";
   const languages = [
@@ -26,6 +28,31 @@ const Header = () => {
   // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Access state from Redux store
   // console.log(isAuthenticated);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    // Fetch events from the server
+    fetch("http://localhost:5000/events")
+      .then((response) => response.json())
+      .then((data) => {
+        // Sort events by date in descending order
+        const sortedEvents = data.sort((a, b) => {
+          return new Date(b.eventdate) - new Date(a.eventdate);
+        });
+  
+        // Filter out events whose date has passed
+        const filteredEvents = sortedEvents.filter((event) => {
+          return new Date(event.eventdate) >= new Date();
+        });
+  
+        // Set the state with only the four most recent events
+        setEvents(filteredEvents.slice(0, 4));
+  
+        // Calculate the new events count
+        const newEventsCount = filteredEvents.length - events.length;
+        setNewEventsCount(newEventsCount);
+      })
+      .catch((error) => console.error(error));
+  }, [events]);
 
   const handleSetActiveLink = (path) => {
     setActiveLink(path);
@@ -128,7 +155,7 @@ const Header = () => {
                 </svg>
               </a>
             </div>
-            <div className="w-1/5 flex justify-end">
+            <div className="w-1/5 flex justify-end relative">
               <a href="/notify">
                 <svg
                   viewBox="0 0 24 24"
@@ -159,6 +186,11 @@ const Header = () => {
                     ></path>{" "}
                   </g>
                 </svg>
+                {/* {newEventsCount > 0 && (
+      <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+        {newEventsCount}
+      </span>
+    )} */}
               </a>
             </div>
             <div className="w-2/5 flex justify-end">

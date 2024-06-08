@@ -54,8 +54,8 @@ function ChurchPage() {
       <div className='w-full py-8'>
         <p>ይህ በግራኝ መሐመድ ወረራ ወቅት አባቶች በዋሻ ደብቀውት እንደነበር የሚገመተው የመድኃኔዓለም ታቦት ተደብቆ በነበረበት ዋሻ አጠገብ አልፈው ድልድዩን የሚሻገሩ ገበሬዎች በአካባቢው የሆነ ኃርል እንዳለ ስለሚሰማቸው እርጥብ አረንጓዴ ሳር ቆርጠው ኦፉ (ይቅር በለኝ) እያሉ በመማጸን በፍርሃት ይሻገሩ እንደነበርና ሳያውቁ በዚህ ጽላት ያመልኩ እንደነበር ነዋሪዎች የሚመሰክሩት እውነት ነው። በቦሌ ቡልቡላ በማህበር የተደራጁ ግለሰቦች ቤት ገንብተው በብዛት መግባት ሲጀምሩ ቀደም ሲል የነበረው በጭቃ የተሰራው መቃኞ ቤተክርስቲያን ለምዕመናኑ ባለመብቃቱ በ1993 ዓ.ም. በአሁኑ ወቅት በአገልግሎት ላይ የሚገኘው ሕንጻ ቤተክርስቲያን ተጀምሮ በጥር ወር 1995 ዓ.ም. አገልግሎት እንዲጀምር ተደርጓል።</p>
       </div>
-      <div className='py-8 flex flex-cols space-x-8  overflow-hidden justify-center'>
-        <div className=' inline-block relative '>
+      <div className='py-8 lg:flex md:flex sm:block flex-cols lg:space-x-8 md:space-x-8 overflow-hidden justify-center'>
+        <div className=' inline-block relative'>
           <img src={church4} alt="Image" className="object-cover w-full h-full" />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white font-bold text-xl">
             <div>
@@ -69,7 +69,7 @@ function ChurchPage() {
             </div>
           </div>
         </div>
-        <div className=' inline-block relative'>
+        <div className=' inline-block relative lg:mt-0 md:mt-0 sm:mt-6'>
           <img src={photo1} alt="Image" className="object-cover w-full h-full" />
           <div className="absolute inset-0 flex flex-col items-center text-white justify-center font-bold text-xl">
             <div>
@@ -91,7 +91,7 @@ function ChurchPage() {
             </div>
           </div>
         </div>
-        <div className=' inline-block relative'>
+        <div className=' inline-block relative lg:mt-0 md:mt-0 sm:mt-6'>
           <img src={church5} alt="Image" className="object-cover w-full h-full" />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white font-bold text-xl">
             <div>

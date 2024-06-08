@@ -8,6 +8,7 @@ const Notify = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [deletedEventId, setDeletedEventId] = useState(null);
+  const [newEventsCount, setNewEventsCount] = useState(0);
 
   const openModal = (event) => {
     setSelectedEvent(event);
@@ -43,9 +44,11 @@ const Notify = () => {
 
         // Set the state with only the four most recent events
         setEvents(filteredEvents.slice(0, 4));
+
+        setNewEventsCount(filteredEvents.length - events.length);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [events]);
 
   useEffect(() => {
     const modal = modalRef.current;

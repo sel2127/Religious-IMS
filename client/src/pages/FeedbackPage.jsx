@@ -58,11 +58,16 @@ const FeedbackPage = () => {
 
  
 
+
   return (
+<<<<<<< HEAD
     <div className="w-full m-auto">
+=======
+    <div className="lg:w-full m-auto">
+>>>>>>> 85eaf14f0d50cbcdfa90b801fa0eb0ece081e548
       <ToastContainer />
       <div className="grid grid-cols-4 gap-4 mt-8 ">
-        {
+      {
   feedbackData && feedbackData.length === 0 ? (
     <div className="text-center text-gray-500">No feedbacks found.</div>
           ) : (
@@ -88,7 +93,7 @@ const FeedbackPage = () => {
                   <p className="text-sm font-semibold">{feedback.email}</p>
                   </div>     */}
                   <div>
-                  <p>{feedback.message}</p>
+                  <p className="truncate">{feedback.message}</p>
                   </div>
                   <div className="flex justify-center">
                     <Link to={`/feedback/${feedback.userId}`}>
@@ -125,7 +130,7 @@ const FeedbackPage = () => {
                     onClick={() => handleConfirmDelete(selectedFeedbackId)}
                     className="mt-10 ml-10 px-6 py-2 bg-red-700 text-white rounded-3xl"
                   >
-                    አወ
+                    አዎ
                   </button>
                 </div>
               </div>

@@ -33,7 +33,7 @@ useEffect(() => {
                     <div className="lg:w-1/6 md:w-1/5 sm:w-1/3 px-4 bg-dark-blue border border-gray-200 rounded-full mt-10 h-12 flex items-center justify-center">
                     <a href="/notify" className="cursor-pointer">
                         <button className="w-full mx-auto text-lg font-bold text-white px-auto text-center">
-                            ሁሉም መርሃግብራት
+                            የቅርብ መርሃግብራት
                         </button>
                         </a>
                     </div>

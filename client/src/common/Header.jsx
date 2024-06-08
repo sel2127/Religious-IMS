@@ -212,14 +212,14 @@ const Header = () => {
             </div>
             <div className="w-1/6">
               <a
-                href="/contact"
+                href="/abnet"
                 className={`cursor-pointer ${
-                  window.location.pathname === "/contact"
+                  window.location.pathname === "/abnet"
                     ? "header-active-links"
                     : ""
                 }`}
               >
-                አግኙን
+                አብነት
               </a>
             </div>
             <div className="w-1/6 flex items-center">
@@ -263,14 +263,14 @@ const Header = () => {
                     አስተያየቶች
                   </a>
                   <a
-                    href="/abnet"
+                    href="/contact"
                     className={`cursor-pointer ${
-                      window.location.pathname === "/abnet"
+                      window.location.pathname === "/contact"
                         ? "header-active-links"
                         : ""
                     }`}
                   >
-                    አብነት
+                    አግኙን
                   </a>
                 </div>
               </div>

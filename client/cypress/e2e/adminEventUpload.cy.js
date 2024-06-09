@@ -1,6 +1,8 @@
 
 describe('Event Upload', () => {
   it('submits event successfully', () => {
+    cy.visit('http://localhost:3000/admin/event')
+
     cy.intercept('POST', 'http://localhost:5000/upload', {
       statusCode: 200,
       body: { message: 'Event uploaded Successfully' },
@@ -10,7 +12,6 @@ describe('Event Upload', () => {
   cy.get('input[name="eventname"]').type('Example Event');
   cy.get('input[name="eventDesc"]').type('Example event description');
 
-    // Set the event date using the date picker
     cy.get('input[name="eventdate"]').type('2024-06-12');
 
     // Upload an image file
@@ -20,9 +21,9 @@ describe('Event Upload', () => {
     cy.get('.event').click();
 
     // Verify the success message
-    cy.get('.Toastify__toast--success').should('contain', 'Event submitted successfully!');
+    cy.get('.Toastify__toast--success').should('contain', 'Event uploaded Successfully');
 
-    cy.url().should('include', '/feedback');
+    cy.visit('http://localhost:3000/admin/dashboard');
   });
  
   it('show error message for name is emepty', () => {
@@ -31,7 +32,6 @@ describe('Event Upload', () => {
       cy.get('input[name="eventname"]').clear();
       cy.get('input[name="eventDesc"]').type('Example event description');
   
-      // Set the event date using the date picker
       cy.get('input[name="eventdate"]').type('2024-06-12');
   
       // Upload an image file

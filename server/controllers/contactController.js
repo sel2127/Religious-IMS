@@ -25,7 +25,7 @@ import nodemailer from "nodemailer";
   };
 
   try {
-    await nodemailer.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
     res.status(200).json({ message: 'Email sent successfully!' });
   } catch (error) {
     console.error('Error sending email:', error);

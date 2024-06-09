@@ -30,7 +30,9 @@ const ProfilePage = () => {
 
   const fetchData = async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:5000/api/userinfo', userData, {
+      const response = await axios.get('http://localhost:5000/api/userinfo', 
+        // userData,
+         {
         withCredentials: true, 
       });
   

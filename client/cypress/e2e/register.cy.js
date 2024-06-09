@@ -63,7 +63,7 @@ describe('template spec', () => {
     cy.get('button[type="submit"]').click();
 
     cy.get('.Toastify__toast--success').should('contain', 'Registration successful');
-    cy.url().should("include", "http://localhost:3000//login");
+    cy.url().should("include", "http://localhost:3000/login");
   });
 
 })

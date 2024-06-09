@@ -1,58 +1,54 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
-export function sendEmail({ recipient_email, OTP }) {
-    return new Promise((resolve, reject) => {
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.MY_EMAIL,
-          pass: process.env.MY_PASSWORD,
-        },
-      });
-  
-      const mail_configs = {
-        from: process.env.MY_EMAIL,
-        to: recipient_email,
-        subject: "PASSWORD RECOVERY",
-        html: `<!DOCTYPE html>
-  <html lang="en" >
-  <head>
-    <meta charset="UTF-8">
-    <title>CodePen - OTP Email Template</title>
-    
-  
-  </head>
-  <body>
-  <!-- partial:index.partial.html -->
-  <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
-    <div style="margin:50px auto;width:70%;padding:20px 0">
-      <div style="border-bottom:1px solid #eee">
-        <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Koding 101</a>
-      </div>
-      <p style="font-size:1.1em">Hi,</p>
-      <p>Thank you for choosing us. Use the following OTP to complete your Password Recovery Procedure. OTP is valid for 5 minutes</p>
-      <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${OTP}</h2>
-      <p style="font-size:0.9em;">Regards,<br />Koding 101</p>
-      <hr style="border:none;border-top:1px solid #eee" />
-      <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-        <p>DebreMedihanealem Church</p>
-        <p>1600 Amphitheatre Parkway</p>
-        <p>California</p>
-      </div>
-    </div>
-  </div>
-  <!-- partial -->
-    
-  </body>
-  </html>`,
-      };
-      transporter.sendMail(mail_configs, function (error, info) {
-        if (error) {
-          console.log(error);
-          return reject({ message: `An error has occured` });
-        }
-        return resolve({ message: "Email sent succesfuly" });
-      });
-    });
+export const createMailTransporter = async () => {
+  console.log("Creating mail transporter...");
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+    logger: true, // Enable logging
+    debug: true,  // Enable debug output
+  });
+
+  // Verify the connection configuration
+  transporter.verify(function (error, success) {
+    if (error) {
+      console.error("SMTP configuration error:", error);
+    } else {
+      console.log("SMTP configuration is correct:", success);
+    }
+  });
+
+  return transporter;
+};
+
+
+export const sendPasswordResetCode = async (email, username, otp) => {
+  const mailOptions = {
+    from: '"RSMS" <' + process.env.SMTP_USER + '>',
+    to: email,
+    subject: "Here is the reset code verify it!",
+    html: `<p>Hello ${username},</p>
+         <p>Your reset code is: <strong>${otp}</strong></p>
+         <p>Please verify your code by clicking this link: <a href="http://${process.env.CLIENT_URL}/account/confirm">http://${process.env.CLIENT_URL}/account/confirm</a></p>`,
+  };
+  return mailOptions;
+};
+
+
+export const sendEmail = async (email) => {
+  const transporter = await createMailTransporter();
+  try {
+    await transporter.sendMail(email);
+    console.log("Email sent successfully");
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
   }
-  
+};

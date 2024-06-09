@@ -103,10 +103,24 @@ const User = () => {
     }
   };
 
+  // const handleDelete = async (userId) => {
+  //   try {
+  //     await axios.delete(`http://localhost:5000/admin/users/${userId}`);
+  //     fetchUsers(); // Fetch users again to reflect the updated list
+  //   } catch (error) {
+  //     console.error('Error deleting user:', error);
+  //   }
+  // };
+
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`http://localhost:5000/admin/users/${userId}`);
-      fetchUsers(); // Fetch users again to reflect the updated list
+      // Show the confirm dialog
+      const confirmDelete = window.confirm('Are you sure you want to delete this user?');
+      if (confirmDelete) {
+        // User confirmed, proceed with the delete
+        await axios.delete(`http://localhost:5000/admin/users/${userId}`);
+        fetchUsers(); // Fetch users again to reflect the updated list
+      }
     } catch (error) {
       console.error('Error deleting user:', error);
     }

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../assets/styles/notify.css";
-import { ToastContainer,toast } from "react-toastify";
-
+import { ToastContainer } from "react-toastify";
 const Notify = () => {
   const modalRef = useRef(null);
   const [events, setEvents] = useState([]);
@@ -44,7 +43,7 @@ const Notify = () => {
         setEvents(filteredEvents.slice(0, 4));
       })
       .catch((error) => console.error(error));
-  }, );
+  }, []);
 
   useEffect(() => {
     const modal = modalRef.current;
@@ -129,18 +128,18 @@ const Notify = () => {
                 <div key={event.id}>
                   <div className="flex items-center border-b border-gray-200 py-6">
 
-                    <div className="w-1/2 lg:flex md:flex sm:block items-center gap-4 cursor-pointer" onClick={() => openModal(event)}>
+                    <div className="lg:w-1/2 md:w-1/2 sm:w-3/4 lg:flex md:flex sm:block items-center gap-4 cursor-pointer" onClick={() => openModal(event)}>
                       {/* Display event details */}
-                      <div className="w-1/4">
+                      <div className="lg:w-1/4 md:w-1/4 sm:w-full flex items-center justify-center">
                         <img src={`../../assets/${event.eventImage}`} alt="image" className="w-20" />
                       </div>
-                      <div className="w-3/4 flex flex-col gap-2">
+                      <div className="lg:w-3/4 md:w-3/4 sm:w-full flex flex-col lg:gap-2 md:gap-2 sm:mt-4 text-center">
                         <div className="font-bold text-sm">{event.eventname}</div>
                         <div className="text-xs truncate">{event.eventDesc}</div>
                         <div className="text-xs"><span className="font-bold">ቀን: </span>{formattedDate}</div>
                       </div>
                     </div>
-                    <div className="w-1/2 flex items-center justify-end" onClick={closeModal}>
+                    <div className="lg:w-1/2 md:w-1/2 sm:w-1/4 flex items-center justify-end" onClick={closeModal}>
                       <div className="dropdown">
                         <button className="dropbtn">
                         <svg

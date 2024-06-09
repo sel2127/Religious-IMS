@@ -42,7 +42,7 @@ const { DataTypes } = Sequelize;
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      // unique:true
     },
     gender: {
       type: DataTypes.ENUM('male', 'female'),

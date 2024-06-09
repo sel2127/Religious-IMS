@@ -22,6 +22,7 @@ import Login from "./login";
 import Forgot from "./forgot";
 import Reset from './reset';
 import PrivateRoute from './PrivateRoute';
+import TodoNotify from './scenes/todonotify';
 
 function Admin() {
   const [theme, colorMode] = useMode();
@@ -98,6 +99,12 @@ function Admin() {
           <Route path="faq" element={<PrivateRoute>
                       <FAQ />
                     </PrivateRoute>} />
+          <Route path="chat" element={<PrivateRoute>
+                      <Chat />
+                    </PrivateRoute>} />
+          <Route path="todo" element={<PrivateRoute>
+            <TodoNotify />
+          </PrivateRoute>} />
         </Routes>
       </main>   
     </div>

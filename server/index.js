@@ -11,9 +11,10 @@ import UserRoute from './routes/UserRoutes.js';
 import feedbackRoute from './routes/feedbackRoute.js';
 import donationRoute from './routes/donationRoutes.js';
 import createChatServer from './chatServer.js';
-import chatRoutes from './routes/chatRoutes.js'; 
-import memberRoute from './routes/memberRoute.js'; 
-import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js'; 
+import chatRoutes from './routes/chatRoutes.js';
+import memberRoute from './routes/memberRoute.js';
+import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js';
+
 
 dotenv.config();
 const app = express();
@@ -22,12 +23,9 @@ const app = express();
 app.use(cors({
   credentials: true,
   origin: ['http://localhost:3000'],
-  methods: ['POST', 'GET', 'PUT', 'DELETE'],
-  credentials: true,
-  origin: ['http://localhost:3000'],
-  methods: ['POST', 'GET', 'PUT', 'DELETE'],
+  methods: ['POST', 'GET', 'PUT', 'DELETE']
 }));
-db.sync();
+
 db.sync();
 
 // Parse JSON bodies
@@ -39,8 +37,7 @@ app.use(express.static("public"));
 
 // Define routes
 app.use(donationRoute);
-app.use(UserRoute); 
-app.use(UserRoute); 
+app.use(UserRoute);
 app.use(feedbackRoute);
 app.use(memberRoute);
 app.use("/events", eventRouter);
@@ -49,21 +46,17 @@ app.use("/api", calendarRoutes);
 
 // Mount admin routes
 app.use("/admin", adminRouter);
-app.use("/chat", chatRoutes); // Use chat routes
-app.use("/chat", chatRoutes); // Use chat routes
+app.use("/chat", chatRoutes);
 app.use(passwordRecoveryRoute);
 
 // Default route for handling 404 errors
 app.use((req, res) => {
   res.status(404).send("Not Found");
-  res.status(404).send("Not Found");
 });
 
 // Start the server
-const port = process.env.APP_PORT || 5000;
 const server = createChatServer(app);
-
+const port = process.env.APP_PORT;
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-

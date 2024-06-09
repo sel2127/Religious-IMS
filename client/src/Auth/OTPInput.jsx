@@ -1,11 +1,11 @@
-import React , { useContext , useState  } from "react";
+import React, { useContext, useState } from "react";
 import axios from 'axios';
 import { RecoveryContext } from "../App";
 
 export default function () {
   const { email, otp, setPage } = useContext(RecoveryContext);
   const [timerCount, setTimer] = React.useState(60);
-  const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
+  const [OTPinput, setOTPinput] = useState(["", "", "", "", "", ""]);
   const [disable, setDisable] = useState(true);
 
   function resendOTP() {
@@ -16,12 +16,12 @@ export default function () {
         recipient_email: email,
       })
       .then(() => setDisable(true))
-      .then(() => alert("A new OTP has succesfully been sent to your email."))
+      .then(() => alert("A new OTP has successfully been sent to your email."))
       .then(() => setTimer(60))
       .catch(console.log);
   }
 
-  function verfiyOTP() {
+  function verifyOTP() {
     if (parseInt(OTPinput.join("")) === otp) {
       setPage("reset");
       return;
@@ -40,8 +40,7 @@ export default function () {
         if (lastTimerCount <= 0) return lastTimerCount;
         return lastTimerCount - 1;
       });
-    }, 1000); //each count lasts for a second
-    //cleanup the interval on complete
+    }, 1000);
     return () => clearInterval(interval);
   }, [disable]);
 
@@ -62,80 +61,29 @@ export default function () {
             <form>
               <div className="flex flex-col space-y-16">
                 <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          e.target.value,
-                          OTPinput[1],
-                          OTPinput[2],
-                          OTPinput[3],
-                        ])
-                      }
-                    ></input>
-                  </div>
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          OTPinput[0],
-                          e.target.value,
-                          OTPinput[2],
-                          OTPinput[3],
-                        ])
-                      }
-                    ></input>
-                  </div>
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          OTPinput[0],
-                          OTPinput[1],
-                          e.target.value,
-                          OTPinput[3],
-                        ])
-                      }
-                    ></input>
-                  </div>
-                  <div className="w-16 h-16 ">
-                    <input
-                      maxLength="1"
-                      className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                      type="text"
-                      name=""
-                      id=""
-                      onChange={(e) =>
-                        setOTPinput([
-                          OTPinput[0],
-                          OTPinput[1],
-                          OTPinput[2],
-                          e.target.value,
-                        ])
-                      }
-                    ></input>
-                  </div>
+                  {OTPinput.map((_, index) => (
+                    <div key={index} className="w-16 h-16">
+                      <input
+                        maxLength="1"
+                        className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
+                        type="text"
+                        value={OTPinput[index]}
+                        onChange={(e) =>
+                          setOTPinput((prev) => {
+                            const newOtp = [...prev];
+                            newOtp[index] = e.target.value;
+                            return newOtp;
+                          })
+                        }
+                      ></input>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="flex flex-col space-y-5">
                   <div>
                     <a
-                      onClick={() => verfiyOTP()}
+                      onClick={() => verifyOTP()}
                       className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm"
                     >
                       Verify Account
@@ -143,7 +91,7 @@ export default function () {
                   </div>
 
                   <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
-                    <p>Didn't recieve code?</p>{" "}
+                    <p>Didn't receive the code?</p>{" "}
                     <a
                       className="flex flex-row items-center"
                       style={{

@@ -126,37 +126,22 @@ useEffect(()=>{
   }
 }
 
-  const items2 = [
-    <div key={1}>
-      <div className="flex items-center justify-center lg:gap-8 md:gap-8 sm:gap-2 h-full">
-        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center lg:p-8 md:p-8 sm:p-2 text-lg">
-          <div>            
-          </div>
-        </div>
-      </div>
-    </div>,
-    <div key={2}>
+  const items2 = feedbackData && feedbackData.length>0 ? feedbackData.map((feedback)=>(
+ <div key={feedback.feedbackId}>
       <div className="flex items-center justify-center lg:gap-8 md:gap-8 sm:gap-2 h-full">
         <div className="bg-white rounded-2xl w-3/4  flex flex-col items-center justify-center lg:p-8 md:p-8 sm:p-2 text-lg">
           <div>
             
           </div>
-          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
-          <div className="font-bold">ለማ ሄደ</div>
+          <div className="mt-8">{feedback.message}</div>
+          <div className="font-bold">{feedback.writer}</div>
         </div>        
       </div>
-    </div>,
-    <div key={3}>
-      <div className="flex items-center justify-center lg:gap-8 md:gap-8 sm:gap-2 h-full">
-        <div className="bg-white w-3/4 rounded-2xl flex flex-col items-center justify-center lg:p-8 md:p-8 sm:p-2 text-lg">
-          <div>            
-          </div>
-          <div className="mt-8">ድህረገጻችሁ ጥሩ አገልግሎት እየሰጠን ይገኛል። ቆንጆ ስራ ነው የሰራችሁት። አሁን ደግሞ ከዚህ በበለጠ ተደራሽነታችሁን እንድታሰፉ እላለሁ አመሰግናለሁ።</div>
-          <div className="font-bold">ለማ መጣ</div>
-        </div>        
-      </div>
-    </div>,
-  ];
+    </div>
+  )
+    
+  ):null;
+    
   return (
     <div>
       <div className="pt-4">

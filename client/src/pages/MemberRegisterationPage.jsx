@@ -1,250 +1,134 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { toast, ToastContainer,cssTransition } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "react-phone-input-2/lib/style.css";
-import "../assets/styles/member.css";
-import PhoneInput from "react-phone-input-2";
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import { setUserData } from '../app/actions/userAction';
-import { useDispatch,useSelector } from "react-redux";
+import Contact from '../assets/Images/contact.jpg';
 
-function MemberRegistrationPage() {
-  const userDataFromStoreEdit = useSelector((state) => state.user.userData);
+function ContactUS() {
+    const userDataFromStore = useSelector((state) => state.user.userData);
+    const dispatch = useDispatch();
 
-  const [firstName, setFirstName] = useState(userDataFromStoreEdit.firstName);
-  const [lastName, setLastName] = useState(userDataFromStoreEdit.lastName);
-  const [bapiname, setBapiname] = useState("");
-  const [fathername, setFathername] = useState("");
-  const [adress, setAdress] = useState("");
-  const [email, setEmail] = useState(userDataFromStoreEdit.email);
-  const [phone, setPhone] = useState(userDataFromStoreEdit.phone);
-  const [countryCode, setCountryCode] = useState("et");
-  const [gender, setGender] = useState("");
-  const [errors, setErrors] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+    });
 
-  const validatePhoneNumber = (phone, countryCode) => {
-    const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase());
-    return phoneNumber && phoneNumber.isValid();
-  };
+    useEffect(() => {
+        const fetchData = async (dispatch) => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/userinfo', {
+                    withCredentials: true, // Ensure cookies are sent with the request
+                });
 
-  const validateForm = () => {
-    const errors = {};
-    if (!firstName || !/^[a-zA-Z\s]+$/.test(firstName) || firstName.length < 3) {
-      errors.firstName = "First name must only contain letters and at least 3 characters";
-    }
-    if (!lastName || !/^[a-zA-Z\s]+$/.test(lastName)) {
-      errors.lastName = "Last name must only contain letters";
-    }
-    // if (!bapiname || !/^[a-zA-Z\s]+$/.test(bapiname)) {
-    //   errors.bapiname = "Bapiname must only contain letters";
-    // }
-    // if (!fathername || !/^[a-zA-Z\s]+$/.test(fathername)) {
-    //   errors.fathername = "Fathername must only contain letters";
-    // }
-    if (!adress || adress.length < 3) {
-      errors.adress = "Address must be at least 3 characters long";
-    }
-    if (!email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)) {
-      errors.email = "Please enter a valid email address";
-    }
-    if (!phone || !validatePhoneNumber(phone, countryCode)) {
-      errors.phone = "Please enter a valid phone number";
-    }
-    if (!gender) {
-      errors.gender = "Please select a gender";
-    }
+                const userData = response.data.user;
+                dispatch(setUserData(userData));
+                setFormData({
+                    name: userData.firstName + ' ' + userData.lastName,
+                    email: userData.email,
+                    phone: userData.phone,
+                    message: '',
+                });
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        };
 
-    setErrors(errors);
-    return Object.keys(errors).length > 0;
-  };
+        fetchData(dispatch);
+    }, [dispatch]);
 
-  const resetForm = () => {
-    setFirstName("");
-    setLastName("");
-    setBapiname("");
-    setFathername("");
-    setAdress("");
-    setEmail("");
-    setPhone("");
-    setCountryCode("et");
-    setGender("");
-    setErrors({});
-    setErrorMessage(null);
-  };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage(null);
-    // Validate form
-    if (validateForm()) {
-      return;
-    }
-  
-    // Send data to backend API
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/member/create",
-        { firstName, lastName, bapiname, fathername, adress, email, phone, gender }
-      );
-      if (response.data.message === 'Member registered successfully') {
-        toast.success('Member registered successfully');
-        resetForm();
-      } else {
-        throw new Error("Unexpected response from server");
-      }
-    } 
-    catch (error) {
-      //console.log(error); // Log the error object for debugging purposes
-      if (error.response && error.response.data && error.response.data.error === 'User has already registered') {
-        toast.warn('You have already registered');
-        resetForm();
-      } else {
-        toast.error("Error for registration, please try again!");
-      }
-    }
-  };
-  const userData = useSelector((state) => state.user.userData);
-  const dispatch = useDispatch();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/contact/send', formData);
+            if (response.data.success) {
+                alert('Message sent successfully!');
+                setFormData({ ...formData, message: '' });
+            } else {
+                alert('Failed to send message');
+            }
+        } catch (error) {
+            console.error('There was an error sending the message!', error);
+            alert('There was an error sending the message!');
+        }
+    };
 
-  const fetchData = async (dispatch) => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/userinfo', {
-        withCredentials: true, // Ensure cookies are sent with the request
-      });
-  
-      const userData = response.data.user;
-      dispatch(setUserData(userData));
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
-  useEffect(()=>{
-    fetchData(dispatch);
-  })
-  // const Fade = cssTransition({
-  //   enter: "fade-enter",
-  //   exit: "fade-exit",
-  // });
-
-  return (
-    <div className="container ">
-<ToastContainer
-        position="top-right"
-        closeOnClick
-      />      
-      {/* <div className="justify-center items-center mt-8">
-        <h1 className="text-xl font-bold px-10 ml-10 sm:text-base sm:px-0">የቤተክርስቲያን የሰበካ ጉባኤ አባልነት ቅጽ</h1>
-      </div> */}
-      <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600">
-        <div className="flex flex-col items-center justify-center  px-20 py-10 form-field">
-          <input
-            type="text"
-            id="fristname"
-            name="fristname"
-            placeholder="የእርስዎ ስም"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-          {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
-          <input
-            type="text"
-            id="lastname"
-            name="lastname"
-            placeholder="የአባት ስም"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-          {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
-         
-          <input
-            type="email"
-            placeholder="ኢሜል"
-            id="email"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-          <PhoneInput
-            country={"et"}
-            value={phone}
-            onChange={(phone, country) => {
-              setPhone(phone);
-              setCountryCode(country.countryCode);
-            }}
-            placeholder="ስልክ"
-            inputClass="lg:w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10 mb-5"
-            className="lg:w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10 mb-5"
-
-            enableAreaCodes={true}
-            disableDropdown={false}
-          />
-          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-          {/* <input
-            type="text"
-            id="bapiname"
-            name="bapiname"
-            placeholder="የክርስትና ስም"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={bapiname}
-            onChange={(e) => setBapiname(e.target.value)}
-            required
-          />
-          {errors.bapiname && <p className="text-red-500 text-sm">{errors.bapiname}</p>}
-          <input
-            type="text"
-            id="fathername"
-            name="fathername"
-            placeholder="የንስሃ አባት ስም"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={fathername}
-            onChange={(e) => setFathername(e.target.value)}
-            required
-          /> */}
-          {errors.fathername && <p className="text-red-500 text-sm">{errors.fathername}</p>}
-          <input
-            type="text"
-            id="adress"
-            name="adress"
-            placeholder="የመኖሪያ አድራሻ"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={adress}
-            onChange={(e) => setAdress(e.target.value)}
-            required
-          />
-          {errors.adress && <p className="text-red-500 text-sm">{errors.adress}</p>}
-          
-         
-          <select
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            required
-          >
-            <option value="">እባኮትን ፆታዎን ይምረጡ</option>
-            <option value="male">ወንድ</option>
-            <option value="female">ሴት</option>
-          </select>
-          {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
-          <button
-            type="submit"
-            className="w-full h-10 bg-blue-500 text-white rounded-full mt-10"
-            onClick={handleSubmit}
-          >
-            ይመዝገቡ
-          </button>
-          {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+    return (
+        <div className="w-full mt-10">
+            <div className="flex gap-8 justify-content items-center">
+                <div className="w-1/2 flex justify-center">
+                    <img src={Contact} alt="contact" className="w-full" />
+                </div>
+                <div className="w-1/2 flex flex-col gap-y-10 items-center justify-start">
+                    <form className="w-3/4" onSubmit={handleSubmit}>
+                        <div className="w-3/4">
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Name*"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                                required
+                                readOnly
+                            />
+                        </div>
+                        <div className="w-3/4">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email*"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                                required
+                                readOnly
+                            />
+                        </div>
+                        <div className="w-3/4">
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="Phone Number*"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                                required
+                                readOnly
+                            />
+                        </div>
+                        <div className="w-3/4">
+                            <textarea
+                                name="message"
+                                placeholder="Message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                                required
+                            ></textarea>
+                        </div>
+                        <div className="flex w-full justify-center items-center">
+                            <button
+                                type="submit"
+                                className="bg-[#2d5986] w-1/6 h-8 hover:bg-[#79a6d2] text-white text-center rounded-full transform hover:scale-110"
+                            >
+                                ላክ
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
-export default MemberRegistrationPage;
+export default ContactUS;

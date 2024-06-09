@@ -84,19 +84,16 @@ const EditProfile = () => {
   }, [firstName, lastName, email, phone]);
 
   return (
-    <div className="lg:w-full">
-      <ToastContainer/>
-      <div className="w-full sm:mr-10 rounded-lg">
-        {/* <h1 className="text-center text-3xl font-bold custom-font mb-4 sm:text-center sm:text-xl sm:font-semibold sm:mt-5">Edit your profile here</h1> */}
-
-        <div className="flex flex-col lg:flex-row ">
+    <div className="w-full bg-gray-100 py-10">
+      <div className=" w-full rounded-lg">
+        <div className="flex flex-col lg:flex-row md:flex-row">
           <div>
             <Sidebarr />
           </div>
-          <div className="lg:w-1/2 m-auto">
-            <div className="bg-gray-200 rounded-xl flex flex-col h-screen mt-10">
-              <div className="h-full overflow-hidden shadow rounded-lg">
-                <form className="space-y-4 flex flex-col text-center lg: w-full mt-10">
+          <div className='lg:w-1/2 mx-auto'>
+            <div className="bg-white rounded-xl  flex flex-col">
+              <div className=" h-full overflow-hidden shadow rounded-lg py-10">
+                <form className="space-y-4  flex flex-col  text-center lg: w-full ">
 
                   <input
                     type="text"
@@ -157,14 +154,11 @@ const EditProfile = () => {
                 </form>
                 <div className="border-gray-200  flex justify-center space-between  mt-10">
                   <button
-                    id="submit" 
-                    className="bg-blue-500 text-white text-center px-6 py-1 rounded-3xl"
-                    onClick={handleSaveProfile}
-                  >
+                    id="submit" className="bg-[#2d5986] hover:bg-[#79a6d2] text-white text-center  px-6 py-1 rounded-3xl " onClick={handleSaveProfile} >
                     Save
                   </button>
                   <button
-                    className="bg-red-500 text-white text-center  px-6 py-1 rounded-3xl ml-10"
+                    className="bg-red-600 hover:bg-red-400 text-white text-center  px-6 py-1 rounded-3xl ml-10"
                     onClick={() => window.history.back()}
                   >
                     Cancel

@@ -68,49 +68,47 @@ const FeedbackDetailPage = () => {
   });
 
   return (
-    <div className="w-full m-auto">
-<ToastContainer
-        position="top-right"
-       
-      />      <div className="grid lg:grid-cols-1 mt-8 ">
+    <div className="w-1/2 mx-auto mt-10">
+      <ToastContainer />
+      <div className="lg:grid-cols-1">
         {feedbackData.map((feedback) => (
           <div
             key={feedback.feedbackId}
-            className="h-auto bg-gray-200 text-black rounded-xl"
+            className="bg-gray-100 text-black rounded-xl py-8"
           >
-            <div className="rounded-t-xl flex justify-center items-center">
-              <img
+            <div className="rounded-lg flex flex-col gap-y-2 justify-center items-center">
+              {/* <img
                 src={
                   getUserImageFromLocalStorage(feedback.userId)
                     ? getUserImageFromLocalStorage(feedback.userId)
                     : Ava
                 }
                 alt="Profile Image"
-                className="rounded-full w-32 h-32"
-                />
-              <div className="ml-2">
-                <p className="text-base md:font-semibold">
+                className="rounded-full mt-5 md:w-32 md:h-32 sm:w-20 sm:h-20"
+                /> */}
+              <div className="">
+                <p className="text-base font-bold">
                   {feedback.firstName} {feedback.lastName}
                 </p>
-                <p className="text-base md:font-semibold">{feedback.email}</p>
+                {/* <p className="text-base md:font-semibold">{feedback.email}</p> */}
               </div>
-            </div>
-            <div className="flex flex-col justify-center items-center gap-4 p-4">
-              <p className="mt-5">{feedback.message}</p>
-              <div className="flex flex-wrap justify-center gap-4 mt-5 ">
+              <div className="">
+                <p className="">{feedback.message}</p>
+              </div>
+              <div className="flex flex-row gap-8 mt-6">
                 <Link to={`/editfeedback/${feedback.feedbackId}`}>
-                  <button className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                  <button className="text-white bg-[#2d5986] hover:bg-[#79a6d2] lg:text-xl sm:text-base px-6 py-1 rounded-md focus:outline-white ring-focus">
                     <FaEdit />
                   </button>
                 </Link>
                 <button
                   onClick={() => handleDelete(feedback.feedbackId)}
-                  className="text-white text-xl bg-red-600 hover:bg-red-800 rounded-md px-6 py-1 focus:outline-white ring-focus"
+                  className="text-white px-6 py-1 text-xl bg-red-600 hover:bg-red-400 rounded-md focus:outline-white ring-focus"
                 >
                   <MdDelete />
                 </button>
                 <Link to="/feedback">
-                  <button className="text-white text-xl bg-red-600 hover:bg-red-800 rounded-md px-6 py-1 focus:outline-white ring-focus">
+                  <button className=" text-white px-6 py-1 text-xl hover:bg-red-400 bg-red-800 rounded-md focus:outline-white ring-focus">
                     <FaArrowAltCircleLeft />
                   </button>
                 </Link>

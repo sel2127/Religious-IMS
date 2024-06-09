@@ -58,16 +58,16 @@ const Footer = () => {
               <div className="mt-4">
                 <ul className="font-bold text-sm text-gray-500">
                   <li className="">
-                    <a href="#">ዋና ገጽ</a>
+                    <a href="/">ዋና ገጽ</a>
                   </li>
                   <li>
-                    <a href="#">ዋና ገጽ</a>
+                  <a href="/member">የአባልነት ምዝገባ</a>
                   </li>
                   <li>
-                    <a href="#">ዋና ገጽ</a>
+                  <a href="/feedback">አስተያየቶች</a>
                   </li>
                   <li>
-                    <a href="#">ዋና ገጽ</a>
+                  <a href="/notify">መልዕክት</a>
                   </li>
                 </ul>
               </div>
@@ -76,18 +76,27 @@ const Footer = () => {
               <h4 className="font-bold text-lg ">ስለ ደብራችን</h4>
               <div className="mt-4">
                 <ul className="font-bold text-sm text-gray-500">
+                <li>
+                  <a href="/church" className="cursor-pointer">
+                ለመለገስ
+              </a>
+                  </li>
                   <li className="">
-                    <a href="#">እርዳታ</a>
+                  <a href="/church" className="cursor-pointer">
+                ስለ እኛ
+              </a>
                   </li>
                   <li>
-                    <a href="#">ሰንበት ትምህርት ቤት</a>
+                  <a href="/" className="cursor-pointer">
+                ሰንበት ት/ቤት
+              </a>
                   </li>
                   <li>
-                    <a href="#">መርሃግብራት</a>
+                  <a href="/church" className="cursor-pointer">
+                አብነት
+              </a>
                   </li>
-                  <li>
-                    <a href="#">ዋና ገጽ</a>
-                  </li>
+                  
                 </ul>
               </div>
             </div>

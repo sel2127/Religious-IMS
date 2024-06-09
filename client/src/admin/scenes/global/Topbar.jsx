@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { Box, IconButton, useTheme, Menu, MenuItem } from "@mui/material";
 import { ColorModeContext, tokens } from '../../theme';
@@ -10,13 +10,31 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from 'axios';
-import { ToastContainer,toast } from 'react-toastify';
+import Badge from '@mui/material/Badge';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 const TopBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   const [anchorEl, setAnchorEl] = useState(null);
+    const [hasCurrentDayTodos, setHasCurrentDayTodos] = useState(false);
 
+  useEffect(() => {
+    const checkCurrentDayTodos = async () => {
+      try {
+        const today = new Date().toISOString().slice(0, 10);
+        const response = await fetch(`http://localhost:5000/api/calendarevents?tododate=${today}`);
+        const events = await response.json();
+        setHasCurrentDayTodos(events.length > 0); // Only set true if events exist
+      } catch (error) {
+        console.error('Failed to fetch current day events:', error);
+      }
+    };
+
+    checkCurrentDayTodos();
+  }, [])
+  
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -48,10 +66,10 @@ const TopBar = () => {
    <Box display="flex" justifyContent="space-between" p={2}>
     {/* SEARCH BAR */}
     <Box display= "flex" backgroundColor={colors.primary[400]} borderRadius="3px">
-      <InputBase sx={{ml: 2, flex: 1 }} placehlder="Search" />
+      {/* <InputBase sx={{ml: 2, flex: 1 }} placehlder="Search" />
       <IconButton type="button" sx={{ p: 1 }}>
         <SearchIcon />
-      </IconButton>
+      </IconButton> */}
     </Box>
 
     {/* Icons */}
@@ -64,8 +82,10 @@ const TopBar = () => {
       )}        
       </IconButton>
       <IconButton>
-        <NotificationsOutlinedIcon />
-      </IconButton>
+      <Badge color="secondary" variant="dot" invisible={!hasCurrentDayTodos}>
+            <NotificationsOutlinedIcon />
+          </Badge>
+</IconButton>
       <IconButton>
         <SettingsOutlinedIcon />
       </IconButton>

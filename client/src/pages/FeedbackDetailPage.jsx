@@ -13,6 +13,7 @@ import { ToastContainer, toast,cssTransition } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeedbackByName } from "../app/actions/feedbackAction";
+import { useTranslation } from "react-i18next";
 
 const FeedbackDetailPage = () => {
   const getUserImageFromLocalStorage = (userId) => {
@@ -24,6 +25,7 @@ const FeedbackDetailPage = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const feedbackData = useSelector((state) => state.feedback.feedbackData);
@@ -125,7 +127,7 @@ const FeedbackDetailPage = () => {
             <div className="flex flex-col items-center ">
               <div>
                 <p className="mt-5 px-6 py-3 text-center  top-5 right-5 justify-end">
-                  የመረጡትን አስተያየት ለማጥፋት እርግጠኛ ነዎት?
+                {t('con_feed')}
                 </p>
               </div>
               <div className="flex justify-center space-between">
@@ -134,13 +136,13 @@ const FeedbackDetailPage = () => {
                     onClick={closeDialog}
                     className="mt-10 px-6 py-2 bg-green-800 text-white mr-2 rounded-3xl"
                   >
-                    አይ
+                    {t('no')}
                   </button>
                   <button
                     onClick={() => handleConfirmDelete(selectedFeedbackId)}
                     className="mt-10 ml-10 px-6 py-2 bg-red-700 text-white rounded-3xl"
                   >
-                    አወ
+                     {t('yes')}
                   </button>
                 </div>
               </div>

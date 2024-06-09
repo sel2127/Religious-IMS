@@ -14,9 +14,12 @@ import createChatServer from './chatServer.js';
 import chatRoutes from './routes/chatRoutes.js'; 
 import memberRoute from './routes/memberRoute.js'; 
 import passwordRecoveryRoute from './routes/passwordRecoveryRoute.js'; 
+import contactUsRoute from './routes/contactUsRoute.js';
+
 
 dotenv.config();
 const app = express();
+
 
 // Configure CORS
 app.use(cors({
@@ -28,7 +31,7 @@ app.use(cors({
   methods: ['POST', 'GET', 'PUT', 'DELETE'],
 }));
 db.sync();
-db.sync();
+// db.sync();
 
 // Parse JSON bodies
 app.use(express.json());
@@ -52,12 +55,15 @@ app.use("/admin", adminRouter);
 app.use("/chat", chatRoutes); // Use chat routes
 app.use("/chat", chatRoutes); // Use chat routes
 app.use(passwordRecoveryRoute);
-
+app.use(contactUsRoute);
 // Default route for handling 404 errors
 app.use((req, res) => {
   res.status(404).send("Not Found");
   res.status(404).send("Not Found");
 });
+
+
+
 
 // Start the server
 const port = process.env.APP_PORT || 5000;

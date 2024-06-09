@@ -8,6 +8,7 @@ import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { setUserData } from '../app/actions/userAction';
 import { useDispatch,useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 function MemberRegistrationPage() {
   const [firstName, setFirstName] = useState("");
@@ -21,6 +22,7 @@ function MemberRegistrationPage() {
   const [gender, setGender] = useState("");
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
+  const { t } = useTranslation();
 
   const validatePhoneNumber = (phone, countryCode) => {
     const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase());
@@ -30,7 +32,7 @@ function MemberRegistrationPage() {
   const validateForm = () => {
     const errors = {};
     if (!firstName || !/^[a-zA-Z\s]+$/.test(firstName) || firstName.length < 3) {
-      errors.firstName = "First name must only contain letters and at least 3 characters";
+      errors.firstName = `"${t('fi')}"`;
     }
     if (!lastName || !/^[a-zA-Z\s]+$/.test(lastName)) {
       errors.lastName = "Last name must only contain letters";
@@ -45,13 +47,13 @@ function MemberRegistrationPage() {
       errors.adress = "Address must be at least 3 characters long";
     }
     if (!email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)) {
-      errors.email = "Please enter a valid email address";
+      errors.email = `"${t('en_e2')}"`;
     }
     if (!phone || !validatePhoneNumber(phone, countryCode)) {
-      errors.phone = "Please enter a valid phone number";
+      errors.phone = `"${t('en_p2')}"`;
     }
     if (!gender) {
-      errors.gender = "Please select a gender";
+      errors.gender = `"${t('gender')}"`;
     }
 
     setErrors(errors);
@@ -132,7 +134,7 @@ function MemberRegistrationPage() {
         position="top-right"
         closeOnClick
       />      <div className="justify-center items-center mt-8">
-        <h1 className="text-xl font-bold px-10 ml-10 sm:text-base sm:px-0">የቤተክርስቲያን የሰበካ ጉባኤ አባልነት ቅጽ</h1>
+        <h1 className="text-xl font-bold px-10 ml-10 sm:text-base sm:px-0">{t('mem_form')}</h1>
       </div>
       <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600">
         <div className="flex flex-col items-center justify-center  px-20 py-10 form-field">
@@ -140,7 +142,7 @@ function MemberRegistrationPage() {
             type="text"
             id="fristname"
             name="fristname"
-            placeholder="የእርስዎ ስም"
+            placeholder={` ${t('first_name')} `}
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
             value={userData.firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -151,7 +153,7 @@ function MemberRegistrationPage() {
             type="text"
             id="lastname"
             name="lastname"
-            placeholder="የአባት ስም"
+            placeholder={` ${t('last_name')} `}
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
             value={userData.lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -161,7 +163,7 @@ function MemberRegistrationPage() {
          
           <input
             type="email"
-            placeholder="ኢሜል"
+            placeholder={` ${t('email')} `}
             id="email"
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
             value={userData.email}
@@ -176,7 +178,7 @@ function MemberRegistrationPage() {
               setPhone(phone);
               setCountryCode(country.countryCode);
             }}
-            placeholder="ስልክ"
+            placeholder={` ${t('phone_number')} `}
             inputClass="lg:w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10 mb-5"
             className="lg:w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10 mb-5"
 
@@ -188,7 +190,7 @@ function MemberRegistrationPage() {
             type="text"
             id="bapiname"
             name="bapiname"
-            placeholder="የክርስትና ስም"
+            placeholder={` ${t('cn')} `}
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
             value={bapiname}
             onChange={(e) => setBapiname(e.target.value)}
@@ -199,7 +201,7 @@ function MemberRegistrationPage() {
             type="text"
             id="fathername"
             name="fathername"
-            placeholder="የንስሃ አባት ስም"
+            placeholder={` ${t('fr')} `}
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
             value={fathername}
             onChange={(e) => setFathername(e.target.value)}
@@ -210,7 +212,7 @@ function MemberRegistrationPage() {
             type="text"
             id="adress"
             name="adress"
-            placeholder="የመኖሪያ አድራሻ"
+            placeholder={` ${t('liv')} `}
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
             value={adress}
             onChange={(e) => setAdress(e.target.value)}
@@ -225,9 +227,9 @@ function MemberRegistrationPage() {
             onChange={(e) => setGender(e.target.value)}
             required
           >
-            <option value="">እባኮትን ፆታዎን ይምረጡ</option>
-            <option value="male">ወንድ</option>
-            <option value="female">ሴት</option>
+            <option value="">{t('gender')}</option>
+            <option value="male">{t('male')}</option>
+            <option value="female">{t('female')}</option>
           </select>
           {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
           <button

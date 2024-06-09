@@ -4,12 +4,14 @@ import Sidebarr from "./profile/SideBarr";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 
 const FeedbackForm = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +69,7 @@ const FeedbackForm = () => {
               >
                 <textarea
                   rows={7}
-                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፋ ... "
+                  placeholder={` ${t('com')} `}
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}

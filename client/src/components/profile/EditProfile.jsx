@@ -8,11 +8,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { useTranslation } from "react-i18next";
 
 const EditProfile = () => {
   const userDataFromStoreEdit = useSelector((state) => state.user.userData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [firstName, setFirstName] = useState(userDataFromStoreEdit.firstName);
   const [lastName, setLastName] = useState(userDataFromStoreEdit.lastName);
   const [email, setEmail] = useState(userDataFromStoreEdit.email);
@@ -32,28 +34,28 @@ const EditProfile = () => {
     let isValid = true;
 
     if (!firstName || !/^[a-zA-Z\s]+$/.test(firstName) || firstName.length < 3) {
-      setFirstNameError("First name must be at least 3 characters and only letters.");
+      setFirstNameError(`"${t('fi')}"`); 
       isValid = false;
     } else {
       setFirstNameError("");
     }
 
     if (!lastName || !/^[a-zA-Z\s]+$/.test(lastName) || lastName.length < 3) {
-      setLastNameError("Last name must be at least 3 characters and only letters.");
+      setLastNameError(`"${t('li')}"`);
       isValid = false;
     } else {
       setLastNameError("");
     }
 
     if (!email || !email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/)) {
-      setEmailError("Please enter a valid email address.");
+      setEmailError(`"${t('en_e2')}"`);
       isValid = false;
     } else {
       setEmailError("");
     }
 
     if (!phone || !validatePhoneNumber(phone, countryCode)) {
-      setPhoneError("Please enter a valid phone number.");
+      setPhoneError(`"${t('en_p2')}"`);
       isValid = false;
     } else {
       setPhoneError("");
@@ -100,7 +102,7 @@ const EditProfile = () => {
                     id="firstName"
                     name="firstName"
                     defaultValue={userDataFromStoreEdit.firstName}
-                    placeholder="Enter new first name"
+                    placeholder={` ${t('new_f')} `}
                     className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
                     autoComplete="name"
@@ -112,7 +114,7 @@ const EditProfile = () => {
                     id="lastName"
                     name="lastName"
                     defaultValue={userDataFromStoreEdit.lastName}
-                    placeholder="Enter new last name"
+                    placeholder={` ${t('new_l')} `}
                     className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
                     autoComplete="name"
@@ -121,7 +123,7 @@ const EditProfile = () => {
 
                   <input
                     type="email"
-                    placeholder="Email"
+                    placeholder={` ${t('email')} `}
                     id="email"
                     name="email"
                     value={email}
@@ -146,7 +148,7 @@ const EditProfile = () => {
                       setCountryCode(country.countryCode);
                       validateFormFields();
                     }}
-                    placeholder="Phone"
+                    placeholder={` ${t('phone_number')} `}
                     className="py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                   />
 
@@ -155,13 +157,13 @@ const EditProfile = () => {
                 <div className="border-gray-200  flex justify-center space-between  mt-10">
                   <button
                     id="submit" className="bg-[#2d5986] hover:bg-[#79a6d2] text-white text-center  px-6 py-1 rounded-3xl " onClick={handleSaveProfile} >
-                    Save
+                    {t('save')}
                   </button>
                   <button
                     className="bg-red-600 hover:bg-red-400 text-white text-center  px-6 py-1 rounded-3xl ml-10"
                     onClick={() => window.history.back()}
                   >
-                    Cancel
+                    {t('can')}
                   </button>
                 </div>
               </div>

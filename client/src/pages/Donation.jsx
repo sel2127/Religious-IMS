@@ -6,7 +6,7 @@ import churchInAksum from "../assets/Images/church in aksum.jpg";
 import abrehaAtsbeha from "../assets/Images/abreha atsbeha.jpg";
 import debredamo from "../assets/Images/debre damo monastery.jpg";
 import '../assets/styles/main.css';
-
+import { useTranslation } from "react-i18next";
 
 
 const images = [
@@ -55,17 +55,15 @@ const images = [
 ];
 
 const Donation = () => {
+    const { t } = useTranslation();
     return (
         <div>
-            <div className='text-4xl text-center font-bold mb-4 mt-10'>ምክንያት </div>
+            <div className='text-4xl text-center font-bold mb-4 mt-10'>{t('cause')} </div>
             <div className="text-center mt-4 mb-6">
-                ለኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን የሚለገሱ ልዩ ምክንያቶች በግለሰብ አብያተ ክርስቲያናት ወይም ማህበረሰቦች ፍላጎትና ቅድሚያ ሊሰጣቸው የሚገቡ ጉዳዮች ላይ ቢለያዩም፣
-                ብዙ ጊዜ መዋጮ የሚፈለግባቸው የተለመዱ ምክንያቶች አሉ.
-                እነዚህ መንስኤዎች በተለያዩ አብያተ ክርስቲያናት እና ክልሎች ሊለያዩ እንደሚችሉ ልብ ማለት ያስፈልጋል.
-                በኢትዮጵያ ኦርቶዶክስ ተዋሕዶ ቤተ ክርስቲያን አውድ ውስጥ መዋጮ የሚጠየቅባቸው አንዳንድ አጠቃላይ የምክንያት ምድቦች እዚህ አሉ::
+            {t('c_1')}
             </div>
             {/* Discover */}
-            <h1 className="text-2xl font-bold mt-8 mb-8">አግኝ</h1>
+            <h1 className="text-2xl font-bold mt-8 mb-8">{t('find')}</h1>
             <div className="grid grid-cols-3 gap-6 mt-4">
                 {images.map((image, index) => (
                     <div key={index}>
@@ -75,7 +73,9 @@ const Donation = () => {
                         <h1 className="text-center text-xl mt-4 mb-4" key={image.id}> <Link to={`/donation/${image.id}`} className="hover:bg-dark-blue">{image.title}</Link></h1>
                         <p className="text-sm m-4">{image.description}</p>
                         <div className="flex justify-center items-center mt-8">
-                            <button className="bg-dark-blue text-white px-4 py-2 rounded-full transform hover:scale-110 hover:bg-blue-600" style={{ width: '150px' }} >ለግስ</button>
+                            <button className="bg-dark-blue text-white px-4 py-2 rounded-full transform hover:scale-110 hover:bg-blue-600" style={{ width: '150px' }} >
+                                {t('ለመለገስ')}
+                                </button>
                         </div>
                     </div>
                 ))}

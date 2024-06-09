@@ -29,7 +29,7 @@ function ChangePassword() {
 
     if (newPassword !== confirmPassword) {
       toast.warning("Passwords do not match and put more than 8 character");
-      setPasswordError("Passwords do not match");
+      setPasswordError(`"${t('en_l')}"`);
     } else {
       setPasswordError("");
     
@@ -78,7 +78,7 @@ function ChangePassword() {
                     <input
                       type="password"
                       id="password"
-                      placeholder="Current Password"
+                      placeholder={` ${t('curr')} `}
                       className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500 "
                       required
                       autoComplete="current-password"
@@ -88,7 +88,7 @@ function ChangePassword() {
                       id="new"
                       value={newPassword}
                       onChange={handleNewPasswordChange}
-                      placeholder="new password (min 6 characters)"
+                      placeholder={` ${t('new')} `}
                       className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500  "
                       required
                       autoComplete="current-password"
@@ -97,7 +97,7 @@ function ChangePassword() {
                       type="password"
                       value={confirmPassword}
                       onChange={handleConfirmPasswordChange}
-                      placeholder="Confirm Password (min 6 Characters)"
+                      placeholder={` ${t('con_pass')} `}
                       id="confirm"
                       className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500   "
                       required
@@ -117,13 +117,13 @@ function ChangePassword() {
                       onClick={handleSubmit}
                       className="bg-[#2d5986] hover:bg-[#79a6d2] text-white text-center  px-6 py-2 rounded-3xl mr-4"
                     >
-                      Confirm
+                      {t('con')}
                     </button>
                     <button
                       className="bg-red-600 hover:bg-red-400 text-white text-center  px-6 py-2 rounded-3xl"
                       onClick={() => window.history.back()}
                     >
-                      Cancel
+                    {t('can')}
                     </button>
                   </div>
                 </div>

@@ -57,46 +57,46 @@ const Footer = () => {
               </div>
             </div>
             <div className="flex flex-col lg:justify-center lg:mx-auto md:mx-auto sm:mx-0 lg:mt-0 md:mt-0 sm:mt-6">
-              <h4 className="font-bold text-lg ">ሌሎች ገጾች</h4>
+              <h4 className="font-bold text-lg ">{t('ሌሎች ገጾች')} </h4>
               <div className="mt-4">
                 <ul className="font-bold flex flex-col text-sm text-gray-500">
                   <li className="">
-                    <a href="#">{t('main')}</a>
+                    <a href="#">{t("ዋና ገጽ")}</a>
                   </li>
                   <li>
-                  <a href="/member">የአባልነት ምዝገባ</a>
+                  <a href="/member">{t('mem')}</a>
                   </li>
                   <li>
-                  <a href="/feedback">አስተያየቶች</a>
+                  <a href="/feedback">{t('feed')}</a>
                   </li>
                   <li>
-                  <a href="/notify">መልዕክት</a>
+                  <a href="/notify">{t('mes')}</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="flex flex-col lg:mx-auto md:mx-auto sm:mx-0 lg:mt-0 md:mt-0 sm:mt-6">
-              <h4 className="font-bold text-lg ">ስለ ደብራችን</h4>
+              <h4 className="font-bold text-lg ">{t('about')}</h4>
               <div className="mt-4">
                 <ul className="font-bold text-sm text-gray-500">
                 <li>
                   <a href="/church" className="cursor-pointer">
-                ለመለገስ
+                {t('ለመለገስ')}
               </a>
                   </li>
                   <li className="">
                   <a href="/church" className="cursor-pointer">
-                ስለ እኛ
+                  {t('about')}
               </a>
                   </li>
                   <li>
                   <a href="/" className="cursor-pointer">
-                ሰንበት ት/ቤት
+                  {t('sun_sch')}
               </a>
                   </li>
                   <li>
                   <a href="/church" className="cursor-pointer">
-                አብነት
+                  {t('ab')}
               </a>
                   </li>
                   

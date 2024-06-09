@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 
 const EditFeedbackForm = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const EditFeedbackForm = () => {
   const [selected, setSelectedImage] = useState([]);
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const userId = Cookies.get("userId");
   useEffect(() => {
@@ -89,7 +91,7 @@ const EditFeedbackForm = () => {
               >
                 <textarea
                   rows={8}
-                  placeholder="አስተያየትዎን እዚህ ላይ ይጻፉ.... "
+                   placeholder={` ${t('com')} `}
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -132,7 +134,7 @@ const EditFeedbackForm = () => {
               <button
               className="text-white w-1/2 text-center rounded-md bg-red-600 hover:bg-red-400 h-10"
               >
-              አይ
+              {t('no')}
               </button>
             </Link>      
             </div>          

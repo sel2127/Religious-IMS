@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { useTranslation } from "react-i18next";
 
 axios.defaults.withCredentials = true;
 
@@ -26,6 +27,7 @@ const Register = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const validatePhoneNumber = (phone, countryCode) => {
     const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase());
@@ -37,30 +39,30 @@ const Register = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!firstnameReg) {
-      errors.firstname = "Please enter your first name.";
+      errors.firstname = `"${t('en_f')}"`; 
     }
     if (!lastnameReg) {
-      errors.lastname = "Please enter your last name.";
+      errors.lastname = `"${t('en_l')}"`;
     }
     if (!emailReg) {
-      errors.email = "Please enter your email.";
+      errors.email = `"${t('en_e')}"`;
     } else if (!emailRegex.test(emailReg)) {
-      errors.email = "Please enter a valid email address.";
+      errors.email = `"${t('en_l')}"`;
     }
     if (!phone) {
-      errors.phone = "Please enter your phone number.";
+      errors.phone = `"${t('en_p')}"`;
     } else if (!validatePhoneNumber(phone, countryCode)) {
-      errors.phone = "Please enter a valid phone number.";
+      errors.phone = `"${t('en_p2')}"`;
     }
     if (!passwordReg) {
-      errors.password = "Please enter your password.";
+      errors.password =  `"${t('en_pa')}"`;
     } else if (passwordReg.length < 8) {
-      errors.password = "Password should be at least 8 characters long.";
+      errors.password = `"${t('en_pa1')}"`;
     }
     if (!confirmPasswordReg) {
-      errors.confirmPassword = "Please confirm your password.";
+      errors.confirmPassword = `"${t('en_pa2')}"`;
     } else if (passwordReg !== confirmPasswordReg) {
-      errors.confirmPassword = "Passwords do not match.";
+      errors.confirmPassword = `"${t('en_pa3')}"`;
     }
 
     setErrors(errors);
@@ -114,18 +116,18 @@ const Register = () => {
       />
       <div className='mx-auto border border-gray-300 lg:w-1/2 md:w-1/2 sm:w-full mt-10 rounded rounded-3xl text-gray-600'>
       <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>
-          <input type="text" onChange={(e) => { setFirstnameReg(e.target.value); }} placeholder='የመጀመሪያ ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-          <input type="text" onChange={(e) => { setLastnameReg(e.target.value); }} placeholder='የአባት ስም' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-          <input type="tel" onChange={(e) => { setPhone(e.target.value); }} placeholder='ስልክ ቁጥር' className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
-          <input type="email" onChange={(e) => { setEmailReg(e.target.value); }} placeholder='ኢሜል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
-          <input type="password" onChange={(e) => { setPasswordReg(e.target.value); }} placeholder='ይለፍ ቃል' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
-          <input type='password' onChange={(e) => { setConfirmPasswordReg(e.target.value); }} placeholder='ይለፍ ቃል አረጋግጥ' className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="text" onChange={(e) => { setFirstnameReg(e.target.value); }} placeholder={` ${t('first_name')} `} className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="text" onChange={(e) => { setLastnameReg(e.target.value); }} placeholder={` ${t('last_name')} `} className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="tel" onChange={(e) => { setPhone(e.target.value); }} placeholder={` ${t('phone_number')} `} className=' mt-10 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="email" onChange={(e) => { setEmailReg(e.target.value); }} placeholder={` ${t('email')} `} className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type="password" onChange={(e) => { setPasswordReg(e.target.value); }} placeholder={` ${t('pass')} `} className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
+          <input type='password' onChange={(e) => { setConfirmPasswordReg(e.target.value); }} placeholder={` ${t('con_pass')} `} className=' mt-6 w-full h-10 px-6 border border-gray-300  rounded-full' />
           {error && <p className='text-red-500'>{error}</p>}
           <div className='mr-auto underline decoration-dotted mt-4 cursor-pointer hover:text-[#79a6d2]'>
           </div>
           <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
             <button onClick={registration} className="w-full mx-auto text-base font-bold text-white">
-              ተመዝገብ
+            {t('reg')}
             </button>
           </div>
         </div>

@@ -1,7 +1,43 @@
 import Map from "../components/Map";
 import Contact from "../assets/Images/contact.jpg";
+import { useTranslation } from "react-i18next";
+import React, { useState} from "react";
 
 function ContactUS() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phoneNumber: '',
+    message: '',
+  });
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert(t('contact_success')); // Display success message
+        setFormData({ name: '', email: '', phoneNumber: '', message: '' }); // Clear form
+      } else {
+        alert(t('contact_error')); // Display error message
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert(t('contact_error')); // Display generic error message
+    }
+  };
+
+  const { t } = useTranslation();
   return (
     // <div className="ml-24 mr-24">
     //   <h1 className="text-center  text-3xl font-bold"> Contact US </h1>
@@ -59,46 +95,117 @@ function ContactUS() {
     //       </div>
 
     // </div>
-    <div className="w-full mt-10">
-      <div className="flex gap-8 justify-content items-center">
-        <div className="w-1/2 flex justify-center">
-          <img src={Contact} alt="contact" className="w-full"/>
+
+
+
+
+
+
+
+    // <div className="w-full mt-10">
+    //   <div className="flex gap-8 justify-content items-center">
+    //     <div className="w-1/2 flex justify-center">
+    //       <img src={Contact} alt="contact" className="w-full"/>
+    //     </div>
+    //     <div className=" w-1/2 flex flex-col gap-y-10 items-center jusify-start">
+    //       <div className="w-3/4">
+    //         <input
+    //           type="text"
+    //          placeholder={` ${t('n')} `}
+    //           className=" border-b border-gray-200 w-full placeholder-black-300 text-sm"
+    //         />
+    //       </div>
+    //       <div className="w-3/4">
+    //         <input
+    //           type="text"
+    //           placeholder={` ${t('email')} `}
+    //           className=" border-b border-gray-200 w-full placeholder-black-300 text-sm"
+    //         />
+    //       </div>
+    //       <div className="w-3/4">
+    //         <input
+    //           type="text"
+    //           placeholder={` ${t('phone_number')} `}
+    //           className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+    //         />
+    //       </div>
+    //       <div className="w-3/4">
+    //       <textarea className="border-b border-gray-200 w-full placeholder-black-300 text-sm" placeholder={` ${t('mes')} `}></textarea>
+    //       </div>
+    //       <div className="flex w-full justify-center items-center">
+    //         <button
+    //           className="bg-[#2d5986] w-1/6 h-8 hover:bg-[#79a6d2] text-white text-center rounded-full transform hover:scale-110"
+    //         >
+    //           {t('send')}
+    //         </button>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+
+
+
+  
+
+
+    
+      
+        <div className="w-full mt-10">
+          <div className="flex gap-8 justify-content items-center">
+            <div className="w-1/2 flex justify-center">
+              <img src={Contact} alt="contact" className="w-full" />
+            </div>
+            <div className="w-1/2 flex flex-col gap-y-10 items-center jusify-start">
+              <div className="w-3/4">
+                <input
+                  type="text"
+                  placeholder={` ${t('name')} `}
+                  className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="w-3/4">
+                <input
+                  type="text"
+                  placeholder={` ${t('email')} `}
+                  className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="w-3/4">
+                <input
+                  type="text"
+                  placeholder={` ${t('phone_number')} `}
+                  className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="w-3/4">
+                <textarea
+                  className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
+                  placeholder={` ${t('mes')} `}
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+              <div className="flex w-full justify-center items-center">
+                <button
+                  className="bg-[#2d5986] w-1/6 h-8 hover:bg-[#79a6d2] text-white text-center rounded-full transform hover:scale-110"
+                  onClick={handleSubmit}
+                >
+                  {t('send')}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className=" w-1/2 flex flex-col gap-y-10 items-center jusify-start">
-          <div className="w-3/4">
-            <input
-              type="text"
-              placeholder="Name*"
-              className=" border-b border-gray-200 w-full placeholder-black-300 text-sm"
-            />
-          </div>
-          <div className="w-3/4">
-            <input
-              type="text"
-              placeholder="Email*"
-              className=" border-b border-gray-200 w-full placeholder-black-300 text-sm"
-            />
-          </div>
-          <div className="w-3/4">
-            <input
-              type="text"
-              placeholder="Phone Number*"
-              className="border-b border-gray-200 w-full placeholder-black-300 text-sm"
-            />
-          </div>
-          <div className="w-3/4">
-          <textarea className="border-b border-gray-200 w-full placeholder-black-300 text-sm" placeholder="Message"></textarea>
-          </div>
-          <div className="flex w-full justify-center items-center">
-            <button
-              className="bg-[#2d5986] w-1/6 h-8 hover:bg-[#79a6d2] text-white text-center rounded-full transform hover:scale-110"
-            >
-              ላክ
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 

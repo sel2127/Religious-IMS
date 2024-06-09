@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer, toast, cssTransition } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { donateUser } from '../app/actions/donationAction';
+import { useTranslation } from "react-i18next";
 
 const DonationChoice = () => {
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,37 +79,37 @@ const DonationChoice = () => {
           <input type="hidden" name="public_key" value="CHAPUBK_TEST-vCjZBtzKJhTAFtqbOL3NT5D6BGEI4hPY" />
 
           <div className="flex flex-col">
-            <input type="text" name="first_name" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.first_name && 'border-red-500'}`} placeholder='First Name' />
+            <input type="text" name="first_name" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.first_name && 'border-red-500'}`} placeholder={` ${t('first_name')} `} />
             {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name}</p>}
 
           </div>
 
           <div className="flex flex-col">
-            <input type="text" name="last_name" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.last_name && 'border-red-500'}`} placeholder='Last Name' />
+            <input type="text" name="last_name" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.last_name && 'border-red-500'}`} placeholder={` ${t('last_name')} `} />
             {errors.first_name && <p className="text-red-500 text-sm">{errors.first_name}</p>}
 
           </div>
 
           <div className="flex flex-col">
-            <input type="email" name="email" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.email && 'border-red-500'}`} placeholder="Email" />
+            <input type="email" name="email" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.email && 'border-red-500'}`} placeholder={` ${t('email')} `} />
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
           </div>
 
           <div className="flex flex-col">
-            <input type="text" name="tx_ref" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.tx_ref && 'border-red-500'}`} placeholder="Reference" />
+            <input type="text" name="tx_ref" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.tx_ref && 'border-red-500'}`} placeholder={` ${t('ref')} `} />
             {errors.tx_ref && <p className="text-red-500 text-sm">{errors.tx_ref}</p>}
           </div>
 
           <div className="flex flex-col">
-            <input type="number" name="amount" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.amount && 'border-red-500'}`} placeholder="Amount" />
+            <input type="number" name="amount" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.amount && 'border-red-500'}`} placeholder={` ${t('amount')} `} />
             {errors.amount && <p className="text-red-500 text-sm">{errors.amount}</p>}
           </div>
 
           <div className="flex flex-col">
             <select name="currency" className={`border border-gray-300 rounded-full px-3 py-2 ${errors.currency && 'border-red-500'}`}>
-              <option value="">Select Currency</option>
-              <option value="ETB">ETB</option>
-              <option value="USD">USD</option>
+              <option value="">{t('cur')}</option>
+              <option value="ETB">{t('etb')}</option>
+              <option value="USD">{t('usd')}</option>
             </select>
             {errors.currency && <p className="text-red-500 text-sm">{errors.currency}</p>}
           </div>
@@ -121,7 +123,7 @@ const DonationChoice = () => {
           <div className='flex justify-center'>
             <div className=" mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex  items-center justify-center">
               <button type="submit" className="w-full mx-auto text-base font-bold text-white">
-                ክፈል
+               {t('pay')}
               </button>
             </div>
           </div>

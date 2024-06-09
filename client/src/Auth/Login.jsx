@@ -90,7 +90,7 @@ const Login = () => {
             <input
               type={showPassword ? 'text' : 'password'}
               onChange={(e) => setPasswordLogin(e.target.value)}
-              placeholder='ይለፍ ቃል'
+             placeholder={` ${t('pass')} `}
               className='mt-6 w-full h-10 px-6 border border-gray-300 rounded-full pr-12'
             />
             <span 

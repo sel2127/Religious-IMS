@@ -6,11 +6,13 @@ import profile from "../assets/Images/profile.png";
 import SideBarr from "../components/profile/SideBarr";
 import { setUserData } from "../app/actions/userAction";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ProfilePage = () => {
   const imagePreview = useSelector((state) => state.image.imagePreview);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -87,24 +89,24 @@ const fetchData = async (dispatch) => {
                 </div>
                 <div className="mt-8 text-center">
                   <p className="text-base font-bold">
-                    አዲስ ፎቶ ለማስገባት ከላይ ያለውን ምስል ይጫኑ
+                    {t('pic')}
                   </p>
                 </div>
                 <div className="flex flex-col text-base justify-center items-center gap-4 p-4">
                   <p className="font-bold text-xl text-dark-blue">
                     <marquee>
-                      እንኳን ደህና መጡ {userData.firstName} {userData.lastName}
+                    {t('wel')}{userData.firstName} {userData.lastName}
                     </marquee>
                   </p>
                   <div>
                     <div>
-                      <p>ሙሉ ስም: {userData.firstName} {userData.lastName}</p>
+                      <p>{t('name')}: {userData.firstName} {userData.lastName}</p>
                     </div>
                     <div>
-                      <p>የኢሜል አድራሻ: {userData.email}</p>
+                      <p>{t('email')}: {userData.email}</p>
                     </div>
                     <div className="">
-                      <p>ስልክ ቁጥር: {userData.phone}</p>
+                      <p>{t('phone_number')}: {userData.phone}</p>
                     </div>
                   </div>
                 </div>

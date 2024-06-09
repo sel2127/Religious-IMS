@@ -60,11 +60,7 @@ const FeedbackPage = () => {
 
 
   return (
-<<<<<<< HEAD
-    <div className="w-full m-auto">
-=======
     <div className="lg:w-full m-auto">
->>>>>>> 85eaf14f0d50cbcdfa90b801fa0eb0ece081e548
       <ToastContainer />
       <div className="grid grid-cols-4 gap-4 mt-8 ">
       {

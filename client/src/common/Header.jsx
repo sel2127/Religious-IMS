@@ -88,9 +88,9 @@ const Header = () => {
               </div>
               <div class="dropdown-content">
               <Link to={isLoggedIn ? "/profile" : "/login"}>
-              ተጠቃሚ
+              {t("user")}
               </Link>
-                <a href="/admin/login">አስተዳዳሪ</a>
+                <a href="/admin/login">{t("admin")}</a>
               </div>
             </div>
               {/* )} */}
@@ -182,7 +182,7 @@ const Header = () => {
                   window.location.pathname === "/" ? "header-active-links" : ""
                 }`}
               >
-                ዋና ገጽ
+               {t("ዋና ገጽ")}
               </a>
             </div>
 
@@ -195,7 +195,7 @@ const Header = () => {
                     : ""
                 }`}
               >
-                ስለ ደብሩ
+               {t("ስለ ደብሩ")}
               </a>
             </div>
             <div className="w-1/6">
@@ -207,7 +207,7 @@ const Header = () => {
                     : ""
                 }`}
               >
-                ሰንበት ት/ቤት
+                {t("sun_sch")}
               </a>
             </div>
             <div className="w-1/6">
@@ -219,13 +219,13 @@ const Header = () => {
                     : ""
                 }`}
               >
-                አብነት
+                {t("ab")}
               </a>
             </div>
             <div className="w-1/6 flex items-center">
               <div className="dropdown">
                 <div className="flex items-center">
-                  <button class="dropbtn mr-2">ሌሎች ገጾች</button>
+                  <button class="dropbtn mr-2">{t("other")}</button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -242,12 +242,6 @@ const Header = () => {
                   </svg>
                 </div>
                 <div class="dropdown-content">
-<<<<<<< HEAD
-                  <a href="/member">{t("sebeka")}</a>
-                  <a href="/donation">ልገሳ</a>
-                  <a href="/feedback">አስተያየቶች</a>
-                  <a href="/donate/c">ለመለገስ</a>
-=======
                   <a
                     href="/member"
                     className={`cursor-pointer ${
@@ -256,7 +250,7 @@ const Header = () => {
                         : ""
                     }`}
                   >
-                    የአባልነት ምዝገባ
+                    {t("mem")}
                   </a>
                   <a
                     href="/feedback"
@@ -266,7 +260,7 @@ const Header = () => {
                         : ""
                     }`}
                   >
-                    አስተያየቶች
+                    {t("feed")}
                   </a>
                   <a
                     href="/contact"
@@ -276,9 +270,8 @@ const Header = () => {
                         : ""
                     }`}
                   >
-                    አግኙን
+                  {t("አግኙን")}
                   </a>
->>>>>>> 85eaf14f0d50cbcdfa90b801fa0eb0ece081e548
                 </div>
               </div>
               <div></div>
@@ -286,7 +279,7 @@ const Header = () => {
             <div className="w-1/6 flex items-center">
               <div class="dropdown">
                 <div className="flex items-center">
-                  <button class="dropbtn mr-2">ቋንቋ</button>
+                  <button class="dropbtn mr-2">{t("ቋንቋ")}</button>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -302,9 +295,15 @@ const Header = () => {
                     />
                   </svg>
                 </div>
-                <div class="dropdown-content">
-                  <a href="#">አማርኛ</a>
-                  <a href="#">English</a>
+                 <div class="dropdown-content">
+                  {languages.map(({code , name}) => (
+                    <div key={code}>
+                    <button onClick={() => i18next.changeLanguage(code)}
+                    disabled = {code === currentLanguageCode}>{name}</button>
+                  </div>
+                  )
+                  )}
+                  
                 </div>
               </div>
             </div>
@@ -350,7 +349,7 @@ const Header = () => {
               window.location.pathname === "/" ? "header-active-links" : ""
             }`}
           >
-            ዋና ገጽ
+           {t("ዋና ገጽ")}
           </a>
           <a
             href="/church"
@@ -360,7 +359,7 @@ const Header = () => {
                 : ""
             }`}
           >
-            ስለ ደብሩ
+           {t("ስለ ደብሩ")}
           </a>
           <a
             href="/senbet"
@@ -370,7 +369,7 @@ const Header = () => {
                 : ""
             }`}
           >
-            ሰንበት ት/ቤት
+            {t("sun_sch")}
           </a>
           <a
             href="/abnet"
@@ -378,7 +377,7 @@ const Header = () => {
               window.location.pathname === "/abnet" ? "header-active-links" : ""
             }`}
           >
-            አብነት
+            {t("ab")}
           </a>
           <a
             href="/member"
@@ -388,7 +387,7 @@ const Header = () => {
                 : ""
             }`}
           >
-            የአባልነት ምዝገባ
+            {t("mem")}
           </a>
           <a
             href="/feedback"
@@ -398,7 +397,7 @@ const Header = () => {
                 : ""
             }`}
           >
-            አስተያየቶች
+           {t("feed")}
           </a>
           <a
             href="/donate/c"
@@ -408,7 +407,7 @@ const Header = () => {
                 : ""
             }`}
           >
-            ለመለገስ
+            {t('ለመለገስ')}
           </a>
           <a
             href="/contact"
@@ -418,12 +417,12 @@ const Header = () => {
                 : ""
             }`}
           >
-            አግኙን
+            {t("አግኙን")}
           </a>
           <div className="padding">
             <div class="dropdown">
               <div className="flex items-center">
-                <button class="dropbtn mr-2">ቋንቋ</button>
+                <button class="dropbtn mr-2">{t("ቋንቋ")}</button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -440,9 +439,15 @@ const Header = () => {
                 </svg>
               </div>
               <div class="dropdown-content">
-                <a href="#">አማርኛ</a>
-                <a href="#">English</a>
-              </div>
+                  {languages.map(({code , name}) => (
+                    <div key={code}>
+                    <button onClick={() => i18next.changeLanguage(code)}
+                    disabled = {code === currentLanguageCode}>{name}</button>
+                  </div>
+                  )
+                  )}
+                  
+                </div>
             </div>
           </div>
         </div>
@@ -478,9 +483,9 @@ const Header = () => {
               </div>
               <div class="dropdown-content">
               <Link to={isLoggedIn ? "/profile" : "/login"}>
-              ተጠቃሚ
+              {t("user")}
               </Link>
-                <a href="/admin/login">አስተዳዳሪ</a>
+                <a href="/admin/login"> {t("admin")}</a>
               </div>
             </div>
 

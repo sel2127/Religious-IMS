@@ -35,18 +35,18 @@ const AbnetPage = () => {
         </p>
       </div>
 
-      <div className="abnetcontainer mt-10 mx-auto">
-        <img src={abnet} alt="abnet" className="w-full" />
-        <div class="abnetcontent p-10 flex flex-col gap-10">
+      <div className="abnetcontainer mt-10 mx-auto py-8 lg:flex md:flex sm:block flex-cols lg:space-x-8 md:space-x-8 overflow-hidden inline-block relative justify-center ">
+        <img src={abnet} alt="abnet" className="w-full h-full" />
+        <div class="abnetcontent p-10 flex flex-col gap-10 ">
           <div className="flex gap-4 text-white mt-16 font-bold text-lg items-center justify-center">
-            <div className="w-1/3 flex flex-col text-center">
+            <div className="w-1/3 flex flex-col text-center lg:mt-0 md:mt-0 sm:mt-0">
               <div className="underline">ንባብ ቤት</div>
               <div className="mt-4">መልዕክተ ዮሐንስ</div>
               <div className="">ውዳሴ ማርያም</div>
               <div className="">መዝሙረ ዳዊት</div>
               <div className="">ወንጌለ ዮሐንስ</div>
             </div>
-            <div className="w-1/3 flex flex-col text-center">
+            <div className="w-1/3 flex flex-col text-center lg:mt-0 md:mt-0 sm:mt-0">
               <div className="underline">ዜማ ቤት</div>
               <div className="mt-4">ውዳሴ ማርያም</div>
               <div className="">ቅዳሴ ማርያም</div>
@@ -62,7 +62,7 @@ const AbnetPage = () => {
             </div>
           </div>
 
-          <div className="flex gap-4 text-white mt-16 font-bold text-lg items-center justify-center">
+          <div className="flex gap-4 text-white mt-16 font-bold text-lg items-center justify-center ">
             <div className="w-1/2 flex flex-col text-center">
               <div className="underline">መጽሐፍ ቤት</div>
               <div className="mt-4">ብሉያት</div>

@@ -44,7 +44,7 @@ app.use("/api", calendarRoutes);
 
 // Mount admin routes
 app.use("/admin", adminRouter);
-app.use("/chat", chatRoutes); // Use chat routes
+app.use("/chat", chatRoutes); 
 app.use(passwordRecoveryRoute);
 
 // Default route for handling 404 errors
@@ -53,7 +53,7 @@ app.use((req, res) => {
 });
 
 // Start the server
-const port = process.env.APP_PORT || 5000;
+const port = process.env.APP_PORT;
 const server = createChatServer(app);
 
 server.listen(port, () => {

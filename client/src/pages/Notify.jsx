@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Logo from "../assets/Images/logo.png";
 import "../assets/styles/notify.css";
-import Breadcrumb from '../common/Breadcrumb';
+import { ToastContainer ,toast} from "react-toastify";
 
 const Notify = () => {
   const modalRef = useRef(null);
@@ -77,6 +77,8 @@ const Notify = () => {
     })
       .then((response) => {
         if (response.ok) {
+          toast.success('Event deleted successfully');
+
           // Event deleted successfully
           setDeletedEventId(id);
         } else {
@@ -85,6 +87,7 @@ const Notify = () => {
       })
       .catch((error) => {
         console.error(error);
+        toast.error('Error deleting event')
       });
   };
 
@@ -117,6 +120,7 @@ const Notify = () => {
 
   return (
     <div>
+      <ToastContainer/>
       <div className="w-full bg-gray-100 py-12">
         <div className="lg:w-1/2 md:w-3/4 sm:w-5/6 bg-white p-10 mx-auto">
           <div id="myBtn" className="">

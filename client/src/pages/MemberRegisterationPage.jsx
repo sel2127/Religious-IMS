@@ -3,42 +3,56 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/member.css";
+import "react-phone-input-2/lib/style.css";
+import PhoneInput from "react-phone-input-2";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { useSelector } from "react-redux";
 
 function MemberRegisterationPage() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [bapiname, setBapiname] = useState("");
-  const [fathername, setFathername] = useState("");
+  const userDataFromStoreEdit = useSelector((state) => state.user.userData);
+
+  const [firstName, setFirstName] = useState(userDataFromStoreEdit.firstName);
+  const [lastName, setLastName] = useState(userDataFromStoreEdit.lastName);
   const [adress, setAdress] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState(userDataFromStoreEdit.email);
+  const [phone, setPhone] = useState(userDataFromStoreEdit.phone);
+  const [countryCode, setCountryCode] = useState("et");
   const [gender, setGender] = useState("");
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const validatePhoneNumber = (phone, countryCode) => {
+    const phoneNumber = parsePhoneNumberFromString(
+      phone,
+      countryCode.toUpperCase()
+    );
+    return phoneNumber && phoneNumber.isValid();
+  };
 
   const validateForm = () => {
     const errors = {};
-    if (!firstName || !/^[a-zA-Z\s]+$/.test(firstName) || firstName.length < 3) {
-        errors.firstName = "First name must only contain letters and at least 3 characters";
-      }
-      if (!lastName || !/^[a-zA-Z\s]+$/.test(lastName)) {
-        errors.lastName = "Last name must only contain letters";
-      }
-      if (!bapiname || !/^[a-zA-Z\s]+$/.test(bapiname)) {
-        errors.bapiname = "Bapiname must only contain letters";
-      }
-      if (!fathername || !/^[a-zA-Z\s]+$/.test(fathername)) {
-        errors.fathername = "Fathername must only contain letters";
-      }
+    if (
+      !firstName ||
+      !/^[a-zA-Z\s]+$/.test(firstName) ||
+      firstName.length < 3
+    ) {
+      errors.firstName =
+        "First name must only contain letters and at least 3 characters";
+    }
+    if (!lastName || !/^[a-zA-Z\s]+$/.test(lastName)) {
+      errors.lastName = "Last name must only contain letters";
+    }
+
     if (!adress || adress.length < 3) {
       errors.adress = "Address must be at least 3 characters long";
     }
-    if (!email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)) {
+    if (
+      !email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
+    ) {
       errors.email = "Please enter a valid email address";
     }
-    if (!phone || !/^(09)[0-9]{8}$/.test(phone)) {
-      errors.phone = "Please enter a valid Ethiopian phone number";
+    if (!phone || !validatePhoneNumber(phone, countryCode)) {
+      errors.phone = "Please enter a valid phone number";
     }
     if (!gender) {
       errors.gender = "Please select a gender";
@@ -50,8 +64,6 @@ function MemberRegisterationPage() {
   const resetForm = () => {
     setFirstName("");
     setLastName("");
-    setBapiname("");
-    setFathername("");
     setAdress("");
     setEmail("");
     setPhone("");
@@ -62,31 +74,34 @@ function MemberRegisterationPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  setErrorMessage(null)
+    setErrorMessage(null);
     // Validate form
     if (validateForm()) {
       return;
     }
-  
+
     // Send data to backend API
     try {
       const response = await axios.post(
         "http://localhost:5000/api/member/create",
-        { firstName, lastName, bapiname, fathername, adress, email, phone, gender }
+        { firstName, lastName, adress, email, phone, gender }
       );
-      if (response.data.message === 'Member registered successfully') {
-        toast.success('Member registered successfully');
+      if (response.data.message === "Member registered successfully") {
+        toast.success("Member registered successfully");
         resetForm();
       } else {
         throw new Error("Unexpected response from server");
       }
-    } 
-    catch (error) {
+    } catch (error) {
       //console.log(error); // Log the error object for debugging purposes
-      if (error.response && error.response.data && error.response.data.error === 'User has already registered') {
-        toast.warn('You have already registered');
-        //resetForm();
-      } else {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.error === "User has already registered"
+      ) {
+        toast.warn("You have already registered");
+        setAdress("");
+        setGender("");      } else {
         setErrorMessage("Error for registration, please try again!");
       }
     }
@@ -96,8 +111,9 @@ function MemberRegisterationPage() {
     <div className="container">
       <ToastContainer />
       <div className="justify-center items-center mt-8">
-      <h1 className="text-xl font-bold px-10 ml-10 sm:text-base sm:px-0">የቤተክርስቲያን የሰበካ ጉባኤ አባልነት ቅጽ</h1>
-
+        <h1 className="text-xl font-bold px-10 ml-10 sm:text-base sm:px-0">
+          የቤተክርስቲያን የሰበካ ጉባኤ አባልነት ቅጽ
+        </h1>
       </div>
       <div className="max-w-md  border border-gray-300 lg:p-6  sm:p-2 rounded-md shadow-md mt-10">
         <div className="flex flex-col items-center justify-center form-field">
@@ -111,7 +127,9 @@ function MemberRegisterationPage() {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-          {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+          {errors.firstName && (
+            <p className="text-red-500 text-sm">{errors.firstName}</p>
+          )}
           <input
             type="text"
             id="lastname"
@@ -122,19 +140,11 @@ function MemberRegisterationPage() {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-          {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
-         
-          <input
-            type="text"
-            id="adress"
-            name="adress"
-            placeholder="የመኖሪያ አድራሻ"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={adress}
-            onChange={(e) => setAdress(e.target.value)}
-            required
-          />
-          {errors.adress && <p className="text-red-500 text-sm">{errors.adress}</p>}
+          {errors.lastName && (
+            <p className="text-red-500 text-sm">{errors.lastName}</p>
+          )}
+
+          
           <input
             type="email"
             placeholder="ኢሜል"
@@ -144,55 +154,60 @@ function MemberRegisterationPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-          <input
-            name="phone"
-            type="number"
-            id="phone"
-            placeholder="ስልክ"
-            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
+          {errors.email && (
+            <p className="text-red-500 text-sm">{errors.email}</p>
+          )}
+          <PhoneInput
+            country={"et"}
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(phone, country) => {
+              setPhone(phone);
+              setCountryCode(country.countryCode);
+            }}
+            placeholder="ስልክ"
+            className="lg:w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10 mb-5"
+            enableAreaCodes={true}
+            disableDropdown={false}
           />
-          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
-          <div className="flex flex-col justify-start">
-            <div>
-              <h6 className="text-base justify-start">ጾታ</h6>
-              <label htmlFor="male" className="mr-2">
-                ወንድ
-              </label>
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                checked={gender === "male"}
-                onChange={(e) => setGender(e.target.value)}
-              />
-              </div>
-              <div className="">
-                <label htmlFor="female" className="mr-3">
-                  ሴት
-                </label>
-                <input
-                  type="radio"
-                  id="female"
-                  name="gender"
-                  value="female"
-                  checked={gender === "female"}
-                  onChange={(e) => setGender(e.target.value)}
-                />
-                {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
-              </div>
-          </div>
+          {errors.phone && (
+            <p className="text-red-500 text-sm">{errors.phone}</p>
+          )}
+<input
+            type="text"
+            id="adress"
+            name="adress"
+            placeholder="የመኖሪያ አድራሻ"
+            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
+            value={adress}
+            onChange={(e) => setAdress(e.target.value)}
+            required
+          />
+          {errors.adress && (
+            <p className="text-red-500 text-sm">{errors.adress}</p>
+          )}
+          <select
+            className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            required
+          >
+            <option value="">እባኮትን ፆታዎን ይምረጡ</option>
+            <option value="male">ወንድ</option>
+            <option value="female">ሴት</option>
+          </select>
+          {errors.gender && (
+            <p className="text-red-500 text-sm">{errors.gender}</p>
+          )}
+          <button
+            type="submit"
+            className="w-full h-10 bg-dark-blue hover:bg-sky-600 text-white rounded-full mt-10"
+            onClick={handleSubmit}
+          >
+            ይመዝገቡ
+          </button>
           {errorMessage && (
-                  <p className="text-red-500 text-sm">{errorMessage}</p>
-                )}
-          <div className="mt-6 w-full bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
-              <button onClick={handleSubmit} type='submit' className='w-full mx-auto text-base font-bold text-white'>
-              ተመዝገብ
-              </button>
-          </div>
+            <p className="text-red-500 text-sm">{errorMessage}</p>
+          )}
         </div>
       </div>
     </div>

@@ -42,9 +42,9 @@ const Login = () => {
   return (
     <Box
       m="100px"
-      width="40%" // Updated width to be half of the screen
+      width="50%" // Updated width to be half of the screen
       padding="20px"
-      border="1px solid gray"
+      border="1px solid"
       borderRadius="20px"
       display="flex"
       flexDirection="column"

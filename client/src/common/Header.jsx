@@ -388,9 +388,9 @@ const Header = () => {
             ስለ ደብሩ
           </a>
           <a
-            href="/senbet"
+            href="/sunday"
             className={`cursor-pointer border-b border-t border-gray-200 ${
-              window.location.pathname === "/senbet"
+              window.location.pathname === "/sunday"
                 ? "header-active-links"
                 : ""
             }`}

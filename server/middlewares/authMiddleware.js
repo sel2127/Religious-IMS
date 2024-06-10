@@ -97,4 +97,14 @@ export const isFeedbackCreator = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({ message: "Server error!" });
   }
+  
 };
+
+
+export function localVariables(req, res, next) {
+  req.app.locals = {
+    OTP: null,
+    resetSession: false,
+  };
+  next();
+}

@@ -17,6 +17,7 @@ export const SET_USERS_COUNT='SET_USERS_COUNT';
 export const SET_EVENTS_COUNT='SET_EVENTS_COUNT';
 export  const SET_DONATION_COUNT='SET_DONATION_COUNT'
 export const SET_EVENTS='SET_EVENTS'
+export const SET_MEMBERS_COUNT=' SET_MEMBERS_COUNT'
 //  for fectch feedback
 export const fetchFeedback=()=>{
     return async(dispatch)=>{
@@ -152,6 +153,21 @@ export const deleteFeedback = (id) => {
         })
       } catch (error) {
         console.error('error for getting number of donation');
+        
+      }
+    }
+  }
+  export const fetchMembers=()=>{
+    return async(dispatch)=>{
+      try {
+        const response =await axios.get('http://localhost:5000/api/members',{withCredentials:true});
+        dispatch({
+          type:SET_MEMBERS_COUNT,
+          payload:response.data.length,
+
+        })
+      } catch (error) {
+        console.error('error getting the number of members')
         
       }
     }

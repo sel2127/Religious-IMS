@@ -16,8 +16,9 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import { saveAs } from "file-saver";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchUsersCount } from "../../../app/actions/feedbackAction";
-import { donations } from './../../data/mockData';import Pie from "../pie";
+import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchUsersCount ,fetchMembers} from "../../../app/actions/feedbackAction";
+import { donations } from './../../data/mockData';
+import Pie from "../pie";
 import Bar from "../bar";
 import html2canvas from 'html2canvas';
 
@@ -43,6 +44,11 @@ const Dashboard = () => {
  useEffect(()=>{
 dispatch(fetchEvents());
  },[dispatch])
+ const membersJoined=useSelector(state=>state.feedback.membercount);
+ useEffect(()=>{
+  dispatch(fetchMembers());
+ },[dispatch])
+ 
   const downloadPdf = () => {
    
   };
@@ -134,7 +140,7 @@ dispatch(fetchEvents());
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
+            title={membersJoined}
             subtitle="Members Joined"
             progress="0.75"
             increase="+14%"

@@ -99,18 +99,18 @@ const FeedbackDetailPage = () => {
               </div>
               <div className="flex flex-row gap-8 mt-6">
                 <Link to={`/editfeedback/${feedback.feedbackId}`}>
-                  <button className="text-white bg-[#2d5986] hover:bg-[#79a6d2] lg:text-xl sm:text-base px-6 py-1 rounded-md focus:outline-white ring-focus">
-                    <FaEdit />
+                <button className="text-white bg-[#2d5986] hover:bg-[#79a6d2] text-xl w-8 h-8 flex justify-center items-center rounded-full focus:outline-white ring-focus">
+                <FaEdit />
                   </button>
                 </Link>
                 <button
                   onClick={() => handleDelete(feedback.feedbackId)}
-                  className="text-white px-6 py-1 text-xl bg-red-600 hover:bg-red-400 rounded-md focus:outline-white ring-focus"
-                >
+                  className="text-white bg-red-400 hover:bg-red-600 text-xl w-8 h-8 flex justify-center items-center rounded-full focus:outline-white ring-focus">
                   <MdDelete />
                 </button>
                 <Link to="/feedback">
-                  <button className=" text-white px-6 py-1 text-xl hover:bg-red-400 bg-red-800 rounded-md focus:outline-white ring-focus">
+                  <button 
+                className="text-white bg-[#2d5986] hover:bg-[#79a6d2] text-xl w-8 h-8 flex justify-center items-center rounded-full focus:outline-white ring-focus">
                     <FaArrowAltCircleLeft />
                   </button>
                 </Link>

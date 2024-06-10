@@ -69,9 +69,14 @@ function Admin() {
           <Route path="dashboard" element={<PrivateRoute>
                       <Dashboard />
                     </PrivateRoute>} />
-          <Route path="members" element={<PrivateRoute>
+                         <Route path="dashboard" element={
+                      <Dashboard />
+                    } />
+                      
+          <Route path="member"element={<PrivateRoute>
                       <Member />
                     </PrivateRoute>} />
+                       
           <Route path="users" element={<PrivateRoute>
                       <Users />
                     </PrivateRoute>} />
@@ -90,6 +95,7 @@ function Admin() {
           <Route path="pie" element={<PrivateRoute>
                       <Pie />
                     </PrivateRoute>} />
+                     
           <Route path="line" element={<PrivateRoute>
                       <Line />
                     </PrivateRoute>} />

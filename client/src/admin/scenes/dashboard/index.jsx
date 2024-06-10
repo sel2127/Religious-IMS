@@ -15,9 +15,12 @@ import ProgressCircle from "../../components/ProgressCircle";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchMembers, fetchUsersCount } from "../../../app/actions/feedbackAction";
+import { fetchDonation, fetchEvents, fetchFeedbackCount, fetchUsersCount ,fetchMembers} from "../../../app/actions/feedbackAction";
 import { donations } from './../../data/mockData';
+import Pie from "../pie";
+import Bar from "../bar";
+import html2canvas from 'html2canvas';
+
 const Dashboard = () => {
   const dispatch=useDispatch();
   //get number of feedback
@@ -44,6 +47,7 @@ dispatch(fetchEvents());
  useEffect(()=>{
   dispatch(fetchMembers());
  },[dispatch])
+ 
   const downloadPdf = () => {
    
   };
@@ -91,8 +95,8 @@ dispatch(fetchEvents());
           justifyContent="center"
         >
           <StatBox
-            title={usercount}
-            subtitle="users Joined"
+            title={membersJoined}
+            subtitle="Members Joined"
             progress="0.75"
             increase="+14%"
             icon={

@@ -247,13 +247,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-        <Item
-              title="memberships"
-              to="/admin/members"
-              icon={<FaUser />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+       
             <Item
               title="Donations"
               to="/admin/donation"

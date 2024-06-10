@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Sidebarr from "./SideBarr";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -97,11 +97,15 @@ const EditProfile = () => {
               <div className=" h-full overflow-hidden shadow rounded-lg py-10">
                 <form className="space-y-4  flex flex-col  text-center lg: w-full ">
 
-                  <input
+                <input
                     type="text"
                     id="firstName"
                     name="firstName"
-                    defaultValue={userDataFromStoreEdit.firstName}
+                    value={firstName}
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                      validateFormFields();
+                    }}
                     placeholder={` ${t('new_f')} `}
                     className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
@@ -113,7 +117,11 @@ const EditProfile = () => {
                     type="text"
                     id="lastName"
                     name="lastName"
-                    defaultValue={userDataFromStoreEdit.lastName}
+                    value={lastName}
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                      validateFormFields();
+                    }}
                     placeholder={` ${t('new_l')} `}
                     className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
@@ -133,7 +141,7 @@ const EditProfile = () => {
                     }}
                     className=" py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-5 ml-10 mr-10 h-10 px-6 border border-gray-300 rounded-full"
                     required
-                    autoComplete="email"
+                    autoComplete="email" 
                   />
                   <p className="text-red-500">{emailError}</p>
 

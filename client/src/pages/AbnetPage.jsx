@@ -21,9 +21,9 @@ const AbnetPage = () => {
         </p>
       </div>
 
-      <div className="abnetcontainer mt-10 mx-auto">
-        <img src={abnet} alt="abnet" className="w-full" />
-        <div class="abnetcontent p-10 flex flex-col gap-10">
+      <div className="abnetcontainer mt-10 mx-auto py-8 lg:flex md:flex sm:block flex-cols lg:space-x-8 md:space-x-8 overflow-hidden inline-block relative justify-center ">
+        <img src={abnet} alt="abnet" className="w-full h-full" />
+        <div class="abnetcontent p-10 flex flex-col gap-10 ">
           <div className="flex gap-4 text-white mt-16 font-bold text-lg items-center justify-center">
             <div className="w-1/3 flex flex-col text-center">
               <div className="underline"> {t('li_1')}</div>
@@ -48,7 +48,7 @@ const AbnetPage = () => {
             </div>
           </div>
 
-          <div className="flex gap-4 text-white mt-16 font-bold text-lg items-center justify-center">
+          <div className="flex gap-4 text-white mt-16 font-bold text-lg items-center justify-center ">
             <div className="w-1/2 flex flex-col text-center">
               <div className="underline">{t('li_16')}</div>
               <div className="mt-4">{t('li_17')}</div>

@@ -43,8 +43,8 @@ const Membership = () => {
   return (
     <Box m="20px">
       <Header
-        title="Members for sebeka gubae"
-        subtitle="List of members in sebeka gubae"
+        title="Members List"
+        subtitle="List of members"
       />
       <Box
         m="40px 0 0 0"

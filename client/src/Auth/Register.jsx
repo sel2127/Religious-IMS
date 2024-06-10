@@ -38,29 +38,29 @@ const Register = () => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!firstnameReg) {
+    if (!firstnameReg || firstnameReg <3 ||!/^[a-zA-Z\s]+$/.test(firstnameReg) ) {
       errors.firstname = `"${t('en_f')}"`; 
     }
-    if (!lastnameReg) {
+    if (!lastnameReg || lastnameReg <3 ||  !/^[a-zA-Z\s]+$/.test(lastnameReg)) {
       errors.lastname = `"${t('en_l')}"`;
     }
-    if (!emailReg) {
-      errors.email = `"${t('en_e')}"`;
+    if (!emailReg ) {
+      errors.email = "Please enter your email.";
     } else if (!emailRegex.test(emailReg)) {
-      errors.email = `"${t('en_l')}"`;
+      errors.email = `"${t('en_e')}"`;
     }
     if (!phone) {
-      errors.phone = `"${t('en_p')}"`;
+      errors.phone = "Please enter your phone number.";
     } else if (!validatePhoneNumber(phone, countryCode)) {
-      errors.phone = `"${t('en_p2')}"`;
+      errors.phone =`"${t('en_p2')}"`;
     }
     if (!passwordReg) {
-      errors.password =  `"${t('en_pa')}"`;
+      errors.password = "Please enter your password.";
     } else if (passwordReg.length < 8) {
       errors.password = `"${t('en_pa1')}"`;
     }
     if (!confirmPasswordReg) {
-      errors.confirmPassword = `"${t('en_pa2')}"`;
+      errors.confirmPassword = "Please confirm your password.";
     } else if (passwordReg !== confirmPasswordReg) {
       errors.confirmPassword = `"${t('en_pa3')}"`;
     }
@@ -95,24 +95,13 @@ const Register = () => {
     }
   };
 
-  const Fade = cssTransition({
-    enter: "fade-enter",
-    exit: "fade-exit",
-  });
+  
 
   return (
     <div>
       <ToastContainer
         position="top-right"
         autoClose={3000}
-        transition={Fade}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
       />
       <div className='mx-auto border border-gray-300 lg:w-1/2 md:w-1/2 sm:w-full mt-10 rounded rounded-3xl text-gray-600'>
       <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>

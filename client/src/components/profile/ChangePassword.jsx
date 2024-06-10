@@ -9,6 +9,7 @@ function ChangePassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const[password,setPassword]=useState("")
 
 
   const userData = useSelector((state) => state.user.userData);
@@ -32,11 +33,17 @@ function ChangePassword() {
       setPasswordError(`"${t('en_l')}"`);
     } else {
       setPasswordError("");
+      if (!password) {
+        setPassword("Password should be at least 8 characters long.");
+      } else if (password.length < 8) {
+       setPassword("Password should be at least 8 characters long.");
+      }
     
       try {
         dispatch(updatePassword( userId, newPassword )); // Include both userId and newPassword directly in the payload
         console.log("Password update successful!");
-        
+        toast.success("Password update successful!");
+
         // Maybe redirect to a different page
       } catch (error) {
         console.error("Error updating password:", error); // Show error message to the user based on the error details
@@ -50,16 +57,7 @@ function ChangePassword() {
   });
   return (
     <div className="w-full">
-    {/* <Breadcrumb /> */}
-    <ToastContainer  
-     position="top-right"
-     closeOnClick
-     
-   />
-    <h1 className="text-center text-3xl font-bold custom-font mb-4">{t('change')}</h1>
-      {/* <h1 className="text-center text-3xl font-bold custom-font mb-4">
-       የይለፍ ቃሎን ይቀይሩ
-      </h1> */}
+    <ToastContainer/>
 
 <div className="w-full change-password-container bg-gray-100 py-10">
       <div className=" w-full rounded-lg">
@@ -91,8 +89,14 @@ function ChangePassword() {
                       placeholder={` ${t('new')} `}
                       className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500  "
                       required
+                      minLength={8}
                       autoComplete="current-password"
                     />
+                     {password && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {password}
+                      </p>
+                    )}
                     <input
                       type="password"
                       value={confirmPassword}
@@ -101,7 +105,7 @@ function ChangePassword() {
                       id="confirm"
                       className="ml-10 mr-10 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-500   "
                       required
-                      minLength={6}
+                      minLength={8}
                       autoComplete="confirm-password"
                     />
 

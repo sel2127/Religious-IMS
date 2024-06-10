@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../assets/styles/notify.css";
-import { ToastContainer,toast } from "react-toastify";
-import Breadcrumb from '../common/Breadcrumb';
+import { ToastContainer ,toast} from "react-toastify";
 
 const Notify = () => {
   const modalRef = useRef(null);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [deletedEventId, setDeletedEventId] = useState(null);
+  const [newEventsCount, setNewEventsCount] = useState(0);
 
   const openModal = (event) => {
     setSelectedEvent(event);
@@ -43,9 +43,11 @@ const Notify = () => {
 
         // Set the state with only the four most recent events
         setEvents(filteredEvents.slice(0, 4));
+
+        setNewEventsCount(filteredEvents.length - events.length);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [events]);
 
   useEffect(() => {
     const modal = modalRef.current;
@@ -74,6 +76,8 @@ const Notify = () => {
     })
       .then((response) => {
         if (response.ok) {
+          toast.success('Event deleted successfully');
+
           // Event deleted successfully
           setDeletedEventId(id);
         } else {
@@ -82,6 +86,7 @@ const Notify = () => {
       })
       .catch((error) => {
         console.error(error);
+        toast.error('Error deleting event')
       });
   };
 
@@ -114,10 +119,7 @@ const Notify = () => {
 
   return (
     <div>
-      <ToastContainer
-      autoClose={3000}
-      closeOnClick
-      />
+      <ToastContainer/>
       <div className="w-full bg-gray-100 py-12">
         <div className="lg:w-1/2 md:w-3/4 sm:w-5/6 bg-white p-10 mx-auto">
           <div id="myBtn" className="">

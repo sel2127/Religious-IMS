@@ -62,7 +62,7 @@ const FeedbackPage = () => {
   return (
     <div className="lg:w-full m-auto">
       <ToastContainer />
-      <div className="grid grid-cols-4 gap-4 mt-8 ">
+      <div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 mt-8 ">
       {
   feedbackData && feedbackData.length === 0 ? (
     <div className="text-center text-gray-500">No feedbacks found.</div>

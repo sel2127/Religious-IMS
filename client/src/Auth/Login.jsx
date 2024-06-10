@@ -6,11 +6,27 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import "../assets/styles/main.css";
+import axios from "axios";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { useNavigate } from "react-router-dom";
 import { setUserLoggedIn } from '../app/reducers/authReducer';
+import { useTranslation } from "react-i18next";
+import { useDispatch } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import { useDispatch } from 'react-redux';
 
 const Login = () => {
+  const [phoneLogin, setPhoneLogin] = useState("");
+  const [passwordLogin, setPasswordLogin] = useState("");
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [countryCode, setCountryCode] = useState("ET");
+  const [errors, setErrors] = useState({});
   const [phoneLogin, setPhoneLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [error, setError] = useState("");
@@ -29,11 +45,29 @@ const Login = () => {
     const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase());
     return phoneNumber && phoneNumber.isValid();
   };
+  const { t } = useTranslation();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const validatePhoneNumber = (phone, countryCode) => {
+    const phoneNumber = parsePhoneNumberFromString(phone, countryCode.toUpperCase());
+    return phoneNumber && phoneNumber.isValid();
+  };
 
   const validateForm = () => {
     const errors = {};
+    const errors = {};
 
     if (!phoneLogin || !passwordLogin) {
+      errors.form = "Please enter both phone number and password.";
+    } 
+     if (!validatePhoneNumber(phoneLogin, countryCode)) {
+      errors.phone = "Please enter a valid phone number.";
+    } 
+     if (passwordLogin.length < 8) {
+      errors.password = "Password should be at least 8 characters long.";
       errors.form = "Please enter both phone number and password.";
     } 
      if (!validatePhoneNumber(phoneLogin, countryCode)) {
@@ -45,13 +79,18 @@ const Login = () => {
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   };
+
 
 
   const dispatch = useDispatch();
   
+  
   const loginn = () => {
     axios.defaults.withCredentials = true;
+
 
     if (validateForm()) {
       axios.post('http://localhost:5000/user/login', {
@@ -132,6 +171,8 @@ const Login = () => {
         </div>
       </div>
     </div>
+  );
+};
   );
 };
 

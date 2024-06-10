@@ -40,12 +40,6 @@ function MemberRegisterationPage() {
     if (!lastName || !/^[a-zA-Z\s]+$/.test(lastName)) {
       errors.lastName = "Last name must only contain letters";
     }
-    if (!bapiname || !/^[a-zA-Z\s]+$/.test(bapiname)) {
-      errors.bapiname = "Bapiname must only contain letters";
-    }
-    if (!fathername || !/^[a-zA-Z\s]+$/.test(fathername)) {
-      errors.fathername = "Fathername must only contain letters";
-    }
     if (!adress || adress.length < 3) {
       errors.adress = "Address must be at least 3 characters long";
     }
@@ -109,28 +103,7 @@ function MemberRegisterationPage() {
       }
     }
   };
-  const userData = useSelector((state) => state.user.userData);
-  const dispatch = useDispatch();
 
-  const fetchData = async (dispatch) => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/userinfo', {
-        withCredentials: true, // Ensure cookies are sent with the request
-      });
-  
-      const userData = response.data.user;
-      dispatch(setUserData(userData));
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
-  useEffect(()=>{
-    fetchData(dispatch);
-  })
-  // const Fade = cssTransition({
-  //   enter: "fade-enter",
-  //   exit: "fade-exit",
-  // });
 
   return (
     <div className="container">
@@ -148,7 +121,7 @@ function MemberRegisterationPage() {
             name="fristname"
             placeholder={` ${t('first_name')} `}
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.firstName}
+            value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
@@ -161,7 +134,7 @@ function MemberRegisterationPage() {
             name="lastname"
             placeholder={` ${t('last_name')} `}
             className="w-full h-10 px-6 text-gray-600 border border-gray-300 rounded-full mt-10"
-            value={userData.lastName}
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
@@ -235,4 +208,4 @@ function MemberRegisterationPage() {
   );
 }
 
-export default MemberRegistrationPage;
+export default MemberRegisterationPage;

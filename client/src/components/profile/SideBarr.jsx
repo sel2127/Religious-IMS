@@ -4,12 +4,14 @@ import axios from "axios";
 import { FaBars, FaCommentAlt, FaEdit, FaPowerOff, FaReadme, FaUserAlt } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import './Sidebarr.css';
+import { useTranslation } from "react-i18next";
 
 function Sidebarr({ children }) {
   const [isOpen, setIsOpen] = useState(true); 
 
   const toogle = () => setIsOpen(!isOpen); 
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const handleLogout = async () => {
     try {
       await axios.post("http://localhost:5000/user/logout");// Handle successful logout
@@ -23,7 +25,7 @@ function Sidebarr({ children }) {
   const menuItem = [
     {
       path: "/profile",
-      name: "የኔ መረጃዎች",
+      name: t('pr'),
       icon: <FaUserAlt />,
     },
     // {
@@ -33,22 +35,22 @@ function Sidebarr({ children }) {
     // },
     {
       path: "/editprofile",
-      name: "መረጃዎን ለመቀየር",
+      name: t('up_date'),
       icon: <FaEdit />,
     },
     {
       path: "/changepassword",
-      name: "የይለፍ ቃሎን ለመቀየር ",
+      name: t('update_pass'),
       icon: <FaEdit />,
     },
     {
       path: "/feedbackform",
-      name: "አስተያየት ለመስጠት",
+      name: t('fe'),
       icon: <FaCommentAlt />,
     },
     {
       path: "/logout",
-      name: "ለመዉጣት",
+      name: t('logout'),
       icon: <FaPowerOff />,
     },
   ];

@@ -72,8 +72,8 @@ const Login = () => {
 
   return (
     <div>
-     <div className='mx-auto border border-gray-300 lg:w-1/2 md:w-1/2 sm:w-full mt-10 rounded rounded-3xl text-gray-600'>
-     <div className='flex flex-col items-center justify-center lg:px-20 md:px-10 sm:px-6 py-10'>
+      <div className="mx-auto border border-gray-300 w-1/2 mt-10 rounded rounded-3x1 text-gray-600">
+        <div className="flex flex-col items-center justify-center px-20 py-10">
           <PhoneInput
             country={"et"}
             value={phoneLogin}
@@ -81,7 +81,7 @@ const Login = () => {
               setPhoneLogin(phone);
               setCountryCode(country.countryCode);
             }}
-            placeholder="ስልክ ቁጥር"
+            placeholder={` ${t('phone_number')} `}
             className="mt-10 w-full h-10 px-6 border border-gray-300 rounded-full"
           />
           {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
@@ -90,7 +90,7 @@ const Login = () => {
             <input
               type={showPassword ? 'text' : 'password'}
               onChange={(e) => setPasswordLogin(e.target.value)}
-             placeholder={` ${t('pass')} `}
+              placeholder={` ${t('pass')} `}
               className='mt-6 w-full h-10 px-6 border border-gray-300 rounded-full pr-12'
             />
             <span 
@@ -118,7 +118,7 @@ const Login = () => {
               <a href="/forgot">{t('forgot_p')}</a>
             </div>
           </div>
-          <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+          <div className="mt-6 w-1/2 bg-dark-blue hover:bg-sky-600  border border-gray-200 rounded-full h-10 flex items-center">
             <button
               onClick={loginn}
               className="w-full mx-auto text-base font-bold text-white"

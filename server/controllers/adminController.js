@@ -40,7 +40,7 @@ export const insertDefaultAdmin = async (req, res) => {
     }
 
     // Token-based authentication
-    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '7h' });
+    const token = jwt.sign({ id: admin.id}, 'vTm32V7a8G4jS6mNpR5sU8xZ2cV5mT8j', { expiresIn: '1h' });
 
     // Return the token to the client
     res.cookie('admin_token', token, {

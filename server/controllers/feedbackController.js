@@ -74,7 +74,7 @@ export const createFeedback = [
 ];
 // api to retrive feedback
 export const getAllFeedback = [
-  isAuthenticated,
+  // isAuthenticated,
   async (req, res) => {
     try {
       const feedbackList = await Feedback.findAll();

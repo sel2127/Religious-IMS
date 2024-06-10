@@ -149,7 +149,7 @@ const Register = () => {
           />
           {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
           {error && <p className="text-red-500">{error}</p>}
-          <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+          <div className="mt-6 w-1/2 bg-dark-blue hover:bg-sky-600 border border-gray-200 rounded-full h-10 flex items-center">
             <button
               onClick={registration}
               className="w-full mx-auto text-base font-bold text-white"

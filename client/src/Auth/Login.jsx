@@ -118,7 +118,7 @@ const Login = () => {
               <a href="/forgot">የይለፍ ቃል ረሳሁ</a>
             </div>
           </div>
-          <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+          <div className="mt-6 w-1/2 bg-dark-blue hover:bg-sky-600  border border-gray-200 rounded-full h-10 flex items-center">
             <button
               onClick={loginn}
               className="w-full mx-auto text-base font-bold text-white"

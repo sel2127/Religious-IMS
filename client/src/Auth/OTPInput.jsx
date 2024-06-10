@@ -84,7 +84,7 @@ export default function () {
                   <div>
                     <a
                       onClick={() => verifyOTP()}
-                      className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm"
+                      className="flex flex-row cursor-pointer items-center justify-center text-center w-full border rounded-xl outline-none py-5bg-dark-blue hover:bg-sky-600 border-none text-white text-sm shadow-sm"
                     >
                       Verify Account
                     </a>

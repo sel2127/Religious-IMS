@@ -40,7 +40,7 @@ const Forgot = () => {
                         placeholder='ኢሜል'
                         className='mt-10 w-full h-10 px-6 border border-gray-300 rounded-full'
                     />
-                    <div className="mt-6 w-1/2 bg-dark-blue border border-gray-200 rounded-full h-10 flex items-center">
+                    <div className="mt-6 w-1/2 bg-dark-blue hover:bg-sky-600 border border-gray-200 rounded-full h-10 flex items-center">
                         <button
                             className="w-full mx-auto text-base font-bold text-white"
                             onClick={navigateToOtp}

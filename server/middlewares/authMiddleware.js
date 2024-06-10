@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Users from '../models/Users.js';
 import Feedback from '../models/FeedbackModel.js';
+import { EventModel } from '../models/EventModel.js';
 
 
 export const authMiddleware = (req, res, next) => {
@@ -108,3 +109,25 @@ export function localVariables(req, res, next) {
   };
   next();
 }
+
+export const isEventUploader = async (req, res, next) => {
+  const adminId = req.adminId;
+  const eventId = req.params.id;
+
+  try {
+    const event = await EventModel.findOne({ where: { id: eventId } });
+    if (!event) {
+      return res.status(404).json({ success: false, message: 'event not found' });
+    }
+
+    if (adminId !== event.adminId) {
+      return res.status(403).json({ success: false, message: 'Unauthorized - you are not the owner of the event' });
+    }
+
+    next();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Server error!" });
+  }
+  
+};

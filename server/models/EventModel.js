@@ -1,8 +1,18 @@
 import { Sequelize, DataTypes } from "sequelize";
 import db from "../config/Database.js";
+import { AdminModel } from "./adminModel.js";
+
 const EventModel = db.define(
   "event",
   {
+    adminId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+          model: AdminModel,
+          key: 'id',
+      }
+  },
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -45,5 +55,6 @@ const EventModel = db.define(
     freezeTableName: true,
   }
 );
+EventModel.belongsTo(AdminModel, { foreignKey: 'adminId' });
 
 export { EventModel };

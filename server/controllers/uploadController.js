@@ -35,26 +35,30 @@ const sendEmailToUsers = async () => {
 
 // Handle file upload and create a new event
 export const uploadEvent = async (req, res) => {
+  const adminId=req.adminId;
   try {
     const { eventname, eventDesc, eventdate } = req.body;
     const eventImage = req.file.filename;
 
     // Create a new event in the database
     const event = await EventModel.create({
+      adminId:adminId,
       eventname: eventname,
       eventDesc: eventDesc,
       eventdate: eventdate,
       eventImage: eventImage,
+
+
     });
 
     // res.status(201).json({ event });
     sendEmailToUsers()
       .then(() => {
-        res.status(201).json({ event, message: 'Event uploaded and emails sent successfully' });
+        res.status(201).json({ event, message: 'Event uploaded and emails sent successfully',eventId:event.id});
       })
       .catch((error) => {
         console.error('Error sending email:', error);
-        res.status(500).json({ error: 'An error occurred while sending emails' });
+        res.status(500).json({ error: 'An error occurred while sending emails and event uploading' });
       });
   } catch (error) {
     console.error(error);

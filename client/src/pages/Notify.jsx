@@ -87,7 +87,14 @@ const Notify = () => {
       })
       .catch((error) => {
         console.error(error);
-        toast.error('Error deleting event')
+        if (error.response && error.response.status === 403) {
+          toast.error("Unauthorized - you are not the owner of the event", {
+            autoClose: 5000,
+          });
+        } else {
+          console.error(error); // Log other errors to the console for debugging
+          toast.error('Error deleting event')
+        }
       });
   };
 

@@ -8,6 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import axios from "axios";
 import "../../adminCss/admin.css";
+import { ToastContainer ,toast} from "react-toastify";
 
 const EventUpload = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -20,10 +21,14 @@ const EventUpload = () => {
       formData.append("eventdate", values.eventdate);
       formData.append("image", values.image);
 
-      await axios.post("http://localhost:5000/upload", formData, {
+      const response=await axios.post("http://localhost:5000/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+      if (response.data.message === "Event uploaded and emails sent successfully") {
+        toast.success("Event uploaded and emails sent successfully");
+      } else {
+        throw new Error("Unexpected response from server");
+      }
       // Reset form values after successful upload
       values.eventname = "";
       values.eventDesc = "";
@@ -31,6 +36,7 @@ const EventUpload = () => {
       values.image = null;
     } catch (error) {
       console.error(error);
+      toast.error('An error occurred while sending emails and event uploading')
     }
   };
 
@@ -81,7 +87,11 @@ const EventUpload = () => {
 
   
   return (
-    <Box m="20px">
+   <div>
+    <ToastContainer
+    autoClose={3000}
+    closeOnClick />
+     <Box m="20px">
       <Header title="Event Upload" subtitle="Upload an Event" />
 
       <Formik
@@ -164,6 +174,7 @@ const EventUpload = () => {
         )}
       </Formik>
     </Box>
+   </div>
   );
 };
 

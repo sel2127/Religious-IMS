@@ -202,7 +202,7 @@ const items2 = feedbackData && feedbackData.length>0 ? feedbackData.map((feedbac
             </div>
             <div className="w-2/3 flex flex-col">
               <div className="text-dark-blue font-bold text-xl">{dcount}</div>
-              <div className="text-gray-400 font-bold text-xl">{t('volunteer')}</div>
+              <div className="text-gray-400 font-bold text-xl">{t('dd')}</div>
             </div>
           </div>
           <div className="flex items-center sm:py-4 justify-center">

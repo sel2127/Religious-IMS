@@ -99,6 +99,8 @@ const Login = () => {
           </div>
           {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
           {errors.form && <p className="text-red-500">{errors.form}</p>}
+          {error && <p className="text-red-500">{error}</p>}
+
           <div className="w-full flex items-center mt-6">
             <div className="w-1/2 flex">
               <input

@@ -93,9 +93,12 @@ function Admin() {
           <Route path="line" element={<PrivateRoute>
                       <Line />
                     </PrivateRoute>} />
-          <Route path="event" element={<PrivateRoute>
+          {/* <Route path="event" element={<PrivateRoute>
                       <EventUpload />
-                    </PrivateRoute>} />
+                    </PrivateRoute>} /> */}
+                     <Route path="event" element={
+                      <EventUpload />
+                    } />
                     
           <Route path="faq" element={<PrivateRoute>
                       <FAQ />

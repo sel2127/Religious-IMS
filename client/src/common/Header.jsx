@@ -111,7 +111,7 @@ const Header = () => {
                 <div className="dropdown-content">
                   <a href="/member">ሰብካ ጉባዬ ምዝገባ</a>
                   <a href="/donation">ልገሳ</a>
-                  <a href="/feedback">አስተያየቶች</a>
+                  <a className='feed' href="/feedback">አስተያየቶች</a>
                   <a href="#">Link 3</a>
                 </div>
               </div>

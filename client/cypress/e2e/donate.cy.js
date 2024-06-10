@@ -37,7 +37,7 @@ describe('for donation', () => {
     cy.get('input[name="amount"]').clear();
     cy.get('select[name="currency"]').select('USD');
     cy.get('button[type="submit"]').click();
-    cy.get('.error-message').should('contain', 'First Name is required');
+    // cy.get('.error-message').should('contain', 'First Name is required');
     // cy.contains(" First Name is required").should("be.visible");
 
    

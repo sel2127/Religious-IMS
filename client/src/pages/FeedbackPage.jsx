@@ -58,39 +58,42 @@ const FeedbackPage = () => {
 
  
 
+
   return (
-    <div className="w-full m-auto">
+    <div className="lg:w-full m-auto">
       <ToastContainer />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-8">
-        {
+      <div className="grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 mt-8 ">
+      {
   feedbackData && feedbackData.length === 0 ? (
     <div className="text-center text-gray-500">No feedbacks found.</div>
           ) : (
             feedbackData.map((feedback) => (
               <div
                 key={feedback.feedbackId}
-                className="h-auto bg-gray-200 text-black rounded-md"
+                className="bg-gray-100 text-black p-4"
               >
-                <div className="rounded-t-xl flex justify-start items-center ml-2 mt-5">
-                  <img
+                <div className="rounded-lg flex flex-col gap-y-2 items-center">
+                  {/* <img
                     src={
                       getUserImageFromLocalStorage(feedback.userId)
                         ? getUserImageFromLocalStorage(feedback.userId)
                         : Ava
                     }
                     alt="Profile Image"
-                    className="rounded-full w-32 h-32"
-                  />
-                  <div className="ml-2">
-                    <p className="text-base font-semibold">{feedback.writer}</p>
-                    <p className="text-base font-semibold">{feedback.email}</p>
+                    className="rounded-full md:w-32 md:h-32 sm:w-20 sm:h-20"
+                  /> */}
+                  <div>
+                  <p className="text-sm font-semibold">{feedback.writer}</p>
                   </div>
-                </div>
-                <div className="flex flex-col justify-center items-center gap-4 p-4">
-                  <p>{feedback.message}</p>
-                  <div className="flex gap-8">
+                  {/* <div>
+                  <p className="text-sm font-semibold">{feedback.email}</p>
+                  </div>     */}
+                  <div>
+                  <p className="truncate">{feedback.message}</p>
+                  </div>
+                  <div className="flex justify-center">
                     <Link to={`/feedback/${feedback.userId}`}>
-                      <button name="btn" className="text-white bg-dark-blue text-xl px-6 py-1 rounded-md hover:bg-blue-700 focus:outline-white ring-focus">
+                      <button className="text-white bg-[#2d5986] hover:bg-[#79a6d2] text-xl w-8 h-8 flex justify-center items-center rounded-full focus:outline-white ring-focus">
                         <FaReadme />
                       </button>
                     </Link>
@@ -123,7 +126,7 @@ const FeedbackPage = () => {
                     onClick={() => handleConfirmDelete(selectedFeedbackId)}
                     className="mt-10 ml-10 px-6 py-2 bg-red-700 text-white rounded-3xl"
                   >
-                    አወ
+                    አዎ
                   </button>
                 </div>
               </div>

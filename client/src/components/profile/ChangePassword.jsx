@@ -31,7 +31,7 @@ function ChangePassword() {
     } else {
       setPasswordError("");
       if (!password) {
-        setPassword("Password should be at least 8 characters long.");
+        // setPassword("Password should be at least 8 characters long.");
       } else if (password.length < 8) {
        setPassword("Password should be at least 8 characters long.");
       }
@@ -40,7 +40,8 @@ function ChangePassword() {
         dispatch(updatePassword( userId, newPassword )); // Include both userId and newPassword directly in the payload
         console.log("Password update successful!");
         toast.success("Password update successful!");
-
+        setNewPassword("")
+        setConfirmPassword("")
         // Maybe redirect to a different page
       } catch (error) {
         console.error("Error updating password:", error); // Show error message to the user based on the error details

@@ -33,6 +33,7 @@ import EditFeedbackForm from './components/EditFeedbackForm';
 import FeedbackDetailPage from './pages/FeedbackDetailPage';
 import EventSearch from './components/EventSearch';
 import AbnetPage from './pages/AbnetPage'
+import ProtectedRoute from './components/ProtectedRoute';
 
 export const RecoveryContext = createContext();
 
@@ -70,7 +71,9 @@ function App() {
         <Route path="/member" element={<Member />} />
         <Route path="/chat" element={<Chat/>} />
         <Route path="/donate/d" element={<DonationCause />} />
-        <Route path="/donate/c" element={<DonationChoice />} />
+        <Route path="/donate/c" element={
+          <DonationChoice />
+        } />
         <Route path="/upload" element={<EventUpload />} />
         <Route path="/feedback" element={<FeedbackPage/>}/>
         <Route path="/abnet" element={<AbnetPage/>}/>

@@ -17,15 +17,15 @@ export const insertDefaultAdmin = async (req, res) => {
   //   const hashedPassword = await bcrypt.hash('admin', saltRounds);
 
   //   // Create the default admin record in the database    
-  //   await AdminModel.create({
-  //     firstname: 'admin',
-  //     lastname: 'admin',
-  //     email: 'admin@gmail.com',
-  //     phone: '0011223344',
-  //     password: hashedPassword,
-  //     image: null,
-  //     role: 'admin'
-  //   });
+    // await AdminModel.create({
+    //   firstname: 'admin',
+    //   lastname: 'admin',
+    //   email: 'admin@gmail.com',
+    //   phone: '0011223344',
+    //   password: hashedPassword,
+    //   image: null,
+    //   role: 'admin'
+    // });
 
     // Check if the email exists in the database
     const admin = await AdminModel.findOne({ where: { email } });
